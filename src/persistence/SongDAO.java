@@ -1,4 +1,4 @@
 package persistence;
 
-public class SongDAO {
+public interface SongDAO {
 }
