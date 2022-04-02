@@ -10,16 +10,21 @@ public class HomeView extends JFrame {
 
     private JPanel jpMain;
 
+    //Side Panel Buttons
     private JButton jbSongs;
-
     private JButton jbPlaylists;
-
     private JButton jbStatistics;
-
 
     public static final String BTN_PLAYLISTS = "BTN_PLAYLISTS";
     public static final String BTN_STATISTICS = "BTN_STATISTICS";
     public static final String BTN_SONGS = "BTN_SONGS";
+
+
+    //Player Buttons
+    private JButton jbPlay;
+
+    public static final String BTN_PLAY = "BTN_PLAY";
+
 
     public HomeView(){
         setLayout(new BorderLayout());
@@ -45,15 +50,14 @@ public class HomeView extends JFrame {
 
     private void configureMainPanel(){
         jpMain = new JPanel(cardManager);
-        jpMain.setBackground(new Color(32,32,32));
+        jpMain.setBackground(new Color(64,64,64));
         add(jpMain,BorderLayout.CENTER);
         //JScrollPane jsp = new JScrollPane();
         //mainPanel.add(jsp);
     }
 
     private void configureSidePanel(){
-        JPanel sidePanel = new JPanel();
-        sidePanel.setLayout(new BorderLayout());
+        JPanel sidePanel = new JPanel(new BorderLayout());
         sidePanel.setPreferredSize(new Dimension(280,720));
         sidePanel.setBackground(Color.black);
 
@@ -61,7 +65,7 @@ public class HomeView extends JFrame {
         buttonPanel.setBackground(Color.black);
         GridLayout buttonGridLayout = new GridLayout(4,1);
         buttonGridLayout.setHgap(0);
-        buttonGridLayout.setVgap(10);
+        buttonGridLayout.setVgap(15);
         buttonPanel.setLayout(buttonGridLayout);
         sidePanel.add(buttonPanel,BorderLayout.NORTH);
 
@@ -90,9 +94,26 @@ public class HomeView extends JFrame {
     }
 
     private void configurePlayerPanel(){
-        JPanel playerPanel = new JPanel(new FlowLayout());
-        playerPanel.setBackground(Color.black);
+        JPanel playerPanel = new JPanel(new BorderLayout());
+        JPanel controlsPanel = new JPanel();
+        controlsPanel.setBackground(new Color(32,32,32));
+        playerPanel.add(controlsPanel,BorderLayout.CENTER);
+
+        GridLayout playerControlsGridLay = new GridLayout(1,5);
+        playerControlsGridLay.setHgap(10);
+        playerControlsGridLay.setVgap(0);
+        playerPanel.setBackground(new Color(32,32,32));
         playerPanel.setPreferredSize(new Dimension(1280,80));
+        controlsPanel.setLayout(playerControlsGridLay);
+
+        jbPlay = new JButton(new ImageIcon("assets/playButton.png"));
+        jbPlay.setBackground(null);
+        jbPlay.setBorder(BorderFactory.createEmptyBorder());
+        jbPlay.setContentAreaFilled(false);
+        jbPlay.setActionCommand(BTN_PLAY);
+        controlsPanel.add(jbPlay);
+
+
         add(playerPanel,BorderLayout.SOUTH);
     }
 
@@ -100,6 +121,7 @@ public class HomeView extends JFrame {
         jbPlaylists.addActionListener(controller);
         jbStatistics.addActionListener(controller);
         jbSongs.addActionListener(controller);
+        jbPlay.addActionListener(controller);
 
     }
 

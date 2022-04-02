@@ -28,6 +28,11 @@ public class HomeController implements ActionListener {
                 //Show statistics
                 break;
 
+            case(HomeView.BTN_PLAY):
+                System.out.println("Played");
+                //Show statistics
+                break;
+
         }
     }
 }
