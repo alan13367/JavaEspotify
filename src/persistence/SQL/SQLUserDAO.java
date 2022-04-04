@@ -1,4 +1,4 @@
-package persistence;
+package persistence.SQL;
 
 public class SQLUserDAO {
 }

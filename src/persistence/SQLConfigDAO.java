@@ -2,7 +2,7 @@ package persistence;
 import com.google.gson.Gson;
 import java.io.FileReader;
 import java.io.IOException;
-import java.sql.*;
+import java.sql.SQLException;
 
 // https://www.adictosaltrabajo.com/2011/02/25/tutorial-basico-jdbc/
 
@@ -11,17 +11,26 @@ import java.sql.*;
 
 public class SQLConfigDAO {
     private static SQLConfigDAO sqlConnectorSingletone;
-    private static String dbName;
+    private static String name;
     private static String username;
     private static String password;
-    private static String databaseIP;
+    private static String ip;
     private static int port;
+    private static final String jsonPath = ""; // put json file path
 
     private SQLConfigDAO(){
 
     }
 
-    private static void readConfigJson(String jsonPath){
+    public static SQLConfigDAO getInstance(){
+        if(sqlConnectorSingletone == null){
+            sqlConnectorSingletone = new SQLConfigDAO();
+            readConfigJson();
+        }
+        return sqlConnectorSingletone;
+    }
+
+    private static void readConfigJson(){
         try(FileReader fr = new FileReader(jsonPath)){
             // read with GSON
             sqlConnectorSingletone = new Gson().fromJson(fr, SQLConfigDAO.class);
@@ -29,6 +38,16 @@ public class SQLConfigDAO {
             System.out.println("error");
         }
     }
+
+    public String[] getData(){
+        String[] data = new String[3];
+        data[0] = ip;
+        data[1] = username;
+        data[2] = "jdbc:mysql://" + ip + ":" + port + "/" + name;
+        return data;
+    }
+
+
 
 
 }
