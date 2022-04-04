@@ -26,6 +26,11 @@ public class HomeView extends JFrame {
     public static final String BTN_PLAY = "BTN_PLAY";
 
 
+
+    public static final String CARD_SONGS = "CARD_SONGS";
+    public static final String CARD_PLAYLISTS = "CARD_PLAYLISTS";
+    public static final String CARD_STATISTICS = "CARD_STATISTICS";
+
     public HomeView(){
         setLayout(new BorderLayout());
         cardManager = new CardLayout();
@@ -46,6 +51,9 @@ public class HomeView extends JFrame {
         configureMainPanel();
         configureSidePanel();
         configurePlayerPanel();
+        configureSongsCard();
+        configurePlaylistsCard();
+        configureStatisticsCard();
     }
 
     private void configureMainPanel(){
@@ -122,8 +130,38 @@ public class HomeView extends JFrame {
         jbStatistics.addActionListener(controller);
         jbSongs.addActionListener(controller);
         jbPlay.addActionListener(controller);
-
     }
+
+    private void configureSongsCard(){
+        JPanel jPanel = new JPanel();
+        jPanel.setBackground(Color.white);
+        jpMain.add(jPanel,CARD_SONGS);
+    }
+
+    private void configurePlaylistsCard(){
+        JPanel jPanel = new JPanel();
+        jPanel.setBackground(Color.red);
+        jpMain.add(jPanel,CARD_PLAYLISTS);
+    }
+
+    private void configureStatisticsCard(){
+        JPanel jPanel = new JPanel();
+        jPanel.setBackground(Color.green);
+        jpMain.add(jPanel,CARD_STATISTICS);
+    }
+
+    public void showSongsCard(){
+        cardManager.show(jpMain,CARD_SONGS);
+    }
+    public void showPlaylistsCard(){
+        cardManager.show(jpMain,CARD_PLAYLISTS);
+    }
+    public void showStatisticsCard(){
+        cardManager.show(jpMain,CARD_STATISTICS);
+    }
+
+
+
 
     public  void start(){
         setVisible(true);

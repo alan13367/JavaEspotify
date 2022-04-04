@@ -17,15 +17,19 @@ public class HomeController implements ActionListener {
         switch (e.getActionCommand()){
             case(HomeView.BTN_SONGS):
                 System.out.println("Songs");
+
                 //Show songs list
+                view.showSongsCard();
                 break;
             case (HomeView.BTN_PLAYLISTS):
                 System.out.println("Playlists");
                 //Show Playlists
+                view.showPlaylistsCard();
                 break;
             case(HomeView.BTN_STATISTICS):
                 System.out.println("Statistics");
                 //Show statistics
+                view.showStatisticsCard();
                 break;
 
             case(HomeView.BTN_PLAY):
