@@ -16,7 +16,7 @@ public class SQLConfigDAO {
     private static String password;
     private static String ip;
     private static int port;
-    private static final String jsonPath = ""; // put json file path
+    private static final String jsonPath = "/Users/alvarofeher/Desktop/WORK/DPO/dpoo-2122-s2-ice3/config/config.json"; // FIXME: put json file path
 
     private SQLConfigDAO(){
 

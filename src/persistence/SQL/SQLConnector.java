@@ -50,9 +50,4 @@ public class SQLConnector {
         } catch (SQLException ignored) { }
     }
 
-
-
-
-
-
 }
