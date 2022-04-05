@@ -3,31 +3,34 @@ package presentation.views;
 import javax.swing.*;
 import java.awt.*;
 
-public class SignInView extends JFrame {
+public class SignInView extends JPanel{
+
+    JButton signInButton_south=new JButton("SIGN IN");
+    JButton signInButton_north=new JButton("SIGN IN");
+    JButton signUpButton=new JButton("SIGN UP");
+    JButton forgotPasswordButton=new JButton("Forgot password? Click here!");
 
     public SignInView() {
         setLayout(new BorderLayout());
         configureView();
-        configureWindow();
-    }
-
-    private void configureWindow() {
-        setTitle("ESPOTIFAY");
-        setSize(1000, 600);
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setLocationRelativeTo(null);
-        setResizable(false);
     }
 
     private void configureView() {
-        //Background color
-        JPanel bgPanel = new JPanel();
-        bgPanel.setBackground(Color.black);
-        bgPanel.setSize(1000, 600);
-        bgPanel.setLayout(new BorderLayout());
+        JPanel centerPanel = new JPanel(new GridBagLayout());
 
-        //Content
-        JPanel content = new JPanel();
+        JLabel userLabel=new JLabel("username");
+        JLabel passwordLabel=new JLabel("password");
+        JTextField userTextField=new JTextField();
+        JPasswordField passwordField=new JPasswordField();
+
+        //Configure center Panel
+        centerPanel.setLayout(new BoxLayout(this ,BoxLayout.Y_AXIS));
+        centerPanel.setBackground(Color.PINK);
+        centerPanel.add(userTextField, Component.CENTER_ALIGNMENT);
+        centerPanel.add(passwordField, Component.CENTER_ALIGNMENT);
+        centerPanel.add(userLabel, Component.CENTER_ALIGNMENT);
+        centerPanel.add(passwordLabel, Component.CENTER_ALIGNMENT);
+        this.add(centerPanel, BorderLayout.CENTER);
 
     }
 }
