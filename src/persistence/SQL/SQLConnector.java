@@ -22,7 +22,6 @@ public class SQLConnector {
         this.url = data[0];
         this.username = data[1];
         this.password = data[2];
-
     }
 
     // CONNECT TO THE DATABASE

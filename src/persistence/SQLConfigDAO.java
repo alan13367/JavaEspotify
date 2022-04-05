@@ -11,12 +11,12 @@ import java.sql.SQLException;
 
 public class SQLConfigDAO {
     private static SQLConfigDAO sqlConnectorSingletone;
-    private static String name;
-    private static String username;
-    private static String password;
-    private static String ip;
-    private static int port;
-    private static final String jsonPath = "/Users/alvarofeher/Desktop/WORK/DPO/dpoo-2122-s2-ice3/config/config.json"; // FIXME: put json file path
+    private  String name;
+    private  String username;
+    private  String password;
+    private  String ip;
+    private  int port;
+    private static final String jsonPath = "config/config.json"; // FIXME: put json file path
 
     private SQLConfigDAO(){
 
@@ -24,15 +24,15 @@ public class SQLConfigDAO {
 
     public static SQLConfigDAO getInstance(){
         if(sqlConnectorSingletone == null){
-            sqlConnectorSingletone = new SQLConfigDAO();
             readConfigJson();
         }
         return sqlConnectorSingletone;
     }
 
     private static void readConfigJson(){
-        try(FileReader fr = new FileReader(jsonPath)){
+        try{
             // read with GSON
+            FileReader fr = new FileReader(jsonPath);
             sqlConnectorSingletone = new Gson().fromJson(fr, SQLConfigDAO.class);
         }catch(IOException e){
             System.out.println("error");
