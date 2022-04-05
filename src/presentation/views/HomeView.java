@@ -4,11 +4,12 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionListener;
 
-public class HomeView extends JFrame {
+public class HomeView extends JPanel {
+
+    private JPanel jpMain;
 
     private final CardLayout cardManager;
 
-    private JPanel jpMain;
 
     //Side Panel Buttons
     private JButton jbSongs;
@@ -36,16 +37,8 @@ public class HomeView extends JFrame {
         cardManager = new CardLayout();
 
         configureView();
-        configureWindow();
     }
 
-    private void configureWindow(){
-        setTitle("Home");
-        setSize(1280,720);
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setLocationRelativeTo(null);
-        setResizable(true);
-    }
 
     private void configureView(){
         configureMainPanel();
