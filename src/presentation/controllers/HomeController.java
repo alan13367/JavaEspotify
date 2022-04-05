@@ -31,16 +31,23 @@ public class HomeController implements ActionListener {
                 //Show statistics
                 view.showStatisticsCard();
             }
-            case (HomeView.BTN_PLAY) -> {
-                System.out.println("Played");
-            }
 
-            //Show statistics
             case (HomeView.BTN_ADDSONG) -> {
                 System.out.println("Add Song");
             }
 
-            //Show statistics
+            case (HomeView.BTN_DELETEACC) -> {
+                System.out.println("Delete Account");
+            }
+
+            case(HomeView.BTN_LOGOUT)->{
+                System.out.println("Log Out");
+            }
+
+            case (HomeView.BTN_PLAY) -> {
+                //
+                System.out.println("Played");
+            }
         }
     }
 }

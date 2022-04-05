@@ -24,8 +24,6 @@ public class MainView extends JFrame {
 
     private void addViews() {
         homeView = new HomeView();
-        HomeController controller = new HomeController(homeView);
-        homeView.registerController(controller);
         add(homeView,HOMEVIEW_CARD);
     }
 
@@ -41,8 +39,16 @@ public class MainView extends JFrame {
         viewManager.show(homeView,HOMEVIEW_CARD);
     }
 
-    public void showFrame(){
+    public void start(){
         setVisible(true);
     }
 
+
+    public void registerControllers(HomeController homeController){
+        homeView.registerController(homeController);
+    }
+
+    public HomeView getHomeView() {
+        return homeView;
+    }
 }
