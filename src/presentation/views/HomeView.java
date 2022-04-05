@@ -8,17 +8,20 @@ public class HomeView extends JPanel {
 
     private JPanel jpMain;
 
-    private final CardLayout cardManager;
+    private final CardLayout mainPanelManager;
 
 
     //Side Panel Buttons
     private JButton jbSongs;
     private JButton jbPlaylists;
     private JButton jbStatistics;
+    private JButton jbAddSong;
 
     public static final String BTN_PLAYLISTS = "BTN_PLAYLISTS";
     public static final String BTN_STATISTICS = "BTN_STATISTICS";
     public static final String BTN_SONGS = "BTN_SONGS";
+    public static final String BTN_ADDSONG = "BTN_ADDSONG";
+
 
 
     //Player Buttons
@@ -27,14 +30,14 @@ public class HomeView extends JPanel {
     public static final String BTN_PLAY = "BTN_PLAY";
 
 
-
+    //Cards Global Constants
     public static final String CARD_SONGS = "CARD_SONGS";
     public static final String CARD_PLAYLISTS = "CARD_PLAYLISTS";
     public static final String CARD_STATISTICS = "CARD_STATISTICS";
 
     public HomeView(){
         setLayout(new BorderLayout());
-        cardManager = new CardLayout();
+        mainPanelManager = new CardLayout();
 
         configureView();
     }
@@ -50,7 +53,7 @@ public class HomeView extends JPanel {
     }
 
     private void configureMainPanel(){
-        jpMain = new JPanel(cardManager);
+        jpMain = new JPanel(mainPanelManager);
         jpMain.setBackground(new Color(64,64,64));
         add(jpMain,BorderLayout.CENTER);
         //JScrollPane jsp = new JScrollPane();
@@ -90,6 +93,22 @@ public class HomeView extends JPanel {
         jbStatistics.setBackground(new Color(0,204,0));
         jbStatistics.setAlignmentX(Component.CENTER_ALIGNMENT);
         buttonPanel.add(jbStatistics);
+
+        jbAddSong = new JButton("Add Song");
+        jbAddSong.setActionCommand(BTN_ADDSONG);
+        jbAddSong.setForeground(Color.white);
+        jbAddSong.setBackground(new Color(0,204,0));
+        jbAddSong.setAlignmentX(Component.CENTER_ALIGNMENT);
+        buttonPanel.add(jbAddSong);
+
+
+        //User Panel
+        JPanel userPanel = new JPanel();
+        userPanel.setBackground(Color.black);
+        JLabel username = new JLabel("Username");
+        username.setForeground(Color.white);
+        userPanel.add(username);
+        sidePanel.add(userPanel,BorderLayout.SOUTH);
 
         add(sidePanel,BorderLayout.WEST);
     }
@@ -144,13 +163,13 @@ public class HomeView extends JPanel {
     }
 
     public void showSongsCard(){
-        cardManager.show(jpMain,CARD_SONGS);
+        mainPanelManager.show(jpMain,CARD_SONGS);
     }
     public void showPlaylistsCard(){
-        cardManager.show(jpMain,CARD_PLAYLISTS);
+        mainPanelManager.show(jpMain,CARD_PLAYLISTS);
     }
     public void showStatisticsCard(){
-        cardManager.show(jpMain,CARD_STATISTICS);
+        mainPanelManager.show(jpMain,CARD_STATISTICS);
     }
 
 

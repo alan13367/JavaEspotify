@@ -14,29 +14,33 @@ public class HomeController implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        switch (e.getActionCommand()){
-            case(HomeView.BTN_SONGS):
+        switch (e.getActionCommand()) {
+            case (HomeView.BTN_SONGS) -> {
                 System.out.println("Songs");
 
                 //Show songs list
                 view.showSongsCard();
-                break;
-            case (HomeView.BTN_PLAYLISTS):
+            }
+            case (HomeView.BTN_PLAYLISTS) -> {
                 System.out.println("Playlists");
                 //Show Playlists
                 view.showPlaylistsCard();
-                break;
-            case(HomeView.BTN_STATISTICS):
+            }
+            case (HomeView.BTN_STATISTICS) -> {
                 System.out.println("Statistics");
                 //Show statistics
                 view.showStatisticsCard();
-                break;
-
-            case(HomeView.BTN_PLAY):
+            }
+            case (HomeView.BTN_PLAY) -> {
                 System.out.println("Played");
-                //Show statistics
-                break;
+            }
 
+            //Show statistics
+            case (HomeView.BTN_ADDSONG) -> {
+                System.out.println("Add Song");
+            }
+
+            //Show statistics
         }
     }
 }
