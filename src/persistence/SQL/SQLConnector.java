@@ -8,20 +8,30 @@ public class SQLConnector {
 
     // here we will implement the jdbc with the data read from SQLconfigDAO
 
-    //private final String dbName;
     private final String username;
     private final String password;
-    //private final int port;
     private final String url;
     private Connection connection;
 
-    // CONSTRUCTOR TO GET JSON DATA
-    public SQLConnector() { // remove parameters, get data from configDAO
+    private static SQLConnector instance;
+
+    // CONSTRUCTOR TO GET JSON DATA FROM CONFIG DAO
+    public SQLConnector() {
         SQLConfigDAO configDAO = SQLConfigDAO.getInstance();
         String[] data = configDAO.getData();
         this.url = data[0];
         this.username = data[1];
         this.password = data[2];
+    }
+
+    public static SQLConnector getInstance() throws SQLException {
+        if(instance == null){
+            instance = new SQLConnector();
+            instance.connect();
+        }
+            instance.connect();
+            return instance;
+
     }
 
     // CONNECT TO THE DATABASE
@@ -33,7 +43,7 @@ public class SQLConnector {
     }
 
     // INSERT A QUERY IN STRING FORMAT
-    private void addQuery(String query){
+    public void addQuery(String query){
         try{
             Statement statement = connection.createStatement();
             statement.executeQuery(query);

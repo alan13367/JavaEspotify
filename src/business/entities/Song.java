@@ -5,9 +5,13 @@ public class Song {
     private String album;
     private String genre;
     private String author;
+    private String lyrics;
     private String filepath;
     private int duration;
 
+    public String getLyrics() {
+        return lyrics;
+    }
 
     public String getName() {
         return name;

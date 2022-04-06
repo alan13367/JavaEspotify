@@ -1,5 +1,9 @@
+import persistence.SQL.SQLConnector;
+import persistence.SQLConfigDAO;
+
 public class Main {
     public static void main(String[] args) {
-        System.out.println("Hello World!");
+        String [] data = SQLConfigDAO.getInstance().getData();
+        System.out.println("shdv");
     }
 }
