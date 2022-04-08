@@ -47,7 +47,7 @@ public class SQLConnector {
     public void addQuery(String query){
         try{
             Statement statement = connection.createStatement();
-            statement.executeQuery(query);
+            statement.executeUpdate(query);
         }catch(SQLException e){
             System.out.println("ERROR: query not added");
         }
