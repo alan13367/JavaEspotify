@@ -6,6 +6,6 @@ import java.util.List;
 
 public interface SongDAO {
     List<Song> loadSongs();
-    void addSong(Song song);
-    void deleteSong();
+    Song addSong(Song song);
+    Song deleteSong(Song song);
 }

@@ -29,17 +29,18 @@ public class SQLConnector {
             instance = new SQLConnector();
             instance.connect();
         }
-            instance.connect();
+            //instance.connect();
             return instance;
-
     }
 
     // CONNECT TO THE DATABASE
     private void connect() throws SQLException {
-        try(Connection connection = DriverManager.getConnection(url,username,password)){
-        }catch (SQLException e){
-            System.out.println("db error");
+        try{
+        connection = DriverManager.getConnection(url,username,password);
+        } catch(SQLException e) {
+            System.err.println("Couldn't connect to --> " + url + " (" + e.getMessage() + ")");
         }
+        System.out.println("TEST");
     }
 
     // INSERT A QUERY IN STRING FORMAT
@@ -48,7 +49,7 @@ public class SQLConnector {
             Statement statement = connection.createStatement();
             statement.executeQuery(query);
         }catch(SQLException e){
-            System.out.println("DB ERROR");
+            System.out.println("ERROR: query not added");
         }
     }
 
