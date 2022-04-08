@@ -1,12 +1,16 @@
-import business.entities.Song;
-import persistence.SQL.SQLConnector;
-import persistence.SQL.SQLSongDAO;
-import persistence.SQLConfigDAO;
+import presentation.MainView;
+import presentation.controllers.HomeController;
+import presentation.views.HomeView;
+
+import javax.swing.*;
 
 public class Main {
     public static void main(String[] args) {
-        String [] data = SQLConfigDAO.getInstance().getData();
-
-
+        SwingUtilities.invokeLater(() -> {
+            MainView mainView = new MainView();
+            HomeController homeController = new HomeController(mainView.getHomeView());
+            mainView.registerControllers(homeController);
+            mainView.start();
+        });
     }
 }
