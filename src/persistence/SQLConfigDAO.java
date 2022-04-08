@@ -2,33 +2,48 @@ package persistence;
 import com.google.gson.Gson;
 import java.io.FileReader;
 import java.io.IOException;
-import java.sql.*;
-
-// https://www.adictosaltrabajo.com/2011/02/25/tutorial-basico-jdbc/
-
 
 // here we will read the config json with Gson and keep the data to initialize the database
 
 public class SQLConfigDAO {
-    private static SQLConfigDAO sqlConnectorSingletone;
-    private static String dbName;
-    private static String username;
-    private static String password;
-    private static String databaseIP;
-    private static int port;
+    private static SQLConfigDAO instance; // singletone instance
+    private String name;
+    private String username;
+    private String password;
+    private String ip;
+    private int port;
+    private static final String jsonPath = "config/config.json"; // FIXME: put json file path
 
-    private SQLConfigDAO(){
+    private SQLConfigDAO(){  // constructor
 
     }
 
-    private static void readConfigJson(String jsonPath){
-        try(FileReader fr = new FileReader(jsonPath)){
+    public static SQLConfigDAO getInstance(){
+        if(instance == null){
+            readConfigJson();
+        }
+        return instance;
+    }
+
+    private static void readConfigJson(){
+        try{
             // read with GSON
-            sqlConnectorSingletone = new Gson().fromJson(fr, SQLConfigDAO.class);
+            FileReader fr = new FileReader(jsonPath);
+            instance = new Gson().fromJson(fr, SQLConfigDAO.class);
         }catch(IOException e){
             System.out.println("error");
         }
     }
+
+    public String[] getData(){
+        String[] data = new String[3];
+        data[0] = "jdbc:mysql://" + ip + ":" + port + "/" + name ;
+        data[1] = username;
+        data[2] = password;
+        return data;
+    }
+
+
 
 
 }
