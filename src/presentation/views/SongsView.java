@@ -1,11 +1,10 @@
 package presentation.views;
 
 import javax.swing.*;
-import javax.swing.table.DefaultTableCellRenderer;
-import javax.swing.table.JTableHeader;
-import javax.swing.table.TableCellRenderer;
-import javax.swing.table.TableColumn;
+import javax.swing.table.*;
 import java.awt.*;
+import java.awt.print.Printable;
+import java.text.MessageFormat;
 
 public class SongsView extends JPanel {
 
@@ -202,7 +201,14 @@ public class SongsView extends JPanel {
                 {"101","Sachin","700000","ASF","DASFA"}
         };
 
-        songsTable = new JTable(data,columns);
+        songsTable = new JTable(data,columns){
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                //all cells false
+                return false;
+            }
+        };
+        songsTable.getTableHeader().setReorderingAllowed(false);
         songsTable.setBackground(new Color(0,60,0));
         songsTable.setGridColor(Color.white);
 
@@ -214,6 +220,7 @@ public class SongsView extends JPanel {
                 .setHorizontalAlignment(JLabel.CENTER); // center header text
 
         songsTable.setForeground(Color.white);
+
 
     }
 
