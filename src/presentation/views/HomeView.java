@@ -199,4 +199,8 @@ public class HomeView extends JPanel {
         mainPanelManager.show(jpMain,CARD_STATISTICS);
     }
 
+    public SongsView getSongsView(){
+        return songsView;
+    }
+
 }
