@@ -1,6 +1,7 @@
 package presentation;
 
 import presentation.controllers.HomeController;
+import presentation.controllers.SongsController;
 import presentation.views.HomeView;
 
 import javax.swing.*;
@@ -44,8 +45,9 @@ public class MainView extends JFrame {
     }
 
 
-    public void registerControllers(HomeController homeController){
+    public void registerControllers(HomeController homeController, SongsController songsController){
         homeView.registerController(homeController);
+        homeView.getSongsView().registerController(songsController);
     }
 
     public HomeView getHomeView() {
