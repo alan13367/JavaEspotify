@@ -1,11 +1,24 @@
 package business.managers;
 
 import business.entities.User;
+import persistence.SQL.SQLUserDAO;
 import persistence.UserDAO;
 
 public class UserManager {
     private User user;
     private UserDAO userDAO;
+
+    public UserManager(){
+        this.userDAO = new SQLUserDAO();
+    }
+
+    public void logIn(String username,String password){
+        User user = userDAO.getUser(username);
+        if(password.equals(user.getPassword())){
+            this.user = user;
+        }
+    }
+
 
     //User Functionalities
 
@@ -29,9 +42,6 @@ public class UserManager {
         java.util.regex.Matcher m = p.matcher(email);
         return m.matches();
     }
-
-
-
 
     private int checkRegexPassword(String password,String regex){
         if(password.matches(regex)){
