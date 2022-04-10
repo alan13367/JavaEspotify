@@ -1,7 +1,5 @@
 package persistence.SQL;
 
-import persistence.SQLConfigDAO;
-
 import java.sql.*;
 
 public class SQLConnector {
@@ -51,6 +49,19 @@ public class SQLConnector {
         }catch(SQLException e){
             System.out.println("ERROR: query not added");
         }
+    }
+
+
+    public ResultSet selectQuery(String query){
+        ResultSet rs = null;
+        try {
+            Statement s = connection.createStatement();
+            rs = s.executeQuery(query);
+        } catch (SQLException e) {
+            System.err.println(query);
+            System.err.println("Problem when selecting data --> " + e.getSQLState() + " (" + e.getMessage() + ")");
+        }
+        return rs;
     }
 
     // DISCONNECT FROM SERVER

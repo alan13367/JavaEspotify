@@ -1,14 +1,18 @@
-package business;
+package business.managers;
 
 import business.entities.Song;
 import persistence.SongDAO;
 
-import java.net.PortUnreachableException;
-import java.util.ArrayList;
+import java.util.List;
 
 public class SongManager {
-    private ArrayList<Song> songs;
+    private List<Song> songs;
     private SongDAO songDAO;
+
+    public SongManager(SongDAO songDAO) {
+        this.songDAO = songDAO;
+        songs = songDAO.loadSongs();
+    }
 
     public void addSong(Song song){
         songs.add(song);
