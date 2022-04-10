@@ -1,4 +1,4 @@
-package business;
+package business.managers;
 
 import business.entities.Playlist;
 import persistence.PlaylistDAO;
