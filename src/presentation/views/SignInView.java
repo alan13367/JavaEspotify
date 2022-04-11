@@ -9,17 +9,17 @@ import java.io.IOException;
 
 public class SignInView extends JPanel{
 
-    public SignInView() throws IOException {
+    public SignInView(){
         setLayout(new GridBagLayout());
         configureView();
     }
 
-    private void configureView() throws IOException {
+    private void configureView(){
         Font arialFont = new Font("Arial", Font.PLAIN, 25);
         Font alegreyaFont = new Font("Alegreya Sans SC", Font.BOLD, 30);
         Font smallerArialFont = new Font("Arial", Font.ITALIC, 15);
 
-        Color myBlack = new Color(12, 12, 12);
+        Color myBlack = new Color(18, 18, 18);
         setBackground(myBlack);
 
         GridBagConstraints constraints = new GridBagConstraints();
