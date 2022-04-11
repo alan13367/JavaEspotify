@@ -51,7 +51,7 @@ public class PwResetView extends JPanel {
         SongsView.MyHintTextField userTextField=new SongsView.MyHintTextField("username or email                         ");
         userTextField.setToolTipText("Username or password");
         userTextField.setFont(arialFont);
-        userTextField.setForeground(Color.black);
+        userTextField.setForeground(Color.gray);
         constraints.gridx = 1;
         constraints.gridy = 3;
         constraints.gridwidth = 2;
