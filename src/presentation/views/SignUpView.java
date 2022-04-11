@@ -35,7 +35,6 @@ public class SignUpView extends JPanel {
         for(int i=0;i<=4;i++) add(Box.createGlue(), setEmptyCells(constraints, i, 11));
 
         JLabel logo = new JLabel();
-        //Read the image as a BufferedImage (to resize)*/
         BufferedImage img = null;
         try {
             img = ImageIO.read(new File("assets/ESPOTIFY LOGO.png"));
