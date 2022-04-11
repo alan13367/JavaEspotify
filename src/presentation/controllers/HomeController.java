@@ -1,5 +1,6 @@
 package presentation.controllers;
 
+import business.ModelFacade;
 import presentation.views.HomeView;
 
 import java.awt.event.ActionEvent;
@@ -7,9 +8,11 @@ import java.awt.event.ActionListener;
 
 public class HomeController implements ActionListener {
     private final HomeView view;
+    private ModelFacade modelFacade;
 
-    public HomeController(HomeView view){
+    public HomeController(HomeView view,ModelFacade modelFacade){
         this.view = view;
+        this.modelFacade = modelFacade;
     }
 
     @Override
