@@ -49,7 +49,6 @@ public class SQLSongDAO implements SongDAO {
     }
 
     public Song addSong(Song song)  {
-        //FIXME:  MUST ADD THE GENRE FIRST, check if it already exists !!! ??? ADD DURATION
         addGenre(song.getGenre());
         String query = "INSERT INTO Song(name,author,genre,album,filepath,duration) VALUES ('"+ song.getName()
                 +"','"+song.getAuthor()+"','"+song.getGenre()+"','"+song.getAlbum()+"','"+song.getFilepath()+"','"+song.getDuration()+"');";
@@ -63,6 +62,7 @@ public class SQLSongDAO implements SongDAO {
         return song;
     }
 
+    //DELETE SONGS
     @Override
     public Song deleteSong(Song song) {
         String query = "DELETE FROM song WHERE name = '"+song.getName()+"';";
@@ -75,5 +75,8 @@ public class SQLSongDAO implements SongDAO {
         }
         return song;
     }
-    //DELETE SONGS
+
+
+
+
 }

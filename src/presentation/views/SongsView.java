@@ -29,10 +29,10 @@ public class SongsView extends JPanel {
     private void configureTable(){
         String data[][]={
                 {"Title1","Genre1","Album1","Artist1","User1"},
-                {"Una Vez","Reggeaton","YHLQMDLG","Bad Bunny","Alan"},
-                {"La Dificil","Reggeaton","YHLQMDLG","Bad Bunny","Alan"},
-                {"Que Malo","Reggeaton","YHLQMDLG","Bad Bunny","Alan"},
-                {"Callaita","Reggeaton","YHLQMDLG","Bad Bunny","Alan"},
+                {"ESTA","Reggeaton","YHLQMDLG","Bad Bunny","Alan"},
+                {"MUSICA","Reggeaton","YHLQMDLG","Bad Bunny","Alan"},
+                {"ES","Reggeaton","YHLQMDLG","Bad Bunny","Alan"},
+                {"TRASH","Reggeaton","YHLQMDLG","Bad Bunny","Alan"},
                 {"Una Vez","Reggeaton","YHLQMDLG","Bad Bunny","Alan"},
                 {"La Dificil","Reggeaton","YHLQMDLG","Bad Bunny","Alan"},
                 {"Que Malo","Reggeaton","YHLQMDLG","Bad Bunny","Alan"},
