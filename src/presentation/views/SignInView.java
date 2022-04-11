@@ -1,5 +1,7 @@
 package presentation.views;
 
+import presentation.views.GUIassets.MyHintTextField;
+
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
@@ -24,7 +26,7 @@ public class SignInView extends JPanel{
 
         GridBagConstraints constraints = new GridBagConstraints();
 
-        SongsView.MyHintTextField userTextField=new SongsView.MyHintTextField("username                         ");
+        MyHintTextField userTextField=new MyHintTextField("username                         ");
         userTextField.setToolTipText("Enter username");
         userTextField.setFont(arialFont);
         userTextField.setForeground(Color.gray);
@@ -38,7 +40,7 @@ public class SignInView extends JPanel{
         constraints.weightx = 0.0;
         constraints.weighty = 0.0;
 
-        SongsView.MyHintTextField passwordField=new SongsView.MyHintTextField("password                          ");
+        MyHintTextField passwordField=new MyHintTextField("password                          ");
         passwordField.setToolTipText("Enter password");
         passwordField.setFont(arialFont);
         passwordField.setForeground(Color.gray);

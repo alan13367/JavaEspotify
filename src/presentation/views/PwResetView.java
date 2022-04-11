@@ -1,5 +1,7 @@
 package presentation.views;
 
+import presentation.views.GUIassets.MyHintTextField;
+
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
@@ -48,7 +50,7 @@ public class PwResetView extends JPanel {
         add (textArea1, constraints);
         constraints.weighty = 0.0;
 
-        SongsView.MyHintTextField userTextField=new SongsView.MyHintTextField("username or email                         ");
+        MyHintTextField userTextField=new MyHintTextField("username or email                         ");
         userTextField.setToolTipText("Username or password");
         userTextField.setFont(arialFont);
         userTextField.setForeground(Color.gray);
