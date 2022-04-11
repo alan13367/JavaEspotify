@@ -31,10 +31,18 @@ public class HomeView extends JPanel {
 
 
     //Player Buttons
-    private JButton jbPlay;
+    private JButton jbPlayPause;
+    private JButton jbPause;
+    private JButton jbShuffle;
+    private JButton jbLoop;
+    private JButton jbNext;
+    private JButton jbPrevious;
 
-    public static final String BTN_PLAY = "BTN_PLAY";
-
+    public static final String BTN_PLAYPAUSE = "BTN_PLAYPAUSE";
+    public static final String BTN_LOOP = "BTN_LOOP";
+    public static final String BTN_NEXT = "BTN_NEXT";
+    public static final String BTN_PREV = "BTN_PREV";
+    public static final String BTN_PAUSE = "BTN_PAUSE";
 
     //Cards Global Constants
     public static final String CARD_SONGS = "CARD_SONGS";
@@ -118,7 +126,6 @@ public class HomeView extends JPanel {
         username.setForeground(Color.white);
         userPanel.add(username);
 
-
         jbDeleteAcc = new JButton("Delete Account");
         jbDeleteAcc.setActionCommand(BTN_DELETEACC);
         jbDeleteAcc.setForeground(Color.white);
@@ -152,13 +159,40 @@ public class HomeView extends JPanel {
         playerPanel.setPreferredSize(new Dimension(1280,80));
         controlsPanel.setLayout(playerControlsGridLay);
 
-        jbPlay = new JButton(new ImageIcon("assets/playButton.png"));
-        jbPlay.setBackground(null);
-        jbPlay.setBorder(BorderFactory.createEmptyBorder());
-        jbPlay.setContentAreaFilled(false);
-        jbPlay.setActionCommand(BTN_PLAY);
-        controlsPanel.add(jbPlay);
+        jbLoop = new JButton(new ImageIcon("assets/loop.png"));
+        jbLoop.setBackground(null);
+        jbLoop.setBorder(BorderFactory.createEmptyBorder());
+        jbLoop.setContentAreaFilled(false);
+        jbLoop.setActionCommand(BTN_LOOP);
+        controlsPanel.add(jbLoop);
 
+        jbPrevious = new JButton(new ImageIcon("assets/previous.png"));
+        jbPrevious.setBackground(null);
+        jbPrevious.setBorder(BorderFactory.createEmptyBorder());
+        jbPrevious.setContentAreaFilled(false);
+        jbPrevious.setActionCommand(BTN_PREV);
+        controlsPanel.add(jbPrevious);
+
+        jbPlayPause = new JButton(new ImageIcon("assets/playButton.png"));
+        jbPlayPause.setBackground(null);
+        jbPlayPause.setBorder(BorderFactory.createEmptyBorder());
+        jbPlayPause.setContentAreaFilled(false);
+        jbPlayPause.setActionCommand(BTN_PLAYPAUSE);
+        controlsPanel.add(jbPlayPause);
+
+        jbNext = new JButton(new ImageIcon("assets/next.png"));
+        jbNext.setBackground(null);
+        jbNext.setBorder(BorderFactory.createEmptyBorder());
+        jbNext.setContentAreaFilled(false);
+        jbNext.setActionCommand(BTN_NEXT);
+        controlsPanel.add(jbNext);
+
+        jbShuffle = new JButton(new ImageIcon("assets/shuffle.png"));
+        jbShuffle.setBackground(null);
+        jbShuffle.setBorder(BorderFactory.createEmptyBorder());
+        jbShuffle.setContentAreaFilled(false);
+        jbShuffle.setActionCommand(BTN_PREV);
+        controlsPanel.add(jbShuffle);
 
         add(playerPanel,BorderLayout.SOUTH);
     }
@@ -170,7 +204,8 @@ public class HomeView extends JPanel {
         jbAddSong.addActionListener(controller);
         jbDeleteAcc.addActionListener(controller);
         jbLogOut.addActionListener(controller);
-        jbPlay.addActionListener(controller);
+        jbPlayPause.addActionListener(controller);
+
     }
 
     private void configureSongsCard(){
@@ -188,6 +223,11 @@ public class HomeView extends JPanel {
         jPanel.setBackground(Color.green);
         jpMain.add(jPanel,CARD_STATISTICS);
     }
+
+    public void pauseButton(){
+        jbPlayPause.setIcon(new ImageIcon("assets/next.png"));
+    }
+
 
     public void showSongsCard(){
         mainPanelManager.show(jpMain,CARD_SONGS);

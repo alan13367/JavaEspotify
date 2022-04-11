@@ -1,6 +1,7 @@
 package presentation.controllers;
 
 import business.ModelFacade;
+import jdk.swing.interop.SwingInterOpUtils;
 import presentation.views.HomeView;
 
 import java.awt.event.ActionEvent;
@@ -47,8 +48,8 @@ public class HomeController implements ActionListener {
                 System.out.println("Log Out");
             }
 
-            case (HomeView.BTN_PLAY) -> {
-                //
+            case (HomeView.BTN_PLAYPAUSE) -> {
+                view.pauseButton();
                 System.out.println("Played");
             }
         }
