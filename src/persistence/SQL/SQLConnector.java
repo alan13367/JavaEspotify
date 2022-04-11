@@ -22,7 +22,7 @@ public class SQLConnector {
         this.password = data[2];
     }
 
-    public static SQLConnector getInstance() throws SQLException {
+    public static SQLConnector getInstance() {
         if(instance == null){
             instance = new SQLConnector();
             instance.connect();
@@ -32,7 +32,7 @@ public class SQLConnector {
     }
 
     // CONNECT TO THE DATABASE
-    private void connect() throws SQLException {
+    private void connect() {
         try{
         connection = DriverManager.getConnection(url,username,password);
         } catch(SQLException e) {
@@ -62,6 +62,17 @@ public class SQLConnector {
             System.err.println("Problem when selecting data --> " + e.getSQLState() + " (" + e.getMessage() + ")");
         }
         return rs;
+    }
+
+    public void deleteQuery(String query){
+        try {
+            Statement s = connection.createStatement();
+            s.executeUpdate(query);
+        } catch (SQLException e) {
+            System.err.println(query);
+            System.err.println("Problem when deleting --> " + e.getSQLState() + " (" + e.getMessage() + ")");
+        }
+
     }
 
     // DISCONNECT FROM SERVER
