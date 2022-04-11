@@ -106,3 +106,4 @@ public class PwResetView extends JPanel {
         constraints.weighty = 0.0;
     }
 }
+
