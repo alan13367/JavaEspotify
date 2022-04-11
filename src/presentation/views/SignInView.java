@@ -27,7 +27,7 @@ public class SignInView extends JPanel{
         SongsView.MyHintTextField userTextField=new SongsView.MyHintTextField("username                         ");
         userTextField.setToolTipText("Enter username");
         userTextField.setFont(arialFont);
-        userTextField.setForeground(Color.black);
+        userTextField.setForeground(Color.gray);
         constraints.gridx = 1;
         constraints.gridy = 2;
         constraints.gridwidth = 2;
@@ -41,7 +41,7 @@ public class SignInView extends JPanel{
         SongsView.MyHintTextField passwordField=new SongsView.MyHintTextField("password                          ");
         passwordField.setToolTipText("Enter password");
         passwordField.setFont(arialFont);
-        passwordField.setForeground(Color.black);
+        passwordField.setForeground(Color.gray);
         constraints.gridx = 1;
         constraints.gridy = 3;
         constraints.gridwidth = 2;
