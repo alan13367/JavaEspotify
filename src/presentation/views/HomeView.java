@@ -12,7 +12,6 @@ public class HomeView extends JPanel {
 
     private final CardLayout mainPanelManager;
 
-
     //Side Panel Buttons
     private JButton jbSongs;
     private JButton jbPlaylists;
@@ -27,8 +26,6 @@ public class HomeView extends JPanel {
     public static final String BTN_ADDSONG = "BTN_ADDSONG";
     public static final String BTN_LOGOUT = "BTN_LOGOUT";
     public static final String BTN_DELETEACC = "BTN_DELETEACC";
-
-
 
     //Player Buttons
     private JButton jbPlayPause;
@@ -113,7 +110,6 @@ public class HomeView extends JPanel {
         jbAddSong.setBackground(new Color(0,204,0));
         jbAddSong.setAlignmentX(Component.CENTER_ALIGNMENT);
         buttonPanel.add(jbAddSong);
-
 
         //User Panel
         JPanel userPanel = new JPanel();
@@ -225,7 +221,7 @@ public class HomeView extends JPanel {
     }
 
     public void pauseButton(){
-        jbPlayPause.setIcon(new ImageIcon("assets/next.png"));
+        jbPlayPause.setIcon(new ImageIcon("assets/pause.png"));
     }
 
 
