@@ -9,6 +9,7 @@ import java.io.IOException;
 
 public class SignUpView extends JPanel {
 
+    //constructor
     public SignUpView() {
         setLayout(new GridBagLayout());
         configureView();
