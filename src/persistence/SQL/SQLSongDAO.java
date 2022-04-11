@@ -16,9 +16,8 @@ public class SQLSongDAO implements SongDAO {
 
         List<Song> songs = new ArrayList<>();
         String query = "SELECT * FROM Song;";
-
+        ResultSet result = SQLConnector.getInstance().selectQuery(query);
         try {
-            ResultSet result = SQLConnector.getInstance().selectQuery(query);
             while (result.next()) {
                 String name= result.getString("name");
                 String album = result.getString("album");
@@ -40,12 +39,8 @@ public class SQLSongDAO implements SongDAO {
     public void addGenre(String genreName){
         String query = "INSERT INTO Genre(name) VALUES ('"+genreName+"');";
         SQLConnector connector;
-        try{
-            connector = SQLConnector.getInstance();
-            connector.addQuery(query);
-        }catch (SQLException e){
-            System.out.println("ERROR: GENRE COULD NOT BE ADDED");
-        }
+        connector = SQLConnector.getInstance();
+        connector.addQuery(query);
     }
 
     public Song addSong(Song song)  {
@@ -53,12 +48,8 @@ public class SQLSongDAO implements SongDAO {
         String query = "INSERT INTO Song(name,author,genre,album,filepath,duration) VALUES ('"+ song.getName()
                 +"','"+song.getAuthor()+"','"+song.getGenre()+"','"+song.getAlbum()+"','"+song.getFilepath()+"','"+song.getDuration()+"');";
         SQLConnector connector;
-        try{
-            connector = SQLConnector.getInstance();
-            connector.addQuery(query);
-        }catch (SQLException e){
-            System.out.println("ERROR: SONG COULD NOT BE ADDED");
-        }
+        connector = SQLConnector.getInstance();
+        connector.addQuery(query);
         return song;
     }
 
@@ -66,13 +57,7 @@ public class SQLSongDAO implements SongDAO {
     @Override
     public Song deleteSong(Song song) {
         String query = "DELETE FROM song WHERE name = '"+song.getName()+"';";
-        SQLConnector connector;
-        try{
-            connector = SQLConnector.getInstance();
-            connector.addQuery(query);
-        }catch (SQLException e){
-            System.out.println("ERROR: SONG COULD NOT BE DELETED");
-        }
+        SQLConnector.getInstance().addQuery(query);
         return song;
     }
 

@@ -12,6 +12,7 @@ public class UserManager {
         this.userDAO = new SQLUserDAO();
     }
 
+
     public void logIn(String username,String password){
         User user = userDAO.getUser(username);
         if(password.equals(user.getPassword())){
@@ -19,7 +20,13 @@ public class UserManager {
         }
     }
 
+    public void deleteAccount(){
+        userDAO.deleteUser(user.getUsername());
+    }
 
+    public void createUser(User user){
+        userDAO.addUser(user);
+    }
     //User Functionalities
 
     public boolean checkPasswordFormat(String password){

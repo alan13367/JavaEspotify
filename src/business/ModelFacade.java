@@ -1,6 +1,7 @@
 package business;
 
 import business.entities.Song;
+import business.entities.User;
 import business.managers.PlaylistManager;
 import business.managers.SongManager;
 import business.managers.UserManager;
@@ -22,4 +23,14 @@ public class ModelFacade implements BusinessFacade {
     public List<Song> getSongs() {
         return songManager.getSongs();
     }
+
+    @Override
+    public void deleteAccount() {
+        userManager.deleteAccount();
+    }
+
+    public void createUser(String username,String email,String password){
+        userManager.createUser(new User(username,email,password));
+    }
+
 }
