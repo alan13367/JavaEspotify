@@ -21,7 +21,6 @@ public class HomeController implements ActionListener {
         switch (e.getActionCommand()) {
             case (HomeView.BTN_SONGS) -> {
                 System.out.println("Songs");
-
                 //Show songs list
                 view.showSongsCard();
             }

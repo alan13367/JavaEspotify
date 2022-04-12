@@ -33,4 +33,10 @@ public class ModelFacade implements BusinessFacade {
         userManager.createUser(new User(username,email,password));
     }
 
+    @Override
+    public void login(String username, String password) {
+        userManager.logIn(username,password);
+    }
+
+
 }

@@ -1,5 +1,7 @@
 package presentation.views;
 
+import presentation.views.GUIassets.MyHintTextField;
+
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
@@ -9,12 +11,12 @@ import java.io.IOException;
 
 public class PwResetView extends JPanel {
 
-    public PwResetView() throws IOException {
+    public PwResetView() {
         setLayout(new GridBagLayout());
         configureView();
     }
 
-    private void configureView() throws IOException {
+    private void configureView() {
         Font arialFont = new Font("Arial", Font.PLAIN, 25);
         Font alegreyaFont = new Font("Alegreya Sans SC", Font.BOLD, 30);
         Font smallerArialFont = new Font("Arial", Font.ITALIC, 15);
@@ -48,7 +50,7 @@ public class PwResetView extends JPanel {
         add (textArea1, constraints);
         constraints.weighty = 0.0;
 
-        SongsView.MyHintTextField userTextField=new SongsView.MyHintTextField("username or email                         ");
+        MyHintTextField userTextField=new MyHintTextField("username or email                         ");
         userTextField.setToolTipText("Username or password");
         userTextField.setFont(arialFont);
         userTextField.setForeground(Color.gray);

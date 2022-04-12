@@ -1,5 +1,7 @@
 package presentation.views;
 
+import presentation.views.GUIassets.MyHintTextField;
+
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
@@ -65,17 +67,17 @@ public class SignUpView extends JPanel {
         constraints.anchor = GridBagConstraints.EAST;
         add(signInButton, constraints);
 
-        SongsView.MyHintTextField userTextField= setTextFields("username\t\t", "Enter username", arialFont, constraints, 2, 3, 2, 1);
+        MyHintTextField userTextField= setTextFields("username\t\t", "Enter username", arialFont, constraints, 2, 3, 2, 1);
         add(userTextField, constraints);
 
 
-        SongsView.MyHintTextField emailTextField= setTextFields("email\t\t", "Enter email", arialFont, constraints, 2, 5, 2, 1);
+        MyHintTextField emailTextField= setTextFields("email\t\t", "Enter email", arialFont, constraints, 2, 5, 2, 1);
         add(emailTextField, constraints);
 
-        SongsView.MyHintTextField passwordField= setTextFields("password\t\t", "Enter password", arialFont, constraints, 2, 7, 2, 1);
+        MyHintTextField passwordField= setTextFields("password\t\t", "Enter password", arialFont, constraints, 2, 7, 2, 1);
         add(passwordField, constraints);
 
-        SongsView.MyHintTextField confirmPwdField=setTextFields("confirm password\t\t", "Confirm password", arialFont, constraints, 2, 9, 2, 1);
+        MyHintTextField confirmPwdField=setTextFields("confirm password\t\t", "Confirm password", arialFont, constraints, 2, 9, 2, 1);
         add(confirmPwdField, constraints);
 
 
@@ -105,8 +107,8 @@ public class SignUpView extends JPanel {
         return button;
     }
 
-    private SongsView.MyHintTextField setTextFields(String hintTF, String toolTipText, Font font, GridBagConstraints constraints, int x, int y, int w, int h) {
-        SongsView.MyHintTextField textField = new SongsView.MyHintTextField(hintTF);
+    private MyHintTextField setTextFields(String hintTF, String toolTipText, Font font, GridBagConstraints constraints, int x, int y, int w, int h) {
+        MyHintTextField textField = new MyHintTextField(hintTF);
         textField.setToolTipText(toolTipText);
         textField.setFont(font);
         textField.setForeground(Color.black);
