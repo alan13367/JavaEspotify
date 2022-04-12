@@ -31,7 +31,7 @@ public class SQLSongDAO implements SongDAO {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return new ArrayList<>(songs);
+        return songs;
     }
 
 

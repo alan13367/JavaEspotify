@@ -41,7 +41,7 @@ public class SQLConnector {
         System.out.println("TEST");
     }
 
-    // INSERT A QUERY IN STRING FORMAT
+    // USED FOR QUERIES THAT INSERT STUFF
     public void addQuery(String query){
         try{
             Statement statement = connection.createStatement();
@@ -51,7 +51,7 @@ public class SQLConnector {
         }
     }
 
-
+    // USED FOR QUERIES THAT SELECT STUFF
     public ResultSet selectQuery(String query){
         ResultSet rs = null;
         try {
@@ -64,6 +64,7 @@ public class SQLConnector {
         return rs;
     }
 
+    // USED FOR QUERIES THAT DELETE STUFF
     public void deleteQuery(String query){
         try {
             Statement s = connection.createStatement();
