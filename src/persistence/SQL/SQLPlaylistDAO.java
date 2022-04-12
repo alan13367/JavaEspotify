@@ -41,5 +41,26 @@ public class SQLPlaylistDAO {
         return playlists;
     }
 
+    // since playlists contain their songs ids in csv format, this function returns the song ids from the songs it has
+    private List<Integer> getSongIdsFromPlaylist(Playlist playlist){
+        List<Integer> songIds = new ArrayList<>();
+        String[] idsString;
+        String query = "SELECT songs FROM playlist WHERE name = '"+playlist.getName()+"';";
+        ResultSet result = SQLConnector.getInstance().selectQuery(query);
+        try {
+            while (result.next()) {
+                String ids= result.getString("id");
+                idsString = ids.split(";");
+                for (int i = 0; i < idsString.length; i++) {
+                    songIds.add(i,Integer.parseInt(idsString[i]));
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return songIds;
+    }
+
+
 
 }
