@@ -3,6 +3,8 @@ package presentation;
 import presentation.controllers.HomeController;
 import presentation.controllers.SongsController;
 import presentation.views.HomeView;
+import presentation.views.SignInView;
+import presentation.views.SignUpView;
 
 import javax.swing.*;
 import java.awt.*;
@@ -24,6 +26,7 @@ public class MainView extends JFrame {
     }
 
     private void addViews() {
+        add(new SignInView(),"SIGN");
         homeView = new HomeView();
         add(homeView,HOMEVIEW_CARD);
     }

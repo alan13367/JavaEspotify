@@ -14,6 +14,7 @@ public class SQLUserDAO implements UserDAO {
         ResultSet result = SQLConnector.getInstance().selectQuery(query);
 
         try {
+            result.next();
             String username1 = result.getString("username");
             String email = result.getString("email");
             String password = result.getString("password");

@@ -9,4 +9,5 @@ public interface BusinessFacade {
     List<Song> getSongs();
     void deleteAccount();
     void createUser(String username,String email,String password);
+    void login(String username,String password);
 }
