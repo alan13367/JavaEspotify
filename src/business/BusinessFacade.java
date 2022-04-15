@@ -10,4 +10,6 @@ public interface BusinessFacade {
     void deleteAccount();
     void createUser(String username,String email,String password);
     void login(String username,String password);
+    Song getSong(String name,String author);
+    String getUsername();
 }

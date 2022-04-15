@@ -26,7 +26,6 @@ public class MainView extends JFrame {
     }
 
     private void addViews() {
-        add(new SignInView(),"SIGN");
         homeView = new HomeView();
         add(homeView,HOMEVIEW_CARD);
     }

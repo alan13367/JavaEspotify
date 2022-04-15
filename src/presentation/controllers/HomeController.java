@@ -1,5 +1,6 @@
 package presentation.controllers;
 
+import business.BusinessFacade;
 import business.ModelFacade;
 import jdk.swing.interop.SwingInterOpUtils;
 import presentation.views.HomeView;
@@ -9,11 +10,11 @@ import java.awt.event.ActionListener;
 
 public class HomeController implements ActionListener {
     private final HomeView view;
-    private ModelFacade modelFacade;
+    private final BusinessFacade businessFacade;
 
-    public HomeController(HomeView view,ModelFacade modelFacade){
+    public HomeController(HomeView view, BusinessFacade businessFacade){
         this.view = view;
-        this.modelFacade = modelFacade;
+        this.businessFacade = businessFacade;
     }
 
     @Override
@@ -52,5 +53,9 @@ public class HomeController implements ActionListener {
                 System.out.println("Played");
             }
         }
+    }
+
+    public void setUsername(){
+        view.setUsername(businessFacade.getUsername());
     }
 }

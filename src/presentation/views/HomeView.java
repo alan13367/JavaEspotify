@@ -3,6 +3,7 @@ package presentation.views;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionListener;
+import java.net.UnknownServiceException;
 
 public class HomeView extends JPanel {
 
@@ -27,6 +28,8 @@ public class HomeView extends JPanel {
     public static final String BTN_LOGOUT = "BTN_LOGOUT";
     public static final String BTN_DELETEACC = "BTN_DELETEACC";
 
+    private JLabel username;
+
     //Player Buttons
     private JButton jbPlayPause;
     private JButton jbPause;
@@ -39,6 +42,7 @@ public class HomeView extends JPanel {
     public static final String BTN_LOOP = "BTN_LOOP";
     public static final String BTN_NEXT = "BTN_NEXT";
     public static final String BTN_PREV = "BTN_PREV";
+
     public static final String BTN_PAUSE = "BTN_PAUSE";
 
     //Cards Global Constants
@@ -118,7 +122,7 @@ public class HomeView extends JPanel {
         gridLayout.setHgap(0);
         gridLayout.setVgap(15);
         userPanel.setLayout(gridLayout);
-        JLabel username = new JLabel("Username");
+        username = new JLabel();
         username.setForeground(Color.white);
         userPanel.add(username);
 
@@ -191,6 +195,9 @@ public class HomeView extends JPanel {
         controlsPanel.add(jbShuffle);
 
         add(playerPanel,BorderLayout.SOUTH);
+    }
+    public void setUsername(String username){
+        this.username.setText(username);
     }
 
     public void registerController(ActionListener controller){

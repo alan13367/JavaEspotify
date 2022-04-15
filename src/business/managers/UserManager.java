@@ -27,6 +27,10 @@ public class UserManager {
     public void createUser(User user){
         userDAO.addUser(user);
     }
+
+    public String getUsername(){
+        return user.getUsername();
+    }
     //User Functionalities
 
     public boolean checkPasswordFormat(String password){
