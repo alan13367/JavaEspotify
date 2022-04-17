@@ -14,17 +14,22 @@ public class SongsView extends JPanel {
     //SongsPanel
     private JPanel jpSongs;
     private JTable songsTable;
+    private DefaultTableModel model;
     private MyHintTextField searchField;
     private JButton jbSearch;
     private static final String[] columns ={"TITLE","GENRE","ALBUM","AUTHOR","OWNER"};
+    private static final String HINT_TEXTFIELD ="Enter Title to Search Songs";
     private static final String SONGSTABLE_CARD = "SONGSTABLE_CARD";
     public static final String BTN_SEARCH = "BTN_SEARCH";
 
     //SongPanel
     private JPanel jpSong;
-    private JButton jbClose;
     private JLabel jlTitle;
     private JLabel jlAuthor;
+    private JButton jbClose;
+    private JButton jbPlay;
+    private JButton jbAddToPlaylist;
+    private JButton jbDelete;
     private static final String SONGPANEL_CARD = "SONGPANEL_CARD";
     public static final String BTN_CLOSE = "BTN_CLOSE";
 
@@ -41,14 +46,63 @@ public class SongsView extends JPanel {
 
     private void configureSongPanel() {
         //Configuration of a Song View Missing
+
         jpSong = new JPanel(new BorderLayout());
-        jlAuthor = new JLabel();
-        jlTitle = new JLabel();
-        jpSong.add(jlTitle,BorderLayout.NORTH);
-        jpSong.add(jlAuthor,BorderLayout.CENTER);
-        jbClose = new JButton("Close");
+        jpSong.setBackground(new Color(16,16,16));
+
+        JPanel topPanel = new JPanel(new BorderLayout());
+        topPanel.setBackground(new Color(16,16,16));
+        jbClose = new JButton(new ImageIcon("assets/x-mark-3-32.png"));
+        jbClose.setOpaque(false);
+        jbClose.setContentAreaFilled(false);
+        jbClose.setBorderPainted(false);
         jbClose.setActionCommand(BTN_CLOSE);
-        jpSong.add(jbClose,BorderLayout.SOUTH);
+        topPanel.add(jbClose,BorderLayout.LINE_END);
+        jpSong.add(topPanel,BorderLayout.PAGE_START);
+
+
+        jlTitle = new JLabel();
+        jlTitle.setFont(new Font("Arial",Font.BOLD,25));
+        jlTitle.setForeground(Color.white);
+        jlAuthor = new JLabel();
+        jlAuthor.setFont(new Font("Arial",Font.BOLD,20));
+        jlAuthor.setForeground(Color.white);
+        topPanel.add(jlTitle,BorderLayout.LINE_START);
+        jpSong.add(jlAuthor,BorderLayout.CENTER);
+
+        //Buttons Panel
+        JPanel buttonPanel = new JPanel();
+        buttonPanel.setBackground(new Color(16,16,16));
+        GridLayout gridLayout = new GridLayout(1,3);
+        gridLayout.setHgap(50);
+        buttonPanel.setLayout(gridLayout);
+
+        jbPlay = new JButton("Play Song",new ImageIcon("assets/play-32.png"));
+        jbPlay.setBackground(new Color(0,80,0));
+        jbPlay.setForeground(Color.white);
+        jbPlay.setFont(new Font("Arial",Font.BOLD,20));
+        jbAddToPlaylist = new JButton("Add To PlayList");
+        jbAddToPlaylist.setBackground(new Color(0,80,0));
+        jbAddToPlaylist.setFont(new Font("Arial",Font.BOLD,20));
+        jbAddToPlaylist.setForeground(Color.white);
+
+        jbDelete = new JButton("Delete Song",new ImageIcon("assets/trashicon32.png"));
+        jbDelete.setBackground(new Color(0,80,0));
+        jbDelete.setForeground(Color.white);
+        jbDelete.setFont(new Font("Arial",Font.BOLD,20));
+
+        JPanel jPanel = new JPanel();
+        jPanel.setBackground(new Color(16,16,16));
+        JPanel jPanel1 = new JPanel();
+        jPanel1.setBackground(new Color(16,16,16));
+        JPanel jPanel2 = new JPanel();
+        jPanel2.setBackground(new Color(16,16,16));
+        buttonPanel.add(jbPlay);
+        buttonPanel.add(jbAddToPlaylist);
+        buttonPanel.add(jbDelete);
+
+
+        jpSong.add(buttonPanel,BorderLayout.SOUTH);
         add(jpSong,SONGPANEL_CARD);
     }
 
@@ -88,26 +142,27 @@ public class SongsView extends JPanel {
         };
 
 
-
-        songsTable = new JTable(data,columns){
+        String data1[][] = new String[0][0];
+        songsTable = new JTable(new DefaultTableModel(columns,0){
             @Override
             public boolean isCellEditable(int row, int column) {
                 //all cells false
                 return false;
             }
-        };
+        });
         songsTable.getTableHeader().setReorderingAllowed(false);
         songsTable.setBackground(new Color(0,80,0));
         songsTable.setGridColor(Color.white);
         songsTable.setForeground(Color.white);
-        songsTable.setFont(new Font("Tahome", Font.PLAIN,15));
+        songsTable.setFont(new Font("Tahome", Font.PLAIN,20));
+        songsTable.setRowHeight(30);
 
 
 
         JTableHeader jTableHeader = songsTable.getTableHeader();
         jTableHeader.setBackground(new Color(0,204,0));
         jTableHeader.setForeground(Color.white);
-        jTableHeader.setFont(new Font("Tahome", Font.BOLD, 20)); // font name style size
+        jTableHeader.setFont(new Font("Tahome", Font.BOLD, 25)); // font name style size
         ((DefaultTableCellRenderer)jTableHeader.getDefaultRenderer())
                 .setHorizontalAlignment(JLabel.CENTER); // center header text
 
@@ -116,26 +171,36 @@ public class SongsView extends JPanel {
         jsp.getViewport().setBackground(new Color(8,8,8));
         jsp.setBorder(BorderFactory.createEmptyBorder());
         jpSongs.add(jsp,BorderLayout.CENTER);
+
+        model = (DefaultTableModel) songsTable.getModel();
     }
 
 
-    private void configureSearch(){
-        JPanel searchPanel = new JPanel();
-        searchPanel.setBackground(new Color(0,0,0));
-        int i = 2;
-        int j = 2;
-        GridLayout gridLayout = new GridLayout(i,j);
-        gridLayout.setHgap(400);
-        searchPanel.setLayout(gridLayout);
 
-        searchField = new MyHintTextField("Enter Title to Search Songs");
-        searchPanel.add(searchField);
-        jbSearch = new JButton("Search");
-        jbSearch.setPreferredSize(new Dimension(30,0));
+
+    private void configureSearch(){
+        JPanel searchPanel = new JPanel(new BorderLayout());
+        searchPanel.setBackground(new Color(0,0,0));
+
+        searchField = new MyHintTextField.RoundedMyHintTextField(HINT_TEXTFIELD);
+        searchField.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+        searchField.setFont(new Font("Tahome",Font.PLAIN,20));
+        searchPanel.add(searchField,BorderLayout.CENTER);
+        jbSearch = new JButton("Search",new ImageIcon("assets/lupa32.png"));
+        jbSearch.setForeground(Color.white);
+        jbSearch.setBackground(new Color(0,80,0));
         jbSearch.setActionCommand(BTN_SEARCH);
 
-        searchPanel.add(jbSearch);
+        searchPanel.add(jbSearch,BorderLayout.LINE_END);
         jpSongs.add(searchPanel,BorderLayout.NORTH);
+    }
+
+    public boolean searchFieldEmpty(){
+        return searchField.getText().isEmpty() || searchField.getText().equals(HINT_TEXTFIELD);
+    }
+
+    public String getSearchField(){
+        return searchField.getText();
     }
 
 
@@ -145,6 +210,14 @@ public class SongsView extends JPanel {
 
     public String getSongAuthorAtRow(int index){
         return songsTable.getValueAt(index,3).toString();
+    }
+
+    public void addTableRow(Object[] row){
+        model.addRow(row);
+    }
+
+    public void clearTable(){
+        model.setRowCount(0);
     }
 
    public void showSongCard(String title,String author){

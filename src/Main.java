@@ -1,15 +1,19 @@
+import business.BusinessFacade;
+import business.ModelFacade;
 import presentation.MainView;
 import presentation.controllers.HomeController;
-import presentation.views.HomeView;
+import presentation.controllers.SongsController;
 
 import javax.swing.*;
 
 public class Main {
     public static void main(String[] args) {
         SwingUtilities.invokeLater(() -> {
+            BusinessFacade businessFacade = new ModelFacade();
             MainView mainView = new MainView();
-            HomeController homeController = new HomeController(mainView.getHomeView());
-            mainView.registerControllers(homeController);
+            HomeController homeController = new HomeController(mainView.getHomeView(),businessFacade);
+            SongsController songsController = new SongsController(mainView.getHomeView().getSongsView(),businessFacade);
+            mainView.registerControllers(homeController,songsController);
             mainView.start();
         });
     }

@@ -1,6 +1,7 @@
 package presentation.controllers;
 
 import business.BusinessFacade;
+import business.entities.Song;
 import presentation.views.SongsView;
 
 import javax.swing.*;
@@ -24,7 +25,14 @@ public class SongsController implements ActionListener, ListSelectionListener {
         switch (e.getActionCommand()) {
             case (SongsView.BTN_SEARCH) -> {
                 System.out.println("SEARCH");
-
+                if(!view.searchFieldEmpty()){
+                    view.clearTable();
+                    for (Song song: businessFacade.getSongs()){
+                        if(song.getName().contains(view.getSearchField())){
+                            view.addTableRow(new String[]{song.getName(),song.getGenre(),song.getAlbum(),song.getAuthor(),"Alan"});
+                        }
+                    }
+                }
             }
             case(SongsView.BTN_CLOSE) -> {
                 view.showSongsTableCard();
