@@ -200,7 +200,7 @@ public class SongsView extends JPanel {
     }
 
     public String getSearchField(){
-        return searchField.getText();
+        return searchField.getText().trim();
     }
 
 
@@ -212,8 +212,8 @@ public class SongsView extends JPanel {
         return songsTable.getValueAt(index,3).toString();
     }
 
-    public void addTableRow(Object[] row){
-        model.addRow(row);
+    public void addTableRow(String title,String genre,String album,String author,String owner){
+        model.addRow(new String[]{title,genre,album,author,owner});
     }
 
     public void clearTable(){

@@ -7,6 +7,7 @@ public class Song {
     private String author;
     private String filepath;
     private long duration;
+    private String owner;
 
     public Song(String name, String album, String genre, String author, String filepath, long duration) {
         this.name = name;
@@ -16,6 +17,7 @@ public class Song {
         this.filepath = filepath;
         this.duration = duration;
     }
+
 
 
     public String getName() {
@@ -40,5 +42,9 @@ public class Song {
 
     public long getDuration() {
         return duration;
+    }
+
+    public String getOwner() {
+        return owner;
     }
 }

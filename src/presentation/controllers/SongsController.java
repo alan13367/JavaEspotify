@@ -29,7 +29,7 @@ public class SongsController implements ActionListener, ListSelectionListener {
                     view.clearTable();
                     for (Song song: businessFacade.getSongs()){
                         if(song.getName().contains(view.getSearchField())){
-                            view.addTableRow(new String[]{song.getName(),song.getGenre(),song.getAlbum(),song.getAuthor(),"Alan"});
+                            view.addTableRow(song.getName(),song.getGenre(),song.getAlbum(),song.getAuthor(),song.get);
                         }
                     }
                 }
