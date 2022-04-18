@@ -24,6 +24,7 @@ public class HomeController implements ActionListener {
                 System.out.println("Songs");
                 //Show songs list
                 view.showSongsCard();
+                view.getSongsView().showSongsTableCard();
             }
             case (HomeView.BTN_PLAYLISTS) -> {
                 System.out.println("Playlists");

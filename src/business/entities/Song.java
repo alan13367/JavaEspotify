@@ -1,6 +1,7 @@
 package business.entities;
 
 public class Song {
+    private int id;
     private String name;
     private String album;
     private String genre;
@@ -9,16 +10,21 @@ public class Song {
     private long duration;
     private String owner;
 
-    public Song(String name, String album, String genre, String author, String filepath, long duration) {
+    public Song(int id,String name, String album, String genre, String author, String filepath, long duration,String owner) {
+        this.id = id;
         this.name = name;
         this.album = album;
         this.genre = genre;
         this.author = author;
         this.filepath = filepath;
         this.duration = duration;
+        this.owner = owner;
     }
 
 
+    public int getId() {
+        return id;
+    }
 
     public String getName() {
         return name;
