@@ -6,7 +6,6 @@ import persistence.SongDAO;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.List;
 
 public class SQLSongDAO implements SongDAO {
@@ -47,7 +46,7 @@ public class SQLSongDAO implements SongDAO {
 
     public Song addSong(Song song)  {
         addGenre(song.getGenre());
-        String query = "INSERT INTO Song(title,author,genre,album,filepath,duration,id,owner) VALUES ('"+ song.getName()
+        String query = "INSERT INTO Song(title,author,genre,album,filepath,duration,id,owner) VALUES ('"+ song.getTitle()
                 +"','"+song.getAuthor()+"','"+song.getGenre()+"','"+song.getAlbum()+"','"+song.getFilepath()+"','"
                 +song.getDuration()+"','"+song.getId()+"','"+song.getOwner()+"');";
         SQLConnector connector;

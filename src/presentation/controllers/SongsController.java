@@ -19,7 +19,7 @@ public class SongsController implements ActionListener, ListSelectionListener {
         this.view = view;
         this.businessFacade = businessFacade;
         for (Song song: businessFacade.getSongs()){
-            view.addTableRow(song.getName(),song.getGenre(),song.getAlbum(),song.getAuthor(),song.getOwner());
+            view.addTableRow(song.getTitle(),song.getGenre(),song.getAlbum(),song.getAuthor(),song.getOwner());
         }
     }
 
@@ -31,8 +31,8 @@ public class SongsController implements ActionListener, ListSelectionListener {
                 if(!view.searchFieldEmpty()){
                     view.clearTable();
                     for (Song song: businessFacade.getSongs()){
-                        if(song.getName().contains(view.getSearchField())){
-                            view.addTableRow(song.getName(),song.getGenre(),song.getAlbum(),song.getAuthor(),song.getOwner());
+                        if(song.getTitle().contains(view.getSearchField())){
+                            view.addTableRow(song.getTitle(),song.getGenre(),song.getAlbum(),song.getAuthor(),song.getOwner());
                         }
                     }
                 }

@@ -30,7 +30,7 @@ public class SongManager {
     public Song getSong(String name, String author) {
         Song song = null;
         for (Song song1:songs){
-            if (song1.getName().equals(name) && song1.getAuthor().equals(author)){
+            if (song1.getTitle().equals(name) && song1.getAuthor().equals(author)){
                 song = song1;
             }
         }
