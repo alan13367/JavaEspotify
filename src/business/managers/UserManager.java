@@ -26,6 +26,7 @@ public class UserManager {
 
     public void createUser(User user){
         userDAO.addUser(user);
+        this.user = user;
     }
 
     public String getUsername(){

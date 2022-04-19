@@ -4,6 +4,7 @@ import business.entities.Song;
 import persistence.SQL.SQLSongDAO;
 import persistence.SongDAO;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class SongManager {
@@ -16,7 +17,7 @@ public class SongManager {
     }
 
     public List<Song> getSongs() {
-        return songs;
+        return new ArrayList<>(songs);
     }
 
     public void addSong(Song song){

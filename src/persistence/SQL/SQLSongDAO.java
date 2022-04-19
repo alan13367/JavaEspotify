@@ -18,7 +18,6 @@ public class SQLSongDAO implements SongDAO {
         ResultSet result = SQLConnector.getInstance().selectQuery(query);
         try {
             while (result.next()) {
-                int id = result.getInt("id");
                 String title= result.getString("title");
                 String album = result.getString("album");
                 String genre= result.getString("genre");
@@ -27,7 +26,7 @@ public class SQLSongDAO implements SongDAO {
                 long duration = result.getLong("duration");
                 String owner = result.getString("owner");
 
-                songs.add(new Song(id,title,album,genre,author,filepath,duration,owner));
+                songs.add(new Song(title,album,genre,author,filepath,duration,owner));
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -46,9 +45,9 @@ public class SQLSongDAO implements SongDAO {
 
     public Song addSong(Song song)  {
         addGenre(song.getGenre());
-        String query = "INSERT INTO Song(title,author,genre,album,filepath,duration,id,owner) VALUES ('"+ song.getTitle()
+        String query = "INSERT INTO Song(title,author,genre,album,filepath,duration,owner) VALUES ('"+ song.getTitle()
                 +"','"+song.getAuthor()+"','"+song.getGenre()+"','"+song.getAlbum()+"','"+song.getFilepath()+"','"
-                +song.getDuration()+"','"+song.getId()+"','"+song.getOwner()+"');";
+                +song.getDuration()+"','"+song.getOwner()+"');";
         SQLConnector connector;
         connector = SQLConnector.getInstance();
         connector.addQuery(query);
@@ -58,7 +57,7 @@ public class SQLSongDAO implements SongDAO {
     //DELETE SONGS
     @Override
     public Song deleteSong(Song song) {
-        String query = "DELETE FROM song WHERE id = '"+song.getId()+"';";
+        String query = "DELETE FROM song WHERE title = '"+song.getTitle()+"AND author = '"+song.getAuthor()+"';";
         SQLConnector.getInstance().addQuery(query);
         return song;
     }
