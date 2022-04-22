@@ -6,10 +6,10 @@ import java.net.URL;
 
 public class SongLyricsAPI {
 
-    private static String URL = "https://api.lyrics.ovh/v1/";
-    private static String charset = "UTF-8";
+    private String URL = "https://api.lyrics.ovh/v1/";
+    private String charset = "UTF-8";
 
-    public static String getLyricsJson(String artist,String title){
+    public String getLyricsJson(String artist,String title){
         try {
             URL urlObj = new URL(URL+artist+"/"+title);
 

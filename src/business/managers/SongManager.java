@@ -1,5 +1,6 @@
 package business.managers;
 
+import business.SongLyricsAPI;
 import business.entities.Song;
 import persistence.SQL.SQLSongDAO;
 import persistence.SongDAO;
@@ -10,6 +11,7 @@ import java.util.List;
 public class SongManager {
     private List<Song> songs;
     private SongDAO songDAO;
+    private SongLyricsAPI songLyricsAPI;
 
     public SongManager() {
         this.songDAO = new SQLSongDAO();
@@ -36,5 +38,9 @@ public class SongManager {
             }
         }
         return song;
+    }
+
+    public String getSongLyrics(String artist,String title) {
+        return songLyricsAPI.getLyricsJson(artist,title);
     }
 }

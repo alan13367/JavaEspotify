@@ -48,5 +48,10 @@ public class ModelFacade implements BusinessFacade {
         return userManager.getUsername();
     }
 
+    @Override
+    public String getLyrics(String artist, String title) {
+        return songManager.getSongLyrics(artist,title);
+    }
+
 
 }

@@ -12,4 +12,5 @@ public interface BusinessFacade {
     void login(String username,String password);
     Song getSong(String name,String author);
     String getUsername();
+    String getLyrics(String artist,String title);
 }
