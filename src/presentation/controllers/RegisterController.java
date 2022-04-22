@@ -2,7 +2,6 @@ package presentation.controllers;
 
 import business.BusinessFacade;
 import business.managers.UserManager;
-import presentation.MainView;
 import presentation.views.HomeView;
 import presentation.views.SignIn_SignUpView;
 
@@ -28,12 +27,14 @@ public class RegisterController implements ActionListener {
                 view.showSignInCard();
             }
             case (SignIn_SignUpView.BTN_SIGN_UP) -> {
-                System.out.println("sign up clicked in sign up");
+                if(view.caseSignUp()) {
+                    System.out.println("sign up clicked in sign up");
+                    view.showSignInCard();
+                }
             }
             case (SignIn_SignUpView.SIGN_IN_BTN_SIGN_IN) -> {
                 System.out.println("sign in clicked in sign in");
-                homeView.showSongsCard();
-                homeView.getSongsView().showSongsTableCard();
+                view.pop_up_dialog("Wrong credentials", "Sign in Error");
             }
             case (SignIn_SignUpView.SIGN_IN_BTN_SIGN_UP) -> {
                 System.out.println("sign up clicked in sign in");
@@ -41,4 +42,5 @@ public class RegisterController implements ActionListener {
             }
         }
     }
+
 }

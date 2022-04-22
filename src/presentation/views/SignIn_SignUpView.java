@@ -1,5 +1,6 @@
 package presentation.views;
 
+import business.managers.UserManager;
 import presentation.views.GUIassets.MyHintTextField;
 
 import javax.imageio.ImageIO;
@@ -39,9 +40,13 @@ public class SignIn_SignUpView extends JPanel{
     private MyHintTextField.RoundedMyHintTextField emailField;
     private MyHintTextField.RoundedMyHintTextField passwordField;
     private MyHintTextField.RoundedMyHintTextField confirmPasswordField;
+    private MyHintTextField.RoundedMyHintTextField userTextField1;
+    private MyHintTextField.RoundedMyHintTextField passwordField1;
 
     public static final String CARD_SIGN_IN = "CARD_SIGN_IN";
     public static final String CARD_SIGN_UP = "CARD_SIGN_UP";
+
+    public UserManager userManager = new UserManager();
 
     public SignIn_SignUpView(){
         setLayout(new BorderLayout());
@@ -228,31 +233,31 @@ public class SignIn_SignUpView extends JPanel{
 
         GridBagConstraints constraints = new GridBagConstraints();
 
-        userTextField = new MyHintTextField.RoundedMyHintTextField("username                         ");
-        userTextField.setToolTipText("Enter username");
-        userTextField.setFont(arialFont);
-        userTextField.setForeground(Color.gray);
+        userTextField1 = new MyHintTextField.RoundedMyHintTextField("username                         ");
+        userTextField1.setToolTipText("Enter username");
+        userTextField1.setFont(arialFont);
+        userTextField1.setForeground(Color.gray);
         constraints.gridx = 1;
         constraints.gridy = 2;
         constraints.gridwidth = 2;
         constraints.gridheight = 1;
         constraints.weightx = 1.0;
         constraints.weighty = 1.0;
-        signInView.add(userTextField, constraints);
+        signInView.add(userTextField1, constraints);
         constraints.weightx = 0.0;
         constraints.weighty = 0.0;
 
-        passwordField=new MyHintTextField.RoundedMyHintTextField("password                          ");
-        passwordField.setToolTipText("Enter password");
-        passwordField.setFont(arialFont);
-        passwordField.setForeground(Color.gray);
+        passwordField1=new MyHintTextField.RoundedMyHintTextField("password                          ");
+        passwordField1.setToolTipText("Enter password");
+        passwordField1.setFont(arialFont);
+        passwordField1.setForeground(Color.gray);
         constraints.gridx = 1;
         constraints.gridy = 3;
         constraints.gridwidth = 2;
         constraints.gridheight = 1;
         constraints.weightx = 1.0;
         constraints.weighty = 1.0;
-        signInView.add(passwordField, constraints);
+        signInView.add(passwordField1, constraints);
         constraints.weightx = 0.0;
         constraints.weighty = 0.0;
 
@@ -366,4 +371,25 @@ public class SignIn_SignUpView extends JPanel{
         signInButton_bottom.addActionListener(controller);
         signUpButton.addActionListener(controller);
     }
+
+    public void pop_up_dialog(String message, String title) {
+            JOptionPane.showMessageDialog(null, message, title, JOptionPane.ERROR_MESSAGE);
+    }
+
+    public boolean caseSignUp() {
+        if(!userManager.checkEmailFormat(emailField.getText())) {
+            pop_up_dialog("email format is wrong. Please check it!", "Wrong Email format");
+            return false;
+        }
+        if(!userManager.checkPasswordFormat(passwordField.getText())) {
+            pop_up_dialog("password format is wrong. Please check it!", "Wrong Password format");
+            return false;
+        }
+        if(!passwordField.getText().equals(confirmPasswordField.getText())) {
+            pop_up_dialog("this field does not match the password field", "Password not matching");
+            return false;
+        }
+        return true;
+    }
+
 }
