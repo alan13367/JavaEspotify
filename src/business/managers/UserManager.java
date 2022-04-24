@@ -13,11 +13,14 @@ public class UserManager {
     }
 
 
-    public void logIn(String username,String password){
+    public boolean logIn(String username,String password){
         User user = userDAO.getUser(username);
+
         if(password.equals(user.getPassword())){
             this.user = user;
+            return true;
         }
+        return false;
     }
 
     public void deleteAccount(){

@@ -34,7 +34,12 @@ public class RegisterController implements ActionListener {
             }
             case (SignIn_SignUpView.SIGN_IN_BTN_SIGN_IN) -> {
                 System.out.println("sign in clicked in sign in");
-                view.pop_up_dialog("Wrong credentials", "Sign in Error");
+                if(!view.caseSignIn()) {
+                    view.pop_up_dialog("Wrong credentials", "Sign in Error");
+                }
+                if(view.caseSignIn()) {
+                    view.pop_up_dialog("YOHOOOOO", "Sign in Success");
+                }
             }
             case (SignIn_SignUpView.SIGN_IN_BTN_SIGN_UP) -> {
                 System.out.println("sign up clicked in sign in");

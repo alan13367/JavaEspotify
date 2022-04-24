@@ -1,6 +1,8 @@
 package presentation.views;
 
+import business.entities.User;
 import business.managers.UserManager;
+import presentation.views.GUIassets.MyHintPwdField;
 import presentation.views.GUIassets.MyHintTextField;
 
 import javax.imageio.ImageIO;
@@ -38,10 +40,10 @@ public class SignIn_SignUpView extends JPanel{
 
     private MyHintTextField.RoundedMyHintTextField userTextField;
     private MyHintTextField.RoundedMyHintTextField emailField;
-    private MyHintTextField.RoundedMyHintTextField passwordField;
-    private MyHintTextField.RoundedMyHintTextField confirmPasswordField;
+    private MyHintPwdField.RoundedMyHintPwdField passwordField;
+    private MyHintPwdField.RoundedMyHintPwdField confirmPasswordField;
     private MyHintTextField.RoundedMyHintTextField userTextField1;
-    private MyHintTextField.RoundedMyHintTextField passwordField1;
+    private MyHintPwdField.RoundedMyHintPwdField passwordField1;
 
     public static final String CARD_SIGN_IN = "CARD_SIGN_IN";
     public static final String CARD_SIGN_UP = "CARD_SIGN_UP";
@@ -98,7 +100,7 @@ public class SignIn_SignUpView extends JPanel{
         constraints.weightx = 0.0;
         constraints.weighty = 0.0;
 
-        passwordField=new MyHintTextField.RoundedMyHintTextField("password                                      ");
+        passwordField=new MyHintPwdField.RoundedMyHintPwdField("password                                      ");
         passwordField.setToolTipText("Enter password");
         passwordField.setFont(arialFont);
         passwordField.setForeground(Color.gray);
@@ -112,7 +114,7 @@ public class SignIn_SignUpView extends JPanel{
         constraints.weightx = 0.0;
         constraints.weighty = 0.0;
 
-        confirmPasswordField=new MyHintTextField.RoundedMyHintTextField("confirm password                          ");
+        confirmPasswordField=new MyHintPwdField.RoundedMyHintPwdField("confirm password                          ");
         confirmPasswordField.setToolTipText("confirm password");
         confirmPasswordField.setFont(arialFont);
         confirmPasswordField.setForeground(Color.gray);
@@ -247,7 +249,7 @@ public class SignIn_SignUpView extends JPanel{
         constraints.weightx = 0.0;
         constraints.weighty = 0.0;
 
-        passwordField1=new MyHintTextField.RoundedMyHintTextField("password                          ");
+        passwordField1=new MyHintPwdField.RoundedMyHintPwdField("password                          ");
         passwordField1.setToolTipText("Enter password");
         passwordField1.setFont(arialFont);
         passwordField1.setForeground(Color.gray);
@@ -389,7 +391,12 @@ public class SignIn_SignUpView extends JPanel{
             pop_up_dialog("this field does not match the password field", "Password not matching");
             return false;
         }
+        User user = new User(userTextField.getText(), emailField.getText(), passwordField.getText());
+        userManager.createUser(user);
         return true;
     }
 
+    public boolean caseSignIn() {
+        return userManager.logIn(userTextField1.getText(), passwordField1.getText());
+    }
 }
