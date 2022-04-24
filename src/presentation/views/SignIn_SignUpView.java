@@ -383,20 +383,20 @@ public class SignIn_SignUpView extends JPanel{
             pop_up_dialog("email format is wrong. Please check it!", "Wrong Email format");
             return false;
         }
-        if(!userManager.checkPasswordFormat(passwordField.getText())) {
+        if(!userManager.checkPasswordFormat(String.valueOf(passwordField.getPassword()))) {
             pop_up_dialog("password format is wrong. Please check it!", "Wrong Password format");
             return false;
         }
-        if(!passwordField.getText().equals(confirmPasswordField.getText())) {
+        if(!String.valueOf(passwordField.getPassword()).equals(String.valueOf(confirmPasswordField.getPassword()))) {
             pop_up_dialog("this field does not match the password field", "Password not matching");
             return false;
         }
-        User user = new User(userTextField.getText(), emailField.getText(), passwordField.getText());
+        User user = new User(userTextField.getText(), emailField.getText(), String.valueOf(passwordField.getPassword()));
         userManager.createUser(user);
         return true;
     }
 
     public boolean caseSignIn() {
-        return userManager.logIn(userTextField1.getText(), passwordField1.getText());
+        return userManager.logIn(userTextField1.getText(), String.valueOf(passwordField1.getPassword()));
     }
 }

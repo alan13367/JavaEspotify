@@ -15,7 +15,9 @@ public class UserManager {
 
     public boolean logIn(String username,String password){
         User user = userDAO.getUser(username);
-
+        if(user == null) {
+            return false;
+        }
         if(password.equals(user.getPassword())){
             this.user = user;
             return true;
