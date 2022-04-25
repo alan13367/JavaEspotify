@@ -56,7 +56,4 @@ public class HomeController implements ActionListener {
         }
     }
 
-    public void setUsername(){
-        view.setUsername(businessFacade.getUsername());
-    }
 }

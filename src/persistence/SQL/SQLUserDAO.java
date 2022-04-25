@@ -20,7 +20,7 @@ public class SQLUserDAO implements UserDAO {
             String password = result.getString("password");
             return new User(username1,email,password);
         } catch (SQLException e) {
-            e.printStackTrace();
+            System.out.println("User doesn't exist");
         }
         return null;
     }

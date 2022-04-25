@@ -9,7 +9,9 @@ public interface BusinessFacade {
     List<Song> getSongs();
     void deleteAccount();
     void createUser(String username,String email,String password);
-    void login(String username,String password);
+    boolean login(String username,String password);
+    boolean checkEmailFormat(String email);
+    boolean checkPasswordFormat(String password);
     Song getSong(String name,String author);
     String getUsername();
     String getLyrics(String artist,String title);

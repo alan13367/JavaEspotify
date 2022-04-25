@@ -14,6 +14,7 @@ public class SongManager {
     private SongLyricsAPI songLyricsAPI;
 
     public SongManager() {
+        this.songLyricsAPI = new SongLyricsAPI();
         this.songDAO = new SQLSongDAO();
         songs = songDAO.loadSongs();
     }

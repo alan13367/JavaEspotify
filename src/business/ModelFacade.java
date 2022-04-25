@@ -9,9 +9,9 @@ import business.managers.UserManager;
 import java.util.List;
 
 public class ModelFacade implements BusinessFacade {
-    SongManager songManager;
-    UserManager userManager;
-    PlaylistManager playlistManager;
+    private SongManager songManager;
+    private UserManager userManager;
+    private PlaylistManager playlistManager;
     //Managers
 
     public ModelFacade() {
@@ -34,8 +34,18 @@ public class ModelFacade implements BusinessFacade {
     }
 
     @Override
-    public void login(String username, String password) {
-        userManager.logIn(username,password);
+    public boolean login(String username, String password) {
+        return userManager.logIn(username,password);
+    }
+
+    @Override
+    public boolean checkEmailFormat(String email) {
+        return userManager.checkEmailFormat(email);
+    }
+
+    @Override
+    public boolean checkPasswordFormat(String password) {
+        return userManager.checkPasswordFormat(password);
     }
 
     @Override

@@ -196,6 +196,7 @@ public class HomeView extends JPanel {
 
         add(playerPanel,BorderLayout.SOUTH);
     }
+
     public void setUsername(String username){
         this.username.setText(username);
     }
