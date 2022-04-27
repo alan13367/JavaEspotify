@@ -61,6 +61,19 @@ public class SQLPlaylistDAO {
         return songIds;
     }
 
+    // add song to a playlist
+    private void addSongToPlaylist(Playlist playlist, Song song){
+        String query = "INSERT INTO SongPlaylistLink(playlist_ID,song_ID) VALUES ('"+playlist.getId()+"','"+song.getId()+"');";
+        SQLConnector connector = new SQLConnector();
+        connector.addQuery(query);
+    }
+
+    private void deleteSongFromPlaylist(Playlist playlist, Song song){
+        String query = "DELETE FROM SongPlaylistLink WHERE playlist_ID = '"+playlist.getId()+"' AND song_ID = '"+song.getId()+"';";
+        SQLConnector connector = new SQLConnector();
+        connector.addQuery(query);
+    }
+
 
 
 }

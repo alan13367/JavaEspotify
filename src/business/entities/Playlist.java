@@ -4,15 +4,20 @@ package business.entities;
 import java.util.LinkedList;
 
 public class Playlist {
+    private int id;
     private String name;
     private String author;
-    private LinkedList<Song> songs;
+    //private LinkedList<Song> songs;
     private boolean isLooping;
     private boolean isShuffle;
 
     public Playlist(String name, String author) {
         this.name = name;
         this.author = author;
+    }
+
+    public int getId() {
+        return id;
     }
 
     public String getName() {
