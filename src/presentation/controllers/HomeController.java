@@ -1,8 +1,6 @@
 package presentation.controllers;
 
 import business.BusinessFacade;
-import business.ModelFacade;
-import jdk.swing.interop.SwingInterOpUtils;
 import presentation.views.HomeView;
 
 import java.awt.event.ActionEvent;
@@ -30,6 +28,7 @@ public class HomeController implements ActionListener {
                 System.out.println("Playlists");
                 //Show Playlists
                 view.showPlaylistsCard();
+                view.getPlaylistView().showPlaylistTableCard();
             }
             case (HomeView.BTN_STATISTICS) -> {
                 System.out.println("Statistics");

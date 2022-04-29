@@ -1,14 +1,20 @@
 package presentation.views;
 
+
+
+import business.entities.Song;
+import business.managers.SongPlayerManager;
+
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.net.UnknownServiceException;
+import java.io.FileInputStream;
 
 public class HomeView extends JPanel {
 
     private SongsView songsView;
-
+    private PlaylistsView playlistView;
     private JPanel jpMain;
 
     private final CardLayout mainPanelManager;
@@ -38,6 +44,9 @@ public class HomeView extends JPanel {
     private JButton jbNext;
     private JButton jbPrevious;
 
+    //progress bar
+    private JProgressBar bar = new JProgressBar();
+
     public static final String BTN_PLAYPAUSE = "BTN_PLAYPAUSE";
     public static final String BTN_LOOP = "BTN_LOOP";
     public static final String BTN_NEXT = "BTN_NEXT";
@@ -55,9 +64,9 @@ public class HomeView extends JPanel {
         setLayout(new BorderLayout());
         mainPanelManager = new CardLayout();
         songsView = new SongsView();
+        playlistView = new PlaylistsView();
         configureView();
     }
-
 
     private void configureView(){
         configureMainPanel();
@@ -149,15 +158,27 @@ public class HomeView extends JPanel {
     private void configurePlayerPanel(){
         JPanel playerPanel = new JPanel(new BorderLayout());
         JPanel controlsPanel = new JPanel();
+        JPanel progressBarPanel = new JPanel();
+
+
         controlsPanel.setBackground(new Color(32,32,32));
         playerPanel.add(controlsPanel,BorderLayout.CENTER);
+        playerPanel.add(progressBarPanel,BorderLayout.NORTH);
 
         GridLayout playerControlsGridLay = new GridLayout(1,5);
         playerControlsGridLay.setHgap(10);
         playerControlsGridLay.setVgap(0);
         playerPanel.setBackground(new Color(32,32,32));
-        playerPanel.setPreferredSize(new Dimension(1280,80));
+        playerPanel.setPreferredSize(new Dimension(1280,100));
         controlsPanel.setLayout(playerControlsGridLay);
+
+        // song progress bar
+
+        bar.setValue(0);
+        bar.setBounds(0,0,420,50);
+        bar.setStringPainted(true);
+        progressBarPanel.add(bar);
+
 
         jbLoop = new JButton(new ImageIcon("assets/loop.png"));
         jbLoop.setBackground(null);
@@ -212,14 +233,18 @@ public class HomeView extends JPanel {
 
     }
 
+    private void fillBar(){
+        bar.setValue(10);
+    }
+
     private void configureSongsCard(){
         jpMain.add(songsView,CARD_SONGS);
     }
 
     private void configurePlaylistsCard(){
-        JPanel jPanel = new JPanel();
-        jPanel.setBackground(Color.red);
-        jpMain.add(jPanel,CARD_PLAYLISTS);
+        //JPanel jPanel = new JPanel();
+        //jPanel.setBackground(Color.red);
+        jpMain.add(songsView,CARD_PLAYLISTS);
     }
 
     private void configureStatisticsCard(){
@@ -230,6 +255,13 @@ public class HomeView extends JPanel {
 
     public void pauseButton(){
         jbPlayPause.setIcon(new ImageIcon("assets/pause.png"));
+        SongPlayerManager playerManager = new SongPlayerManager();
+        playerManager.playSong(new Song("dammit","dude ranch","punk rock","blink182","/Users/alvarofeher/Desktop/WORK/DPO/dpoo-2122-s2-ice3/songs/blink-182 - Dammit (Official Video).mp3",3,"alvarofeher",69));
+
+    }
+
+    public void configureSlider(){
+
     }
 
 
@@ -247,4 +279,7 @@ public class HomeView extends JPanel {
         return songsView;
     }
 
+    public PlaylistsView getPlaylistView() {
+        return playlistView;
+    }
 }
