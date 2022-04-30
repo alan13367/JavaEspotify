@@ -3,6 +3,8 @@ package business;
 import java.io.*;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
 
 public class SongLyricsAPI {
 
@@ -10,6 +12,8 @@ public class SongLyricsAPI {
     private String charset = "UTF-8";
 
     public String getLyricsJson(String artist,String title){
+        artist = URLEncoder.encode(artist, StandardCharsets.UTF_8);
+        title= URLEncoder.encode(title,StandardCharsets.UTF_8);
         try {
             URL urlObj = new URL(URL+artist+"/"+title);
 
@@ -31,9 +35,7 @@ public class SongLyricsAPI {
 
             return result.toString();
 
-        } catch (
-                IOException e) {
-            e.printStackTrace();
+        } catch (IOException e) {
         }
         return null;
     }

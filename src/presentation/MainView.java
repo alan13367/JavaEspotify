@@ -17,6 +17,7 @@ public class MainView extends JFrame {
     private final CardLayout viewManager;
 
     private HomeView homeView;
+
     private SignInSignUpView registerView;
 
     private static final String HOMEVIEW_CARD ="HOMEVIEW_CARD";
@@ -44,7 +45,10 @@ public class MainView extends JFrame {
         setResizable(true);
     }
 
-    public void showRegisterView() {viewManager.show(registerView, REGISTER_VIEW_CARD);}
+    public void showRegisterView() {
+        registerView.clearFields();
+        viewManager.show(getContentPane(), REGISTER_VIEW_CARD);
+    }
 
     public void showHomeView(String username){
         homeView.setUsername(username);

@@ -46,4 +46,12 @@ public class Song {
     public String getOwner() {
         return owner;
     }
+
+    public int getSongSeconds(){
+        return (int) (duration / 1000);
+    }
+
+    public int getSongMinutes(){
+        return getSongSeconds()/60;
+    }
 }

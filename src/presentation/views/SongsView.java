@@ -6,9 +6,12 @@ import presentation.views.GUIassets.MyHintTextField;
 import javax.swing.*;
 import javax.swing.table.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 public class SongsView extends JPanel {
 
+    private static final int TIME_VISIBLE = 1000;
     private CardLayout cardManager;
 
     //SongsPanel
@@ -26,6 +29,12 @@ public class SongsView extends JPanel {
     private JPanel jpSong;
     private JLabel jlTitle;
     private JLabel jlAuthor;
+    private JLabel jlDuration;
+    private JLabel jlAlbum;
+    private JLabel jlOwner;
+    private JLabel jlGenre;
+    private JPanel jpLyrics;
+    private JScrollPane lyricsPane;
     private JButton jbClose;
     private JButton jbPlay;
     private JButton jbAddToPlaylist;
@@ -60,15 +69,31 @@ public class SongsView extends JPanel {
         topPanel.add(jbClose,BorderLayout.LINE_END);
         jpSong.add(topPanel,BorderLayout.PAGE_START);
 
+        JPanel songInfoPanel = new JPanel();
+        GridLayout gridLayout1 = new GridLayout(3,3);
+        gridLayout1.setHgap(30);
+        gridLayout1.setVgap(30);
+        songInfoPanel.setBackground(new Color(16,16,16));
+        songInfoPanel.setLayout(gridLayout1);
+        jlTitle = createSongLabels(35);
+        jlDuration = createSongLabels(25);
+        jlAuthor = createSongLabels(25);
+        jlAlbum = createSongLabels(25);
+        jlGenre =createSongLabels(25);
+        jlOwner = createSongLabels(25);
+        songInfoPanel.add(jlTitle);
+        songInfoPanel.add(jlAlbum);
+        songInfoPanel.add(jlDuration);
+        songInfoPanel.add(jlAuthor);
+        songInfoPanel.add(jlGenre);
+        songInfoPanel.add(jlOwner);
+        JPanel jPanelAux = new JPanel();
+        jPanelAux.setBackground(new Color(16,16,16));
+        songInfoPanel.add(jPanelAux);
+        topPanel.add(songInfoPanel,BorderLayout.CENTER);
 
-        jlTitle = new JLabel();
-        jlTitle.setFont(new Font("Arial",Font.BOLD,25));
-        jlTitle.setForeground(Color.white);
-        jlAuthor = new JLabel();
-        jlAuthor.setFont(new Font("Arial",Font.BOLD,20));
-        jlAuthor.setForeground(Color.white);
-        topPanel.add(jlTitle,BorderLayout.LINE_START);
-        jpSong.add(jlAuthor,BorderLayout.CENTER);
+        //Lyrics
+
 
         //Buttons Panel
         JPanel buttonPanel = new JPanel();
@@ -104,6 +129,13 @@ public class SongsView extends JPanel {
 
         jpSong.add(buttonPanel,BorderLayout.SOUTH);
         add(jpSong,SONGPANEL_CARD);
+    }
+
+    private JLabel createSongLabels(int size){
+        JLabel label = new JLabel();
+        label.setFont(new Font("Arial",Font.BOLD,size));
+        label.setForeground(Color.white);
+        return label;
     }
 
     private void configureSongsPanel(){
@@ -175,9 +207,6 @@ public class SongsView extends JPanel {
         model = (DefaultTableModel) songsTable.getModel();
     }
 
-
-
-
     private void configureSearch(){
         JPanel searchPanel = new JPanel(new BorderLayout());
         searchPanel.setBackground(new Color(0,0,0));
@@ -220,13 +249,18 @@ public class SongsView extends JPanel {
         model.setRowCount(0);
     }
 
-   public void showSongCard(String title,String author){
-        jlTitle.setText(title);
-        jlAuthor.setText(author);
+   public void showSongCard(String title,String author,String album,String genre,String duration,String owner){
+        jlTitle.setText(" Title:  "+title);
+        jlAuthor.setText("  Author:  "+author);
+        jlAlbum.setText("Album:  "+album);
+        jlGenre.setText("Genre:  "+genre);
+        jlDuration.setText("Duration:  "+duration);
+        jlOwner.setText("Owner:  "+owner);
         cardManager.show(this,SONGPANEL_CARD);
    }
 
    public void showSongsTableCard(){
+        jpSong.remove(lyricsPane);
         cardManager.show(this,SONGSTABLE_CARD);
    }
 
@@ -236,4 +270,47 @@ public class SongsView extends JPanel {
         jbClose.addActionListener(controller);
     }
 
+    public void createLyricsPanel(String lyrics){
+        jpLyrics = new JPanel();
+        jpLyrics.setLayout(new BoxLayout(jpLyrics,BoxLayout.Y_AXIS));
+        jpLyrics.setBackground(new Color(16,16,16));
+        if(lyrics != null){
+            String[] songVerses = lyrics.split("\\r?\\n");
+            for (String s:songVerses) {
+                JLabel jl = createSongLabels(15);
+                jl.setAlignmentX(Component.CENTER_ALIGNMENT);
+                jl.setText(s);
+                jpLyrics.add(jl);
+            }
+        }else {
+            JLabel jl = createSongLabels(30);
+            jl.setAlignmentX(Component.CENTER_ALIGNMENT);
+            jl.setText("No Lyrics Found");
+            jpLyrics.add(jl);
+        }
+
+        lyricsPane = new JScrollPane(jpLyrics,JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+        lyricsPane.setBackground(new Color(16,16,16));
+        lyricsPane.setBorder(BorderFactory.createEmptyBorder());
+        jpSong.add(lyricsPane,BorderLayout.CENTER);
+        revalidate();
+    }
+
+    public void showLoadingDialog(){
+        JOptionPane pane = new JOptionPane("Loading",
+                JOptionPane.INFORMATION_MESSAGE);
+        JDialog dialog = pane.createDialog(this, "");
+        dialog.setModal(false);
+        dialog.setVisible(true);
+
+        new Timer(TIME_VISIBLE, new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                dialog.setVisible(false);
+            }
+        }).start();
+    }
+
 }
+
+

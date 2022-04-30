@@ -1,8 +1,12 @@
 package presentation.views;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionListener;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 import java.net.UnknownServiceException;
 
 public class HomeView extends JPanel {
@@ -81,11 +85,12 @@ public class HomeView extends JPanel {
 
         JPanel buttonPanel = new JPanel();
         buttonPanel.setBackground(Color.black);
-        GridLayout northGridLayout = new GridLayout(4,1);
+        GridLayout northGridLayout = new GridLayout(5,1);
         northGridLayout.setHgap(0);
         northGridLayout.setVgap(15);
         buttonPanel.setLayout(northGridLayout);
         sidePanel.add(buttonPanel,BorderLayout.NORTH);
+
 
         jbSongs = new JButton("Songs");
         jbSongs.setActionCommand(BTN_SONGS);
@@ -124,6 +129,7 @@ public class HomeView extends JPanel {
         userPanel.setLayout(gridLayout);
         username = new JLabel();
         username.setForeground(Color.white);
+        username.setFont(new Font("Arial",Font.PLAIN,25));
         userPanel.add(username);
 
         jbDeleteAcc = new JButton("Delete Account");
@@ -198,7 +204,7 @@ public class HomeView extends JPanel {
     }
 
     public void setUsername(String username){
-        this.username.setText(username);
+        this.username.setText("  "+username);
     }
 
     public void registerController(ActionListener controller){

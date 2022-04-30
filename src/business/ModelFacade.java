@@ -5,6 +5,7 @@ import business.entities.User;
 import business.managers.PlaylistManager;
 import business.managers.SongManager;
 import business.managers.UserManager;
+import com.google.gson.*;
 
 import java.util.List;
 
@@ -49,8 +50,13 @@ public class ModelFacade implements BusinessFacade {
     }
 
     @Override
-    public Song getSong(String name, String author) {
-        return songManager.getSong(name,author);
+    public Song getSong(String title, String author) {
+        return songManager.getSong(title,author);
+    }
+
+    @Override
+    public void deleteSong(String title, String author) {
+        songManager.deleteSong(getSong(title,author));
     }
 
     @Override
@@ -59,8 +65,19 @@ public class ModelFacade implements BusinessFacade {
     }
 
     @Override
-    public String getLyrics(String artist, String title) {
-        return songManager.getSongLyrics(artist,title);
+    public String getLyrics(String author, String title) {
+        JsonParser jsonParser = new JsonParser();
+        String s = songManager.getSongLyrics(author,title);
+        if(s!=null){
+            JsonObject object = jsonParser.parse(s).getAsJsonObject();
+            return object.get("lyrics").getAsString();
+        }
+        return null;
+    }
+
+    @Override
+    public void logOut() {
+        userManager.logOut();
     }
 
 
