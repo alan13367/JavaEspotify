@@ -13,6 +13,7 @@ public class SongManager {
     private SongDAO songDAO;
     private SongLyricsAPI songLyricsAPI;
 
+
     public SongManager() {
         this.songLyricsAPI = new SongLyricsAPI();
         this.songDAO = new SQLSongDAO();
@@ -45,4 +46,9 @@ public class SongManager {
     public String getSongLyrics(String artist,String title) {
         return songLyricsAPI.getLyricsJson(artist,title);
     }
+
+
+
+
+
 }

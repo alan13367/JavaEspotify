@@ -25,8 +25,9 @@ public class SQLSongDAO implements SongDAO {
                 String filepath= result.getString("filepath");
                 long duration = result.getLong("duration");
                 String owner = result.getString("owner");
+                int id = result.getInt("id");
 
-                songs.add(new Song(title,album,genre,author,filepath,duration,owner));
+                songs.add(new Song(title,album,genre,author,filepath,duration,owner,id));
             }
         } catch (SQLException e) {
             e.printStackTrace();
