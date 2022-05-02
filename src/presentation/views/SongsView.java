@@ -147,32 +147,6 @@ public class SongsView extends JPanel {
     }
 
     private void configureTable(){
-        String data[][]={
-                {"Title1","Genre1","Album1","Artist1","User1"},
-                {"Lithium","grunge","Nevermind","Nirvana","Alan"},
-                {"MUSICA","Reggeaton","YHLQMDLG","Bad Bunny","Alan"},
-                {"ES","Reggeaton","YHLQMDLG","Bad Bunny","Alan"},
-                {"TRASH","Reggeaton","YHLQMDLG","Bad Bunny","Alan"},
-                {"Una Vez","Reggeaton","YHLQMDLG","Bad Bunny","Alan"},
-                {"La Dificil","Reggeaton","YHLQMDLG","Bad Bunny","Alan"},
-                {"Que Malo","Reggeaton","YHLQMDLG","Bad Bunny","Alan"},
-                {"Callaita","Reggeaton","YHLQMDLG","Bad Bunny","Alan"},
-                {"Una Vez","Reggeaton","YHLQMDLG","Bad Bunny","Alan"},
-                {"La Dificil","Reggeaton","YHLQMDLG","Bad Bunny","Alan"},
-                {"Que Malo","Reggeaton","YHLQMDLG","Bad Bunny","Alan"},
-                {"Callaita","Reggeaton","YHLQMDLG","Bad Bunny","Alan"},
-                {"Una Vez","Reggeaton","YHLQMDLG","Bad Bunny","Alan"},
-                {"La Dificil","Reggeaton","YHLQMDLG","Bad Bunny","Alan"},
-                {"Que Malo","Reggeaton","YHLQMDLG","Bad Bunny","Alan"},
-                {"Callaita","Reggeaton","YHLQMDLG","Bad Bunny","Alan"},
-                {"Una Vez","Reggeaton","YHLQMDLG","Bad Bunny","Alan"},
-                {"La Dificil","Reggeaton","YHLQMDLG","Bad Bunny","Alan"},
-                {"Que Malo","Reggeaton","YHLQMDLG","Bad Bunny","Alan"},
-                {"Callaita","Reggeaton","YHLQMDLG","Bad Bunny","Alan"},
-                {"Una Vez","Reggeaton","YHLQMDLG","Bad Bunny","Alan"},
-                {"La Dificil","Reggeaton","YHLQMDLG","Bad Bunny","Alan"},
-        };
-
 
         String data1[][] = new String[0][0];
         songsTable = new JTable(new DefaultTableModel(columns,0){
@@ -213,9 +187,10 @@ public class SongsView extends JPanel {
 
         searchField = new MyHintTextField.RoundedMyHintTextField(HINT_TEXTFIELD);
         searchField.setBorder(BorderFactory.createLineBorder(Color.BLACK));
-        searchField.setFont(new Font("Tahome",Font.PLAIN,20));
+        searchField.setFont(new Font("Tahome",Font.PLAIN,25));
         searchPanel.add(searchField,BorderLayout.CENTER);
         jbSearch = new JButton("Search",new ImageIcon("assets/lupa32.png"));
+        jbSearch.setFont(new Font("Arial",Font.PLAIN,25));
         jbSearch.setForeground(Color.white);
         jbSearch.setBackground(new Color(0,80,0));
         jbSearch.setActionCommand(BTN_SEARCH);
@@ -250,8 +225,8 @@ public class SongsView extends JPanel {
     }
 
    public void showSongCard(String title,String author,String album,String genre,String duration,String owner){
-        jlTitle.setText(" Title:  "+title);
-        jlAuthor.setText("  Author:  "+author);
+        jlTitle.setText("   "+title);
+        jlAuthor.setText("    "+author);
         jlAlbum.setText("Album:  "+album);
         jlGenre.setText("Genre:  "+genre);
         jlDuration.setText("Duration:  "+duration);
@@ -260,9 +235,11 @@ public class SongsView extends JPanel {
    }
 
    public void showSongsTableCard(){
-        jpSong.remove(lyricsPane);
+        if(lyricsPane!=null)
+            jpSong.remove(lyricsPane);
         cardManager.show(this,SONGSTABLE_CARD);
    }
+
 
     public void registerController(SongsController controller){
         jbSearch.addActionListener(controller);

@@ -80,7 +80,7 @@ public class HomeView extends JPanel {
 
     private void configureSidePanel(){
         JPanel sidePanel = new JPanel(new BorderLayout());
-        sidePanel.setPreferredSize(new Dimension(280,720));
+        sidePanel.setPreferredSize(new Dimension(300,720));
         sidePanel.setBackground(Color.black);
 
         JPanel buttonPanel = new JPanel();
@@ -91,33 +91,16 @@ public class HomeView extends JPanel {
         buttonPanel.setLayout(northGridLayout);
         sidePanel.add(buttonPanel,BorderLayout.NORTH);
 
-
-        jbSongs = new JButton("Songs");
-        jbSongs.setActionCommand(BTN_SONGS);
-        jbSongs.setForeground(Color.white);
-        jbSongs.setBackground(new Color(0,204,0));
-        jbSongs.setAlignmentX(Component.CENTER_ALIGNMENT);
+        jbSongs = createHomeButton("Songs","assets/music-2-32.png",BTN_SONGS);
         buttonPanel.add(jbSongs);
 
-        jbPlaylists = new JButton("Playlists");
-        jbPlaylists.setActionCommand(BTN_PLAYLISTS);
-        jbPlaylists.setForeground(Color.white);
-        jbPlaylists.setBackground(new Color(0,204,0));
-        jbPlaylists.setAlignmentX(Component.CENTER_ALIGNMENT);
+        jbPlaylists = createHomeButton("Playlists","assets/playlist-32.png",BTN_PLAYLISTS);
         buttonPanel.add(jbPlaylists);
 
-        jbStatistics = new JButton("Music Statistics");
-        jbStatistics.setActionCommand(BTN_STATISTICS);
-        jbStatistics.setForeground(Color.white);
-        jbStatistics.setBackground(new Color(0,204,0));
-        jbStatistics.setAlignmentX(Component.CENTER_ALIGNMENT);
+        jbStatistics = createHomeButton("Statistics","assets/statistics-32.png",BTN_STATISTICS);
         buttonPanel.add(jbStatistics);
 
-        jbAddSong = new JButton("Add Song");
-        jbAddSong.setActionCommand(BTN_ADDSONG);
-        jbAddSong.setForeground(Color.white);
-        jbAddSong.setBackground(new Color(0,204,0));
-        jbAddSong.setAlignmentX(Component.CENTER_ALIGNMENT);
+        jbAddSong = createHomeButton("Add Song","assets/plus-4-32.png",BTN_ADDSONG);
         buttonPanel.add(jbAddSong);
 
         //User Panel
@@ -132,24 +115,26 @@ public class HomeView extends JPanel {
         username.setFont(new Font("Arial",Font.PLAIN,25));
         userPanel.add(username);
 
-        jbDeleteAcc = new JButton("Delete Account");
-        jbDeleteAcc.setActionCommand(BTN_DELETEACC);
-        jbDeleteAcc.setForeground(Color.white);
-        jbDeleteAcc.setBackground(new Color(0,204,0));
-        jbDeleteAcc.setAlignmentX(Component.CENTER_ALIGNMENT);
+        jbDeleteAcc = createHomeButton("Delete Account","assets/delete-2-32.png",BTN_DELETEACC);
         userPanel.add(jbDeleteAcc);
 
-        jbLogOut = new JButton("Log Out");
-        jbLogOut.setActionCommand(BTN_LOGOUT);
-        jbLogOut.setForeground(Color.white);
-        jbLogOut.setBackground(new Color(0,204,0));
-        jbLogOut.setAlignmentX(Component.CENTER_ALIGNMENT);
+        jbLogOut = createHomeButton("Log Out","assets/exit-32.png",BTN_LOGOUT);
         userPanel.add(jbLogOut);
 
         sidePanel.add(userPanel,BorderLayout.SOUTH);
 
 
         add(sidePanel,BorderLayout.WEST);
+    }
+
+    private JButton createHomeButton(String text,String imagePath,final String actionCommand){
+        JButton button = new JButton(" "+text,new ImageIcon(imagePath));
+        button.setFont(new Font("Arial",Font.BOLD,30));
+        button.setActionCommand(actionCommand);
+        button.setForeground(Color.white);
+        button.setBackground(new Color(0,204,0));
+        button.setAlignmentX(Component.CENTER_ALIGNMENT);
+        return button;
     }
 
     private void configurePlayerPanel(){

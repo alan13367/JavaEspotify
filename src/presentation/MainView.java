@@ -33,7 +33,7 @@ public class MainView extends JFrame {
     private void addViews() {
         registerView = new SignInSignUpView();
         homeView = new HomeView();
-        add(registerView, REGISTER_VIEW_CARD);
+        //add(registerView, REGISTER_VIEW_CARD);
         add(homeView,HOMEVIEW_CARD);
     }
 
