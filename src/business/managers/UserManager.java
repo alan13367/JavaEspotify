@@ -16,20 +16,25 @@ public class UserManager {
         this.userDAO = new SQLUserDAO();
     }
 
-    public static String MD5(String s) throws Exception {
+    private String MD5Encryption (String s) throws Exception {
         MessageDigest m=MessageDigest.getInstance("MD5");
         m.update(s.getBytes(),0,s.length());
         return new BigInteger(1,m.digest()).toString(16);
     }
 
-    public boolean logIn(String username,String password) throws Exception {
+    public boolean logIn(String username,String password)  {
         User user = userDAO.getUser(username);
         if(user == null) {
             return false;
         }
-        if(MD5(password).equals(user.getPassword())){
-            this.user = user;
-            return true;
+
+        try {
+            if(MD5Encryption(password).equals(user.getPassword())){
+                this.user = user;
+                return true;
+            }
+        } catch (Exception e) {
+            throw new RuntimeException(e);
         }
         return false;
     }
@@ -46,7 +51,7 @@ public class UserManager {
     public void createUser(String username,String email,String password){
         User user = null;
         try {
-            user = new User(username,email,MD5(password));
+            user = new User(username,email, MD5Encryption(password));
         } catch (Exception e) {
             throw new RuntimeException(e);
         }

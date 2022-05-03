@@ -6,14 +6,14 @@ import java.util.LinkedList;
 public class Playlist {
     private int id;
     private String name;
-    private String author;
+    private String owner;
     //private LinkedList<Song> songs;
     private boolean isLooping;
     private boolean isShuffle;
 
-    public Playlist(String name, String author) {
+    public Playlist(String name, String owner) {
         this.name = name;
-        this.author = author;
+        this.owner = owner;
     }
 
     public int getId() {
@@ -24,8 +24,8 @@ public class Playlist {
         return name;
     }
 
-    public String getAuthor() {
-        return author;
+    public String getOwner() {
+        return owner;
     }
 
     public boolean isLooping() {

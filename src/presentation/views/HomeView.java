@@ -1,5 +1,7 @@
 package presentation.views;
 
+import presentation.controllers.HomeController;
+
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
@@ -12,6 +14,8 @@ import java.net.UnknownServiceException;
 public class HomeView extends JPanel {
 
     private SongsView songsView;
+
+    private PlaylistsView playlistsView;
 
     private JPanel jpMain;
 
@@ -59,6 +63,7 @@ public class HomeView extends JPanel {
         setLayout(new BorderLayout());
         mainPanelManager = new CardLayout();
         songsView = new SongsView();
+        playlistsView = new PlaylistsView();
         configureView();
     }
 
@@ -192,7 +197,7 @@ public class HomeView extends JPanel {
         this.username.setText("  "+username);
     }
 
-    public void registerController(ActionListener controller){
+    public void registerController(HomeController controller){
         jbPlaylists.addActionListener(controller);
         jbStatistics.addActionListener(controller);
         jbSongs.addActionListener(controller);
@@ -208,9 +213,7 @@ public class HomeView extends JPanel {
     }
 
     private void configurePlaylistsCard(){
-        JPanel jPanel = new JPanel();
-        jPanel.setBackground(Color.red);
-        jpMain.add(jPanel,CARD_PLAYLISTS);
+        jpMain.add(playlistsView,CARD_PLAYLISTS);
     }
 
     private void configureStatisticsCard(){
@@ -237,5 +240,6 @@ public class HomeView extends JPanel {
     public SongsView getSongsView(){
         return songsView;
     }
+    public PlaylistsView getPlaylistsView(){return playlistsView;}
 
 }

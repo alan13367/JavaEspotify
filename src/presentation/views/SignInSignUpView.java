@@ -418,14 +418,12 @@ public class SignInSignUpView extends JPanel{
     }
 
     public void clearFields() {
-        userFieldSignIn.setText("username");
-        pwdFieldSignIn.setText("password");
-        pwdFieldSignIn.setEchoChar((char) 0);
-        userTextFieldSignUp.setText("username");
-        emailField.setText("email");
-        pwdFieldSignUp.setText("password");
-        pwdFieldSignUp.setEchoChar((char) 0);
-        pwdFieldConfirmSignUp.setText("confirm password");
-        pwdFieldConfirmSignUp.setEchoChar((char) 0);
+        userFieldSignIn.setText("");
+        pwdFieldSignIn.setText("");
+        userTextFieldSignUp.setText("");
+        emailField.setText("");
+        pwdFieldSignUp.setText("");
+        pwdFieldConfirmSignUp.setText("");
+
     }
 }

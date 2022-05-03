@@ -2,6 +2,7 @@ package persistence.SQL;
 
 import business.entities.Playlist;
 import business.entities.Song;
+import persistence.PlaylistDAO;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -9,23 +10,20 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class SQLPlaylistDAO {
+public class SQLPlaylistDAO implements PlaylistDAO {
 
-    public Playlist addPlaylist(Playlist playlist){
-        String query = "INSERT INTO Playlist(name, author) VALUES ('"+playlist.getName()+"','"+playlist.getAuthor()+"');";
-        SQLConnector connector = new SQLConnector();
-        connector.addQuery(query);
-        return playlist;
+    public void addPlaylist(Playlist playlist){
+        String query = "INSERT INTO Playlist(name, author) VALUES ('"+playlist.getName()+"','"+playlist.getOwner()+"');";
+        SQLConnector.getInstance().addQuery(query);
     }
 
-    private Playlist deletePlaylist(Playlist playlist){
-        String query = "DELETE FROM Playlist WHERE name = '"+playlist.getName()+"';";
-        SQLConnector connector = new SQLConnector();
-        connector.deleteQuery(query);
-        return playlist;
+    @Override
+    public void deletePlayList(Playlist playlist) {
+        String query = "DELETE FROM Playlist WHERE name = '"+playlist.getName()+"' AND author = '"+playlist.getOwner()+"';";
+        SQLConnector.getInstance().deleteQuery(query);
     }
 
-    private List<Playlist> loadPlaylists(){
+    public List<Playlist> loadPlaylists(){
         List<Playlist> playlists = new ArrayList<>();
         String query = "SELECT * FROM Playlist";
         ResultSet result = SQLConnector.getInstance().selectQuery(query);
@@ -41,17 +39,16 @@ public class SQLPlaylistDAO {
         return playlists;
     }
 
-    // add song to a playlist
-    private void addSongToPlaylist(Playlist playlist, Song song){
+    @Override
+    public void addSongToPlaylist(Song song, Playlist playlist) {
         String query = "INSERT INTO SongPlaylistLink(playlist_ID,song_ID) VALUES ('"+playlist.getId()+"','"+song.getId()+"');";
-        SQLConnector connector = new SQLConnector();
-        connector.addQuery(query);
+        SQLConnector.getInstance().addQuery(query);
     }
 
-    private void deleteSongFromPlaylist(Playlist playlist, Song song){
+    @Override
+    public void deleteSongFromPlaylist(Song song, Playlist playlist) {
         String query = "DELETE FROM SongPlaylistLink WHERE playlist_ID = '"+playlist.getId()+"' AND song_ID = '"+song.getId()+"';";
-        SQLConnector connector = new SQLConnector();
-        connector.deleteQuery(query);
+        SQLConnector.getInstance().deleteQuery(query);
     }
 
     //  get all playlists from the database

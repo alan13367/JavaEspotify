@@ -5,7 +5,6 @@ import business.entities.Song;
 import persistence.PlaylistDAO;
 import persistence.SQL.SQLPlaylistDAO;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class PlaylistManager {
@@ -14,13 +13,12 @@ public class PlaylistManager {
     List<Playlist> playlists ;
 
 
-    public PlaylistManager(Playlist playlist, PlaylistDAO playlistDAO) {
-        this.playlist = playlist;
-        this.playlistDAO = playlistDAO;
+    public PlaylistManager() {
+        this.playlistDAO = new SQLPlaylistDAO();
     }
 
-    public void addPlaylist(String name, String author, String imageLink){
-        Playlist playlist = new Playlist(name, author);
+    public void createPlaylist(String name, String owner){
+        Playlist playlist = new Playlist(name, owner);
         playlistDAO.addPlaylist(playlist);
     }
 
