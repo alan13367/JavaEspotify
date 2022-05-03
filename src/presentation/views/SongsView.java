@@ -46,6 +46,7 @@ public class SongsView extends JPanel {
     public static final String BTN_CLOSE = "BTN_CLOSE";
 
 
+
     public SongsView(){
         cardManager = new CardLayout();
         setLayout(cardManager);
@@ -310,7 +311,6 @@ public class SongsView extends JPanel {
         JOptionPane.showMessageDialog(this, "You can't delete this Song because you are not the owner.",
                 "Error", JOptionPane.ERROR_MESSAGE);
     }
-
 }
 
 

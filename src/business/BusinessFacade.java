@@ -18,4 +18,6 @@ public interface BusinessFacade {
     void deleteSong(String title,String author);
     String getLyrics(String author,String title);
     void createPlaylist(String name);
+
+    void playSong(Song song);
 }

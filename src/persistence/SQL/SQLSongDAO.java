@@ -61,7 +61,4 @@ public class SQLSongDAO implements SongDAO {
         SQLConnector.getInstance().deleteQuery(query);
     }
 
-
-
-
 }

@@ -3,21 +3,26 @@ package business;
 import business.entities.Song;
 import business.managers.PlaylistManager;
 import business.managers.SongManager;
+import business.managers.SongPlayerManager;
 import business.managers.UserManager;
 import com.google.gson.*;
+import javazoom.jl.decoder.JavaLayerException;
 
+import java.io.FileNotFoundException;
 import java.util.List;
 
 public class ModelFacade implements BusinessFacade {
     private final SongManager songManager;
     private final UserManager userManager;
     private final PlaylistManager playlistManager;
+    private final SongPlayerManager songPlayerManager;
     //Managers
 
     public ModelFacade() {
         this.songManager = new SongManager();
         this.userManager = new UserManager();
         this.playlistManager = new PlaylistManager();
+        this.songPlayerManager = new SongPlayerManager();
     }
 
     @Override
@@ -82,9 +87,22 @@ public class ModelFacade implements BusinessFacade {
     }
 
     @Override
+    public void playSong(Song song)  {
+        try {
+            songPlayerManager.playSong(song);
+        } catch (JavaLayerException e) {
+            throw new RuntimeException(e);
+        } catch (FileNotFoundException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    @Override
     public void logOut() {
         userManager.logOut();
     }
+
+
 
 
 }

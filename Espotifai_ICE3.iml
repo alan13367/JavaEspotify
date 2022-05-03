@@ -11,5 +11,6 @@
     <orderEntry type="library" name="mysql-connector-java-8.0.23" level="project" />
     <orderEntry type="library" name="google.code.gson" level="project" />
     <orderEntry type="library" name="openjfx.javafx.media" level="project" />
+    <orderEntry type="library" name="javazoom.jlayer1" level="project" />
   </component>
 </module>

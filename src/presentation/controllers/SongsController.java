@@ -2,6 +2,7 @@ package presentation.controllers;
 
 import business.BusinessFacade;
 import business.entities.Song;
+
 import presentation.views.SongsView;
 
 import javax.swing.*;
@@ -9,6 +10,7 @@ import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+
 
 public class SongsController implements ActionListener, ListSelectionListener {
 
@@ -65,6 +67,12 @@ public class SongsController implements ActionListener, ListSelectionListener {
                 else{
                     view.showOwnerErrorDialog();
                 }
+            }
+
+            case(SongsView.BTN_PLAY_SONG) ->{
+                String title = view.getSongTitle();
+                String author = view.getSongAuthor();
+                businessFacade.playSong(businessFacade.getSong(title,author));
             }
         }
     }

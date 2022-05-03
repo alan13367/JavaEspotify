@@ -1,8 +1,7 @@
 package presentation.controllers;
 
 import business.BusinessFacade;
-import business.ModelFacade;
-import jdk.swing.interop.SwingInterOpUtils;
+
 import presentation.MainView;
 import presentation.views.HomeView;
 
@@ -14,6 +13,7 @@ public class HomeController implements ActionListener {
     private final HomeView view;
     private final BusinessFacade businessFacade;
     private final MainView mainView;
+
 
     public HomeController(MainView mainView,HomeView view, BusinessFacade businessFacade){
         this.mainView = mainView;
@@ -67,6 +67,7 @@ public class HomeController implements ActionListener {
                 view.pauseButton();
                 System.out.println("Played");
             }
+
         }
     }
 

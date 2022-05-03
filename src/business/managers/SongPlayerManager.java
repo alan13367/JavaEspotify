@@ -1,32 +1,32 @@
 package business.managers;
 
 import business.entities.Song;
-import javafx.application.Application;
-import javafx.scene.media.MediaPlayer;
-import javafx.scene.media.Media;
-import javax.sound.midi.*;
-import javax.sound.sampled.AudioInputStream;
+import javazoom.jl.decoder.JavaLayerException;
+import javazoom.jl.player.Player;
 
-import javax.sound.sampled.*;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.InputStream;
 
 public class SongPlayerManager {
 
-    private String status;
-    private AudioInputStream audioInputStream;
-    private Sequencer player;
-    private Media media;
-    private MediaPlayer mediaPlayer;
-
     // get a song's id and get its file
-    public void playSong(Song song){
+    public void playSong(Song song) throws JavaLayerException, FileNotFoundException {
         if(song != null){
-
-            Application.launch();
-            media = new Media(new File(song.getFilepath()).toURI().toString());
-            mediaPlayer = new MediaPlayer(media);
-            mediaPlayer.play();
+            InputStream is = new FileInputStream(song.getFilepath());
+            Player musicPlayer = new Player(is);
+            musicPlayer.play();
         }
     }
+
+    public void pauseSong(Song song){
+        
+    }
+
+    public void resumeSong(Song song){
+
+    }
+
 
 }
