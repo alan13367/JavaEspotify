@@ -10,7 +10,7 @@ import java.awt.event.ActionListener;
 public class SignInSignUpController implements ActionListener {
     private final SignInSignUpView view;
     private final BusinessFacade businessFacade;
-    private MainView mainView;
+    private final MainView mainView;
 
     public SignInSignUpController(SignInSignUpView view, BusinessFacade businessFacade,MainView mainView) {
         this.view = view;

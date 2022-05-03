@@ -13,7 +13,7 @@ import java.awt.event.ActionListener;
 public class SongsController implements ActionListener, ListSelectionListener {
 
     private final SongsView view;
-    private BusinessFacade businessFacade;
+    private final BusinessFacade businessFacade;
 
     public SongsController(SongsView view,BusinessFacade businessFacade){
         this.view = view;
@@ -35,6 +35,11 @@ public class SongsController implements ActionListener, ListSelectionListener {
                             view.addTableRow(song.getTitle(),song.getGenre(),song.getAlbum(),song.getAuthor(),song.getOwner());
                         }
                     }
+                }else{
+                    view.clearTable();
+                    for (Song song: businessFacade.getSongs()){
+                        view.addTableRow(song.getTitle(),song.getGenre(),song.getAlbum(),song.getAuthor(),song.getOwner());
+                    }
                 }
             }
             case(SongsView.BTN_CLOSE) -> {
@@ -45,6 +50,7 @@ public class SongsController implements ActionListener, ListSelectionListener {
 
     @Override
     public void valueChanged(ListSelectionEvent e) {
+        //view.showLoadingDialog();
         if(!e.getValueIsAdjusting()){
             DefaultListSelectionModel songsTable = ((DefaultListSelectionModel)e.getSource());
             if (songsTable.getMaxSelectionIndex() > -1) {
@@ -55,8 +61,13 @@ public class SongsController implements ActionListener, ListSelectionListener {
 
                 //Show song card with the song details
                 //GetSong
-                view.showSongCard(title,author);
-                System.out.println(title+"  "+author);
+                Song song = businessFacade.getSong(title,author);
+                String lyrics = businessFacade.getLyrics(author,title);
+
+                view.createLyricsPanel(lyrics);
+                view.showSongCard(title,author,song.getAlbum(),song.getGenre(),
+                        song.getSongMinutes() + ":" + (song.getSongSeconds() - (song.getSongMinutes() * 60)),song.getOwner());
+
             }
         }
     }

@@ -12,7 +12,9 @@ public interface BusinessFacade {
     boolean login(String username,String password);
     boolean checkEmailFormat(String email);
     boolean checkPasswordFormat(String password);
-    Song getSong(String name,String author);
+    Song getSong(String title,String author);
+    void deleteSong(String title,String author);
     String getUsername();
-    String getLyrics(String artist,String title);
+    String getLyrics(String author,String title);
+    void logOut();
 }

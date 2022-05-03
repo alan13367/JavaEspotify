@@ -13,14 +13,9 @@ import java.io.IOException;
 
 public class SignInSignUpView extends JPanel{
 
-    Font arialFont = new Font("Arial", Font.PLAIN, 25);
-    Font alegreyaFont = new Font("Alegreya Sans SC", Font.BOLD, 30);
-    Font smallerArialFont = new Font("Arial", Font.ITALIC, 15);
-
     private JPanel signUpView;
     private JPanel signInView;
-
-    JPanel jpMain;
+    private JPanel jpMain;
 
     private final CardLayout mainPanelManager;
 
@@ -44,6 +39,10 @@ public class SignInSignUpView extends JPanel{
 
     public static final String CARD_SIGN_IN = "CARD_SIGN_IN";
     public static final String CARD_SIGN_UP = "CARD_SIGN_UP";
+
+    private static final Font arialFont = new Font("Arial", Font.PLAIN, 25);
+    private static final Font alegreyaFont = new Font("Alegreya Sans SC", Font.BOLD, 30);
+    private static final Font smallerArialFont = new Font("Arial", Font.ITALIC, 15);
 
     public SignInSignUpView(){
         setLayout(new BorderLayout());
@@ -72,6 +71,7 @@ public class SignInSignUpView extends JPanel{
         userTextFieldSignUp.setToolTipText("Enter username");
         userTextFieldSignUp.setFont(arialFont);
         userTextFieldSignUp.setForeground(Color.gray);
+        userTextFieldSignUp.setPreferredSize(new Dimension(400,50));
         constraints.gridx = 1;
         constraints.gridy = 2;
         constraints.gridwidth = 2;
@@ -86,6 +86,7 @@ public class SignInSignUpView extends JPanel{
         emailField.setToolTipText("Enter email");
         emailField.setFont(arialFont);
         emailField.setForeground(Color.gray);
+        emailField.setPreferredSize(new Dimension(400,50));
         constraints.gridx = 1;
         constraints.gridy = 3;
         constraints.gridwidth = 2;
@@ -100,6 +101,7 @@ public class SignInSignUpView extends JPanel{
         pwdFieldSignUp.setToolTipText("Enter password");
         pwdFieldSignUp.setFont(arialFont);
         pwdFieldSignUp.setForeground(Color.gray);
+        pwdFieldSignUp.setPreferredSize(new Dimension(400,50));
         constraints.gridx = 1;
         constraints.gridy = 4;
         constraints.gridwidth = 2;
@@ -114,6 +116,7 @@ public class SignInSignUpView extends JPanel{
         pwdFieldConfirmSignUp.setToolTipText("confirm password");
         pwdFieldConfirmSignUp.setFont(arialFont);
         pwdFieldConfirmSignUp.setForeground(Color.gray);
+        pwdFieldConfirmSignUp.setPreferredSize(new Dimension(400,50));
         constraints.gridx = 1;
         constraints.gridy = 5;
         constraints.gridwidth = 2;
@@ -236,6 +239,7 @@ public class SignInSignUpView extends JPanel{
         userFieldSignIn.setToolTipText("Enter username");
         userFieldSignIn.setFont(arialFont);
         userFieldSignIn.setForeground(Color.gray);
+        userFieldSignIn.setPreferredSize(new Dimension(400,50));
         constraints.gridx = 1;
         constraints.gridy = 2;
         constraints.gridwidth = 2;
@@ -250,6 +254,7 @@ public class SignInSignUpView extends JPanel{
         pwdFieldSignIn.setToolTipText("Enter password");
         pwdFieldSignIn.setFont(arialFont);
         pwdFieldSignIn.setForeground(Color.gray);
+        pwdFieldSignIn.setPreferredSize(new Dimension(400,50));
         constraints.gridx = 1;
         constraints.gridy = 3;
         constraints.gridwidth = 2;
@@ -412,5 +417,15 @@ public class SignInSignUpView extends JPanel{
                 || getConfirmationPwdFieldSignUp().isEmpty();
     }
 
-
+    public void clearFields() {
+        userFieldSignIn.setText("username");
+        pwdFieldSignIn.setText("password");
+        pwdFieldSignIn.setEchoChar((char) 0);
+        userTextFieldSignUp.setText("username");
+        emailField.setText("email");
+        pwdFieldSignUp.setText("password");
+        pwdFieldSignUp.setEchoChar((char) 0);
+        pwdFieldConfirmSignUp.setText("confirm password");
+        pwdFieldConfirmSignUp.setEchoChar((char) 0);
+    }
 }

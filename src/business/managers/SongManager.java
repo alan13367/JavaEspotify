@@ -30,12 +30,13 @@ public class SongManager {
 
     public void deleteSong(Song song){
         songs.remove(song);
+        songDAO.deleteSong(song);
     }
 
-    public Song getSong(String name, String author) {
+    public Song getSong(String title, String author) {
         Song song = null;
         for (Song song1:songs){
-            if (song1.getTitle().equals(name) && song1.getAuthor().equals(author)){
+            if (song1.getTitle().equals(title) && song1.getAuthor().equals(author)){
                 song = song1;
             }
         }

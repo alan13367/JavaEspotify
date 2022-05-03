@@ -1,20 +1,18 @@
 package presentation.views;
 
-
-
-import business.entities.Song;
-import business.managers.SongPlayerManager;
-
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.FileInputStream;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+import java.net.UnknownServiceException;
 
 public class HomeView extends JPanel {
 
     private SongsView songsView;
-    private PlaylistsView playlistView;
+
     private JPanel jpMain;
 
     private final CardLayout mainPanelManager;
@@ -44,9 +42,6 @@ public class HomeView extends JPanel {
     private JButton jbNext;
     private JButton jbPrevious;
 
-    //progress bar
-    private JProgressBar bar = new JProgressBar();
-
     public static final String BTN_PLAYPAUSE = "BTN_PLAYPAUSE";
     public static final String BTN_LOOP = "BTN_LOOP";
     public static final String BTN_NEXT = "BTN_NEXT";
@@ -64,9 +59,9 @@ public class HomeView extends JPanel {
         setLayout(new BorderLayout());
         mainPanelManager = new CardLayout();
         songsView = new SongsView();
-        playlistView = new PlaylistsView();
         configureView();
     }
+
 
     private void configureView(){
         configureMainPanel();
@@ -85,43 +80,27 @@ public class HomeView extends JPanel {
 
     private void configureSidePanel(){
         JPanel sidePanel = new JPanel(new BorderLayout());
-        sidePanel.setPreferredSize(new Dimension(280,720));
+        sidePanel.setPreferredSize(new Dimension(300,720));
         sidePanel.setBackground(Color.black);
 
         JPanel buttonPanel = new JPanel();
         buttonPanel.setBackground(Color.black);
-        GridLayout northGridLayout = new GridLayout(4,1);
+        GridLayout northGridLayout = new GridLayout(5,1);
         northGridLayout.setHgap(0);
         northGridLayout.setVgap(15);
         buttonPanel.setLayout(northGridLayout);
         sidePanel.add(buttonPanel,BorderLayout.NORTH);
 
-        jbSongs = new JButton("Songs");
-        jbSongs.setActionCommand(BTN_SONGS);
-        jbSongs.setForeground(Color.white);
-        jbSongs.setBackground(new Color(0,204,0));
-        jbSongs.setAlignmentX(Component.CENTER_ALIGNMENT);
+        jbSongs = createHomeButton("Songs","assets/music-2-32.png",BTN_SONGS);
         buttonPanel.add(jbSongs);
 
-        jbPlaylists = new JButton("Playlists");
-        jbPlaylists.setActionCommand(BTN_PLAYLISTS);
-        jbPlaylists.setForeground(Color.white);
-        jbPlaylists.setBackground(new Color(0,204,0));
-        jbPlaylists.setAlignmentX(Component.CENTER_ALIGNMENT);
+        jbPlaylists = createHomeButton("Playlists","assets/playlist-32.png",BTN_PLAYLISTS);
         buttonPanel.add(jbPlaylists);
 
-        jbStatistics = new JButton("Music Statistics");
-        jbStatistics.setActionCommand(BTN_STATISTICS);
-        jbStatistics.setForeground(Color.white);
-        jbStatistics.setBackground(new Color(0,204,0));
-        jbStatistics.setAlignmentX(Component.CENTER_ALIGNMENT);
+        jbStatistics = createHomeButton("Statistics","assets/statistics-32.png",BTN_STATISTICS);
         buttonPanel.add(jbStatistics);
 
-        jbAddSong = new JButton("Add Song");
-        jbAddSong.setActionCommand(BTN_ADDSONG);
-        jbAddSong.setForeground(Color.white);
-        jbAddSong.setBackground(new Color(0,204,0));
-        jbAddSong.setAlignmentX(Component.CENTER_ALIGNMENT);
+        jbAddSong = createHomeButton("Add Song","assets/plus-4-32.png",BTN_ADDSONG);
         buttonPanel.add(jbAddSong);
 
         //User Panel
@@ -133,20 +112,13 @@ public class HomeView extends JPanel {
         userPanel.setLayout(gridLayout);
         username = new JLabel();
         username.setForeground(Color.white);
+        username.setFont(new Font("Arial",Font.PLAIN,25));
         userPanel.add(username);
 
-        jbDeleteAcc = new JButton("Delete Account");
-        jbDeleteAcc.setActionCommand(BTN_DELETEACC);
-        jbDeleteAcc.setForeground(Color.white);
-        jbDeleteAcc.setBackground(new Color(0,204,0));
-        jbDeleteAcc.setAlignmentX(Component.CENTER_ALIGNMENT);
+        jbDeleteAcc = createHomeButton("Delete Account","assets/delete-2-32.png",BTN_DELETEACC);
         userPanel.add(jbDeleteAcc);
 
-        jbLogOut = new JButton("Log Out");
-        jbLogOut.setActionCommand(BTN_LOGOUT);
-        jbLogOut.setForeground(Color.white);
-        jbLogOut.setBackground(new Color(0,204,0));
-        jbLogOut.setAlignmentX(Component.CENTER_ALIGNMENT);
+        jbLogOut = createHomeButton("Log Out","assets/exit-32.png",BTN_LOGOUT);
         userPanel.add(jbLogOut);
 
         sidePanel.add(userPanel,BorderLayout.SOUTH);
@@ -155,30 +127,28 @@ public class HomeView extends JPanel {
         add(sidePanel,BorderLayout.WEST);
     }
 
+    private JButton createHomeButton(String text,String imagePath,final String actionCommand){
+        JButton button = new JButton(" "+text,new ImageIcon(imagePath));
+        button.setFont(new Font("Arial",Font.BOLD,30));
+        button.setActionCommand(actionCommand);
+        button.setForeground(Color.white);
+        button.setBackground(new Color(0,204,0));
+        button.setAlignmentX(Component.CENTER_ALIGNMENT);
+        return button;
+    }
+
     private void configurePlayerPanel(){
         JPanel playerPanel = new JPanel(new BorderLayout());
         JPanel controlsPanel = new JPanel();
-        JPanel progressBarPanel = new JPanel();
-
-
         controlsPanel.setBackground(new Color(32,32,32));
         playerPanel.add(controlsPanel,BorderLayout.CENTER);
-        playerPanel.add(progressBarPanel,BorderLayout.NORTH);
 
         GridLayout playerControlsGridLay = new GridLayout(1,5);
         playerControlsGridLay.setHgap(10);
         playerControlsGridLay.setVgap(0);
         playerPanel.setBackground(new Color(32,32,32));
-        playerPanel.setPreferredSize(new Dimension(1280,100));
+        playerPanel.setPreferredSize(new Dimension(1280,80));
         controlsPanel.setLayout(playerControlsGridLay);
-
-        // song progress bar
-
-        bar.setValue(0);
-        bar.setBounds(0,0,420,50);
-        bar.setStringPainted(true);
-        progressBarPanel.add(bar);
-
 
         jbLoop = new JButton(new ImageIcon("assets/loop.png"));
         jbLoop.setBackground(null);
@@ -219,7 +189,7 @@ public class HomeView extends JPanel {
     }
 
     public void setUsername(String username){
-        this.username.setText(username);
+        this.username.setText("  "+username);
     }
 
     public void registerController(ActionListener controller){
@@ -233,18 +203,14 @@ public class HomeView extends JPanel {
 
     }
 
-    private void fillBar(){
-        bar.setValue(10);
-    }
-
     private void configureSongsCard(){
         jpMain.add(songsView,CARD_SONGS);
     }
 
     private void configurePlaylistsCard(){
-        //JPanel jPanel = new JPanel();
-        //jPanel.setBackground(Color.red);
-        jpMain.add(songsView,CARD_PLAYLISTS);
+        JPanel jPanel = new JPanel();
+        jPanel.setBackground(Color.red);
+        jpMain.add(jPanel,CARD_PLAYLISTS);
     }
 
     private void configureStatisticsCard(){
@@ -255,13 +221,6 @@ public class HomeView extends JPanel {
 
     public void pauseButton(){
         jbPlayPause.setIcon(new ImageIcon("assets/pause.png"));
-        SongPlayerManager playerManager = new SongPlayerManager();
-        playerManager.playSong(new Song("dammit","dude ranch","punk rock","blink182","/Users/alvarofeher/Desktop/WORK/DPO/dpoo-2122-s2-ice3/songs/blink-182 - Dammit (Official Video).mp3",3,"alvarofeher",69));
-
-    }
-
-    public void configureSlider(){
-
     }
 
 
@@ -279,7 +238,4 @@ public class HomeView extends JPanel {
         return songsView;
     }
 
-    public PlaylistsView getPlaylistView() {
-        return playlistView;
-    }
 }

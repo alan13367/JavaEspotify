@@ -1,16 +1,22 @@
 package presentation.controllers;
 
 import business.BusinessFacade;
+import business.ModelFacade;
+import jdk.swing.interop.SwingInterOpUtils;
+import presentation.MainView;
 import presentation.views.HomeView;
 
+import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class HomeController implements ActionListener {
     private final HomeView view;
     private final BusinessFacade businessFacade;
+    private final MainView mainView;
 
-    public HomeController(HomeView view, BusinessFacade businessFacade){
+    public HomeController(MainView mainView,HomeView view, BusinessFacade businessFacade){
+        this.mainView = mainView;
         this.view = view;
         this.businessFacade = businessFacade;
     }
@@ -28,7 +34,6 @@ public class HomeController implements ActionListener {
                 System.out.println("Playlists");
                 //Show Playlists
                 view.showPlaylistsCard();
-                view.getPlaylistView().showPlaylistTableCard();
             }
             case (HomeView.BTN_STATISTICS) -> {
                 System.out.println("Statistics");
@@ -42,10 +47,20 @@ public class HomeController implements ActionListener {
 
             case (HomeView.BTN_DELETEACC) -> {
                 System.out.println("Delete Account");
+                int dialogResult = JOptionPane.showConfirmDialog(null,"Are you sure you want to Delete your account?","Warning",JOptionPane.YES_NO_OPTION);
+                if(dialogResult == JOptionPane.YES_OPTION){
+                    businessFacade.deleteAccount();
+                    mainView.showRegisterView();
+                }
             }
 
             case(HomeView.BTN_LOGOUT)->{
                 System.out.println("Log Out");
+                int dialogResult = JOptionPane.showConfirmDialog(null,"Are you sure you want to Log Out?","Warning",JOptionPane.YES_NO_OPTION);
+                if(dialogResult == JOptionPane.YES_OPTION){
+                    businessFacade.logOut();
+                    mainView.showRegisterView();
+                }
             }
 
             case (HomeView.BTN_PLAYPAUSE) -> {

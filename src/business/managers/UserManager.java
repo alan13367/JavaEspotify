@@ -25,8 +25,13 @@ public class UserManager {
         return false;
     }
 
+    public void logOut(){
+        user = null;
+    }
+
     public void deleteAccount(){
         userDAO.deleteUser(user.getUsername());
+        user = null;
     }
 
     public void createUser(User user){
