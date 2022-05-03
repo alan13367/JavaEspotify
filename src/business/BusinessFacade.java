@@ -14,7 +14,7 @@ public interface BusinessFacade {
     boolean checkPasswordFormat(String password);
     Song getSong(String title,String author);
     void deleteSong(String title,String author);
-    String getUsername();
+    String getCurrentUser();
     String getLyrics(String author,String title);
     void logOut();
 }

@@ -40,6 +40,9 @@ public class SongsView extends JPanel {
     private JButton jbAddToPlaylist;
     private JButton jbDelete;
     private static final String SONGPANEL_CARD = "SONGPANEL_CARD";
+    public static final String BTN_PLAY_SONG = "BTN_PLAY_SONG";
+    public static final String BTN_ADD_TO_PLAYLIST = "BTN_ADD_TO_PLAYLIST";
+    public static final String BTN_DELETE_SONG = "BTN_DELETE_SONG";
     public static final String BTN_CLOSE = "BTN_CLOSE";
 
 
@@ -102,19 +105,23 @@ public class SongsView extends JPanel {
         gridLayout.setHgap(50);
         buttonPanel.setLayout(gridLayout);
 
-        jbPlay = new JButton("Play Song",new ImageIcon("assets/play-32.png"));
+        jbPlay = new JButton(" Play Song",new ImageIcon("assets/play-32.png"));
         jbPlay.setBackground(new Color(0,80,0));
         jbPlay.setForeground(Color.white);
         jbPlay.setFont(new Font("Arial",Font.BOLD,20));
-        jbAddToPlaylist = new JButton("Add To PlayList");
+        jbPlay.setActionCommand(BTN_PLAY_SONG);
+
+        jbAddToPlaylist = new JButton(" Add To PlayList",new ImageIcon("assets/plus-4-32.png"));
         jbAddToPlaylist.setBackground(new Color(0,80,0));
         jbAddToPlaylist.setFont(new Font("Arial",Font.BOLD,20));
         jbAddToPlaylist.setForeground(Color.white);
+        jbAddToPlaylist.setActionCommand(BTN_ADD_TO_PLAYLIST);
 
-        jbDelete = new JButton("Delete Song",new ImageIcon("assets/trashicon32.png"));
+        jbDelete = new JButton(" Delete Song",new ImageIcon("assets/trashicon32.png"));
         jbDelete.setBackground(new Color(0,80,0));
         jbDelete.setForeground(Color.white);
         jbDelete.setFont(new Font("Arial",Font.BOLD,20));
+        jbDelete.setActionCommand(BTN_DELETE_SONG);
 
         JPanel jPanel = new JPanel();
         jPanel.setBackground(new Color(16,16,16));
@@ -245,6 +252,9 @@ public class SongsView extends JPanel {
         jbSearch.addActionListener(controller);
         songsTable.getSelectionModel().addListSelectionListener(controller);
         jbClose.addActionListener(controller);
+        jbPlay.addActionListener(controller);
+        jbAddToPlaylist.addActionListener(controller);
+        jbDelete.addActionListener(controller);
     }
 
     public void createLyricsPanel(String lyrics){
@@ -286,6 +296,19 @@ public class SongsView extends JPanel {
                 dialog.setVisible(false);
             }
         }).start();
+    }
+
+    public String getSongTitle(){
+        return jlTitle.getText().trim();
+    }
+
+    public String getSongAuthor(){
+        return jlAuthor.getText().trim();
+    }
+
+    public void showOwnerErrorDialog(){
+        JOptionPane.showMessageDialog(this, "You can't delete this Song because you are not the owner.",
+                "Error", JOptionPane.ERROR_MESSAGE);
     }
 
 }

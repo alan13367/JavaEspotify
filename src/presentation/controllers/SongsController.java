@@ -18,6 +18,10 @@ public class SongsController implements ActionListener, ListSelectionListener {
     public SongsController(SongsView view,BusinessFacade businessFacade){
         this.view = view;
         this.businessFacade = businessFacade;
+        loadSongs();
+    }
+
+    private void loadSongs(){
         for (Song song: businessFacade.getSongs()){
             view.addTableRow(song.getTitle(),song.getGenre(),song.getAlbum(),song.getAuthor(),song.getOwner());
         }
@@ -37,13 +41,30 @@ public class SongsController implements ActionListener, ListSelectionListener {
                     }
                 }else{
                     view.clearTable();
-                    for (Song song: businessFacade.getSongs()){
-                        view.addTableRow(song.getTitle(),song.getGenre(),song.getAlbum(),song.getAuthor(),song.getOwner());
-                    }
+                    loadSongs();
                 }
             }
             case(SongsView.BTN_CLOSE) -> {
                 view.showSongsTableCard();
+            }
+
+            case(SongsView.BTN_DELETE_SONG) -> {
+                String title = view.getSongTitle();
+                String author = view.getSongAuthor();
+                if(businessFacade.getSong(title,author).getOwner().equals(businessFacade.getCurrentUser())){
+                    int dialogResult = JOptionPane.showConfirmDialog(null,"Are you sure you want to Delete this Song?",
+                            "Warning",JOptionPane.YES_NO_OPTION);
+                    if(dialogResult == JOptionPane.YES_OPTION){
+                        businessFacade.deleteSong(title,author);
+                        view.clearTable();
+                        loadSongs();
+                        view.showSongsTableCard();
+                    }
+
+                }
+                else{
+                    view.showOwnerErrorDialog();
+                }
             }
         }
     }
@@ -65,6 +86,7 @@ public class SongsController implements ActionListener, ListSelectionListener {
                 String lyrics = businessFacade.getLyrics(author,title);
 
                 view.createLyricsPanel(lyrics);
+                view.showLoadingDialog();
                 view.showSongCard(title,author,song.getAlbum(),song.getGenre(),
                         song.getSongMinutes() + ":" + (song.getSongSeconds() - (song.getSongMinutes() * 60)),song.getOwner());
 

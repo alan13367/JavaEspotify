@@ -4,6 +4,10 @@ import business.entities.User;
 import persistence.SQL.SQLUserDAO;
 import persistence.UserDAO;
 
+import java.math.BigInteger;
+import java.security.MessageDigest;
+
+
 public class UserManager {
     private User user;
     private UserDAO userDAO;
@@ -12,13 +16,18 @@ public class UserManager {
         this.userDAO = new SQLUserDAO();
     }
 
+    public static String MD5(String s) throws Exception {
+        MessageDigest m=MessageDigest.getInstance("MD5");
+        m.update(s.getBytes(),0,s.length());
+        return new BigInteger(1,m.digest()).toString(16);
+    }
 
-    public boolean logIn(String username,String password){
+    public boolean logIn(String username,String password) throws Exception {
         User user = userDAO.getUser(username);
         if(user == null) {
             return false;
         }
-        if(password.equals(user.getPassword())){
+        if(MD5(password).equals(user.getPassword())){
             this.user = user;
             return true;
         }
@@ -34,7 +43,13 @@ public class UserManager {
         user = null;
     }
 
-    public void createUser(User user){
+    public void createUser(String username,String email,String password){
+        User user = null;
+        try {
+            user = new User(username,email,MD5(password));
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
         userDAO.addUser(user);
         this.user = user;
     }

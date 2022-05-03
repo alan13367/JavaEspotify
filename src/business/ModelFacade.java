@@ -27,16 +27,21 @@ public class ModelFacade implements BusinessFacade {
 
     @Override
     public void deleteAccount() {
+        songManager.deleteSongsFromUser(getCurrentUser());
         userManager.deleteAccount();
     }
 
     public void createUser(String username,String email,String password){
-        userManager.createUser(new User(username,email,password));
+        userManager.createUser(username,email,password);
     }
 
     @Override
     public boolean login(String username, String password) {
-        return userManager.logIn(username,password);
+        try {
+            return userManager.logIn(username,password);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
     }
 
     @Override
@@ -60,7 +65,7 @@ public class ModelFacade implements BusinessFacade {
     }
 
     @Override
-    public String getUsername() {
+    public String getCurrentUser() {
         return userManager.getUsername();
     }
 
