@@ -44,7 +44,7 @@ public class SQLSongDAO implements SongDAO {
         connector.addQuery(query);
     }
 
-    public Song addSong(Song song)  {
+    public void addSong(Song song)  {
         addGenre(song.getGenre());
         String query = "INSERT INTO Song(title,author,genre,album,filepath,duration,owner) VALUES ('"+ song.getTitle()
                 +"','"+song.getAuthor()+"','"+song.getGenre()+"','"+song.getAlbum()+"','"+song.getFilepath()+"','"
@@ -52,15 +52,13 @@ public class SQLSongDAO implements SongDAO {
         SQLConnector connector;
         connector = SQLConnector.getInstance();
         connector.addQuery(query);
-        return song;
     }
 
     //DELETE SONGS
     @Override
-    public Song deleteSong(Song song) {
-        String query = "DELETE FROM song WHERE title = '"+song.getTitle()+"AND author = '"+song.getAuthor()+"';";
-        SQLConnector.getInstance().addQuery(query);
-        return song;
+    public void deleteSong(Song song) {
+        String query = "DELETE FROM Song WHERE title = '"+song.getTitle()+"' AND author = '"+song.getAuthor()+"';";
+        SQLConnector.getInstance().deleteQuery(query);
     }
 
 

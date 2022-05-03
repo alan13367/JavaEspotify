@@ -44,7 +44,6 @@ public class SignInSignUpController implements ActionListener {
                         view.pop_up_ErrorDialog("Wrong credentials", "Sign in Error");
                     }
                     if(caseSignIn()) {
-                        view.pop_up_SuccessDialog("You have Successfully Logged in", "Login Success");
                         mainView.showHomeView(view.getUserFieldSignIn());
                     }
                 }

@@ -1,7 +1,6 @@
 package business;
 
 import business.entities.Song;
-import business.entities.User;
 import business.managers.PlaylistManager;
 import business.managers.SongManager;
 import business.managers.UserManager;
@@ -10,14 +9,15 @@ import com.google.gson.*;
 import java.util.List;
 
 public class ModelFacade implements BusinessFacade {
-    private SongManager songManager;
-    private UserManager userManager;
-    private PlaylistManager playlistManager;
+    private final SongManager songManager;
+    private final UserManager userManager;
+    private final PlaylistManager playlistManager;
     //Managers
 
     public ModelFacade() {
         this.songManager = new SongManager();
         this.userManager = new UserManager();
+        this.playlistManager = new PlaylistManager();
     }
 
     @Override
@@ -27,11 +27,12 @@ public class ModelFacade implements BusinessFacade {
 
     @Override
     public void deleteAccount() {
+        songManager.deleteSongsFromUser(getCurrentUser());
         userManager.deleteAccount();
     }
 
     public void createUser(String username,String email,String password){
-        userManager.createUser(new User(username,email,password));
+        userManager.createUser(username,email,password);
     }
 
     @Override
@@ -60,7 +61,7 @@ public class ModelFacade implements BusinessFacade {
     }
 
     @Override
-    public String getUsername() {
+    public String getCurrentUser() {
         return userManager.getUsername();
     }
 
@@ -73,6 +74,11 @@ public class ModelFacade implements BusinessFacade {
             return object.get("lyrics").getAsString();
         }
         return null;
+    }
+
+    @Override
+    public void createPlaylist(String name) {
+        playlistManager.createPlaylist(name,getCurrentUser());
     }
 
     @Override

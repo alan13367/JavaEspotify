@@ -1,6 +1,7 @@
 package presentation;
 
 import presentation.controllers.HomeController;
+import presentation.controllers.PlaylistsController;
 import presentation.controllers.SignInSignUpController;
 import presentation.controllers.SongsController;
 import presentation.views.HomeView;
@@ -33,13 +34,13 @@ public class MainView extends JFrame {
     private void addViews() {
         registerView = new SignInSignUpView();
         homeView = new HomeView();
-        //add(registerView, REGISTER_VIEW_CARD);
+        add(registerView, REGISTER_VIEW_CARD);
         add(homeView,HOMEVIEW_CARD);
     }
 
     private void configureWindow(){
         setTitle("Espotify");
-        setSize(1280,720);
+        setSize(1500,720);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
         setResizable(true);
@@ -60,10 +61,11 @@ public class MainView extends JFrame {
     }
 
 
-    public void registerControllers(HomeController homeController, SongsController songsController, SignInSignUpController signInSignUpController){
+    public void registerControllers(HomeController homeController, SongsController songsController, SignInSignUpController signInSignUpController, PlaylistsController playlistsController){
+        registerView.registerController(signInSignUpController);
         homeView.registerController(homeController);
         homeView.getSongsView().registerController(songsController);
-        registerView.registerController(signInSignUpController);
+        homeView.getPlaylistsView().registerController(playlistsController);
     }
 
     public HomeView getHomeView() {

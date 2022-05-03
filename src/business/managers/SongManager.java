@@ -29,8 +29,17 @@ public class SongManager {
     }
 
     public void deleteSong(Song song){
-        songs.remove(song);
         songDAO.deleteSong(song);
+        songs.remove(song);
+    }
+
+    public void deleteSongsFromUser(String username){
+        for(Song song:songs){
+            if (song.getOwner().equals(username)){
+                songDAO.deleteSong(song);
+            }
+        }
+
     }
 
     public Song getSong(String title, String author) {

@@ -6,15 +6,16 @@ import java.util.List;
 
 public interface BusinessFacade {
     //Methods to be implemented in ModelFacade
-    List<Song> getSongs();
-    void deleteAccount();
-    void createUser(String username,String email,String password);
     boolean login(String username,String password);
+    void createUser(String username,String email,String password);
+    void logOut();
+    void deleteAccount();
     boolean checkEmailFormat(String email);
     boolean checkPasswordFormat(String password);
+    String getCurrentUser();
+    List<Song> getSongs();
     Song getSong(String title,String author);
     void deleteSong(String title,String author);
-    String getUsername();
     String getLyrics(String author,String title);
-    void logOut();
+    void createPlaylist(String name);
 }
