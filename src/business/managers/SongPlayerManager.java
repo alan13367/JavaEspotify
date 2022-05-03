@@ -17,6 +17,7 @@ public class SongPlayerManager {
             InputStream is = new FileInputStream(song.getFilepath());
             Player musicPlayer = new Player(is);
             musicPlayer.play();
+
         }
     }
 

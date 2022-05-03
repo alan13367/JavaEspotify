@@ -1,6 +1,5 @@
 import business.BusinessFacade;
 import business.ModelFacade;
-import business.managers.UserManager;
 import presentation.MainView;
 import presentation.controllers.HomeController;
 import presentation.controllers.PlaylistsController;
@@ -21,5 +20,6 @@ public class Main {
             mainView.registerControllers(homeController, songsController,signInSignUpController,playlistsController);
             mainView.start();
         });
+
     }
 }

@@ -41,14 +41,20 @@ public class SQLPlaylistDAO implements PlaylistDAO {
 
     @Override
     public void addSongToPlaylist(Song song, Playlist playlist) {
+        /*
         String query = "INSERT INTO SongPlaylistLink(playlist_ID,song_ID) VALUES ('"+playlist.getId()+"','"+song.getId()+"');";
         SQLConnector.getInstance().addQuery(query);
+
+         */
     }
 
     @Override
     public void deleteSongFromPlaylist(Song song, Playlist playlist) {
+        /*
         String query = "DELETE FROM SongPlaylistLink WHERE playlist_ID = '"+playlist.getId()+"' AND song_ID = '"+song.getId()+"';";
         SQLConnector.getInstance().deleteQuery(query);
+
+         */
     }
 
     //  get all playlists from the database
