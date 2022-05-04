@@ -24,7 +24,7 @@ public class SongPlayerManager implements Runnable{
             player = new AdvancedPlayer(is);
             playerThread = new Thread(this);
             playerThread.start();
-            System.out.println(song.getTitle()+"playing");
+            System.out.println(song.getTitle()+" playing");
 
             player.setPlayBackListener(new PlaybackListener() {
                 @Override
