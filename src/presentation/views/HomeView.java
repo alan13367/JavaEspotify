@@ -17,6 +17,8 @@ public class HomeView extends JPanel {
 
     private PlaylistsView playlistsView;
 
+    private AddSongsView addSongsView;
+
     private JPanel jpMain;
 
     private final CardLayout mainPanelManager;
@@ -60,6 +62,7 @@ public class HomeView extends JPanel {
     public static final String CARD_SONGS = "CARD_SONGS";
     public static final String CARD_PLAYLISTS = "CARD_PLAYLISTS";
     public static final String CARD_STATISTICS = "CARD_STATISTICS";
+    public static final String CARD_ADD_SONGS = "CARD_ADD_SONGS";
 
 
     public HomeView(){
@@ -67,6 +70,7 @@ public class HomeView extends JPanel {
         mainPanelManager = new CardLayout();
         songsView = new SongsView();
         playlistsView = new PlaylistsView();
+        addSongsView = new AddSongsView();
         configureView();
     }
 
@@ -78,7 +82,10 @@ public class HomeView extends JPanel {
         configureSongsCard();
         configurePlaylistsCard();
         configureStatisticsCard();
+        configureAddSongsCard();
     }
+
+
 
     private void configureMainPanel(){
         jpMain = new JPanel(mainPanelManager);
@@ -225,6 +232,8 @@ public class HomeView extends JPanel {
         jpMain.add(jPanel,CARD_STATISTICS);
     }
 
+    private void configureAddSongsCard() { jpMain.add(addSongsView,CARD_ADD_SONGS); }
+
     public void pauseButton(){
         jbPlayPause.setIcon(new ImageIcon("assets/pause.png"));
     }
@@ -239,10 +248,13 @@ public class HomeView extends JPanel {
     public void showStatisticsCard(){
         mainPanelManager.show(jpMain,CARD_STATISTICS);
     }
+    public void showAddSongsCard() { mainPanelManager.show(jpMain, CARD_ADD_SONGS);}
+
 
     public SongsView getSongsView(){
         return songsView;
     }
     public PlaylistsView getPlaylistsView(){return playlistsView;}
+    public AddSongsView getAddSongsView(){return addSongsView;}
 
 }

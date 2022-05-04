@@ -43,6 +43,7 @@ public class HomeController implements ActionListener {
 
             case (HomeView.BTN_ADDSONG) -> {
                 System.out.println("Add Song");
+                view.showAddSongsCard();
             }
 
             case (HomeView.BTN_DELETEACC) -> {
