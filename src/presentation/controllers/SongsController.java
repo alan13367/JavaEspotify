@@ -62,17 +62,16 @@ public class SongsController implements ActionListener, ListSelectionListener {
                         loadSongs();
                         view.showSongsTableCard();
                     }
-
                 }
                 else{
                     view.showOwnerErrorDialog();
                 }
             }
-
             case(SongsView.BTN_PLAY_SONG) ->{
                 String title = view.getSongTitle();
                 String author = view.getSongAuthor();
                 businessFacade.playSong(businessFacade.getSong(title,author));
+                //businessFacade.playSong(new Song("a","a","a","a","songs/AVICII & RICK ASTLEY - Never Gonna Wake You Up (NilsOfficial Mashup) (64 kbps).mp3",3,"alvarofeher",5));
             }
         }
     }
