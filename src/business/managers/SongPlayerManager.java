@@ -12,22 +12,33 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
 
-public class SongPlayerManager {
+public class SongPlayerManager implements Runnable{
     private int pausedOnFrame =0;
-    // get a song's id and get its file
-    public void playSong(Song song) throws JavaLayerException, FileNotFoundException {
+    private AdvancedPlayer player;
+    private Thread playerThread;
+
+    public void startPlayer(Song song) throws JavaLayerException, FileNotFoundException{
         if(song != null){
+
             InputStream is = new FileInputStream(song.getFilepath());
-            AdvancedPlayer player = new AdvancedPlayer(is);
+            player = new AdvancedPlayer(is);
+            playerThread = new Thread(this);
+            playerThread.start();
+            System.out.println(song.getTitle()+"playing");
+
             player.setPlayBackListener(new PlaybackListener() {
                 @Override
                 public void playbackFinished(PlaybackEvent event) {
                     pausedOnFrame = event.getFrame();
                 }
             });
-            player.play();
-
         }
+    }
+
+
+
+    public void playSong(Song song)  {
+
     }
 
     public void pauseSong(Song song){
@@ -39,4 +50,12 @@ public class SongPlayerManager {
     }
 
 
+    @Override
+    public void run() {
+        try {
+            player.play();
+        } catch (JavaLayerException e) {
+            throw new RuntimeException(e);
+        }
+    }
 }

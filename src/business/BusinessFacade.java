@@ -19,5 +19,6 @@ public interface BusinessFacade {
     String getLyrics(String author,String title);
     void createPlaylist(String name);
 
+    void startPlayer(Song song);
     void playSong(Song song);
 }
