@@ -7,14 +7,22 @@ import javax.swing.border.MatteBorder;
 import java.awt.*;
 
 public class PlaylistsView extends JPanel {
+    private final CardLayout playlistsPanelManager;
     private JPanel playlists;
     private JButton jbCreatePlaylist;
+    private JButton jbMyPlaylists;
+    private JButton jbAllPlaylists;
+    public static final String BTN_MY_PLAYLISTS = "BTN_MY_PLAYLISTS";
+    public static final String BTN_ALL_PLAYLISTS = "BTN_ALL_PLAYLISTS";
+
     private PlaylistsController playlistsController;
     public static final String BTN_CREATE_PLAYLIST = "BTN_CREATE_PLAYLIST";
 
 
     public PlaylistsView(){
+        playlistsPanelManager = new CardLayout();
         configureView();
+        configureTopPanel();
         configureComponents();
     }
 
@@ -28,6 +36,20 @@ public class PlaylistsView extends JPanel {
         gbc.weighty = 1;
         playlists.add(new JPanel(), gbc);
         add(new JScrollPane(playlists),BorderLayout.CENTER);
+    }
+
+    private void configureTopPanel(){
+        JPanel jPanel = new JPanel(new GridLayout());
+        jbMyPlaylists = new JButton("My Playlists");
+        jbMyPlaylists.setFont(new Font("Arial",Font.BOLD,30));
+        jbMyPlaylists.setActionCommand(BTN_MY_PLAYLISTS);
+        jbAllPlaylists = new JButton("All Playlists");
+        jbAllPlaylists.setFont(new Font("Arial",Font.BOLD,30));
+        jbAllPlaylists.setActionCommand(BTN_ALL_PLAYLISTS);
+        jPanel.add(jbMyPlaylists);
+        jPanel.add(jbAllPlaylists);
+        add(jPanel,BorderLayout.NORTH);
+
     }
 
     private void configureComponents(){
@@ -67,6 +89,8 @@ public class PlaylistsView extends JPanel {
     public void registerController(PlaylistsController playlistsController){
         this.playlistsController = playlistsController;
         jbCreatePlaylist.addActionListener(playlistsController);
+        jbAllPlaylists.addActionListener(playlistsController);
+        jbMyPlaylists.addActionListener(playlistsController);
     }
 
 
