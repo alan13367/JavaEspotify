@@ -43,7 +43,7 @@ public class MainView extends JFrame {
         setSize(1500,720);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
-        setResizable(true);
+        setResizable(false);
     }
 
     public void showRegisterView() {

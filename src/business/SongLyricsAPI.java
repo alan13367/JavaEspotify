@@ -14,6 +14,9 @@ public class SongLyricsAPI {
     public String getLyricsJson(String artist,String title){
         artist = URLEncoder.encode(artist, StandardCharsets.UTF_8);
         title= URLEncoder.encode(title,StandardCharsets.UTF_8);
+        if(artist.contains("ft")){
+            artist = artist.split("ft")[0].trim();
+        }
         try {
             URL urlObj = new URL(URL+artist+"/"+title);
 

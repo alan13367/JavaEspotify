@@ -56,7 +56,6 @@ public class HomeView extends JPanel {
     public static final String BTN_PAUSE = "BTN_PAUSE";
     public static final String BTN_PLAYSONG = "BTN_PLAYSONG";
 
-   // public static final String BTN_PAUSE = "BTN_PAUSE";
 
     //Cards Global Constants
     public static final String CARD_SONGS = "CARD_SONGS";
