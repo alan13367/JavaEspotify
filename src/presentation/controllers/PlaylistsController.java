@@ -10,8 +10,8 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
 public class PlaylistsController implements ActionListener, MouseListener {
-    private PlaylistsView playlistsView;
-    private BusinessFacade businessFacade;
+    private final PlaylistsView playlistsView;
+    private final BusinessFacade businessFacade;
 
     public PlaylistsController(PlaylistsView playlistsView, BusinessFacade businessFacade) {
         this.playlistsView = playlistsView;

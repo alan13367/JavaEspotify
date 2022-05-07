@@ -5,16 +5,19 @@ import business.entities.Song;
 import persistence.PlaylistDAO;
 import persistence.SQL.SQLPlaylistDAO;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class PlaylistManager {
     private Playlist playlist;
-    private PlaylistDAO playlistDAO;
+    private final PlaylistDAO playlistDAO;
     List<Playlist> playlists ;
 
 
     public PlaylistManager() {
         this.playlistDAO = new SQLPlaylistDAO();
+        playlists = new ArrayList<>(playlistDAO.loadPlaylists());
     }
 
     public void createPlaylist(String name, String owner){
@@ -38,8 +41,14 @@ public class PlaylistManager {
 
     public List<Playlist> getPlaylists(){return playlists;}
 
-    public Playlist getPlaylist() {
-        return playlist;
+    public List<Playlist> getUserPlaylists(String username){
+        List<Playlist> list = new ArrayList<>();
+        for (Playlist playlist1:playlists){
+            if(Objects.equals(playlist1.getOwner(), username)){
+                list.add(playlist1);
+            }
+        }
+        return list;
     }
 
     public PlaylistDAO getPlaylistDAO() {

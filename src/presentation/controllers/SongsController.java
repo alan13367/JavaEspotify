@@ -54,8 +54,7 @@ public class SongsController implements ActionListener, ListSelectionListener {
                 String title = view.getSongTitle();
                 String author = view.getSongAuthor();
                 if(businessFacade.getSong(title,author).getOwner().equals(businessFacade.getCurrentUser())){
-                    int dialogResult = JOptionPane.showConfirmDialog(null,"Are you sure you want to Delete this Song?",
-                            "Warning",JOptionPane.YES_NO_OPTION);
+                    int dialogResult = view.showSongDeleteDialog();
                     if(dialogResult == JOptionPane.YES_OPTION){
                         businessFacade.deleteSong(title,author);
                         view.clearTable();
@@ -71,7 +70,21 @@ public class SongsController implements ActionListener, ListSelectionListener {
                 String title = view.getSongTitle();
                 String author = view.getSongAuthor();
                 businessFacade.startPlayer(businessFacade.getSong(title,author));
-                //businessFacade.playSong(new Song("a","a","a","a","songs/AVICII & RICK ASTLEY - Never Gonna Wake You Up (NilsOfficial Mashup) (64 kbps).mp3",3,"alvarofeher",5));
+            }
+
+            case (SongsView.BTN_ADD_TO_PLAYLIST)->{
+                String title = view.getSongTitle();
+                String author = view.getSongAuthor();
+                JComboBox<String> jComboBox = new JComboBox<>(businessFacade.getUserPlaylistsNames());
+                if(jComboBox.getItemCount() > 0){
+                    int option = view.showPlaylistPickerDialog(jComboBox);
+                    if (option ==JOptionPane.YES_OPTION){
+                        System.out.println(jComboBox.getSelectedItem());
+                        businessFacade.addSongToPlaylist((String) jComboBox.getSelectedItem(),businessFacade.getSong(title,author));
+                    }
+                }else {
+                    view.showPlaylistsErrorDialog();
+                }
             }
         }
     }
@@ -84,17 +97,13 @@ public class SongsController implements ActionListener, ListSelectionListener {
             if (songsTable.getMaxSelectionIndex() > -1) {
                 // print first column value from selected row
                 int index = songsTable.getMaxSelectionIndex();
-                String title = view.getSongTitleAtRow(index);
-                String author = view.getSongAuthorAtRow(index);
-
                 //Show song card with the song details
                 //GetSong
-                Song song = businessFacade.getSong(title,author);
-                String lyrics = businessFacade.getLyrics(author,title);
+                Song song = businessFacade.getSong(view.getSongTitleAtRow(index),view.getSongAuthorAtRow(index));
+                String lyrics = businessFacade.getLyrics(song.getAuthor(),song.getTitle());
 
                 view.createLyricsPanel(lyrics);
-                view.showLoadingDialog();
-                view.showSongCard(title,author,song.getAlbum(),song.getGenre(),
+                view.showSongCard(song.getTitle(),song.getAuthor(),song.getAlbum(),song.getGenre(),
                         song.getSongMinutes() + ":" + (song.getSongSeconds() - (song.getSongMinutes() * 60)),song.getOwner());
 
             }

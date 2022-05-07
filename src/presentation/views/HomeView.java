@@ -19,17 +19,15 @@ public class HomeView extends JPanel {
 
     private AddSongsView addSongsView;
 
+    private PlayerView playerView;
+
     private JPanel jpMain;
 
     private final CardLayout mainPanelManager;
 
     //Side Panel Buttons
-    private JButton jbSongs;
-    private JButton jbPlaylists;
-    private JButton jbStatistics;
-    private JButton jbAddSong;
-    private JButton jbLogOut;
-    private JButton jbDeleteAcc;
+    private JButton jbSongs,jbPlaylists,jbStatistics,jbAddSong,jbLogOut,jbDeleteAcc;
+    private JLabel username;
 
     public static final String BTN_PLAYLISTS = "BTN_PLAYLISTS";
     public static final String BTN_STATISTICS = "BTN_STATISTICS";
@@ -37,24 +35,6 @@ public class HomeView extends JPanel {
     public static final String BTN_ADDSONG = "BTN_ADDSONG";
     public static final String BTN_LOGOUT = "BTN_LOGOUT";
     public static final String BTN_DELETEACC = "BTN_DELETEACC";
-
-    private JLabel username;
-
-    //Player Buttons
-    private JButton jbPlayPause;
-    private JButton jbPause;
-    private JButton jbShuffle;
-    private JButton jbLoop;
-    private JButton jbNext;
-    private JButton jbPrevious;
-
-    public static final String BTN_PLAYPAUSE = "BTN_PLAYPAUSE";
-    public static final String BTN_LOOP = "BTN_LOOP";
-    public static final String BTN_NEXT = "BTN_NEXT";
-    public static final String BTN_PREV = "BTN_PREV";
-
-    public static final String BTN_PAUSE = "BTN_PAUSE";
-    public static final String BTN_PLAYSONG = "BTN_PLAYSONG";
 
 
     //Cards Global Constants
@@ -70,6 +50,7 @@ public class HomeView extends JPanel {
         songsView = new SongsView();
         playlistsView = new PlaylistsView();
         addSongsView = new AddSongsView();
+        playerView = new PlayerView();
         configureView();
     }
 
@@ -152,54 +133,7 @@ public class HomeView extends JPanel {
     }
 
     private void configurePlayerPanel(){
-        JPanel playerPanel = new JPanel(new BorderLayout());
-        JPanel controlsPanel = new JPanel();
-        controlsPanel.setBackground(new Color(32,32,32));
-        playerPanel.add(controlsPanel,BorderLayout.CENTER);
-
-        GridLayout playerControlsGridLay = new GridLayout(1,5);
-        playerControlsGridLay.setHgap(10);
-        playerControlsGridLay.setVgap(0);
-        playerPanel.setBackground(new Color(32,32,32));
-        playerPanel.setPreferredSize(new Dimension(1280,80));
-        controlsPanel.setLayout(playerControlsGridLay);
-
-        jbLoop = new JButton(new ImageIcon("assets/loop.png"));
-        jbLoop.setBackground(null);
-        jbLoop.setBorder(BorderFactory.createEmptyBorder());
-        jbLoop.setContentAreaFilled(false);
-        jbLoop.setActionCommand(BTN_LOOP);
-        controlsPanel.add(jbLoop);
-
-        jbPrevious = new JButton(new ImageIcon("assets/previous.png"));
-        jbPrevious.setBackground(null);
-        jbPrevious.setBorder(BorderFactory.createEmptyBorder());
-        jbPrevious.setContentAreaFilled(false);
-        jbPrevious.setActionCommand(BTN_PREV);
-        controlsPanel.add(jbPrevious);
-
-        jbPlayPause = new JButton(new ImageIcon("assets/playButton.png"));
-        jbPlayPause.setBackground(null);
-        jbPlayPause.setBorder(BorderFactory.createEmptyBorder());
-        jbPlayPause.setContentAreaFilled(false);
-        jbPlayPause.setActionCommand(BTN_PLAYPAUSE);
-        controlsPanel.add(jbPlayPause);
-
-        jbNext = new JButton(new ImageIcon("assets/next.png"));
-        jbNext.setBackground(null);
-        jbNext.setBorder(BorderFactory.createEmptyBorder());
-        jbNext.setContentAreaFilled(false);
-        jbNext.setActionCommand(BTN_NEXT);
-        controlsPanel.add(jbNext);
-
-        jbShuffle = new JButton(new ImageIcon("assets/shuffle.png"));
-        jbShuffle.setBackground(null);
-        jbShuffle.setBorder(BorderFactory.createEmptyBorder());
-        jbShuffle.setContentAreaFilled(false);
-        jbShuffle.setActionCommand(BTN_PREV);
-        controlsPanel.add(jbShuffle);
-
-        add(playerPanel,BorderLayout.SOUTH);
+        add(playerView,BorderLayout.SOUTH);
     }
 
     public void setUsername(String username){
@@ -213,8 +147,6 @@ public class HomeView extends JPanel {
         jbAddSong.addActionListener(controller);
         jbDeleteAcc.addActionListener(controller);
         jbLogOut.addActionListener(controller);
-        jbPlayPause.addActionListener(controller);
-
     }
 
     private void configureSongsCard(){
@@ -233,9 +165,6 @@ public class HomeView extends JPanel {
 
     private void configureAddSongsCard() { jpMain.add(addSongsView,CARD_ADD_SONGS); }
 
-    public void pauseButton(){
-        jbPlayPause.setIcon(new ImageIcon("assets/pause.png"));
-    }
 
 
     public void showSongsCard(){
@@ -255,5 +184,6 @@ public class HomeView extends JPanel {
     }
     public PlaylistsView getPlaylistsView(){return playlistsView;}
     public AddSongsView getAddSongsView(){return addSongsView;}
+    public PlayerView getPlayerView(){return playerView;}
 
 }
