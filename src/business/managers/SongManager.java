@@ -30,6 +30,7 @@ public class SongManager {
         songs.add(song);
     }
 
+
     public void deleteSong(Song song){
         songDAO.deleteSong(song);
         songs.remove(song);
