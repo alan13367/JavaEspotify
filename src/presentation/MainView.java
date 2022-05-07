@@ -40,18 +40,22 @@ public class MainView extends JFrame {
 
     private void configureWindow(){
         setTitle("Espotify");
-        setSize(1500,720);
+        setSize(900,700);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
         setResizable(false);
     }
 
     public void showRegisterView() {
+        setSize(900,700);
+        setLocationRelativeTo(null);
         registerView.clearFields();
         viewManager.show(getContentPane(), REGISTER_VIEW_CARD);
     }
 
     public void showHomeView(String username){
+        setSize(1500,720);
+        setLocationRelativeTo(null);
         homeView.setUsername(username);
         viewManager.show(getContentPane(),HOMEVIEW_CARD);
     }

@@ -36,7 +36,7 @@ public class SQLPlaylistDAO implements PlaylistDAO {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return playlists;
+        return new ArrayList<>(playlists);
     }
 
     @Override
@@ -72,7 +72,7 @@ public class SQLPlaylistDAO implements PlaylistDAO {
         }catch(SQLException e){
             System.out.println("error getting all playlists");
         }
-        return playlists;
+        return new ArrayList<>(playlists);
     }
 
 

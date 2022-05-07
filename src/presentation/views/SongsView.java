@@ -307,9 +307,22 @@ public class SongsView extends JPanel {
         return jlAuthor.getText().trim();
     }
 
+    public int showSongDeleteDialog(){
+        return JOptionPane.showConfirmDialog(null,"Are you sure you want to Delete this Song?",
+                "Warning",JOptionPane.YES_NO_OPTION);
+    }
+
     public void showOwnerErrorDialog(){
         JOptionPane.showMessageDialog(this, "You can't delete this Song because you are not the owner.",
                 "Error", JOptionPane.ERROR_MESSAGE);
+    }
+    public void showPlaylistsErrorDialog(){
+        JOptionPane.showMessageDialog(this, "You don't have any playlist to add the song to.",
+                "Error", JOptionPane.ERROR_MESSAGE);
+    }
+
+    public int showPlaylistPickerDialog(JComboBox<String> playlistsNames){
+        return JOptionPane.showConfirmDialog(this,playlistsNames,"Select the playlist to add the song to:", JOptionPane.YES_NO_OPTION);
     }
 }
 

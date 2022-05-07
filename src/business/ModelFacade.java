@@ -1,5 +1,6 @@
 package business;
 
+import business.entities.Playlist;
 import business.entities.Song;
 import business.managers.PlaylistManager;
 import business.managers.SongManager;
@@ -9,6 +10,7 @@ import com.google.gson.*;
 import javazoom.jl.decoder.JavaLayerException;
 
 import java.io.FileNotFoundException;
+import java.util.ArrayList;
 import java.util.List;
 
 public class ModelFacade implements BusinessFacade {
@@ -84,6 +86,20 @@ public class ModelFacade implements BusinessFacade {
     @Override
     public void createPlaylist(String name) {
         playlistManager.createPlaylist(name,getCurrentUser());
+    }
+
+    @Override
+    public String[] getUserPlaylistsNames() {
+        ArrayList<String> playlistsNames= new ArrayList<>();
+        for (Playlist playlist:playlistManager.getUserPlaylists(getCurrentUser())){
+            playlistsNames.add(playlist.getName());
+        }
+        return playlistsNames.toArray(new String[0]);
+    }
+
+    @Override
+    public void addSongToPlaylist(String playlistName, Song song) {
+        //Missing implementation of adding song to a user playlist
     }
 
     @Override
