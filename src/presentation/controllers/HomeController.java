@@ -64,11 +64,6 @@ public class HomeController implements ActionListener {
                 }
             }
 
-            case (HomeView.BTN_PLAYPAUSE) -> {
-                view.pauseButton();
-                System.out.println("Played");
-            }
-
         }
     }
 
