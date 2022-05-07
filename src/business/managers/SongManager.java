@@ -25,7 +25,7 @@ public class SongManager {
     }
 
     public void addSong(String title, String author, String genre, String album, String filepath,long duration, String owner){
-        Song song = new Song(title,  author,  genre,  album, filepath, duration,  owner);
+        Song song = new Song(title,  album,  genre,  author, filepath, duration,  owner);
         songDAO.addSong(song);
         songs.add(song);
     }

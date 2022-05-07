@@ -6,13 +6,12 @@ import presentation.views.GUIassets.MyHintTextField;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionListener;
+import java.io.File;
 
 public class AddSongsView extends JPanel {
 
     public static final String BTN_ADD_SONG = "BTN_ADD_SONG";
     public static final String BTN_IMPORT_SONG = "BTN_IMPORT_SONG";
-
-    Song song;
 
     private MyHintTextField.RoundedMyHintTextField titleField;
     private MyHintTextField.RoundedMyHintTextField genreField;
@@ -22,6 +21,8 @@ public class AddSongsView extends JPanel {
 
     private JButton importSongButton;
     private JButton addButton_bottom;
+
+    private JFileChooser fc;
 
     Font arialFont = new Font("Arial", Font.PLAIN, 25);
     Font alegreyaFont = new Font("Alegreya Sans SC", Font.BOLD, 30);
@@ -41,10 +42,11 @@ public class AddSongsView extends JPanel {
 
 
 
-        titleField = new MyHintTextField.RoundedMyHintTextField("title                                      ");
+        titleField = new MyHintTextField.RoundedMyHintTextField("Title");
         titleField.setToolTipText("Title");
         titleField.setFont(arialFont);
         titleField.setForeground(Color.gray);
+        titleField.setPreferredSize(new Dimension(400,50));
         constraints.gridx = 1;
         constraints.gridy = 2;
         constraints.gridwidth = 2;
@@ -55,10 +57,11 @@ public class AddSongsView extends JPanel {
         constraints.weightx = 0.0;
         constraints.weighty = 0.0;
 
-        authorField = new MyHintTextField.RoundedMyHintTextField("author                                 ");
+        authorField = new MyHintTextField.RoundedMyHintTextField("Author");
         authorField.setToolTipText("Author");
         authorField.setFont(arialFont);
         authorField.setForeground(Color.gray);
+        authorField.setPreferredSize(new Dimension(400,50));
         constraints.gridx = 1;
         constraints.gridy = 3;
         constraints.gridwidth = 2;
@@ -69,10 +72,11 @@ public class AddSongsView extends JPanel {
         constraints.weightx = 0.0;
         constraints.weighty = 0.0;
 
-        genreField = new MyHintTextField.RoundedMyHintTextField("genre                                  ");
+        genreField = new MyHintTextField.RoundedMyHintTextField("Genre");
         genreField.setToolTipText("Genre");
         genreField.setFont(arialFont);
         genreField.setForeground(Color.gray);
+        genreField.setPreferredSize(new Dimension(400,50));
         constraints.gridx = 1;
         constraints.gridy = 4;
         constraints.gridwidth = 2;
@@ -83,10 +87,11 @@ public class AddSongsView extends JPanel {
         constraints.weightx = 0.0;
         constraints.weighty = 0.0;
 
-        albumField = new MyHintTextField.RoundedMyHintTextField("album                                  ");
+        albumField = new MyHintTextField.RoundedMyHintTextField("Album");
         albumField.setToolTipText("Album");
         albumField.setFont(arialFont);
         albumField.setForeground(Color.gray);
+        albumField.setPreferredSize(new Dimension(400,50));
         constraints.gridx = 1;
         constraints.gridy = 5;
         constraints.gridwidth = 2;
@@ -101,6 +106,7 @@ public class AddSongsView extends JPanel {
         durationField.setToolTipText("Duration");
         durationField.setFont(arialFont);
         durationField.setForeground(Color.gray);
+        durationField.setPreferredSize(new Dimension(400,50));
         constraints.gridx = 1;
         constraints.gridy = 6;
         constraints.gridwidth = 2;
@@ -181,11 +187,28 @@ public class AddSongsView extends JPanel {
         return String.valueOf(genreField.getText());
     }
 
-    public long getDurationFieldAdd(){return Long.valueOf(durationField.getText());}
+    public long getDurationFieldAdd(){return Long.parseLong(durationField.getText());}
 
     public boolean addSongsFieldEmpty(){
         return getTitleFieldAdd().isEmpty() || getGenreFieldAdd().isEmpty() || getAlbumFieldAdd().isEmpty()
                 || getAuthorFieldAdd().isEmpty() || durationField.getText().equals("");
+    }
+
+    public String getFilePath(){
+        File file = fc.getSelectedFile();
+        return file.getAbsolutePath();
+    }
+
+    public void showFileChooser(){
+        fc = new JFileChooser("songs/");
+        int returnvalue = fc.showOpenDialog(null);
+        if(returnvalue == JFileChooser.APPROVE_OPTION){
+
+        }
+    }
+    public String getFilename(){
+        File file = fc.getSelectedFile();
+        return file.getName();
     }
 
     public void clearFields() {

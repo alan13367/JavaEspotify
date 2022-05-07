@@ -1,5 +1,7 @@
 import business.BusinessFacade;
 import business.ModelFacade;
+import business.entities.Song;
+import persistence.SQL.SQLSongDAO;
 import presentation.MainView;
 import presentation.controllers.*;
 
@@ -15,7 +17,9 @@ public class Main {
             SongsController songsController = new SongsController(mainView.getHomeView().getSongsView(), businessFacade);
             PlaylistsController playlistsController = new PlaylistsController(mainView.getHomeView().getPlaylistsView(),businessFacade);
             PlayerController playerController = new PlayerController(mainView.getHomeView().getPlayerView(),businessFacade);
-            mainView.registerControllers(homeController, songsController,signInSignUpController,playlistsController,playerController);
+            AddSongsController addSongsController = new AddSongsController(mainView.getHomeView().getAddSongsView(),businessFacade);
+            mainView.registerControllers(homeController, songsController,signInSignUpController,playlistsController
+                    ,playerController,addSongsController);
             mainView.start();
         });
 
