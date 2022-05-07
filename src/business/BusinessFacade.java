@@ -15,10 +15,13 @@ public interface BusinessFacade {
     String getCurrentUser();
     List<Song> getSongs();
     Song getSong(String title,String author);
+    void addSong(String title, String author, String genre, String album, String filepath, long duration);
     void deleteSong(String title,String author);
     String getLyrics(String author,String title);
     void createPlaylist(String name);
 
     void startPlayer(Song song);
     void playSong(Song song);
+
+
 }

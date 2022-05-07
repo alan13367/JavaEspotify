@@ -24,7 +24,9 @@ public class SongManager {
         return new ArrayList<>(songs);
     }
 
-    public void addSong(Song song){
+    public void addSong(String title, String author, String genre, String album, String filepath,long duration, String owner){
+        Song song = new Song(title,  author,  genre,  album, filepath, duration,  owner);
+        songDAO.addSong(song);
         songs.add(song);
     }
 
@@ -55,9 +57,5 @@ public class SongManager {
     public String getSongLyrics(String artist,String title) {
         return songLyricsAPI.getLyricsJson(artist,title);
     }
-
-
-
-
 
 }

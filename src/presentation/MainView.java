@@ -1,9 +1,6 @@
 package presentation;
 
-import presentation.controllers.HomeController;
-import presentation.controllers.PlaylistsController;
-import presentation.controllers.SignInSignUpController;
-import presentation.controllers.SongsController;
+import presentation.controllers.*;
 import presentation.views.HomeView;
 import presentation.views.SignInSignUpView;
 
@@ -61,11 +58,12 @@ public class MainView extends JFrame {
     }
 
 
-    public void registerControllers(HomeController homeController, SongsController songsController, SignInSignUpController signInSignUpController, PlaylistsController playlistsController){
+    public void registerControllers(HomeController homeController, SongsController songsController, SignInSignUpController signInSignUpController, PlaylistsController playlistsController, AddSongsController addSongsController){
         registerView.registerController(signInSignUpController);
         homeView.registerController(homeController);
         homeView.getSongsView().registerController(songsController);
         homeView.getPlaylistsView().registerController(playlistsController);
+        homeView.getAddSongsView().registerController(addSongsController);
     }
 
     public HomeView getHomeView() {

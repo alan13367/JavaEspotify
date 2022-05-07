@@ -5,10 +5,8 @@ import com.google.gson.JsonObject;
 import persistence.SQL.SQLSongDAO;
 import persistence.SongDAO;
 import presentation.MainView;
-import presentation.controllers.HomeController;
-import presentation.controllers.PlaylistsController;
-import presentation.controllers.SignInSignUpController;
-import presentation.controllers.SongsController;
+import presentation.controllers.*;
+import presentation.views.AddSongsView;
 
 import javax.swing.*;
 
@@ -21,7 +19,8 @@ public class Main {
             HomeController homeController = new HomeController(mainView,mainView.getHomeView(), businessFacade);
             SongsController songsController = new SongsController(mainView.getHomeView().getSongsView(), businessFacade);
             PlaylistsController playlistsController = new PlaylistsController(mainView.getHomeView().getPlaylistsView(),businessFacade);
-            mainView.registerControllers(homeController, songsController,signInSignUpController,playlistsController);
+            AddSongsController addSongsController = new AddSongsController(mainView.getHomeView().getAddSongsView(), businessFacade);
+            mainView.registerControllers(homeController, songsController,signInSignUpController,playlistsController, addSongsController);
             mainView.start();
         });
 

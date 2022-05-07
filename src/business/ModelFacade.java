@@ -61,6 +61,11 @@ public class ModelFacade implements BusinessFacade {
     }
 
     @Override
+    public void addSong(String title, String author, String genre, String album, String filepath, long duration) {
+        songManager.addSong(title, author, genre, album,filepath, duration, getCurrentUser());
+    }
+
+    @Override
     public void deleteSong(String title, String author) {
         songManager.deleteSong(getSong(title,author));
     }
