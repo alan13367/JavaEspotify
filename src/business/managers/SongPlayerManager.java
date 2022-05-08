@@ -2,16 +2,13 @@ package business.managers;
 
 import business.entities.Song;
 import javazoom.jl.decoder.JavaLayerException;
-import javazoom.jl.player.Player;
 import javazoom.jl.player.advanced.AdvancedPlayer;
 import javazoom.jl.player.advanced.PlaybackEvent;
 import javazoom.jl.player.advanced.PlaybackListener;
 
-import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
-import java.util.Scanner;
 
 public class SongPlayerManager implements Runnable{
     private int pausedOnFrame =0;
@@ -41,7 +38,7 @@ public class SongPlayerManager implements Runnable{
         }
     }
 
-    public void pauseSong(Thread playerThread)  {
+    public void pauseSong()  {
         //playerThread.stop();
         player.stop();
     }
