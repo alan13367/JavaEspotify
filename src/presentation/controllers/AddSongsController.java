@@ -47,7 +47,8 @@ public class AddSongsController implements ActionListener {
                     System.out.println(filename);
                     File file = new File(view.getFilePath());
                     file.renameTo(new File("songs/" + view.getFilename()));
-                    businessFacade.addSong(view.getTitleFieldAdd(), view.getAuthorFieldAdd(), view.getGenreFieldAdd(), view.getAlbumFieldAdd(), file.getPath(), view.getDurationFieldAdd());
+                    businessFacade.addSong(view.getTitleFieldAdd(),view.getAlbumFieldAdd(),view.getGenreFieldAdd()
+                            ,view.getAuthorFieldAdd(),"songs/"+view.getFilename(),view.getDurationFieldAdd());
                 }
             }
 
