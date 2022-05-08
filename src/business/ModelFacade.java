@@ -121,9 +121,16 @@ public class ModelFacade implements BusinessFacade {
         songPlayerManager.pauseSong();
     }
 
+    public void resumePlayer() {
+        try {
+            songPlayerManager.resumeSong();
+        } catch (JavaLayerException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
     @Override
     public void playSong(Song song)  {
-
     }
 
     @Override

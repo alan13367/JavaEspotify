@@ -70,6 +70,7 @@ public class SongsController implements ActionListener, ListSelectionListener {
                 String title = view.getSongTitle();
                 String author = view.getSongAuthor();
                 businessFacade.startPlayer(businessFacade.getSong(title,author));
+
             }
 
             case (SongsView.BTN_ADD_TO_PLAYLIST)->{

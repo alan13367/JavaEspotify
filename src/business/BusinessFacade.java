@@ -22,7 +22,7 @@ public interface BusinessFacade {
     String[] getUserPlaylistsNames();
     void addSongToPlaylist(String playlistName,Song song);
     void startPlayer(Song song);
-
+    void resumePlayer();
     void pausePlayer();
     void playSong(Song song);
 

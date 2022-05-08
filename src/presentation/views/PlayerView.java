@@ -79,4 +79,5 @@ public class PlayerView extends JPanel {
     public void changePlayButton(){
         jbPlayPause.setIcon(new ImageIcon("assets/pause.png"));
     }
+    public void changePauseButton(){jbPlayPause.setIcon(new ImageIcon("assets/playButton.png"));}
 }

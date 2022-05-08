@@ -41,11 +41,8 @@ public class SQLPlaylistDAO implements PlaylistDAO {
 
     @Override
     public void addSongToPlaylist(Song song, Playlist playlist) {
-
-      //  String query = "INSERT INTO SongPlaylistLink(song_ID,playlistName,playlistAuthor) VALUES ("+song.);";
-     //   SQLConnector.getInstance().addQuery(query);
-
-
+        String query = "INSERT INTO SongPlaylistLink(playlistName,playlistAuthor,songArtist,songTitle) VALUES ('"+playlist.getName()+"','"+playlist.getOwner()+"','"+song.getAuthor()+"','"+song.getTitle()+"');";
+        SQLConnector.getInstance().addQuery(query);
     }
 
     @Override

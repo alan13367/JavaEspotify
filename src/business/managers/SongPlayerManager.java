@@ -23,12 +23,6 @@ public class SongPlayerManager implements Runnable{
             playerThread = new Thread(this);
             playerThread.start();
             System.out.println(song.getTitle()+" playing");
-            //Scanner sc = new Scanner(System.in);
-            //System.out.print("stop = 1:");
-            //int stop = sc.nextInt();
-            //if(stop == 1){
-               // playerThread.stop();
-            //}
             player.setPlayBackListener(new PlaybackListener() {
                 @Override
                 public void playbackFinished(PlaybackEvent event) {
@@ -47,8 +41,8 @@ public class SongPlayerManager implements Runnable{
 
     }
 
-    public void resumeSong(Song song){
-
+    public void resumeSong() throws JavaLayerException {
+        player.play(pausedOnFrame,Integer.MAX_VALUE);
     }
 
 

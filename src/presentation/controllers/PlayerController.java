@@ -11,7 +11,7 @@ public class PlayerController implements ActionListener {
     private final BusinessFacade businessFacade;
     private final PlayerView view;
     private SongPlayerManager player = new SongPlayerManager();
-
+    private boolean playing = false;
     public PlayerController(PlayerView view,BusinessFacade businessFacade) {
         this.businessFacade = businessFacade;
         this.view = view;
@@ -21,11 +21,18 @@ public class PlayerController implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         switch (e.getActionCommand()){
 
-            case(PlayerView.BTN_PLAYPAUSE)->{
-                System.out.println("Song paused");
-                view.changePlayButton();
-                //player.pauseSong();
-                businessFacade.pausePlayer();
+            case(PlayerView.BTN_PLAYPAUSE)->{ // default is in play mode
+                if(playing){
+                    System.out.println("Song paused");
+                    view.changePlayButton();
+                    businessFacade.pausePlayer();
+                }else{
+                    playing = true;
+                    System.out.println("Song resumed");
+                    view.changePauseButton();
+                    businessFacade.resumePlayer();
+                }
+
             }
             case (PlayerView.BTN_NEXT)->{
                 System.out.println("Next");
