@@ -11,6 +11,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
+import java.util.Scanner;
 
 public class SongPlayerManager implements Runnable{
     private int pausedOnFrame =0;
@@ -25,7 +26,12 @@ public class SongPlayerManager implements Runnable{
             playerThread = new Thread(this);
             playerThread.start();
             System.out.println(song.getTitle()+" playing");
-
+            Scanner sc = new Scanner(System.in);
+            System.out.print("stop = 1:");
+            int stop = sc.nextInt();
+            if(stop == 1){
+                playerThread.stop();
+            }
             player.setPlayBackListener(new PlaybackListener() {
                 @Override
                 public void playbackFinished(PlaybackEvent event) {
@@ -35,14 +41,12 @@ public class SongPlayerManager implements Runnable{
         }
     }
 
-
-
-    public void playSong(Song song)  {
-
+    public void pauseSong(AdvancedPlayer player)  {
+        player.stop();
     }
 
-    public void pauseSong(Song song){
-        
+    public void playSong(Song song){
+
     }
 
     public void resumeSong(Song song){
@@ -54,6 +58,7 @@ public class SongPlayerManager implements Runnable{
     public void run() {
         try {
             player.play();
+
         } catch (JavaLayerException e) {
             throw new RuntimeException(e);
         }

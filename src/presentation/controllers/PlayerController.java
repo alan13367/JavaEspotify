@@ -1,6 +1,7 @@
 package presentation.controllers;
 
 import business.BusinessFacade;
+import business.managers.SongPlayerManager;
 import presentation.views.PlayerView;
 
 import java.awt.event.ActionEvent;
@@ -9,6 +10,7 @@ import java.awt.event.ActionListener;
 public class PlayerController implements ActionListener {
     private final BusinessFacade businessFacade;
     private final PlayerView view;
+    private SongPlayerManager player = new SongPlayerManager();
 
     public PlayerController(PlayerView view,BusinessFacade businessFacade) {
         this.businessFacade = businessFacade;
@@ -21,6 +23,7 @@ public class PlayerController implements ActionListener {
 
             case(PlayerView.BTN_PLAYPAUSE)->{
                 view.changePlayButton();
+                //player.pauseSong();
             }
             case (PlayerView.BTN_NEXT)->{
                 System.out.println("Next");

@@ -41,11 +41,11 @@ public class SQLPlaylistDAO implements PlaylistDAO {
 
     @Override
     public void addSongToPlaylist(Song song, Playlist playlist) {
-        /*
-        String query = "INSERT INTO SongPlaylistLink(playlist_ID,song_ID) VALUES ('"+playlist.getId()+"','"+song.getId()+"');";
-        SQLConnector.getInstance().addQuery(query);
 
-         */
+      //  String query = "INSERT INTO SongPlaylistLink(song_ID,playlistName,playlistAuthor) VALUES ("+song.);";
+     //   SQLConnector.getInstance().addQuery(query);
+
+
     }
 
     @Override
