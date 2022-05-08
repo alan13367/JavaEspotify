@@ -16,9 +16,9 @@ import java.util.Scanner;
 public class SongPlayerManager implements Runnable{
     private int pausedOnFrame =0;
     private AdvancedPlayer player;
-    private Thread playerThread;
+   // private  Thread playerThread;
 
-    public void startPlayer(Song song) throws JavaLayerException, FileNotFoundException{
+    public void startPlayer(Song song, Thread playerThread) throws JavaLayerException, FileNotFoundException{
         if(song != null){
 
             InputStream is = new FileInputStream(song.getFilepath());
@@ -26,12 +26,12 @@ public class SongPlayerManager implements Runnable{
             playerThread = new Thread(this);
             playerThread.start();
             System.out.println(song.getTitle()+" playing");
-            Scanner sc = new Scanner(System.in);
-            System.out.print("stop = 1:");
-            int stop = sc.nextInt();
-            if(stop == 1){
-                playerThread.stop();
-            }
+            //Scanner sc = new Scanner(System.in);
+            //System.out.print("stop = 1:");
+            //int stop = sc.nextInt();
+            //if(stop == 1){
+               // playerThread.stop();
+            //}
             player.setPlayBackListener(new PlaybackListener() {
                 @Override
                 public void playbackFinished(PlaybackEvent event) {
@@ -41,7 +41,8 @@ public class SongPlayerManager implements Runnable{
         }
     }
 
-    public void pauseSong(AdvancedPlayer player)  {
+    public void pauseSong(Thread playerThread)  {
+        //playerThread.stop();
         player.stop();
     }
 

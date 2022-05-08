@@ -18,6 +18,7 @@ public class ModelFacade implements BusinessFacade {
     private final UserManager userManager;
     private final PlaylistManager playlistManager;
     private final SongPlayerManager songPlayerManager;
+    private Thread playerThread;
     //Managers
 
     public ModelFacade() {
@@ -110,10 +111,14 @@ public class ModelFacade implements BusinessFacade {
     @Override
     public void startPlayer(Song song) {
         try {
-            songPlayerManager.startPlayer(song);
+            songPlayerManager.startPlayer(song, playerThread);
         } catch (JavaLayerException | FileNotFoundException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    public void pausePlayer(){
+        songPlayerManager.pauseSong(playerThread);
     }
 
     @Override

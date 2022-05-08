@@ -22,8 +22,10 @@ public class PlayerController implements ActionListener {
         switch (e.getActionCommand()){
 
             case(PlayerView.BTN_PLAYPAUSE)->{
+                System.out.println("Song paused");
                 view.changePlayButton();
                 //player.pauseSong();
+                businessFacade.pausePlayer();
             }
             case (PlayerView.BTN_NEXT)->{
                 System.out.println("Next");
