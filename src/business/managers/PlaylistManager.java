@@ -10,9 +10,8 @@ import java.util.List;
 import java.util.Objects;
 
 public class PlaylistManager {
-    private Playlist playlist;
     private final PlaylistDAO playlistDAO;
-    List<Playlist> playlists ;
+    private List<Playlist> playlists;
 
 
     public PlaylistManager() {
@@ -30,7 +29,13 @@ public class PlaylistManager {
         playlistDAO.deletePlayList(playlist);
     }
 
-    public void addSongToPlaylist(Playlist playlist, Song song){
+    public void addSongToPlaylist(String playlistName,String owner, Song song){
+        Playlist playlist = null;
+        for (Playlist playlist1:getUserPlaylists(owner)){
+            if(playlist1.getName().equals(playlistName)){
+                playlist = playlist1;
+            }
+        }
         playlistDAO.addSongToPlaylist(song,playlist);
 
     }
@@ -42,6 +47,7 @@ public class PlaylistManager {
     public List<Playlist> getPlaylists(){return playlists;}
 
     public List<Playlist> getUserPlaylists(String username){
+        playlists = new ArrayList<>(playlistDAO.loadPlaylists());
         List<Playlist> list = new ArrayList<>();
         for (Playlist playlist1:playlists){
             if(Objects.equals(playlist1.getOwner(), username)){

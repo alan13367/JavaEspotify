@@ -53,12 +53,17 @@ public class PlaylistsView extends JPanel {
 
         myPlaylists = new JPanel(new BorderLayout());
         myPlaylists.add(new JPanel(), BorderLayout.CENTER);
+        JPanel southPanel= new JPanel();
+        southPanel.setLayout(new BorderLayout());
+        JPanel panelButtonHolder = new JPanel();
+        BoxLayout boxLayout = new BoxLayout(panelButtonHolder,BoxLayout.Y_AXIS);
+        panelButtonHolder.setLayout(boxLayout);
         jbCreatePlaylist = new JButton("Create Playlist");
         jbCreatePlaylist.setActionCommand(BTN_CREATE_PLAYLIST);
-        JPanel southPanel= new JPanel();
-        BoxLayout boxLayout = new BoxLayout(southPanel,BoxLayout.X_AXIS);
-        southPanel.setLayout(boxLayout);
-        southPanel.add(jbCreatePlaylist);
+        jbCreatePlaylist.setAlignmentX(Component.CENTER_ALIGNMENT);
+        jbCreatePlaylist.setFont(new Font("Arial",Font.BOLD,20));
+        panelButtonHolder.add(jbCreatePlaylist);
+        southPanel.add(panelButtonHolder,BorderLayout.CENTER);
         myPlaylists.add(southPanel,BorderLayout.SOUTH);
         playlistsWrapperPanel.add(new JScrollPane(myPlaylists),MY_PLAYLISTS_CARD);
 
@@ -94,9 +99,21 @@ public class PlaylistsView extends JPanel {
         jbMyPlaylists = new JButton("My Playlists");
         jbMyPlaylists.setFont(new Font("Arial",Font.BOLD,30));
         jbMyPlaylists.setActionCommand(BTN_MY_PLAYLISTS);
+        jbMyPlaylists.setBackground(new Color(16,16,16));
+        jbMyPlaylists.setForeground(Color.green);
+        jbMyPlaylists.setOpaque(true);
+        jbMyPlaylists.setFocusPainted(true);
+        jbMyPlaylists.setBorderPainted(false);
+        jbMyPlaylists.setContentAreaFilled(true);
         jbAllPlaylists = new JButton("All Playlists");
         jbAllPlaylists.setFont(new Font("Arial",Font.BOLD,30));
         jbAllPlaylists.setActionCommand(BTN_ALL_PLAYLISTS);
+        jbAllPlaylists.setBackground(new Color(16,16,16));
+        jbAllPlaylists.setForeground(Color.white);
+        jbAllPlaylists.setOpaque(true);
+        jbAllPlaylists.setFocusPainted(true);
+        jbAllPlaylists.setBorderPainted(false);
+        jbAllPlaylists.setContentAreaFilled(true);
         jPanel.add(jbMyPlaylists);
         jPanel.add(jbAllPlaylists);
         playlistsGeneralPanel.add(jPanel,BorderLayout.NORTH);
@@ -141,10 +158,14 @@ public class PlaylistsView extends JPanel {
 
 
     public void showMyPlaylistsCard() {
+        jbMyPlaylists.setForeground(Color.green);
+        jbAllPlaylists.setForeground(Color.white);
         playlistsPanelManager.show(playlistsWrapperPanel,MY_PLAYLISTS_CARD);
     }
 
     public void showAllPlaylistsCard() {
+        jbAllPlaylists.setForeground(Color.green);
+        jbMyPlaylists.setForeground(Color.white);
         playlistsPanelManager.show(playlistsWrapperPanel,ALL_PLAYLISTS_CARD);
     }
 

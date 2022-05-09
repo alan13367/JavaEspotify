@@ -106,6 +106,7 @@ public class ModelFacade implements BusinessFacade {
     @Override
     public void addSongToPlaylist(String playlistName, Song song) {
         //Missing implementation of adding song to a user playlist
+        playlistManager.addSongToPlaylist(playlistName,getCurrentUser(),song);
     }
 
     @Override
