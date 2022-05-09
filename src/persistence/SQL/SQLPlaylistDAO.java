@@ -47,11 +47,9 @@ public class SQLPlaylistDAO implements PlaylistDAO {
 
     @Override
     public void deleteSongFromPlaylist(Song song, Playlist playlist) {
-        /*
-        String query = "DELETE FROM SongPlaylistLink WHERE playlist_ID = '"+playlist.getId()+"' AND song_ID = '"+song.getId()+"';";
+        String query = "DELETE FROM SongPlaylistLink WHERE playlistName = '"+playlist.getName()+
+                "' AND songTitle = '"+song.getTitle()+"' AND playlistAuthor = '"+playlist.getOwner()+"' AND songArtist='"+song.getAuthor()+"'; ";
         SQLConnector.getInstance().deleteQuery(query);
-
-         */
     }
 
     //  get all playlists from the database
