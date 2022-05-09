@@ -50,7 +50,6 @@ public class SongPlayerManager implements Runnable{
     public void run() {
         try {
             player.play();
-
         } catch (JavaLayerException e) {
             throw new RuntimeException(e);
         }

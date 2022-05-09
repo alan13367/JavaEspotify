@@ -46,7 +46,7 @@ public class PlayerView extends JPanel {
         jbPrevious.setActionCommand(BTN_PREV);
         controlsPanel.add(jbPrevious);
 
-        jbPlayPause = new JButton(new ImageIcon("assets/playButton.png"));
+        jbPlayPause = new JButton(new ImageIcon("assets/pause.png"));
         jbPlayPause.setBackground(null);
         jbPlayPause.setBorder(BorderFactory.createEmptyBorder());
         jbPlayPause.setContentAreaFilled(false);

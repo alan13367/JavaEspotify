@@ -111,6 +111,7 @@ public class ModelFacade implements BusinessFacade {
     @Override
     public void startPlayer(Song song) {
         try {
+
             songPlayerManager.startPlayer(song, playerThread);
         } catch (JavaLayerException | FileNotFoundException e) {
             throw new RuntimeException(e);
