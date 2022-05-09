@@ -24,7 +24,7 @@ public class SongManager {
         return new ArrayList<>(songs);
     }
 
-    public void addSong(String title, String author, String genre, String album, String filepath,long duration, String owner){
+    public void addSong(String title, String album, String genre, String author, String filepath, long duration, String owner){
         Song song = new Song(title,  album,  genre,  author, filepath, duration,  owner);
         songDAO.addSong(song);
         songs.add(song);

@@ -27,7 +27,16 @@ public class PlaylistsController implements ActionListener, MouseListener {
                     playlistsView.addPlaylist(name);
                     businessFacade.createPlaylist(name);
                 }
+            }
+            case (PlaylistsView.BTN_MY_PLAYLISTS)->{
+                playlistsView.showMyPlaylistsCard();
+            }
+            case (PlaylistsView.BTN_ALL_PLAYLISTS)->{
+                playlistsView.showAllPlaylistsCard();
+            }
 
+            case (PlaylistsView.BTN_CLOSE)->{
+                playlistsView.showPlaylistsPanelCard();
             }
         }
     }
