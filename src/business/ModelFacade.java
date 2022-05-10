@@ -104,6 +104,7 @@ public class ModelFacade implements BusinessFacade {
     @Override
     public void addSongToPlaylist(String playlistName, Song song) {
         //Missing implementation of adding song to a user playlist
+        playlistManager.addSongToPlaylist(playlistName,getCurrentUser(),song);
     }
 
     @Override
@@ -125,6 +126,7 @@ public class ModelFacade implements BusinessFacade {
     @Override
     public void startPlayer(Song song) {
         try {
+
             songPlayerManager.startPlayer(song, playerThread);
         } catch (JavaLayerException | FileNotFoundException e) {
             throw new RuntimeException(e);

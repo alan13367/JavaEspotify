@@ -24,7 +24,7 @@ public class PlaylistsController implements ActionListener, MouseListener {
             case(PlaylistsView.BTN_CREATE_PLAYLIST)->{
                 String name = playlistsView.createPlaylistDialog();
                 if (name != null && name.length() > 0){
-                    playlistsView.addPlaylist(name);
+                    //playlistsView.addPlaylist(name);
                     businessFacade.createPlaylist(name);
                 }
             }

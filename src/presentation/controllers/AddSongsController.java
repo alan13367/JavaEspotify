@@ -3,6 +3,7 @@ package presentation.controllers;
 import business.BusinessFacade;
 
 import presentation.views.AddSongsView;
+import presentation.views.HomeView;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -14,12 +15,14 @@ import java.nio.file.Paths;
 
 public class AddSongsController implements ActionListener {
     private  AddSongsView view;
+    private HomeView homeView;
     private  BusinessFacade businessFacade;
 
 
-    public AddSongsController(AddSongsView view, BusinessFacade businessFacade) {
+    public AddSongsController(AddSongsView view, HomeView homeView,BusinessFacade businessFacade) {
         this.view = view;
         this.businessFacade = businessFacade;
+        this.homeView = homeView;
     }
 
     @Override
@@ -42,13 +45,15 @@ public class AddSongsController implements ActionListener {
                     view.pop_up_ErrorDialog("There can no be empty values", "Error");
                 }
                 else {
-                    view.pop_up_SuccessDialog("Song added successfully", "Success");
                     String filename = view.getFilename();
                     System.out.println(filename);
                     File file = new File(view.getFilePath());
                     file.renameTo(new File("songs/" + view.getFilename()));
                     businessFacade.addSong(view.getTitleFieldAdd(),view.getAlbumFieldAdd(),view.getGenreFieldAdd()
                             ,view.getAuthorFieldAdd(),"songs/"+view.getFilename(),view.getDurationFieldAdd());
+                    view.pop_up_SuccessDialog("Song added successfully", "Success");
+                    view.clearFields();
+                    homeView.showSongsCard();
                 }
             }
 
