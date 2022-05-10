@@ -99,13 +99,14 @@ public class StatisticsView extends JPanel {
             chart_label.setHorizontalAlignment(JLabel.CENTER);
             chart_label.setVerticalTextPosition(JLabel.TOP);
             chart_label.setVerticalAlignment(JLabel.BOTTOM);
+            chart_label.setFont(new Font("Arial", Font.BOLD, 20));
             int finalI = i;
             chart_label.setIcon(new Icon() {
                 @Override
                 public void paintIcon(Component c, Graphics g, int x, int y) {
                     g.setColor(randomColor());
-                    g.fill3DRect(x, y, getIconWidth() - 2, getIconHeight(), true);
-                    g.setColor(new Color(56, 56, 56, 255));
+                    g.fill3DRect(x, y, getIconWidth() , getIconHeight(), true);
+                    g.setColor(new Color(148, 148, 148, 255));
                 }
 
                 @Override
@@ -124,6 +125,7 @@ public class StatisticsView extends JPanel {
             genre_label = new JLabel( charts.get(i).getGenre() );
             genre_label.setForeground(Color.WHITE);
             genre_label.setHorizontalAlignment(JLabel.CENTER);
+            genre_label.setFont(new Font("Arial", Font.BOLD, 20));
 
             x_axis.add( genre_label );
 
