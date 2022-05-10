@@ -124,7 +124,6 @@ public class StatisticsView extends JPanel {
                 }
             });
 
-
             jpGraph.add(chart_label);
             genre_label = new JLabel( charts.get(i).getGenre() );
             genre_label.setForeground(Color.WHITE);

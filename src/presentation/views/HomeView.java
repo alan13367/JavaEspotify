@@ -92,6 +92,7 @@ public class HomeView extends JPanel {
         jbPlaylists = createHomeButton("Playlists","assets/playlist-32.png",BTN_PLAYLISTS);
         buttonPanel.add(jbPlaylists);
 
+
         jbStatistics = createHomeButton("Statistics","assets/statistics-32.png",BTN_STATISTICS);
         buttonPanel.add(jbStatistics);
 

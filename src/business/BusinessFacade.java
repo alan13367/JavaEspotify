@@ -21,12 +21,9 @@ public interface BusinessFacade {
     void createPlaylist(String name);
     String[] getUserPlaylistsNames();
     void addSongToPlaylist(String playlistName,Song song);
-    void startPlayer(Song song);
-    void resumePlayer();
-    void pausePlayer();
-    void playSong(Song song);
-
-
+    //void startPlayerThread(Song song);
+   // void resumePlayer();
+   // void pausePlayer();
 
 
 }

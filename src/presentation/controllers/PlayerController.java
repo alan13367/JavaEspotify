@@ -11,7 +11,8 @@ public class PlayerController implements ActionListener {
     private final BusinessFacade businessFacade;
     private final PlayerView view;
     private SongPlayerManager player = new SongPlayerManager();
-    private boolean playing = false;
+    private PlaylistsController playlistsController;
+    private boolean playing = true;
     public PlayerController(PlayerView view,BusinessFacade businessFacade) {
         this.businessFacade = businessFacade;
         this.view = view;
@@ -21,18 +22,17 @@ public class PlayerController implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         switch (e.getActionCommand()){
 
-            // TODO: HACER QUE AL INICIAR UNA SONG EL BOTON SE PONGA EN PAUSE
-
             case(PlayerView.BTN_PLAYPAUSE)->{ // default is in play mode
                 if(playing){
                     System.out.println("Song paused");
-                    view.changePlayButton();
-                    businessFacade.pausePlayer();
+                    view.changePlayPause(playing);
+                    //businessFacade.pausePlayer();
+
                 }else{
                     playing = true;
                     System.out.println("Song resumed");
-                    view.changePauseButton();
-                    businessFacade.resumePlayer();
+                    view.changePlayPause(playing);
+                   // businessFacade.resumePlayer();
                 }
             }
             case (PlayerView.BTN_NEXT)->{

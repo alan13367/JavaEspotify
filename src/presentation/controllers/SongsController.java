@@ -3,6 +3,7 @@ package presentation.controllers;
 import business.BusinessFacade;
 import business.entities.Song;
 
+import presentation.views.PlayerView;
 import presentation.views.SongsView;
 
 import javax.swing.*;
@@ -15,11 +16,13 @@ import java.awt.event.ActionListener;
 public class SongsController implements ActionListener, ListSelectionListener {
 
     private final SongsView view;
+    private final PlayerView playerView;
     private final BusinessFacade businessFacade;
 
-    public SongsController(SongsView view,BusinessFacade businessFacade){
+    public SongsController(SongsView view,BusinessFacade businessFacade, PlayerView playerView){
         this.view = view;
         this.businessFacade = businessFacade;
+        this.playerView = playerView;
         loadSongs();
     }
 
@@ -69,7 +72,9 @@ public class SongsController implements ActionListener, ListSelectionListener {
             case(SongsView.BTN_PLAY_SONG) ->{
                 String title = view.getSongTitle();
                 String author = view.getSongAuthor();
-                businessFacade.startPlayer(businessFacade.getSong(title,author));
+               // businessFacade.startPlayerThread(businessFacade.getSong(title,author));
+          //      playerView.changeToPauseButton();
+
             }
 
             case (SongsView.BTN_ADD_TO_PLAYLIST)->{

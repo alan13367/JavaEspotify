@@ -1,5 +1,6 @@
 package business;
 
+import business.entities.Player;
 import business.entities.Playlist;
 import business.entities.Song;
 import business.managers.PlaylistManager;
@@ -19,6 +20,7 @@ public class ModelFacade implements BusinessFacade {
     private final PlaylistManager playlistManager;
     private final SongPlayerManager songPlayerManager;
     private Thread playerThread;
+    private Player player;
     //Managers
 
     public ModelFacade() {
@@ -26,6 +28,7 @@ public class ModelFacade implements BusinessFacade {
         this.userManager = new UserManager();
         this.playlistManager = new PlaylistManager();
         this.songPlayerManager = new SongPlayerManager();
+        this.player = new Player();
     }
 
     @Override
@@ -109,38 +112,14 @@ public class ModelFacade implements BusinessFacade {
         playlistManager.addSongToPlaylist(playlistName,getCurrentUser(),song);
     }
 
-    @Override
-    public void startPlayer(Song song) {
-        try {
-
-            songPlayerManager.startPlayer(song, playerThread);
-        } catch (JavaLayerException | FileNotFoundException e) {
-            throw new RuntimeException(e);
-        }
+    public void startSong(Song song){
+      //  player.startPlayerThread(song,playerThread);
     }
 
-    public void pausePlayer(){
-        songPlayerManager.pauseSong();
-    }
-
-    public void resumePlayer() {
-        try {
-            songPlayerManager.resumeSong();
-        } catch (JavaLayerException e) {
-            throw new RuntimeException(e);
-        }
-    }
-
-    @Override
-    public void playSong(Song song)  {
-    }
 
     @Override
     public void logOut() {
         userManager.logOut();
     }
-
-
-
 
 }

@@ -46,7 +46,7 @@ public class PlayerView extends JPanel {
         jbPrevious.setActionCommand(BTN_PREV);
         controlsPanel.add(jbPrevious);
 
-        jbPlayPause = new JButton(new ImageIcon("assets/pause.png"));
+        jbPlayPause = new JButton(new ImageIcon("assets/playButton.png"));
         jbPlayPause.setBackground(null);
         jbPlayPause.setBorder(BorderFactory.createEmptyBorder());
         jbPlayPause.setContentAreaFilled(false);
@@ -76,8 +76,12 @@ public class PlayerView extends JPanel {
         jbLoop.addActionListener(controller);
     }
 
-    public void changePlayButton(){
-        jbPlayPause.setIcon(new ImageIcon("assets/pause.png"));
+    public void changePlayPause(boolean isPlaying){
+        if(isPlaying){
+            jbPlayPause.setIcon(new ImageIcon("assets/pause.png"));
+        }else{
+            jbPlayPause.setIcon(new ImageIcon("assets/playButton.png"));
+        }
     }
-    public void changePauseButton(){jbPlayPause.setIcon(new ImageIcon("assets/playButton.png"));}
+
 }

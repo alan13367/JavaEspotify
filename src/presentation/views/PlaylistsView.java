@@ -89,8 +89,6 @@ public class PlaylistsView extends JPanel {
         jbClose.setActionCommand(BTN_CLOSE);
         topPanel.add(jbClose,BorderLayout.LINE_END);
         playlistInfoPanel.add(topPanel,BorderLayout.PAGE_START);
-
-
         add(playlistInfoPanel,PLAYLIST_INFO_CARD);
     }
 
