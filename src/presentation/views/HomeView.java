@@ -21,6 +21,8 @@ public class HomeView extends JPanel {
 
     private PlayerView playerView;
 
+    private StatisticsView statisticsView;
+
     private JPanel jpMain;
 
     private final CardLayout mainPanelManager;
@@ -50,6 +52,7 @@ public class HomeView extends JPanel {
         songsView = new SongsView();
         playlistsView = new PlaylistsView();
         addSongsView = new AddSongsView();
+        statisticsView = new StatisticsView();
         playerView = new PlayerView();
         configureView();
     }
@@ -158,9 +161,7 @@ public class HomeView extends JPanel {
     }
 
     private void configureStatisticsCard(){
-        JPanel jPanel = new JPanel();
-        jPanel.setBackground(Color.green);
-        jpMain.add(jPanel,CARD_STATISTICS);
+        jpMain.add(statisticsView,CARD_STATISTICS);
     }
 
     private void configureAddSongsCard() { jpMain.add(addSongsView,CARD_ADD_SONGS); }
@@ -185,5 +186,6 @@ public class HomeView extends JPanel {
     public PlaylistsView getPlaylistsView(){return playlistsView;}
     public AddSongsView getAddSongsView(){return addSongsView;}
     public PlayerView getPlayerView(){return playerView;}
+    public StatisticsView getStatisticsView() {return statisticsView;}
 
 }

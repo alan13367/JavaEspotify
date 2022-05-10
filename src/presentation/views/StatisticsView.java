@@ -1,5 +1,7 @@
 package presentation.views;
 
+import presentation.controllers.StatisticsController;
+
 import javax.swing.*;
 import javax.swing.border.Border;
 import javax.swing.border.CompoundBorder;
@@ -12,36 +14,24 @@ import java.util.Comparator;
 
 public class StatisticsView extends JPanel {
 
-    public static class Chart {
-        private int value;
-        private String genre;
 
-        public Chart(int value, String genre) {
-            this.value = value;
-            this.genre = genre;
-        }
-
-        public int getValue() {return value;}
-        public void setValue(int value) {
-            this.value = value;
-        }
-        public String getGenre() {
-            return genre;
-        }
-        public void setGenre(String genre) {
-            this.genre = genre;
-        }
+    private StatisticsController statisticsController;
+    public void registerController(StatisticsController statisticsController) {
+        this.statisticsController = statisticsController;
     }
+
 
     private CardLayout cardManager;
 
+    private JPanel title;
     private JPanel jpGraph;
     private JPanel x_axis;
 
     private JLabel chart_label;
     private JLabel genre_label;
+    private JLabel title_label;
 
-    private ArrayList<Chart> charts = new ArrayList<>();
+    private ArrayList<Chart> charts;
 
     private int HGap = 10;
     private int VGap = 0;
@@ -51,12 +41,13 @@ public class StatisticsView extends JPanel {
 
     private int Max_value;
 
-    private static final String STATS_CARD = "STATS_CARD";
+    private static final String CARD_STATISTICS = "CARD_STATISTICS";
 
 
 
     public StatisticsView() {
         cardManager = new CardLayout();
+        charts = new ArrayList<>();
         setLayout(cardManager);
         convigureView();
     }
@@ -70,25 +61,29 @@ public class StatisticsView extends JPanel {
         x_axis = new JPanel(new GridLayout(1, 0, HGap, VGap));
         x_axis.setBackground(new Color(16,16,16));
 
+        title = new JPanel(new GridLayout(1, 0, HGap, VGap));
+        title.setBackground(new Color(0,204,0));
+
         setBackground(new Color(16,16,16));
         setLayout(new BorderLayout());
 
         add(jpGraph, BorderLayout.CENTER);
+        add(title, BorderLayout.PAGE_START);
         add(x_axis, BorderLayout.PAGE_END);
     }
 
-    private void addBar(int value, String genre) {
+    public void addBar(int value, String genre) {
         Chart chart = new Chart(value, genre);
         charts.add(chart);
     }
 
-    private void plotBars() {
+    public void plotBars() {
         x_axis.removeAll();
         jpGraph.removeAll();
 
         Max_value = 0;
-        for(int i=0;i<charts.size();i++) {
-            Max_value = Math.max(Max_value, charts.get(i).getValue());
+        for (Chart chart : charts) {
+            Max_value = Math.max(Max_value, chart.getValue());
         }
 
         //sort the list
@@ -131,32 +126,40 @@ public class StatisticsView extends JPanel {
             genre_label.setHorizontalAlignment(JLabel.CENTER);
 
             x_axis.add( genre_label );
+
         }
 
+        title_label = new JLabel("Music Statistics");
+        title_label.setForeground(Color.WHITE);
+        title_label.setHorizontalAlignment(JLabel.CENTER);
+        title_label.setFont(new Font("Arial", Font.BOLD, 40));
+        title.add(title_label);
     }
 
     public Color randomColor() {
         return new Color((int)(Math.random() * 0x1000000));
     }
 
-    public static void statsGraph(ArrayList<Chart> list) {
-        StatisticsView statisticsView = new StatisticsView();
-        statisticsView.setBackground(new Color(16, 16, 16));
-        for (Chart chart : list) {
-            statisticsView.addBar(chart.getValue(), chart.getGenre());
+    public static class Chart {
+        private int value;
+        private String genre;
+
+        public Chart(int value, String genre) {
+            this.value = value;
+            this.genre = genre;
         }
-        statisticsView.plotBars();
 
-        JFrame frame = new JFrame("Music statistics");
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.add( statisticsView );
-        frame.setLocationByPlatform( true );
-        frame.pack();
-        frame.setVisible( true );
+        public int getValue() {return value;}
+        public void setValue(int value) {
+            this.value = value;
+        }
+        public String getGenre() {
+            return genre;
+        }
+        public void setGenre(String genre) {
+            this.genre = genre;
+        }
     }
 
-    public void showStatsCard() {
-        cardManager.show(this, STATS_CARD);
-    }
 
 }

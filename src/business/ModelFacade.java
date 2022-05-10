@@ -2,19 +2,16 @@ package business;
 
 import business.entities.Playlist;
 import business.entities.Song;
-import business.managers.PlaylistManager;
-import business.managers.SongManager;
-import business.managers.SongPlayerManager;
-import business.managers.UserManager;
+import business.managers.*;
 import com.google.gson.*;
 import javazoom.jl.decoder.JavaLayerException;
 
 import java.io.FileNotFoundException;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 public class ModelFacade implements BusinessFacade {
     private final SongManager songManager;
+    private final StatisticsManager statisticsManager;
     private final UserManager userManager;
     private final PlaylistManager playlistManager;
     private final SongPlayerManager songPlayerManager;
@@ -26,6 +23,7 @@ public class ModelFacade implements BusinessFacade {
         this.userManager = new UserManager();
         this.playlistManager = new PlaylistManager();
         this.songPlayerManager = new SongPlayerManager();
+        this.statisticsManager = new StatisticsManager();
     }
 
     @Override
@@ -106,6 +104,22 @@ public class ModelFacade implements BusinessFacade {
     @Override
     public void addSongToPlaylist(String playlistName, Song song) {
         //Missing implementation of adding song to a user playlist
+    }
+
+    @Override
+    public ArrayList<String> getStatsGenres() {
+        HashMap<String, Integer> map;
+        map = statisticsManager.getSongStats();
+        Set<String> keySet = map.keySet();
+        return new ArrayList<>(keySet);
+    }
+
+    @Override
+    public ArrayList<Integer> getStatsValues() {
+        HashMap<String, Integer> map;
+        map = statisticsManager.getSongStats();
+        Collection<Integer> values = map.values();
+        return new ArrayList<>(values);
     }
 
     @Override

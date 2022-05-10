@@ -6,6 +6,7 @@ import persistence.SQL.SQLSongDAO;
 import persistence.SongDAO;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 public class SongManager {
