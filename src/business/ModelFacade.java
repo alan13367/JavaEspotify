@@ -113,7 +113,16 @@ public class ModelFacade implements BusinessFacade {
     }
 
     public void startSong(Song song){
-      //  player.startPlayerThread(song,playerThread);
+        try {
+           songPlayerManager.playSong(song);
+        } catch (FileNotFoundException | JavaLayerException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public void startPlayerThread(){
+        player.setProgramInit(true);
+        player.startPlayerThread();
     }
 
 

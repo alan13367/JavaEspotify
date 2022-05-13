@@ -24,6 +24,8 @@ public interface BusinessFacade {
     //void startPlayerThread(Song song);
    // void resumePlayer();
    // void pausePlayer();
+    void startPlayerThread();
+    void startSong(Song song);
 
 
 }

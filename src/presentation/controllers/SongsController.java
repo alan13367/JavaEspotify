@@ -74,7 +74,7 @@ public class SongsController implements ActionListener, ListSelectionListener {
                 String author = view.getSongAuthor();
                // businessFacade.startPlayerThread(businessFacade.getSong(title,author));
           //      playerView.changeToPauseButton();
-
+                businessFacade.startSong(businessFacade.getSong(title,author));
             }
 
             case (SongsView.BTN_ADD_TO_PLAYLIST)->{
