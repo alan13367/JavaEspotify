@@ -15,6 +15,7 @@ public class Playlist {
     public Playlist(String name, String owner) {
         this.name = name;
         this.owner = owner;
+        index =0; // start the index at 0
     }
 
     //public int getId() {
@@ -28,6 +29,8 @@ public class Playlist {
     public String getOwner() {
         return owner;
     }
+
+    // esto al player class
 
     public Song getNextSong(){
         if(isLooping){ // returns the same song
@@ -51,7 +54,15 @@ public class Playlist {
         return null;
     }
 
-    public Song getPrevSong(){
+    public Song getPrevSong(){  // if it is looping returns the same, if not it just returns the last song played
+        if(isLooping){
+            return songs.get(index);
+        }
+        else {
+            if(index-1 >= 0){    // this wont work, it will return the prev song in list, not last one played
+                return songs.get(index--);
+            }
+        }
         return null;
     }
 

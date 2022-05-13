@@ -1,21 +1,26 @@
 package business;
 
+import business.entities.Player;
 import business.entities.Playlist;
 import business.entities.Song;
-import business.managers.*;
+import business.managers.PlaylistManager;
+import business.managers.SongManager;
+import business.managers.SongPlayerManager;
+import business.managers.UserManager;
 import com.google.gson.*;
 import javazoom.jl.decoder.JavaLayerException;
 
 import java.io.FileNotFoundException;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class ModelFacade implements BusinessFacade {
     private final SongManager songManager;
-    private final StatisticsManager statisticsManager;
     private final UserManager userManager;
     private final PlaylistManager playlistManager;
     private final SongPlayerManager songPlayerManager;
     private Thread playerThread;
+    private Player player;
     //Managers
 
     public ModelFacade() {
@@ -23,7 +28,7 @@ public class ModelFacade implements BusinessFacade {
         this.userManager = new UserManager();
         this.playlistManager = new PlaylistManager();
         this.songPlayerManager = new SongPlayerManager();
-        this.statisticsManager = new StatisticsManager();
+        this.player = new Player();
     }
 
     @Override
@@ -107,54 +112,23 @@ public class ModelFacade implements BusinessFacade {
         playlistManager.addSongToPlaylist(playlistName,getCurrentUser(),song);
     }
 
-    @Override
-    public ArrayList<String> getStatsGenres() {
-        HashMap<String, Integer> map;
-        map = statisticsManager.getSongStats();
-        Set<String> keySet = map.keySet();
-        return new ArrayList<>(keySet);
-    }
-
-    @Override
-    public ArrayList<Integer> getStatsValues() {
-        HashMap<String, Integer> map;
-        map = statisticsManager.getSongStats();
-        Collection<Integer> values = map.values();
-        return new ArrayList<>(values);
-    }
-
-    @Override
-    public void startPlayer(Song song) {
+    public void startSong(Song song){
         try {
-
-            songPlayerManager.startPlayer(song, playerThread);
-        } catch (JavaLayerException | FileNotFoundException e) {
+           songPlayerManager.playSong(song);
+        } catch (FileNotFoundException | JavaLayerException e) {
             throw new RuntimeException(e);
         }
     }
 
-    public void pausePlayer(){
-        songPlayerManager.pauseSong();
+    public void startPlayerThread(){
+        player.setProgramInit(true);
+        player.startPlayerThread();
     }
 
-    public void resumePlayer() {
-        try {
-            songPlayerManager.resumeSong();
-        } catch (JavaLayerException e) {
-            throw new RuntimeException(e);
-        }
-    }
-
-    @Override
-    public void playSong(Song song)  {
-    }
 
     @Override
     public void logOut() {
         userManager.logOut();
     }
-
-
-
 
 }

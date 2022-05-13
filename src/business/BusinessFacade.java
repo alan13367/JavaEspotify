@@ -2,8 +2,6 @@ package business;
 
 import business.entities.Song;
 
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 public interface BusinessFacade {
@@ -23,14 +21,11 @@ public interface BusinessFacade {
     void createPlaylist(String name);
     String[] getUserPlaylistsNames();
     void addSongToPlaylist(String playlistName,Song song);
-    ArrayList<String> getStatsGenres();
-    ArrayList<Integer> getStatsValues();
-    void startPlayer(Song song);
-    void resumePlayer();
-    void pausePlayer();
-    void playSong(Song song);
-
-
+    //void startPlayerThread(Song song);
+   // void resumePlayer();
+   // void pausePlayer();
+    void startPlayerThread();
+    void startSong(Song song);
 
 
 }

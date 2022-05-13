@@ -24,6 +24,7 @@ public class SignInSignUpController implements ActionListener {
             case (SignInSignUpView.BTN_SIGN_IN_SWITCH) -> {
                 System.out.println("sign in clicked in sign up");
                 view.showSignInCard();
+
             }
             case (SignInSignUpView.BTN_SIGN_UP_SWITCH) -> {
                 System.out.println("sign up clicked in sign in");
@@ -45,6 +46,7 @@ public class SignInSignUpController implements ActionListener {
                     }
                     if(caseSignIn()) {
                         mainView.showHomeView(view.getUserFieldSignIn());
+                        businessFacade.startPlayerThread();
                     }
                 }
             }
