@@ -4,22 +4,26 @@ import business.BusinessFacade;
 import business.entities.Song;
 
 import presentation.views.SongsView;
+import presentation.views.StatisticsView;
 
 import javax.swing.*;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 
 public class SongsController implements ActionListener, ListSelectionListener {
 
     private final SongsView view;
     private final BusinessFacade businessFacade;
+    private StatisticsView statisticsView;
 
-    public SongsController(SongsView view,BusinessFacade businessFacade){
+    public SongsController(SongsView view,BusinessFacade businessFacade, StatisticsView statisticsView){
         this.view = view;
         this.businessFacade = businessFacade;
+        this.statisticsView = statisticsView;
         loadSongs();
     }
 
@@ -60,6 +64,15 @@ public class SongsController implements ActionListener, ListSelectionListener {
                         view.clearTable();
                         loadSongs();
                         view.showSongsTableCard();
+
+                        //update stats
+                        ArrayList<String> stringArrayList = businessFacade.getStatsGenres();
+                        ArrayList<Integer> valueArrayList = businessFacade.getStatsValues();
+                        statisticsView.removeAllBars();
+                        for (int i=0;i<stringArrayList.size();i++) {
+                            statisticsView.addBar(valueArrayList.get(i), stringArrayList.get(i));
+                        }
+                        statisticsView.plotBars();
                     }
                 }
                 else{

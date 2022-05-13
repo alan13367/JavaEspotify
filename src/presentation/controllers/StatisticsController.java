@@ -1,6 +1,7 @@
 package presentation.controllers;
 
 import business.BusinessFacade;
+import business.ModelFacade;
 import presentation.views.StatisticsView;
 
 import javax.swing.*;

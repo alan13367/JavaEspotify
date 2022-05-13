@@ -12,7 +12,7 @@ public class StatisticsManager {
 
     public StatisticsManager() {
         this.songDAO = new SQLSongDAO();
-        songDAO.getGenreCount();
+        //songDAO.getGenreCount();
     }
 
     public HashMap<String, Integer> getSongStats() {

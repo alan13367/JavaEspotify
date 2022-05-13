@@ -4,6 +4,7 @@ import business.BusinessFacade;
 
 import presentation.views.AddSongsView;
 import presentation.views.HomeView;
+import presentation.views.StatisticsView;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -12,17 +13,20 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.ArrayList;
 
 public class AddSongsController implements ActionListener {
     private  AddSongsView view;
     private HomeView homeView;
+    private StatisticsView statisticsView;
     private  BusinessFacade businessFacade;
 
 
-    public AddSongsController(AddSongsView view, HomeView homeView,BusinessFacade businessFacade) {
+    public AddSongsController(AddSongsView view, HomeView homeView,BusinessFacade businessFacade, StatisticsView statisticsView) {
         this.view = view;
         this.businessFacade = businessFacade;
         this.homeView = homeView;
+        this.statisticsView = statisticsView;
     }
 
     @Override
@@ -54,6 +58,17 @@ public class AddSongsController implements ActionListener {
                     view.pop_up_SuccessDialog("Song added successfully", "Success");
                     view.clearFields();
                     homeView.showSongsCard();
+
+
+                    //stats update
+                    ArrayList<String> stringArrayList = businessFacade.getStatsGenres();
+                    ArrayList<Integer> valueArrayList = businessFacade.getStatsValues();
+                    statisticsView.removeAllBars();
+                    for (int i=0;i<stringArrayList.size();i++) {
+                        statisticsView.addBar(valueArrayList.get(i), stringArrayList.get(i));
+                    }
+                    statisticsView.plotBars();
+
                 }
             }
 

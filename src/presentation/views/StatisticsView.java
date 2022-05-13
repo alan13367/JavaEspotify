@@ -64,12 +64,23 @@ public class StatisticsView extends JPanel {
         title = new JPanel(new GridLayout(1, 0, HGap, VGap));
         title.setBackground(new Color(0,204,0));
 
+        title_label = new JLabel("Music Statistics");
+        title_label.setForeground(Color.WHITE);
+        title_label.setHorizontalAlignment(JLabel.CENTER);
+        title_label.setFont(new Font("Arial", Font.BOLD, 40));
+        title.add(title_label);
+
         setBackground(new Color(16,16,16));
         setLayout(new BorderLayout());
 
         add(jpGraph, BorderLayout.CENTER);
         add(title, BorderLayout.PAGE_START);
         add(x_axis, BorderLayout.PAGE_END);
+    }
+
+
+    public void removeAllBars(){
+        charts.clear();
     }
 
     public void addBar(int value, String genre) {
@@ -130,12 +141,6 @@ public class StatisticsView extends JPanel {
             x_axis.add( genre_label );
 
         }
-
-        title_label = new JLabel("Music Statistics");
-        title_label.setForeground(Color.WHITE);
-        title_label.setHorizontalAlignment(JLabel.CENTER);
-        title_label.setFont(new Font("Arial", Font.BOLD, 40));
-        title.add(title_label);
     }
 
     public Color randomColor() {
