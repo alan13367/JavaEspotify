@@ -6,6 +6,7 @@ import persistence.SQL.SQLSongDAO;
 import persistence.SongDAO;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 public class SongManager {
@@ -57,6 +58,10 @@ public class SongManager {
 
     public String getSongLyrics(String artist,String title) {
         return songLyricsAPI.getLyricsJson(artist,title);
+    }
+
+    public HashMap<String, Integer> getSongStats() {
+        return songDAO.getGenreCount();
     }
 
 }

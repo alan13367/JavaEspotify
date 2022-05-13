@@ -55,7 +55,8 @@ public class StatisticsView extends JPanel {
     private void convigureView() {
         jpGraph = new JPanel(new GridLayout(1, 0, HGap, VGap));
         jpGraph.setBackground(new Color(16,16,16));
-        Border compoundBorder = new CompoundBorder(new MatteBorder(1, 1, 1, 1, new Color(16,16,16)), new EmptyBorder(10, 10, 0, 10));
+        Border compoundBorder = new CompoundBorder(new MatteBorder(1, 1, 1, 1
+                , new Color(16,16,16)), new EmptyBorder(10, 10, 0, 10));
         jpGraph.setBorder(compoundBorder);
 
         x_axis = new JPanel(new GridLayout(1, 0, HGap, VGap));

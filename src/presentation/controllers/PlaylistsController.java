@@ -17,16 +17,14 @@ public class PlaylistsController implements ActionListener, MouseListener {
     public PlaylistsController(PlaylistsView playlistsView, BusinessFacade businessFacade) {
         this.playlistsView = playlistsView;
         this.businessFacade = businessFacade;
-
-        for (Playlist playlist: businessFacade.getPlaylists()){
-            playlistsView.addAllPlaylists(playlist.getName(),playlist.getOwner());
-        }
-
     }
 
-    public void loadUserPlaylists(String username){
+    public void loadPlaylists(String username){
         for(String userPlaylistName:businessFacade.getUserPlaylistsNames()){
             playlistsView.addMyPlaylists(userPlaylistName,username);
+        }
+        for (Playlist playlist: businessFacade.getPlaylists()){
+            playlistsView.addAllPlaylists(playlist.getName(),playlist.getOwner());
         }
     }
     @Override

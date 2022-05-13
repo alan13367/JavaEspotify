@@ -15,7 +15,6 @@ public class ModelFacade implements BusinessFacade {
     private final UserManager userManager;
     private final PlaylistManager playlistManager;
     private final SongPlayerManager songPlayerManager;
-    private final StatisticsManager statisticsManager;
     private Thread playerThread;
     private Player player;
     //Managers
@@ -25,7 +24,6 @@ public class ModelFacade implements BusinessFacade {
         this.userManager = new UserManager();
         this.playlistManager = new PlaylistManager();
         this.songPlayerManager = new SongPlayerManager();
-        this.statisticsManager = new StatisticsManager();
         this.player = new Player();
     }
 
@@ -119,7 +117,7 @@ public class ModelFacade implements BusinessFacade {
     @Override
     public ArrayList<String> getStatsGenres() {
         HashMap<String, Integer> map;
-        map = statisticsManager.getSongStats();
+        map = songManager.getSongStats();
         Set<String> keySet = map.keySet();
         return new ArrayList<>(keySet);
     }
@@ -127,7 +125,7 @@ public class ModelFacade implements BusinessFacade {
     @Override
     public ArrayList<Integer> getStatsValues() {
         HashMap<String, Integer> map;
-        map = statisticsManager.getSongStats();
+        map = songManager.getSongStats();
         Collection<Integer> values = map.values();
         return new ArrayList<>(values);
     }

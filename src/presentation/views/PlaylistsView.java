@@ -65,6 +65,7 @@ public class PlaylistsView extends JPanel {
         myPlaylists.add(myPlaylistsSP,BorderLayout.CENTER);
         JPanel southPanel= new JPanel();
         southPanel.setLayout(new BorderLayout());
+        southPanel.setBackground(new Color(16,16,16));
         JPanel panelButtonHolder = new JPanel();
         BoxLayout boxLayout = new BoxLayout(panelButtonHolder,BoxLayout.Y_AXIS);
         panelButtonHolder.setLayout(boxLayout);
@@ -172,7 +173,6 @@ public class PlaylistsView extends JPanel {
         jbCreatePlaylist.addActionListener(playlistsController);
         jbAllPlaylists.addActionListener(playlistsController);
         jbMyPlaylists.addActionListener(playlistsController);
-
         jbClose.addActionListener(playlistsController);
     }
 
@@ -203,7 +203,7 @@ public class PlaylistsView extends JPanel {
     }
 
     public void loadUserPlaylists(String username){
-        playlistsController.loadUserPlaylists(username);
+        playlistsController.loadPlaylists(username);
     }
 
     public static class PlaylistItemHolder extends JPanel{

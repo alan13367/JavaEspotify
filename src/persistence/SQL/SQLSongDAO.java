@@ -59,7 +59,7 @@ public class SQLSongDAO implements SongDAO {
     public HashMap<String, Integer> getGenreCount(){
         HashMap<String, Integer> songs = new HashMap<>();
         //select genre, count(*) as cnt FROM Song GROUP BY genre
-        String query = "SELECT genre, COUNT(*) AS CNT FROM Song GROUP BY genre LIMIT 10";
+        String query = "SELECT genre, COUNT(*) AS CNT FROM Song GROUP BY genre ORDER BY CNT DESC LIMIT 10";
         ResultSet result = SQLConnector.getInstance().selectQuery(query);
         try {
             while (result.next()) {
