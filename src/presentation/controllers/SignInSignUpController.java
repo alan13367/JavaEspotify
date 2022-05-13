@@ -46,7 +46,7 @@ public class SignInSignUpController implements ActionListener {
                     }
                     if(caseSignIn()) {
                         mainView.showHomeView(view.getUserFieldSignIn());
-                        businessFacade.startPlayerThread();
+                        //businessFacade.startPlayerThread();
                     }
                 }
             }

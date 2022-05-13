@@ -64,14 +64,14 @@ public class MainView extends JFrame {
 
     public void registerControllers(HomeController homeController, SongsController songsController
             , SignInSignUpController signInSignUpController, PlaylistsController playlistsController
-            , PlayerController playerController,AddSongsController addSongsController){
+            , PlayerController playerController,AddSongsController addSongsController, StatisticsController statisticsController){
         registerView.registerController(signInSignUpController);
         homeView.registerController(homeController);
         homeView.getSongsView().registerController(songsController);
         homeView.getPlaylistsView().registerController(playlistsController);
         homeView.getPlayerView().registerController(playerController);
         homeView.getAddSongsView().registerController(addSongsController);
-
+        homeView.getStatisticsView().registerController(statisticsController);
     }
 
     public HomeView getHomeView() {

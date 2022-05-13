@@ -3,22 +3,19 @@ package business;
 import business.entities.Player;
 import business.entities.Playlist;
 import business.entities.Song;
-import business.managers.PlaylistManager;
-import business.managers.SongManager;
-import business.managers.SongPlayerManager;
-import business.managers.UserManager;
+import business.managers.*;
 import com.google.gson.*;
 import javazoom.jl.decoder.JavaLayerException;
 
 import java.io.FileNotFoundException;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 public class ModelFacade implements BusinessFacade {
     private final SongManager songManager;
     private final UserManager userManager;
     private final PlaylistManager playlistManager;
     private final SongPlayerManager songPlayerManager;
+    private final StatisticsManager statisticsManager;
     private Thread playerThread;
     private Player player;
     //Managers
@@ -28,6 +25,7 @@ public class ModelFacade implements BusinessFacade {
         this.userManager = new UserManager();
         this.playlistManager = new PlaylistManager();
         this.songPlayerManager = new SongPlayerManager();
+        this.statisticsManager = new StatisticsManager();
         this.player = new Player();
     }
 
@@ -112,17 +110,41 @@ public class ModelFacade implements BusinessFacade {
         playlistManager.addSongToPlaylist(playlistName,getCurrentUser(),song);
     }
 
-    public void startSong(Song song){
-        try {
-           songPlayerManager.playSong(song);
-        } catch (FileNotFoundException | JavaLayerException e) {
-            throw new RuntimeException(e);
-        }
+    @Override
+    public ArrayList<String> getStatsGenres() {
+        HashMap<String, Integer> map;
+        map = statisticsManager.getSongStats();
+        Set<String> keySet = map.keySet();
+        return new ArrayList<>(keySet);
     }
 
-    public void startPlayerThread(){
-        player.setProgramInit(true);
-        player.startPlayerThread();
+    @Override
+    public ArrayList<Integer> getStatsValues() {
+        HashMap<String, Integer> map;
+        map = statisticsManager.getSongStats();
+        Collection<Integer> values = map.values();
+        return new ArrayList<>(values);
+    }
+
+
+    @Override
+    public void startPlayer(Song song) {
+
+    }
+
+    @Override
+    public void resumePlayer() {
+
+    }
+
+    @Override
+    public void pausePlayer() {
+
+    }
+
+    @Override
+    public void playSong(Song song) {
+
     }
 
 
