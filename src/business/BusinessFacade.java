@@ -1,5 +1,6 @@
 package business;
 
+import business.entities.Playlist;
 import business.entities.Song;
 
 import java.util.ArrayList;
@@ -21,6 +22,7 @@ public interface BusinessFacade {
     String getLyrics(String author,String title);
     void createPlaylist(String name);
     String[] getUserPlaylistsNames();
+    List<Playlist> getPlaylists();
     void addSongToPlaylist(String playlistName,Song song);
     ArrayList<String> getStatsGenres();
     ArrayList<Integer> getStatsValues();

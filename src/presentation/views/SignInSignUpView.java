@@ -418,12 +418,12 @@ public class SignInSignUpView extends JPanel{
     }
 
     public void clearFields() {
-        userFieldSignIn.setText("");
-        pwdFieldSignIn.setText("");
-        userTextFieldSignUp.setText("");
-        emailField.setText("");
-        pwdFieldSignUp.setText("");
-        pwdFieldConfirmSignUp.setText("");
+        userFieldSignIn = new MyHintTextField.RoundedMyHintTextField("Username");
+        pwdFieldSignIn= new MyHintPwdField.RoundedMyHintPwdField("Password");
+        userTextFieldSignUp= new MyHintTextField.RoundedMyHintTextField("Username");
+        emailField= new MyHintTextField.RoundedMyHintTextField("Email");
+        pwdFieldSignUp= new MyHintPwdField.RoundedMyHintPwdField("Password");
+        pwdFieldConfirmSignUp= new MyHintPwdField.RoundedMyHintPwdField("Confirm Password");
 
     }
 }

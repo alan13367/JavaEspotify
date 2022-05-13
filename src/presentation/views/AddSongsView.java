@@ -35,7 +35,7 @@ public class AddSongsView extends JPanel {
     private void configureView(){
         setLayout(new GridBagLayout());
 
-        Color myBlack = new Color(18, 18, 18);
+        Color myBlack = new Color(16, 16, 16);
         setBackground(myBlack);
 
         GridBagConstraints constraints = new GridBagConstraints();
@@ -102,7 +102,7 @@ public class AddSongsView extends JPanel {
         constraints.weightx = 0.0;
         constraints.weighty = 0.0;
 
-        durationField = new MyHintTextField.RoundedMyHintTextField("duration                              ");
+        durationField = new MyHintTextField.RoundedMyHintTextField("duration");
         durationField.setToolTipText("Duration");
         durationField.setFont(arialFont);
         durationField.setForeground(Color.gray);
@@ -212,11 +212,12 @@ public class AddSongsView extends JPanel {
     }
 
     public void clearFields() {
-        titleField.setText("");
-        albumField.setText("");
-        authorField.setText("");
-        genreField.setText("");
-        durationField.setText("");
+        titleField = new MyHintTextField.RoundedMyHintTextField("Title");
+        albumField = new MyHintTextField.RoundedMyHintTextField("Album");
+        authorField= new MyHintTextField.RoundedMyHintTextField("Author");
+        genreField = new MyHintTextField.RoundedMyHintTextField("Genre");
+        durationField = new MyHintTextField.RoundedMyHintTextField("Duration");
+        fc = new JFileChooser("songs/");
     }
 }
 

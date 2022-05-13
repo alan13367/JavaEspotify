@@ -54,6 +54,7 @@ public class MainView extends JFrame {
         setSize(1500,720);
         setLocationRelativeTo(null);
         homeView.setUsername(username);
+        homeView.getPlaylistsView().loadUserPlaylists(username);
         viewManager.show(getContentPane(),HOMEVIEW_CARD);
     }
 

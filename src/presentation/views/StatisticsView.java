@@ -62,7 +62,7 @@ public class StatisticsView extends JPanel {
         x_axis.setBackground(new Color(16,16,16));
 
         title = new JPanel(new GridLayout(1, 0, HGap, VGap));
-        title.setBackground(new Color(0,204,0));
+        title.setBackground(new Color(16,16,16));
 
         title_label = new JLabel("Music Statistics");
         title_label.setForeground(Color.WHITE);

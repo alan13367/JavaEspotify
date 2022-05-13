@@ -3,22 +3,26 @@ package presentation.views;
 import presentation.controllers.PlaylistsController;
 
 import javax.swing.*;
-import javax.swing.border.MatteBorder;
 import java.awt.*;
+import java.awt.font.TextAttribute;
+import java.util.HashMap;
+import java.util.Map;
 
 public class PlaylistsView extends JPanel {
     //General Assets
     private final CardLayout viewManager;
     private JPanel playlistsGeneralPanel;
 
-    //Playlists All and Users Panels
+    //My Playlists and All Playlists Panels
     private final CardLayout playlistsPanelManager;
     private JPanel myPlaylists;
+    private JPanel myPlaylistsListPanel;
     private JPanel allPlaylists;
     private JPanel playlistsWrapperPanel;
 
-    private JButton jbCreatePlaylist;
-    private JButton jbMyPlaylists,jbAllPlaylists;
+    private JButton jbMyPlaylists,jbAllPlaylists,jbCreatePlaylist;
+    Map<TextAttribute, Integer> underlinedText = new HashMap<TextAttribute, Integer>();
+    private static final Font switchButtonsFont = new Font("Arial",Font.BOLD,30);
     public static final String BTN_MY_PLAYLISTS = "BTN_MY_PLAYLISTS";
     public static final String BTN_ALL_PLAYLISTS = "BTN_ALL_PLAYLISTS";
     public static final String BTN_CREATE_PLAYLIST = "BTN_CREATE_PLAYLIST";
@@ -52,24 +56,37 @@ public class PlaylistsView extends JPanel {
         playlistsWrapperPanel = new JPanel(playlistsPanelManager);
 
         myPlaylists = new JPanel(new BorderLayout());
-        myPlaylists.add(new JPanel(), BorderLayout.CENTER);
+        myPlaylists.setBackground(new Color(16,16,16));
+        myPlaylistsListPanel = new JPanel();
+        BoxLayout boxLayoutPlaylists = new BoxLayout(myPlaylistsListPanel,BoxLayout.Y_AXIS);
+        myPlaylistsListPanel.setLayout(boxLayoutPlaylists);
+        JScrollPane myPlaylistsSP = new JScrollPane(myPlaylistsListPanel);
+        myPlaylistsSP.setBorder(BorderFactory.createEmptyBorder());
+        myPlaylists.add(myPlaylistsSP,BorderLayout.CENTER);
         JPanel southPanel= new JPanel();
         southPanel.setLayout(new BorderLayout());
         JPanel panelButtonHolder = new JPanel();
         BoxLayout boxLayout = new BoxLayout(panelButtonHolder,BoxLayout.Y_AXIS);
         panelButtonHolder.setLayout(boxLayout);
-        jbCreatePlaylist = new JButton("Create Playlist");
+        panelButtonHolder.setBackground(new Color(16,16,16));
+        jbCreatePlaylist = new JButton("Create Playlist",new ImageIcon("assets/plus-4-32.png"));
         jbCreatePlaylist.setActionCommand(BTN_CREATE_PLAYLIST);
         jbCreatePlaylist.setAlignmentX(Component.CENTER_ALIGNMENT);
         jbCreatePlaylist.setFont(new Font("Arial",Font.BOLD,20));
+        jbCreatePlaylist.setForeground(Color.white);
+        jbCreatePlaylist.setBackground(new Color(0,204,0));
         panelButtonHolder.add(jbCreatePlaylist);
         southPanel.add(panelButtonHolder,BorderLayout.CENTER);
         myPlaylists.add(southPanel,BorderLayout.SOUTH);
-        playlistsWrapperPanel.add(new JScrollPane(myPlaylists),MY_PLAYLISTS_CARD);
+        playlistsWrapperPanel.add(myPlaylists,MY_PLAYLISTS_CARD);
 
-        allPlaylists = new JPanel(new BorderLayout());
-        allPlaylists.add(new JPanel(), BorderLayout.CENTER);
-        playlistsWrapperPanel.add(new JScrollPane(allPlaylists),ALL_PLAYLISTS_CARD);
+        allPlaylists = new JPanel();
+        BoxLayout boxLayoutAllPlaylists = new BoxLayout(allPlaylists,BoxLayout.Y_AXIS);
+        allPlaylists.setLayout(boxLayoutAllPlaylists);
+        allPlaylists.setBackground(new Color(16,16,16));
+        JScrollPane allPlaylistsSP = new JScrollPane(allPlaylists);
+        allPlaylistsSP.setBorder(BorderFactory.createEmptyBorder());
+        playlistsWrapperPanel.add(allPlaylistsSP,ALL_PLAYLISTS_CARD);
 
         configureTopPlaylistsPanel();
         playlistsGeneralPanel.add(playlistsWrapperPanel,BorderLayout.CENTER);
@@ -89,13 +106,17 @@ public class PlaylistsView extends JPanel {
         jbClose.setActionCommand(BTN_CLOSE);
         topPanel.add(jbClose,BorderLayout.LINE_END);
         playlistInfoPanel.add(topPanel,BorderLayout.PAGE_START);
+
+
         add(playlistInfoPanel,PLAYLIST_INFO_CARD);
     }
 
     private void configureTopPlaylistsPanel(){
+        underlinedText = new HashMap<TextAttribute,Integer>();
+        underlinedText.put(TextAttribute.UNDERLINE, TextAttribute.UNDERLINE_ON);
         JPanel jPanel = new JPanel(new GridLayout());
         jbMyPlaylists = new JButton("My Playlists");
-        jbMyPlaylists.setFont(new Font("Arial",Font.BOLD,30));
+        jbMyPlaylists.setFont(switchButtonsFont.deriveFont(underlinedText));
         jbMyPlaylists.setActionCommand(BTN_MY_PLAYLISTS);
         jbMyPlaylists.setBackground(new Color(16,16,16));
         jbMyPlaylists.setForeground(Color.green);
@@ -118,17 +139,18 @@ public class PlaylistsView extends JPanel {
     }
 
 
-    public void addPlaylist(String name){
-        JPanel panel = new JPanel();
-        JLabel label = new JLabel(name);
-        label.addMouseListener(playlistsController);
-        panel.add(label,BorderLayout.CENTER);
-        panel.setBorder(new MatteBorder(0, 0, 1, 0, Color.GRAY));
-        GridBagConstraints gbc = new GridBagConstraints();
-        gbc.gridwidth = GridBagConstraints.REMAINDER;
-        gbc.weightx = 1;
-        gbc.fill = GridBagConstraints.HORIZONTAL;
-        myPlaylists.add(panel, gbc, 0);
+    public void addMyPlaylists(String name, String owner){
+        PlaylistItemHolder playlistItemHolder = new PlaylistItemHolder(name,owner);
+        playlistItemHolder.registerController(playlistsController);
+        myPlaylistsListPanel.add(playlistItemHolder);
+        validate();
+        repaint();
+    }
+
+    public void addAllPlaylists(String name,String owner){
+        PlaylistItemHolder playlistItemHolder = new PlaylistItemHolder(name,owner);
+        playlistItemHolder.registerController(playlistsController);
+        allPlaylists.add(playlistItemHolder);
         validate();
         repaint();
     }
@@ -136,7 +158,7 @@ public class PlaylistsView extends JPanel {
     public String createPlaylistDialog(){
         return (String)JOptionPane.showInputDialog(
                 null,
-                "Enter name of the Playlist you want to create",
+                "Enter name for the Playlist you want to Create:",
                 "Create New Playlist",
                 JOptionPane.PLAIN_MESSAGE,
                 null,
@@ -157,13 +179,18 @@ public class PlaylistsView extends JPanel {
 
     public void showMyPlaylistsCard() {
         jbMyPlaylists.setForeground(Color.green);
+        jbMyPlaylists.setFont(switchButtonsFont.deriveFont(underlinedText));
         jbAllPlaylists.setForeground(Color.white);
+        jbAllPlaylists.setFont(switchButtonsFont);
+
         playlistsPanelManager.show(playlistsWrapperPanel,MY_PLAYLISTS_CARD);
     }
 
     public void showAllPlaylistsCard() {
         jbAllPlaylists.setForeground(Color.green);
+        jbAllPlaylists.setFont(switchButtonsFont.deriveFont(underlinedText));
         jbMyPlaylists.setForeground(Color.white);
+        jbMyPlaylists.setFont(switchButtonsFont);
         playlistsPanelManager.show(playlistsWrapperPanel,ALL_PLAYLISTS_CARD);
     }
 
@@ -173,5 +200,42 @@ public class PlaylistsView extends JPanel {
 
     public void showPlaylistsPanelCard() {
         viewManager.show(this,PLAYLISTS_CARD);
+    }
+
+    public void loadUserPlaylists(String username){
+        playlistsController.loadUserPlaylists(username);
+    }
+
+    public static class PlaylistItemHolder extends JPanel{
+        private JLabel playlistName;
+        private JLabel playlistOwner;
+
+        private PlaylistItemHolder(String playlistName,String playlistOwner){
+            this.setPreferredSize(new Dimension(1000,200));
+            this.setBackground(new Color(16,16,16));
+            this.setLayout(new GridLayout());
+            this.setBorder(BorderFactory.createLineBorder(new Color(80,80,80),1,true));
+            this.playlistName = new JLabel(playlistName);
+            this.playlistName.setFont(new Font("Arial",Font.PLAIN,25));
+            this.playlistName.setForeground(Color.white);
+            this.playlistOwner = new JLabel(playlistOwner);
+            this.playlistOwner.setFont(new Font("Arial",Font.PLAIN,25));
+            this.playlistOwner.setForeground(Color.white);
+            this.add(this.playlistName);
+            this.add(this.playlistOwner);
+        }
+
+        public void registerController(PlaylistsController playlistsController){
+            this.addMouseListener(playlistsController);
+        }
+
+        public String getPlaylistName(){
+            return this.playlistName.getText();
+        }
+
+        public String getPlaylistOwner(){
+            return this.playlistOwner.getText();
+        }
+
     }
 }

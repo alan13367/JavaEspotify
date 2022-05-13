@@ -1,9 +1,10 @@
 package presentation.controllers;
 
 import business.BusinessFacade;
+import business.entities.Playlist;
 import presentation.views.PlaylistsView;
 
-import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
@@ -16,16 +17,26 @@ public class PlaylistsController implements ActionListener, MouseListener {
     public PlaylistsController(PlaylistsView playlistsView, BusinessFacade businessFacade) {
         this.playlistsView = playlistsView;
         this.businessFacade = businessFacade;
+
+        for (Playlist playlist: businessFacade.getPlaylists()){
+            playlistsView.addAllPlaylists(playlist.getName(),playlist.getOwner());
+        }
+
     }
 
+    public void loadUserPlaylists(String username){
+        for(String userPlaylistName:businessFacade.getUserPlaylistsNames()){
+            playlistsView.addMyPlaylists(userPlaylistName,username);
+        }
+    }
     @Override
     public void actionPerformed(ActionEvent e) {
         switch (e.getActionCommand()){
             case(PlaylistsView.BTN_CREATE_PLAYLIST)->{
                 String name = playlistsView.createPlaylistDialog();
                 if (name != null && name.length() > 0){
-                    //playlistsView.addPlaylist(name);
-                    businessFacade.createPlaylist(name);
+                    playlistsView.addMyPlaylists(name,businessFacade.getCurrentUser());
+                    //businessFacade.createPlaylist(name);
                 }
             }
             case (PlaylistsView.BTN_MY_PLAYLISTS)->{
@@ -43,8 +54,10 @@ public class PlaylistsController implements ActionListener, MouseListener {
 
     @Override
     public void mouseClicked(MouseEvent e) {
-        JLabel jLabel = (JLabel) e.getSource();
-        System.out.println(jLabel.getText());
+        if(e.getSource() instanceof PlaylistsView.PlaylistItemHolder){
+            PlaylistsView.PlaylistItemHolder playlistItemHolder = (PlaylistsView.PlaylistItemHolder) e.getSource();
+            System.out.println(playlistItemHolder.getPlaylistName()+" "+playlistItemHolder.getPlaylistOwner());
+        }
     }
 
     @Override
@@ -59,11 +72,17 @@ public class PlaylistsController implements ActionListener, MouseListener {
 
     @Override
     public void mouseEntered(MouseEvent e) {
-
+        if(e.getSource() instanceof PlaylistsView.PlaylistItemHolder){
+            PlaylistsView.PlaylistItemHolder playlistItemHolder = (PlaylistsView.PlaylistItemHolder) e.getSource();
+            playlistItemHolder.setBackground(new Color(80,80,80));
+        }
     }
 
     @Override
     public void mouseExited(MouseEvent e) {
-
+        if(e.getSource() instanceof PlaylistsView.PlaylistItemHolder){
+            PlaylistsView.PlaylistItemHolder playlistItemHolder = (PlaylistsView.PlaylistItemHolder) e.getSource();
+            playlistItemHolder.setBackground(new Color(16,16,16));
+        }
     }
 }
