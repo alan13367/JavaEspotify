@@ -21,6 +21,7 @@ public class MyHintPwdField extends JPasswordField implements FocusListener {
     @Override
     public void focusGained(FocusEvent e) {
         if(this.getPassword() == null) {
+            setForeground(Color.BLACK);
             super.setEchoChar((char) 0x2022);
             super.setText("");
             showingHint = false;
@@ -29,6 +30,7 @@ public class MyHintPwdField extends JPasswordField implements FocusListener {
     @Override
     public void focusLost(FocusEvent e) {
         if(this.getPassword() == null) {
+            setForeground(Color.gray);
             super.setEchoChar((char) 0);
             super.setText(hint);
             showingHint = true;
