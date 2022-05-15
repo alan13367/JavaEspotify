@@ -26,8 +26,9 @@ public interface BusinessFacade {
     void addSongToPlaylist(String playlistName,Song song);
     ArrayList<String> getStatsGenres();
     ArrayList<Integer> getStatsValues();
-    void startPlayer(Song song);
-    void resumePlayer();
+    void setShuffle(boolean isShuffle);
+    void setLoop(boolean isLoop);
+    void playNextSong(Song song);
     void pausePlayer();
     void playSong(Song song);
 

@@ -36,19 +36,11 @@ public class SongPlayerManager {
     // TODO: METER ESTO EN EL FACADE Y QUITAR EL Q VIENE DE PLAYER
     //  hacer tmb q vayan los botones next, prev, loop, shuffle
 
-    public void playSong(Song song, Thread thread) throws FileNotFoundException, JavaLayerException {
-        System.out.println("set play song boolean");
-        //player.setPlaySong(true, song);
-        if(isShuffle && playNext){
-            player.playSong(getRandomSong(),thread);       // simplify this shiaaat
-        }
-        if(isShuffle && playPrev){
+    // when a next/prev arrow is pressed
+    public void playNextSong(Song song, Thread thread) throws FileNotFoundException, JavaLayerException {
+        if(isShuffle){
             player.playSong(getRandomSong(),thread);
-        }
-        if(isLoop && playNext){
-            player.playSong(song, thread);
-        }
-        if(isLoop && playPrev){
+        } else if (isLoop) {
             player.playSong(song, thread);
         }
     }
@@ -64,7 +56,13 @@ public class SongPlayerManager {
     }
 
     public void playPlaylist(Playlist playlist){
-        // meter funciones para get next song dependiendo de si hay sguffle o loop
+        int index;
+        if(isLoop){
+
+        }
+        if(isShuffle){
+
+        }
     }
 }
 

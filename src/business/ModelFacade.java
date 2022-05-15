@@ -130,17 +130,20 @@ public class ModelFacade implements BusinessFacade {
         return new ArrayList<>(values);
     }
 
-
-    @Override
-    public void startPlayer(Song song) {
-
+    public void setShuffle(boolean isShuffle){
+        songPlayerManager.setShuffle(isShuffle);
+    }
+    public void setLoop(boolean isLoop){
+        songPlayerManager.setLoop(isLoop);
     }
 
-    @Override
-    public void resumePlayer() {
-
+    public void playNextSong(Song currentSong){ // play next song when next or prev is pressed
+        try {
+            songPlayerManager.playNextSong(currentSong, playerThread);
+        } catch (FileNotFoundException | JavaLayerException e) {
+            throw new RuntimeException(e);
+        }
     }
-
     @Override
     public void pausePlayer() {
         player.pauseSong();
