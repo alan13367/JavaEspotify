@@ -9,6 +9,9 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
 
 public class PlaylistsController implements ActionListener, MouseListener {
     private final PlaylistsView playlistsView;
@@ -20,10 +23,12 @@ public class PlaylistsController implements ActionListener, MouseListener {
     }
 
     public void loadPlaylists(String username){
-        for(String userPlaylistName:businessFacade.getUserPlaylistsNames()){
-            playlistsView.addMyPlaylists(userPlaylistName,username);
-        }
-        for (Playlist playlist: businessFacade.getPlaylists()){
+        List<Playlist> playlists = businessFacade.getPlaylists();
+        Collections.sort(playlists);
+        for (Playlist playlist:playlists ){
+            if(playlist.getOwner().equals(username)){
+                playlistsView.addMyPlaylists(playlist.getName(),username);
+            }
             playlistsView.addAllPlaylists(playlist.getName(),playlist.getOwner());
         }
     }
@@ -33,8 +38,15 @@ public class PlaylistsController implements ActionListener, MouseListener {
             case(PlaylistsView.BTN_CREATE_PLAYLIST)->{
                 String name = playlistsView.createPlaylistDialog();
                 if (name != null && name.length() > 0){
-                    playlistsView.addMyPlaylists(name,businessFacade.getCurrentUser());
-                    //businessFacade.createPlaylist(name);
+                    List<String> names = Arrays.stream(businessFacade.getUserPlaylistsNames()).toList();
+                    if(names.contains(name)){
+                        playlistsView.showErrorDialog("You already have a Playlist with that name.");
+                    }else {
+                        String owner = businessFacade.getCurrentUser();
+                        businessFacade.createPlaylist(name);
+                        playlistsView.addMyPlaylists(name,owner);
+                        playlistsView.addAllPlaylists(name,owner);
+                    }
                 }
             }
             case (PlaylistsView.BTN_MY_PLAYLISTS)->{
@@ -54,7 +66,9 @@ public class PlaylistsController implements ActionListener, MouseListener {
     public void mouseClicked(MouseEvent e) {
         if(e.getSource() instanceof PlaylistsView.PlaylistItemHolder){
             PlaylistsView.PlaylistItemHolder playlistItemHolder = (PlaylistsView.PlaylistItemHolder) e.getSource();
-            System.out.println(playlistItemHolder.getPlaylistName()+" "+playlistItemHolder.getPlaylistOwner());
+            String owner = playlistItemHolder.getPlaylistOwner();
+            playlistsView.showPlaylistInfoCard(playlistItemHolder.getPlaylistName(),owner
+                    ,businessFacade.getCurrentUser().equals(owner));
         }
     }
 

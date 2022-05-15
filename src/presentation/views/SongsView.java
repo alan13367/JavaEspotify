@@ -96,8 +96,6 @@ public class SongsView extends JPanel {
         songInfoPanel.add(jPanelAux);
         topPanel.add(songInfoPanel,BorderLayout.CENTER);
 
-        //Lyrics
-
 
         //Buttons Panel
         JPanel buttonPanel = new JPanel();
@@ -124,12 +122,6 @@ public class SongsView extends JPanel {
         jbDelete.setFont(new Font("Arial",Font.BOLD,20));
         jbDelete.setActionCommand(BTN_DELETE_SONG);
 
-        JPanel jPanel = new JPanel();
-        jPanel.setBackground(new Color(16,16,16));
-        JPanel jPanel1 = new JPanel();
-        jPanel1.setBackground(new Color(16,16,16));
-        JPanel jPanel2 = new JPanel();
-        jPanel2.setBackground(new Color(16,16,16));
         buttonPanel.add(jbPlay);
         buttonPanel.add(jbAddToPlaylist);
         buttonPanel.add(jbDelete);

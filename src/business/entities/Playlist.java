@@ -2,9 +2,10 @@ package business.entities;
 
 
 import java.util.LinkedList;
+import java.util.Locale;
 import java.util.Random;
 
-public class Playlist {
+public class Playlist implements Comparable<Playlist> {
     private int index; // not related to the id of the database, just to get the index of a song
     private String name;
     private String owner;
@@ -72,5 +73,10 @@ public class Playlist {
 
     public boolean isShuffle() {
         return isShuffle;
+    }
+
+    @Override
+    public int compareTo(Playlist o) {
+        return this.name.toLowerCase(Locale.ROOT).compareTo(o.getName().toLowerCase(Locale.ROOT));
     }
 }

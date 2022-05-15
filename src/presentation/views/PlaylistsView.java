@@ -31,10 +31,12 @@ public class PlaylistsView extends JPanel {
 
     //Playlist Info Panel
     private JPanel playlistInfoPanel;
-    private JButton jbClose;
+    private JLabel jlPlaylistName;
+    private JLabel jlPlaylistOwner;
+    private JButton jbClose,jbPlayPlaylist,jbDeletePlaylist;
     public static final String BTN_CLOSE = "BTN_CLOSE";
-
-
+    public static final String BTN_PLAY_PLAYLIST = "BTN_PLAY_PLAYLIST";
+    public static final String BTN_DELETE_PLAYLIST = "BTN_DELETE_PLAYLIST";
 
     private static final String PLAYLISTS_CARD = "PLAYLISTS_CARD";
     private static final String PLAYLIST_INFO_CARD = "PLAYLIST_INFO_CARD";
@@ -49,12 +51,12 @@ public class PlaylistsView extends JPanel {
         setBackground(new Color(8,8,8));
         configurePlaylistsCard();
         configurePlaylistInfoCard();
-        showPlaylistInfo();
     }
     private void configurePlaylistsCard(){
         playlistsGeneralPanel = new JPanel(new BorderLayout());
         playlistsWrapperPanel = new JPanel(playlistsPanelManager);
 
+        //My Playlists Section
         myPlaylists = new JPanel(new BorderLayout());
         myPlaylists.setBackground(new Color(16,16,16));
         myPlaylistsListPanel = new JPanel();
@@ -81,6 +83,7 @@ public class PlaylistsView extends JPanel {
         myPlaylists.add(southPanel,BorderLayout.SOUTH);
         playlistsWrapperPanel.add(myPlaylists,MY_PLAYLISTS_CARD);
 
+        //All Playlist Section
         allPlaylists = new JPanel();
         BoxLayout boxLayoutAllPlaylists = new BoxLayout(allPlaylists,BoxLayout.Y_AXIS);
         allPlaylists.setLayout(boxLayoutAllPlaylists);
@@ -89,30 +92,7 @@ public class PlaylistsView extends JPanel {
         allPlaylistsSP.setBorder(BorderFactory.createEmptyBorder());
         playlistsWrapperPanel.add(allPlaylistsSP,ALL_PLAYLISTS_CARD);
 
-        configureTopPlaylistsPanel();
-        playlistsGeneralPanel.add(playlistsWrapperPanel,BorderLayout.CENTER);
-        add(playlistsGeneralPanel,PLAYLISTS_CARD);
-    }
-
-    private void configurePlaylistInfoCard(){
-        playlistInfoPanel = new JPanel(new BorderLayout());
-        playlistInfoPanel.setBackground(new Color(16,16,16));
-
-        JPanel topPanel = new JPanel(new BorderLayout());
-        topPanel.setBackground(new Color(16,16,16));
-        jbClose = new JButton(new ImageIcon("assets/x-mark-3-32.png"));
-        jbClose.setOpaque(false);
-        jbClose.setContentAreaFilled(false);
-        jbClose.setBorderPainted(false);
-        jbClose.setActionCommand(BTN_CLOSE);
-        topPanel.add(jbClose,BorderLayout.LINE_END);
-        playlistInfoPanel.add(topPanel,BorderLayout.PAGE_START);
-
-
-        add(playlistInfoPanel,PLAYLIST_INFO_CARD);
-    }
-
-    private void configureTopPlaylistsPanel(){
+        //Top Panel Playlists Switcher
         underlinedText = new HashMap<TextAttribute,Integer>();
         underlinedText.put(TextAttribute.UNDERLINE, TextAttribute.UNDERLINE_ON);
         JPanel jPanel = new JPanel(new GridLayout());
@@ -137,8 +117,60 @@ public class PlaylistsView extends JPanel {
         jPanel.add(jbMyPlaylists);
         jPanel.add(jbAllPlaylists);
         playlistsGeneralPanel.add(jPanel,BorderLayout.NORTH);
+        playlistsGeneralPanel.add(playlistsWrapperPanel,BorderLayout.CENTER);
+        add(playlistsGeneralPanel,PLAYLISTS_CARD);
     }
 
+    private void configurePlaylistInfoCard(){
+        playlistInfoPanel = new JPanel(new BorderLayout());
+        playlistInfoPanel.setBackground(new Color(16,16,16));
+
+        JPanel topPanel = new JPanel(new BorderLayout());
+        topPanel.setBackground(new Color(16,16,16));
+        jbClose = new JButton(new ImageIcon("assets/x-mark-3-32.png"));
+        jbClose.setOpaque(false);
+        jbClose.setContentAreaFilled(false);
+        jbClose.setBorderPainted(false);
+        jbClose.setActionCommand(BTN_CLOSE);
+        topPanel.add(jbClose,BorderLayout.LINE_END);
+
+        JPanel jPanel = new JPanel(new GridLayout(1,2));
+        jPanel.setBackground(new Color(16,16,16));
+        jlPlaylistName = new JLabel();
+        jlPlaylistOwner = new JLabel();
+        jlPlaylistName.setFont(new Font("Arial",Font.BOLD,30));
+        jlPlaylistName.setHorizontalAlignment(SwingConstants.CENTER);
+        jlPlaylistName.setForeground(Color.white);
+        jlPlaylistOwner.setFont(new Font("Arial",Font.BOLD,30));
+        jlPlaylistOwner.setHorizontalAlignment(SwingConstants.CENTER);
+        jlPlaylistOwner.setForeground(Color.white);
+        jPanel.add(jlPlaylistName);
+        jPanel.add(jlPlaylistOwner);
+        topPanel.add(jPanel,BorderLayout.CENTER);
+        playlistInfoPanel.add(topPanel,BorderLayout.PAGE_START);
+
+        //Buttons
+        JPanel buttonPanel = new JPanel();
+        buttonPanel.setBackground(new Color(16,16,16));
+        GridLayout gridLayout = new GridLayout(1,2);
+        gridLayout.setHgap(100);
+        buttonPanel.setLayout(gridLayout);
+        jbPlayPlaylist = new JButton(" Play Playlist",new ImageIcon("assets/play-32.png"));
+        jbPlayPlaylist.setBackground(new Color(0,80,0));
+        jbPlayPlaylist.setForeground(Color.white);
+        jbPlayPlaylist.setFont(new Font("Arial",Font.BOLD,20));
+        jbPlayPlaylist.setActionCommand(BTN_PLAY_PLAYLIST);
+        buttonPanel.add(jbPlayPlaylist);
+        jbDeletePlaylist = new JButton(" Delete Playlist",new ImageIcon("assets/trashicon32.png"));
+        jbDeletePlaylist.setBackground(new Color(0,80,0));
+        jbDeletePlaylist.setForeground(Color.white);
+        jbDeletePlaylist.setFont(new Font("Arial",Font.BOLD,20));
+        jbDeletePlaylist.setActionCommand(BTN_DELETE_PLAYLIST);
+        buttonPanel.add(jbDeletePlaylist);
+        playlistInfoPanel.add(buttonPanel,BorderLayout.SOUTH);
+
+        add(playlistInfoPanel,PLAYLIST_INFO_CARD);
+    }
 
     public void addMyPlaylists(String name, String owner){
         PlaylistItemHolder playlistItemHolder = new PlaylistItemHolder(name,owner);
@@ -155,6 +187,7 @@ public class PlaylistsView extends JPanel {
         validate();
         repaint();
     }
+
 
     public String createPlaylistDialog(){
         return (String)JOptionPane.showInputDialog(
@@ -182,7 +215,6 @@ public class PlaylistsView extends JPanel {
         jbMyPlaylists.setFont(switchButtonsFont.deriveFont(underlinedText));
         jbAllPlaylists.setForeground(Color.white);
         jbAllPlaylists.setFont(switchButtonsFont);
-
         playlistsPanelManager.show(playlistsWrapperPanel,MY_PLAYLISTS_CARD);
     }
 
@@ -194,7 +226,10 @@ public class PlaylistsView extends JPanel {
         playlistsPanelManager.show(playlistsWrapperPanel,ALL_PLAYLISTS_CARD);
     }
 
-    public void showPlaylistInfo(){
+    public void showPlaylistInfoCard(String name,String owner,boolean isOwner){
+        jlPlaylistName.setText(name);
+        jlPlaylistOwner.setText(owner);
+        jbDeletePlaylist.setVisible(isOwner);
         viewManager.show(this,PLAYLIST_INFO_CARD);
     }
 
@@ -204,6 +239,10 @@ public class PlaylistsView extends JPanel {
 
     public void loadUserPlaylists(String username){
         playlistsController.loadPlaylists(username);
+    }
+
+    public void showErrorDialog(String message){
+        JOptionPane.showMessageDialog(this, message,"Error", JOptionPane.ERROR_MESSAGE);
     }
 
     public static class PlaylistItemHolder extends JPanel{
@@ -218,9 +257,11 @@ public class PlaylistsView extends JPanel {
             this.playlistName = new JLabel(playlistName);
             this.playlistName.setFont(new Font("Arial",Font.PLAIN,25));
             this.playlistName.setForeground(Color.white);
+            this.playlistName.setHorizontalAlignment(SwingConstants.CENTER);
             this.playlistOwner = new JLabel(playlistOwner);
             this.playlistOwner.setFont(new Font("Arial",Font.PLAIN,25));
             this.playlistOwner.setForeground(Color.white);
+            this.playlistOwner.setHorizontalAlignment(SwingConstants.CENTER);
             this.add(this.playlistName);
             this.add(this.playlistOwner);
         }
