@@ -9,7 +9,7 @@ import java.io.FileNotFoundException;
 
 public class SongPlayerManager {
 
-    private Player player = new Player();
+   // private Player player = new Player(); // tengo dos players, he de usar solo uno!!!!
     private boolean isShuffle;
     private boolean isLoop;
 
@@ -22,8 +22,9 @@ public class SongPlayerManager {
     }
 
     public void playSong(Song song) throws FileNotFoundException, JavaLayerException {
+        System.out.println("set play song boolean");
+        //player.setPlaySong(true, song);
 
-        player.setPlaySong(true);
         // meter funciones para get next song dependiendo de si hay sguffle o loop
     }
 

@@ -18,6 +18,7 @@ public class Player implements Runnable {
     private boolean playSong;
     private boolean pauseSong;
     private Song song;
+    private Thread thread;
 
     public void setSong(Song song) {
         this.song = song;
