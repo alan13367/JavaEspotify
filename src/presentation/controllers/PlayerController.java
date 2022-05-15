@@ -26,7 +26,7 @@ public class PlayerController implements ActionListener {
                 if(playing){
                     System.out.println("Song paused");
                     view.changePlayPause(playing);
-                    //businessFacade.pausePlayer();
+                    businessFacade.pausePlayer();
 
                 }else{
                     playing = true;

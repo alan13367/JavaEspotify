@@ -143,14 +143,17 @@ public class ModelFacade implements BusinessFacade {
 
     @Override
     public void pausePlayer() {
-
+        player.pauseSong();
     }
 
     @Override
     public void playSong(Song song) {
-
+        try {
+            player.playSong(song, playerThread);
+        } catch (FileNotFoundException | JavaLayerException e) {
+            throw new RuntimeException(e);
+        }
     }
-
 
     @Override
     public void logOut() {
