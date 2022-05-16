@@ -2,11 +2,10 @@ package presentation.views;
 
 import presentation.controllers.SongsController;
 import presentation.views.GUIassets.MyHintTextField;
+import presentation.views.GUIassets.MyScrollBarUI;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
-import javax.swing.plaf.basic.BasicArrowButton;
-import javax.swing.plaf.basic.BasicScrollBarUI;
 import javax.swing.table.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -166,7 +165,7 @@ public class SongsView extends JPanel {
         songsTable.setForeground(Color.white);
         songsTable.setFont(new Font("Tahome", Font.PLAIN,20));
         songsTable.setRowHeight(30);
-
+        songsTable.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         JTableHeader jTableHeader = songsTable.getTableHeader();
         jTableHeader.setBackground(new Color(0,204,0));
         jTableHeader.setForeground(Color.white);
@@ -178,25 +177,7 @@ public class SongsView extends JPanel {
         JScrollPane jsp = new JScrollPane(songsTable);
         jsp.getViewport().setBackground(new Color(16,16,16));
         jsp.setBorder(BorderFactory.createEmptyBorder());
-        jsp.getVerticalScrollBar().setBackground(new Color(16,16,16));
-        jsp.getVerticalScrollBar().setUI(new BasicScrollBarUI() {
-            @Override
-            protected void configureScrollBarColors() {
-                this.thumbColor = new Color(80,80,80);
-            }
-
-            @Override
-            protected JButton createDecreaseButton(int orientation) {
-                return new BasicArrowButton(orientation,new Color(16,16,16),new Color(16,16,16)
-                        ,Color.white,new Color(16,16,16));
-            }
-
-            @Override
-            protected JButton createIncreaseButton(int orientation) {
-                return new BasicArrowButton(orientation,new Color(16,16,16),new Color(16,16,16)
-                        ,Color.white,new Color(16,16,16));
-            }
-        });
+        jsp.getVerticalScrollBar().setUI(new MyScrollBarUI());
         JPanel panel = new JPanel();
         panel.setBackground(new Color(16,16,16));
         jsp.setCorner(JScrollPane.UPPER_RIGHT_CORNER, panel);
@@ -304,8 +285,9 @@ public class SongsView extends JPanel {
         }
 
         lyricsPane = new JScrollPane(jpLyrics,JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
-        lyricsPane.setBackground(new Color(16,16,16));
+        lyricsPane.getViewport().setBackground(new Color(16,16,16));
         lyricsPane.setBorder(BorderFactory.createEmptyBorder());
+        lyricsPane.getVerticalScrollBar().setUI(new MyScrollBarUI());
         jpSong.add(lyricsPane,BorderLayout.CENTER);
         revalidate();
     }

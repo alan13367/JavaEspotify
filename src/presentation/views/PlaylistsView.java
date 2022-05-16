@@ -1,6 +1,7 @@
 package presentation.views;
 
 import presentation.controllers.PlaylistsController;
+import presentation.views.GUIassets.MyScrollBarUI;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
@@ -74,7 +75,7 @@ public class PlaylistsView extends JPanel {
         myPlaylistsListPanel.setLayout(boxLayoutPlaylists);
         JScrollPane myPlaylistsSP = new JScrollPane(myPlaylistsListPanel);
         myPlaylistsSP.setBorder(BorderFactory.createEmptyBorder());
-        myPlaylistsSP = configureScrollBarUI(myPlaylistsSP);
+        myPlaylistsSP.getVerticalScrollBar().setUI(new MyScrollBarUI());
         myPlaylists.add(myPlaylistsSP,BorderLayout.CENTER);
         JPanel southPanel= new JPanel();
         southPanel.setLayout(new BorderLayout());
@@ -101,11 +102,11 @@ public class PlaylistsView extends JPanel {
         allPlaylists.setBackground(new Color(16,16,16));
         JScrollPane allPlaylistsSP = new JScrollPane(allPlaylists);
         allPlaylistsSP.setBorder(BorderFactory.createEmptyBorder());
-        allPlaylistsSP = configureScrollBarUI(allPlaylistsSP);
+        allPlaylistsSP.getVerticalScrollBar().setUI(new MyScrollBarUI());
         playlistsWrapperPanel.add(allPlaylistsSP,ALL_PLAYLISTS_CARD);
 
         //Top Panel Playlists Switcher
-        underlinedText = new HashMap<TextAttribute,Integer>();
+        underlinedText = new HashMap<>();
         underlinedText.put(TextAttribute.UNDERLINE, TextAttribute.UNDERLINE_ON);
         JPanel jPanel = new JPanel(new GridLayout());
         jbMyPlaylists = new JButton("My Playlists");
@@ -196,7 +197,7 @@ public class PlaylistsView extends JPanel {
         songsScrollPane = new JScrollPane(jpSongsFromPlaylist,JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
         songsScrollPane.setBackground(new Color(16,16,16));
         songsScrollPane.setBorder(BorderFactory.createEmptyBorder());
-        songsScrollPane= configureScrollBarUI(songsScrollPane);
+        songsScrollPane.getVerticalScrollBar().setUI(new MyScrollBarUI());
         playlistInfoPanel.add(songsScrollPane,BorderLayout.CENTER);
         revalidate();
     }
