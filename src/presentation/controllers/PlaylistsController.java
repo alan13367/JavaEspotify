@@ -4,6 +4,7 @@ import business.BusinessFacade;
 import business.entities.Playlist;
 import presentation.views.PlaylistsView;
 
+import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -49,15 +50,30 @@ public class PlaylistsController implements ActionListener, MouseListener {
                     }
                 }
             }
+
             case (PlaylistsView.BTN_MY_PLAYLISTS)->{
                 playlistsView.showMyPlaylistsCard();
             }
+
             case (PlaylistsView.BTN_ALL_PLAYLISTS)->{
                 playlistsView.showAllPlaylistsCard();
             }
 
             case (PlaylistsView.BTN_CLOSE)->{
+                playlistsView.clearSongsPanel();
                 playlistsView.showPlaylistsPanelCard();
+            }
+
+            case (PlaylistsView.BTN_DELETE_PLAYLIST)->{
+                int option = playlistsView.showPlaylistOptionDialog("Are you sure you want to delete this playlist?"
+                        ,"Deleting Playlist");
+                if(option == JOptionPane.YES_OPTION){
+                    businessFacade.deletePlaylist(playlistsView.getPlaylistName(), playlistsView.getPlaylistOwner());
+                    playlistsView.clearPlaylistsPanel();
+                    loadPlaylists(businessFacade.getCurrentUser());
+                    playlistsView.clearSongsPanel();
+                    playlistsView.showPlaylistsPanelCard();
+                }
             }
         }
     }
@@ -67,8 +83,12 @@ public class PlaylistsController implements ActionListener, MouseListener {
         if(e.getSource() instanceof PlaylistsView.PlaylistItemHolder){
             PlaylistsView.PlaylistItemHolder playlistItemHolder = (PlaylistsView.PlaylistItemHolder) e.getSource();
             String owner = playlistItemHolder.getPlaylistOwner();
-            playlistsView.showPlaylistInfoCard(playlistItemHolder.getPlaylistName(),owner
-                    ,businessFacade.getCurrentUser().equals(owner));
+            boolean isOwner = businessFacade.getCurrentUser().equals(owner);
+            for(int i = 0;i<50;i++){
+                playlistsView.addSongToPanel("name "+i,"author "+i,i,isOwner);
+            }
+            playlistsView.showPlaylistInfoCard(playlistItemHolder.getPlaylistName(),owner,isOwner);
+
         }
     }
 

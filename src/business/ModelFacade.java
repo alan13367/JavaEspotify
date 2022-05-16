@@ -115,6 +115,11 @@ public class ModelFacade implements BusinessFacade {
     }
 
     @Override
+    public void deletePlaylist(String name, String owner) {
+        playlistManager.deletePlaylist(name,owner);
+    }
+
+    @Override
     public ArrayList<String> getStatsGenres() {
         HashMap<String, Integer> map;
         map = songManager.getSongStats();

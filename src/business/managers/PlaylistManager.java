@@ -4,6 +4,7 @@ import business.entities.Playlist;
 import business.entities.Song;
 import persistence.PlaylistDAO;
 import persistence.SQL.SQLPlaylistDAO;
+import presentation.views.PlaylistsView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,12 +22,19 @@ public class PlaylistManager {
 
     public void createPlaylist(String name, String owner){
         Playlist playlist = new Playlist(name, owner);
+        playlists.add(playlist);
         playlistDAO.addPlaylist(playlist);
     }
 
-    public void deletePlaylist(String name, String author){
-        Playlist playlist = new Playlist(name, author);
-        playlistDAO.deletePlayList(playlist);
+    public void deletePlaylist(String name, String owner){
+        for (Playlist p:playlists){
+            if(p.getName().equals(name) && p.getOwner().equals(owner)){
+                playlistDAO.deletePlayList(p);
+                playlists.remove(p);
+                break;
+            }
+        }
+
     }
 
     public void addSongToPlaylist(String playlistName,String owner, Song song){
@@ -44,7 +52,9 @@ public class PlaylistManager {
         playlistDAO.deleteSongFromPlaylist(song, playlist);
     }
 
-    public List<Playlist> getPlaylists(){return playlists;}
+    public List<Playlist> getPlaylists(){
+        return new ArrayList<>(playlists);
+    }
 
     public List<Playlist> getUserPlaylists(String username){
         playlists = new ArrayList<>(playlistDAO.loadPlaylists());

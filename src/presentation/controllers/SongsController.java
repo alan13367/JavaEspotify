@@ -45,10 +45,12 @@ public class SongsController implements ActionListener, ListSelectionListener {
                             view.addTableRow(song.getTitle(),song.getGenre(),song.getAlbum(),song.getAuthor(),song.getOwner());
                         }
                     }
-                }else{
-                    view.clearTable();
-                    loadSongs();
                 }
+            }
+
+            case(SongsView.BTN_REFRESH)->{
+                view.clearTable();
+                loadSongs();
             }
             case(SongsView.BTN_CLOSE) -> {
                 view.showSongsTableCard();

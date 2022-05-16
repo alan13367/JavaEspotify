@@ -4,6 +4,9 @@ import presentation.controllers.SongsController;
 import presentation.views.GUIassets.MyHintTextField;
 
 import javax.swing.*;
+import javax.swing.border.EmptyBorder;
+import javax.swing.plaf.basic.BasicArrowButton;
+import javax.swing.plaf.basic.BasicScrollBarUI;
 import javax.swing.table.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -18,12 +21,13 @@ public class SongsView extends JPanel {
     private JPanel jpSongs;
     private JTable songsTable;
     private DefaultTableModel model;
-    private MyHintTextField searchField;
-    private JButton jbSearch;
+    private JTextField searchField;
+    private JButton jbSearch,jbRefresh;
     private static final String[] columns ={"TITLE","GENRE","ALBUM","AUTHOR","OWNER"};
     private static final String HINT_TEXTFIELD ="Enter Title to Search Songs";
     private static final String SONGSTABLE_CARD = "SONGSTABLE_CARD";
     public static final String BTN_SEARCH = "BTN_SEARCH";
+    public static final String BTN_REFRESH = "BTN_REFRESH";
 
     //SongPanel
     private JPanel jpSong;
@@ -140,7 +144,7 @@ public class SongsView extends JPanel {
 
     private void configureSongsPanel(){
         jpSongs = new JPanel(new BorderLayout());
-        jpSongs.setBackground(new Color(0,0,0));
+        jpSongs.setBackground(new Color(16,16,16));
         configureSearch();
         configureTable();
         add(jpSongs,SONGSTABLE_CARD);
@@ -163,8 +167,6 @@ public class SongsView extends JPanel {
         songsTable.setFont(new Font("Tahome", Font.PLAIN,20));
         songsTable.setRowHeight(30);
 
-
-
         JTableHeader jTableHeader = songsTable.getTableHeader();
         jTableHeader.setBackground(new Color(0,204,0));
         jTableHeader.setForeground(Color.white);
@@ -174,8 +176,31 @@ public class SongsView extends JPanel {
 
 
         JScrollPane jsp = new JScrollPane(songsTable);
-        jsp.getViewport().setBackground(new Color(8,8,8));
+        jsp.getViewport().setBackground(new Color(16,16,16));
         jsp.setBorder(BorderFactory.createEmptyBorder());
+        jsp.getVerticalScrollBar().setBackground(new Color(16,16,16));
+        jsp.getVerticalScrollBar().setUI(new BasicScrollBarUI() {
+            @Override
+            protected void configureScrollBarColors() {
+                this.thumbColor = new Color(80,80,80);
+            }
+
+            @Override
+            protected JButton createDecreaseButton(int orientation) {
+                return new BasicArrowButton(orientation,new Color(16,16,16),new Color(16,16,16)
+                        ,Color.white,new Color(16,16,16));
+            }
+
+            @Override
+            protected JButton createIncreaseButton(int orientation) {
+                return new BasicArrowButton(orientation,new Color(16,16,16),new Color(16,16,16)
+                        ,Color.white,new Color(16,16,16));
+            }
+        });
+        JPanel panel = new JPanel();
+        panel.setBackground(new Color(16,16,16));
+        jsp.setCorner(JScrollPane.UPPER_RIGHT_CORNER, panel);
+        jpSongs.setBorder(new EmptyBorder(0,20,0,20));
         jpSongs.add(jsp,BorderLayout.CENTER);
 
         model = (DefaultTableModel) songsTable.getModel();
@@ -183,19 +208,27 @@ public class SongsView extends JPanel {
 
     private void configureSearch(){
         JPanel searchPanel = new JPanel(new BorderLayout());
-        searchPanel.setBackground(new Color(0,0,0));
+        searchPanel.setBorder(new EmptyBorder(10,0,20,0));
+        JPanel buttonsPanel = new JPanel(new GridLayout(1,3,20,0));
+        buttonsPanel.setBackground(new Color(16,16,16));
+        buttonsPanel.setBorder(new EmptyBorder(0,25,0,50));
+        searchPanel.setBackground(new Color(16,16,16));
 
         searchField = new MyHintTextField.RoundedMyHintTextField(HINT_TEXTFIELD);
-        searchField.setBorder(BorderFactory.createLineBorder(Color.BLACK));
         searchField.setFont(new Font("Tahome",Font.PLAIN,25));
+        searchField.setPreferredSize(new Dimension(1000,30));
         searchPanel.add(searchField,BorderLayout.CENTER);
-        jbSearch = new JButton("Search",new ImageIcon("assets/lupa32.png"));
-        jbSearch.setFont(new Font("Arial",Font.PLAIN,25));
-        jbSearch.setForeground(Color.white);
-        jbSearch.setBackground(new Color(0,80,0));
+        jbSearch = new JButton(new ImageIcon("assets/lupa32.png"));
+        jbSearch.setBackground(null);
+        jbSearch.setContentAreaFilled(false);
         jbSearch.setActionCommand(BTN_SEARCH);
-
-        searchPanel.add(jbSearch,BorderLayout.LINE_END);
+        jbRefresh = new JButton(new ImageIcon("assets/refresh-32.png"));
+        jbRefresh.setBackground(null);
+        jbRefresh.setContentAreaFilled(false);
+        jbRefresh.setActionCommand(BTN_REFRESH);
+        buttonsPanel.add(jbSearch);
+        buttonsPanel.add(jbRefresh);
+        searchPanel.add(buttonsPanel,BorderLayout.LINE_END);
         jpSongs.add(searchPanel,BorderLayout.NORTH);
     }
 
@@ -243,6 +276,7 @@ public class SongsView extends JPanel {
 
     public void registerController(SongsController controller){
         jbSearch.addActionListener(controller);
+        jbRefresh.addActionListener(controller);
         songsTable.getSelectionModel().addListSelectionListener(controller);
         jbClose.addActionListener(controller);
         jbPlay.addActionListener(controller);

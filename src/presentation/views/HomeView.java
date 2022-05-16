@@ -4,6 +4,7 @@ import presentation.controllers.HomeController;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
+import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
@@ -78,7 +79,10 @@ public class HomeView extends JPanel {
 
     private void configureSidePanel(){
         JPanel sidePanel = new JPanel(new BorderLayout());
+        sidePanel.setBorder(new EmptyBorder(10,5,10,5));
         sidePanel.setPreferredSize(new Dimension(300,720));
+        sidePanel.setMaximumSize(sidePanel.getPreferredSize());
+        sidePanel.setMinimumSize(sidePanel.getPreferredSize());
         sidePanel.setBackground(Color.black);
 
         JPanel buttonPanel = new JPanel();
@@ -115,6 +119,7 @@ public class HomeView extends JPanel {
         userPanel.add(username);
 
         jbDeleteAcc = createHomeButton("Delete Account","assets/delete-2-32.png",BTN_DELETEACC);
+
         userPanel.add(jbDeleteAcc);
 
         jbLogOut = createHomeButton("Log Out","assets/exit-32.png",BTN_LOGOUT);
@@ -128,7 +133,7 @@ public class HomeView extends JPanel {
 
     private JButton createHomeButton(String text,String imagePath,final String actionCommand){
         JButton button = new JButton(" "+text,new ImageIcon(imagePath));
-        button.setFont(new Font("Arial",Font.BOLD,30));
+        button.setFont(new Font("Arial",Font.BOLD,29));
         button.setActionCommand(actionCommand);
         button.setForeground(Color.white);
         button.setBackground(new Color(0,204,0));
