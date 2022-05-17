@@ -7,6 +7,7 @@ import persistence.PlaylistDAO;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 
@@ -39,8 +40,11 @@ public class SQLPlaylistDAO implements PlaylistDAO {
         return new ArrayList<>(playlists);
     }
 
+    //TODO: añadir position en database songplaylistlink
+
     @Override
     public void addSongToPlaylist(Song song, Playlist playlist) {
+        int position = getSongsFromPlaylists(playlist.getName(), playlist.getOwner()).size()+1;
         String query = "INSERT INTO SongPlaylistLink(playlistName,playlistAuthor,songArtist,songTitle) VALUES ('"+playlist.getName()+"','"+playlist.getOwner()+"','"+song.getAuthor()+"','"+song.getTitle()+"');";
         SQLConnector.getInstance().addQuery(query);
     }
@@ -70,29 +74,31 @@ public class SQLPlaylistDAO implements PlaylistDAO {
         return new ArrayList<>(playlists);
     }
 
-    public List<Song> getSongsFromPlaylists(String title, String author){
-        List<Song> songs = new ArrayList<>();
-        String query = "SELECT * FROM Song JOIN SongPlaylistLink ON Song.title = SongPlaylistLink.songTitle WHERE playlistName = '"+title+"' AND playlistAuthor = '"+author+"'";
+    public LinkedList<Song> getSongsFromPlaylists(String name, String owner){
+        LinkedList<Song> songs = new LinkedList<>();
+        String query = "SELECT * FROM Song JOIN SongPlaylistLink ON Song.title = SongPlaylistLink.songTitle WHERE playlistName = '"+ name +"' AND playlistAuthor = '"+ owner +"'";
         ResultSet result = SQLConnector.getInstance().selectQuery(query);
         try{
             while (result.next()) {
-                String name= result.getString("title");
+                String title= result.getString("title");
                 String artist = result.getString("author");
                 String genre = result.getString("genre");
                 String album = result.getString("genre");
                 String filepath = result.getString("filepath");
                 Long duration = result.getLong("duration");
-                String owner = result.getString("owner");
+                String author = result.getString("owner");
 
-                songs.add(new Song(name,artist,genre,album,filepath,duration,owner));
+                songs.add(new Song(title,artist,genre,album,filepath,duration,author));
             }
 
         }catch(SQLException e){
-            System.out.println("error getting all playlists");
+            return new LinkedList<>();
         }
         return songs;
     }
 
-
-
+    public void deleteSongsFromPlaylistLink(Playlist playlist){
+        String query = "DELETE FROM SongPlaylistLink WHERE SongPlaylistLink.playlistAuthor = '"+playlist.getOwner()+"' AND SongPlaylistLink.playlistName = '"+playlist.getName()+"';";
+        SQLConnector.getInstance().deleteQuery(query);
+    }
 }

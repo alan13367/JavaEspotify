@@ -4,13 +4,10 @@ import javazoom.jl.decoder.JavaLayerException;
 import javazoom.jl.player.advanced.AdvancedPlayer;
 import javazoom.jl.player.advanced.PlaybackEvent;
 import javazoom.jl.player.advanced.PlaybackListener;
-import persistence.SQL.SQLSongDAO;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
-import java.util.List;
-import java.util.Random;
 
 // plays a song, pauses or resumes it.
 
@@ -29,10 +26,10 @@ public class Player implements Runnable {
         this.song = song;
     }
 
-    public void playSong(Song song,Thread playerThread ) throws FileNotFoundException, JavaLayerException {
+    public void playSong(Song song ) throws FileNotFoundException, JavaLayerException {
         InputStream is = new FileInputStream(song.getFilepath());
         player = new AdvancedPlayer(is);
-        playerThread = new Thread(this);
+        Thread playerThread = new Thread(this);
         playerThread.start();
         System.out.println(song.getTitle()+" playing");
         player.setPlayBackListener(new PlaybackListener() {
