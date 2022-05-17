@@ -70,6 +70,29 @@ public class SQLPlaylistDAO implements PlaylistDAO {
         return new ArrayList<>(playlists);
     }
 
+    public List<Song> getSongsFromPlaylists(String title, String author){
+        List<Song> songs = new ArrayList<>();
+        String query = "SELECT * FROM Song JOIN SongPlaylistLink ON Song.title = SongPlaylistLink.songTitle WHERE playlistName = '"+title+"' AND playlistAuthor = '"+author+"'";
+        ResultSet result = SQLConnector.getInstance().selectQuery(query);
+        try{
+            while (result.next()) {
+                String name= result.getString("title");
+                String artist = result.getString("author");
+                String genre = result.getString("genre");
+                String album = result.getString("genre");
+                String filepath = result.getString("filepath");
+                Long duration = result.getLong("duration");
+                String owner = result.getString("owner");
+
+                songs.add(new Song(name,artist,genre,album,filepath,duration,owner));
+            }
+
+        }catch(SQLException e){
+            System.out.println("error getting all playlists");
+        }
+        return songs;
+    }
+
 
 
 }
