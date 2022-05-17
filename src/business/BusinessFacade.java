@@ -24,6 +24,7 @@ public interface BusinessFacade {
     String[] getUserPlaylistsNames();
     List<Playlist> getPlaylists();
     void addSongToPlaylist(String playlistName,Song song);
+    void deletePlaylist(String name,String owner);
     ArrayList<String> getStatsGenres();
     ArrayList<Integer> getStatsValues();
     void setShuffle(boolean isShuffle);
