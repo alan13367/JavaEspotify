@@ -40,30 +40,31 @@ public class PlayerView extends JPanel {
         setPreferredSize(new Dimension(1500,80));
         controlsPanel.setLayout(playerControlsGridLay);
 
-        playerPanel.setLayout(new BorderLayout());
+        playerPanel.setLayout(new GridLayout(2, 1));
         songPanel.setLayout(new GridLayout(2, 1, 1, 1));
 
+        JPanel aux3 = new JPanel();
+        aux3.setSize(400, 60);
+        aux3.setBackground(new Color(32, 32, 32));
         JPanel aux4 = new JPanel();
-        //aux4.setBackground(new Color(32, 32, 32));
-        aux4.setPreferredSize(new Dimension(350, 200));
-        aux4.setMinimumSize(aux4.getPreferredSize());
-        aux4.setMaximumSize(aux4.getPreferredSize());
-        playerPanel.add(aux4, BorderLayout.WEST);
+        aux4.setSize(400, 60);
+        aux4.setBackground(new Color(32, 32, 32));
 
         ImageIcon icon = new ImageIcon("assets/loop.png");
         Image img = icon.getImage() ;
         Image newimg = img.getScaledInstance( 15, 15,  java.awt.Image.SCALE_SMOOTH ) ;
-        icon = new ImageIcon( newimg );
+        icon = new ImageIcon(newimg);
         jbLoop = new JButton(icon);
         jbLoop.setBackground(null);
         jbLoop.setBorder(BorderFactory.createEmptyBorder());
         jbLoop.setContentAreaFilled(false);
         jbLoop.setActionCommand(BTN_LOOP);
+        controlsPanel.add(aux3);
         controlsPanel.add(jbLoop);
 
         icon = new ImageIcon("assets/previous.png");
         img = icon.getImage() ;
-        newimg = img.getScaledInstance( 15, 15,  java.awt.Image.SCALE_SMOOTH ) ;
+        newimg = img.getScaledInstance( 20, 20,  java.awt.Image.SCALE_SMOOTH ) ;
         icon = new ImageIcon( newimg );
         jbPrevious = new JButton(icon);
         jbPrevious.setBackground(null);
@@ -85,7 +86,7 @@ public class PlayerView extends JPanel {
 
         icon = new ImageIcon("assets/next.png");
         img = icon.getImage() ;
-        newimg = img.getScaledInstance( 15, 15,  java.awt.Image.SCALE_SMOOTH ) ;
+        newimg = img.getScaledInstance( 20, 20,  java.awt.Image.SCALE_SMOOTH ) ;
         icon = new ImageIcon( newimg );
         jbNext = new JButton(icon);
         jbNext.setBackground(null);
@@ -104,33 +105,24 @@ public class PlayerView extends JPanel {
         jbShuffle.setContentAreaFilled(false);
         jbShuffle.setActionCommand(BTN_PREV);
         controlsPanel.add(jbShuffle);
+        controlsPanel.add(aux4);
 
-        JPanel aux3 = new JPanel();
-        //aux3.setBackground(new Color(32, 32, 32));
-        aux3.setPreferredSize(new Dimension(350, 40));
-        aux3.setMinimumSize(aux3.getPreferredSize());
-        aux3.setMaximumSize(aux3.getPreferredSize());
-        playerPanel.add(aux3, BorderLayout.WEST);
-
-        playerPanel.add(controlsPanel, BorderLayout.NORTH);
-        JPanel aux = new JPanel();
-        aux.setBackground(new Color(32, 32, 32));
-        aux.setPreferredSize(new Dimension(350, 80));
-        aux.setMinimumSize(aux.getPreferredSize());
-        aux.setMaximumSize(aux.getPreferredSize());
-        playerPanel.add(aux, BorderLayout.WEST);
+        playerPanel.add(controlsPanel);
         jslider = new JSlider(0, 100, 0);
         jslider.setBackground(new Color(32, 32, 32));
-        jslider.setPreferredSize(new Dimension(10, 40));
-        jslider.setMaximumSize(jslider.getPreferredSize());
-        jslider.setMinimumSize(jslider.getPreferredSize());
-        playerPanel.add(jslider, BorderLayout.CENTER);
+        jslider.setPreferredSize(new Dimension(800,20));
+        JPanel jsliderPanel = new JPanel(new FlowLayout());
+        jsliderPanel.setBackground(new Color(32, 32, 32));
+        JPanel aux = new JPanel();
+        aux.setSize(60, 60);
+        aux.setBackground(new Color(32, 32, 32));
         JPanel aux2 = new JPanel();
+        aux2.setSize(60, 60);
         aux2.setBackground(new Color(32, 32, 32));
-        aux2.setPreferredSize(new Dimension(350, 80));
-        aux2.setMinimumSize(aux2.getPreferredSize());
-        aux2.setMaximumSize(aux2.getPreferredSize());
-        playerPanel.add(aux2, BorderLayout.EAST);
+
+        jsliderPanel.add(jslider);
+
+        playerPanel.add(jsliderPanel);
 
         JLabel songName = new JLabel("\n   She don't give a fo");
         JLabel songAuthor = new JLabel("     Duki");
@@ -158,9 +150,17 @@ public class PlayerView extends JPanel {
 
     public void changePlayPause(boolean isPlaying){
         if(isPlaying){
-            jbPlayPause.setIcon(new ImageIcon("assets/pause.png"));
+            ImageIcon icon = new ImageIcon("assets/pause.png");
+            Image img = icon.getImage() ;
+            Image newimg = img.getScaledInstance( 30, 30,  java.awt.Image.SCALE_SMOOTH ) ;
+            icon = new ImageIcon( newimg );
+            jbPlayPause.setIcon(icon);
         }else{
-            jbPlayPause.setIcon(new ImageIcon("assets/playButton.png"));
+            ImageIcon icon = new ImageIcon("assets/playButton.png");
+            Image img = icon.getImage() ;
+            Image newimg = img.getScaledInstance( 30, 30,  java.awt.Image.SCALE_SMOOTH ) ;
+            icon = new ImageIcon( newimg );
+            jbPlayPause.setIcon(icon);
         }
     }
 
