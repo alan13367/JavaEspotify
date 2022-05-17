@@ -4,10 +4,13 @@ import javazoom.jl.decoder.JavaLayerException;
 import javazoom.jl.player.advanced.AdvancedPlayer;
 import javazoom.jl.player.advanced.PlaybackEvent;
 import javazoom.jl.player.advanced.PlaybackListener;
+import persistence.SQL.SQLSongDAO;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
+import java.util.List;
+import java.util.Random;
 
 // plays a song, pauses or resumes it.
 
@@ -18,9 +21,33 @@ public class Player implements Runnable {
     private boolean playSong;
     private boolean pauseSong;
     private Song song;
+    private int songIndex;
+    //private final Thread playerThread = new Thread();
+
 
     public void setSong(Song song) {
         this.song = song;
+    }
+
+    public void playSong(Song song,Thread playerThread ) throws FileNotFoundException, JavaLayerException {
+        InputStream is = new FileInputStream(song.getFilepath());
+        player = new AdvancedPlayer(is);
+        playerThread = new Thread(this);
+        playerThread.start();
+        System.out.println(song.getTitle()+" playing");
+        player.setPlayBackListener(new PlaybackListener() {
+            @Override
+            public void playbackFinished(PlaybackEvent event) {
+                pausedOnFrame = event.getFrame();
+            }
+        });
+    }
+
+
+
+
+    public void pauseSong(){
+        player.stop();
     }
 
     public void setProgramInit(boolean programInit) {
@@ -37,47 +64,12 @@ public class Player implements Runnable {
         this.pauseSong = pauseSong;
     }
 
-    public void startPlayerThread(){
-             Player player = new Player();
-            player.run();
-        System.out.println("thread started");
-    }
-
-    public void playSong(Song song ) throws FileNotFoundException, JavaLayerException {
-        InputStream is = new FileInputStream(song.getFilepath());
-        player = new AdvancedPlayer(is);
-        player.play();
-        System.out.println(song.getTitle()+" playing");
-    }
-
-    public void resumeSong() throws JavaLayerException {
-       player.play();
-    }
-
-    public void pauseSong(){
-        player.stop();
-        player.setPlayBackListener(new PlaybackListener() {
-            @Override
-            public void playbackFinished(PlaybackEvent event) {
-                pausedOnFrame = event.getFrame();
-            }
-        });
-    }
 
     @Override
     public void run() {
         try {
-            while(programInit){
-                startPlayerThread();
-                if(playSong){
-                    playSong(song);
-                }
-                if(pauseSong){
-                    pauseSong();
-                }
-            }
-            //player.play();
-        } catch (JavaLayerException | FileNotFoundException e) {
+            player.play();
+        } catch (JavaLayerException e) {
             throw new RuntimeException(e);
         }
     }

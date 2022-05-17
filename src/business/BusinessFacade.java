@@ -27,8 +27,9 @@ public interface BusinessFacade {
     void deletePlaylist(String name,String owner);
     ArrayList<String> getStatsGenres();
     ArrayList<Integer> getStatsValues();
-    void startPlayer(Song song);
-    void resumePlayer();
+    void setShuffle(boolean isShuffle);
+    void setLoop(boolean isLoop);
+    void playNextSong(Song song);
     void pausePlayer();
     void playSong(Song song);
 
