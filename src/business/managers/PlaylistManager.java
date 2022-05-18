@@ -7,6 +7,7 @@ import persistence.SQL.SQLPlaylistDAO;
 import presentation.views.PlaylistsView;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Objects;
 
@@ -54,6 +55,10 @@ public class PlaylistManager {
 
     public List<Playlist> getPlaylists(){
         return new ArrayList<>(playlists);
+    }
+
+    public LinkedList<Song> getSongsFromPlaylist(String title, String author){
+        return playlistDAO.getSongsFromPlaylists(title,author);
     }
 
     public List<Playlist> getUserPlaylists(String username){

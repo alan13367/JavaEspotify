@@ -4,6 +4,7 @@ import business.entities.Playlist;
 import business.entities.Song;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 public interface BusinessFacade {
@@ -29,8 +30,9 @@ public interface BusinessFacade {
     ArrayList<Integer> getStatsValues();
     void setShuffle(boolean isShuffle);
     void setLoop(boolean isLoop);
-    void playNextSong(Song song);
     void pausePlayer();
     void playSong(Song song);
 
+    LinkedList<Song> getSongsFromPlaylist(String name, String owner);
+    void addPlaylistToQueue(Playlist playlist);
 }

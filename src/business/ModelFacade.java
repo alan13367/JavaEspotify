@@ -142,13 +142,6 @@ public class ModelFacade implements BusinessFacade {
         songPlayerManager.setLoop(isLoop);
     }
 
-    public void playNextSong(Song currentSong){ // play next song when next or prev is pressed
-        try {
-            songPlayerManager.playNextSong(currentSong, playerThread);
-        } catch (FileNotFoundException | JavaLayerException e) {
-            throw new RuntimeException(e);
-        }
-    }
     @Override
     public void pausePlayer() {
         player.pauseSong();
@@ -157,10 +150,19 @@ public class ModelFacade implements BusinessFacade {
     @Override
     public void playSong(Song song) {
         try {
-            player.playSong(song, playerThread);
+            player.playSong(song);
         } catch (FileNotFoundException | JavaLayerException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    @Override
+    public LinkedList<Song> getSongsFromPlaylist(String name, String owner) {
+       return playlistManager.getSongsFromPlaylist(name,owner);
+    }
+
+    public void addPlaylistToQueue(Playlist playlist){
+        songPlayerManager.addPlaylistToQueue(playlist.getName(),playlist.getOwner());
     }
 
     @Override

@@ -7,63 +7,73 @@ import javazoom.jl.decoder.JavaLayerException;
 import persistence.SQL.SQLSongDAO;
 
 import java.io.FileNotFoundException;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.Queue;
 import java.util.Random;
 
 public class SongPlayerManager {
 
    // private Player player = new Player(); // tengo dos players, he de usar solo uno!!!!
     private boolean isShuffle;
-    private boolean isLoop;
+    private boolean isLoopSong;
+    private boolean isLoopPlaylist;
     private boolean playNext;
     private boolean playPrev;
     Player player;
-
-
-    // hacer que si esta en loop y le das a next haga loop, si le das a shuffle y a next q haga play de una random
-    // si estas en una playlist y le das a prev o next q pille el index anterior o posterior en la playlist
-    // asi no dependo de q acabe la cancion, le das a las flechas del player
-
+    PlaylistManager manager;
+    LinkedList<Song> songQueue; // al terminar song, la quitas y va a played songs
+    List<Song> playedSongs = new LinkedList<>();
+    int currentSong =0;
 
     public void setShuffle(boolean shuffle) {
         isShuffle = shuffle;
     }
-
     public void setLoop(boolean loop) {
-        isLoop = loop;
+        isLoopSong = loop;
+    }
+    public void setNext(boolean isNext){playNext=isNext; }
+    public void setPrev(boolean isPrev){playPrev = isPrev; }
+
+    // fill songQueue with a playlist
+    public void addPlaylistToQueue(String name, String owner){
+        songQueue = manager.getSongsFromPlaylist(name,owner);
     }
 
-    // TODO: METER ESTO EN EL FACADE Y QUITAR EL Q VIENE DE PLAYER
-    //  hacer tmb q vayan los botones next, prev, loop, shuffle
+    public void playPlaylist(Playlist playlist)   {
 
-    // when a next/prev arrow is pressed
-    public void playNextSong(Song song, Thread thread) throws FileNotFoundException, JavaLayerException {
-        if(isShuffle){
-            player.playSong(getRandomSong(),thread);
-        } else if (isLoop) {
-            player.playSong(song, thread);
+
+    }
+
+
+    public void playSong(Song song){
+        try {
+            player.playSong(song);
+            songQueue.remove(song);
+            playedSongs.add(song);
+        } catch (FileNotFoundException | JavaLayerException e) {
+            throw new RuntimeException(e);
         }
     }
 
-    // FOR SHUFFLE MODE
-    public Song getRandomSong(){
+
+    public Song getRandomSong(Playlist playlist){
         Random random = new Random();
-        SQLSongDAO dao = new SQLSongDAO();
-        List<Song> songs = dao.loadSongs() ;
+        LinkedList<Song>songs = manager.getSongsFromPlaylist(playlist.getName(),playlist.getOwner());
         int next;
         next = random.nextInt(songs.size());
         return songs.get(next);
     }
 
-    public void playPlaylist(Playlist playlist){
-        int index;
-        if(isLoop){
 
-        }
+    // when a next/prev arrow is pressed
+    /*public void playNextSong(Song song, Thread thread) throws FileNotFoundException, JavaLayerException {
         if(isShuffle){
-
+            player.playSong(getRandomSong());
+        } else if (isLoopSong) {
+            player.playSong(song);
         }
-    }
+    }*/
 }
 
 

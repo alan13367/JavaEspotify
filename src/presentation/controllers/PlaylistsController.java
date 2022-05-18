@@ -2,6 +2,7 @@ package presentation.controllers;
 
 import business.BusinessFacade;
 import business.entities.Playlist;
+import business.entities.Song;
 import presentation.views.PlaylistsView;
 
 import javax.swing.*;
@@ -12,11 +13,13 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.LinkedList;
 import java.util.List;
 
 public class PlaylistsController implements ActionListener, MouseListener {
     private final PlaylistsView playlistsView;
     private final BusinessFacade businessFacade;
+
 
     public PlaylistsController(PlaylistsView playlistsView, BusinessFacade businessFacade) {
         this.playlistsView = playlistsView;
@@ -75,6 +78,14 @@ public class PlaylistsController implements ActionListener, MouseListener {
                     playlistsView.showPlaylistsPanelCard();
                 }
             }
+            case (PlaylistsView.BTN_PLAY_PLAYLIST)->{
+                System.out.println("playing playlist");
+                // get playlist and add it to queue
+                LinkedList<Song> playlist = businessFacade.getSongsFromPlaylist(playlistsView.getPlaylistName(), playlistsView.getPlaylistOwner());
+                //play first song
+                businessFacade.playSong(playlist.get(0));
+                System.out.println("playing "+playlist.get(0).getTitle());
+            }
         }
     }
 
@@ -88,7 +99,6 @@ public class PlaylistsController implements ActionListener, MouseListener {
                 playlistsView.addSongToPanel("name "+i,"author "+i,i,isOwner);
             }
             playlistsView.showPlaylistInfoCard(playlistItemHolder.getPlaylistName(),owner,isOwner);
-
         }
     }
 

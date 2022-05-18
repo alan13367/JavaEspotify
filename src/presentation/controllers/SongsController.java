@@ -13,14 +13,23 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
+// guardar la current song en la database
+
 
 public class SongsController implements ActionListener, ListSelectionListener {
 
     private final SongsView view;
     private final BusinessFacade businessFacade;
     private StatisticsView statisticsView;
+    private Song songToPlay ;
 
-    public SongsController(SongsView view,BusinessFacade businessFacade, StatisticsView statisticsView){
+    public Song getSongToPlay() {
+        String title = view.getSongTitle();
+        String author = view.getSongAuthor();
+        return businessFacade.getSong(title,author);
+    }
+
+    public SongsController(SongsView view, BusinessFacade businessFacade, StatisticsView statisticsView){
         this.view = view;
         this.businessFacade = businessFacade;
         this.statisticsView = statisticsView;
@@ -104,6 +113,8 @@ public class SongsController implements ActionListener, ListSelectionListener {
             }
         }
     }
+
+
 
     @Override
     public void valueChanged(ListSelectionEvent e) {

@@ -285,6 +285,7 @@ public class PlaylistsView extends JPanel {
         jbMyPlaylists.addActionListener(playlistsController);
         jbClose.addActionListener(playlistsController);
         jbDeletePlaylist.addActionListener(playlistsController);
+        jbPlayPlaylist.addActionListener(playlistsController);
     }
 
 

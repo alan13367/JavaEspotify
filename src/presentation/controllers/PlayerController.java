@@ -13,6 +13,8 @@ public class PlayerController implements ActionListener {
     private SongPlayerManager player = new SongPlayerManager();
     private PlaylistsController playlistsController;
     private boolean playing = true;
+    private SongsController songsController; // FIXME: COMO LE PASO EL CONTROLLER
+
     public PlayerController(PlayerView view,BusinessFacade businessFacade) {
         this.businessFacade = businessFacade;
         this.view = view;
@@ -33,14 +35,19 @@ public class PlayerController implements ActionListener {
                    // businessFacade.resumePlayer();
                 }
             }
+
+            // TODO: si estamos en una playlist habra q usar songs de la playlist,
+            //  añadir " if in playlist"
+
             case (PlayerView.BTN_NEXT)->{
                 System.out.println("Next"); // how can I get the song from the song view ?? maybe create getCurrentSong in facade???
-                //businessFacade.playNextSong(businessFacade.getSong());
+                //businessFacade.playNextSong(songsController.getSongToPlay());
             }       // la cancion q va aqui es la seleccionada en la song view
 
             case (PlayerView.BTN_PREV)->{
-                System.out.println("Previous");
                 //businessFacade.playNextSong(businessFacade.getSong());
+                //businessFacade.playNextSong(songsController.getSongToPlay());
+                System.out.println("Previous");
             }
             case (PlayerView.BTN_SHUFFLE)->{
                 businessFacade.setLoop(false);
