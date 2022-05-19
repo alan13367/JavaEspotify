@@ -20,10 +20,11 @@ public class SongPlayerManager {
     private boolean isLoopPlaylist;
     private boolean playNext;
     private boolean playPrev;
+    private boolean isPlaying;
     Player player;
     PlaylistManager manager;
     LinkedList<Song> songQueue; // al terminar song, la quitas y va a played songs
-    List<Song> playedSongs = new LinkedList<>();
+    LinkedList<Song> playedSongs = new LinkedList<>();
     int currentSong =0;
 
     public void setShuffle(boolean shuffle) {
@@ -40,8 +41,24 @@ public class SongPlayerManager {
         songQueue = manager.getSongsFromPlaylist(name,owner);
     }
 
-    public void playPlaylist(Playlist playlist)   {
+    public LinkedList<Song> getSongQueue() {
+        return songQueue;
+    }
 
+    public LinkedList<Song> getPlayedSongs() {
+        return playedSongs;
+    }
+
+    public int getCurrentSong() {
+        return currentSong;
+    }
+
+    public void playNextSong(LinkedList<Song> songsQueue, int index)   {
+        try {
+            player.playSong(songsQueue.get(index));
+        } catch (FileNotFoundException | JavaLayerException e) {
+            throw new RuntimeException(e);
+        }
 
     }
 

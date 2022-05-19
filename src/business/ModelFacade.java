@@ -165,6 +165,22 @@ public class ModelFacade implements BusinessFacade {
         songPlayerManager.addPlaylistToQueue(playlist.getName(),playlist.getOwner());
     }
 
+    public LinkedList<Song> getSongQueue(){
+       return songPlayerManager.getSongQueue();
+    }
+
+    public LinkedList<Song> getPlayedSongs(){
+        return songPlayerManager.getPlayedSongs();
+    }
+
+    public int getIndexCurrentSong(){
+        return songPlayerManager.getCurrentSong();
+    }
+
+    public void playNextSong(){
+        songPlayerManager.playNextSong(getSongQueue(),getIndexCurrentSong());
+    }
+
     @Override
     public void logOut() {
         userManager.logOut();

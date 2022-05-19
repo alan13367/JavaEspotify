@@ -32,7 +32,7 @@ public interface BusinessFacade {
     void setLoop(boolean isLoop);
     void pausePlayer();
     void playSong(Song song);
-
+    void playNextSong();
     LinkedList<Song> getSongsFromPlaylist(String name, String owner);
     void addPlaylistToQueue(Playlist playlist);
 }

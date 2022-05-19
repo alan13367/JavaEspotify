@@ -239,9 +239,6 @@ public class PlaylistsView extends JPanel {
         repaint();
     }
 
-
-
-
     public void addMyPlaylists(String name, String owner){
         PlaylistItemHolder playlistItemHolder = new PlaylistItemHolder(name,owner);
         playlistItemHolder.registerController(playlistsController);

@@ -40,9 +40,6 @@ public class Player implements Runnable {
         });
     }
 
-
-
-
     public void pauseSong(){
         player.stop();
     }
