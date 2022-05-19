@@ -46,11 +46,14 @@ public class PlaylistManager {
             }
         }
         playlistDAO.addSongToPlaylist(song,playlist);
-
     }
 
-    public void deleteSongFromPlaylist(Playlist playlist, Song song){
-        playlistDAO.deleteSongFromPlaylist(song, playlist);
+    public void deleteSongFromPlaylist(String playlistName,String playlistOwner, Song song){
+        for (Playlist p:playlists){
+            if(p.getName().equals(playlistName) && p.getOwner().equals(playlistOwner)){
+                playlistDAO.deleteSongFromPlaylist(song, p);
+            }
+        }
     }
 
     public List<Playlist> getPlaylists(){

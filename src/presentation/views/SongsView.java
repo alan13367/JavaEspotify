@@ -13,7 +13,6 @@ import java.awt.event.ActionListener;
 
 public class SongsView extends JPanel {
 
-    private static final int TIME_VISIBLE = 1000;
     private CardLayout cardManager;
 
     //SongsPanel
@@ -47,6 +46,8 @@ public class SongsView extends JPanel {
     public static final String BTN_ADD_TO_PLAYLIST = "BTN_ADD_TO_PLAYLIST";
     public static final String BTN_DELETE_SONG = "BTN_DELETE_SONG";
     public static final String BTN_CLOSE = "BTN_CLOSE";
+
+    private SongsController songsController;
 
 
 
@@ -256,6 +257,7 @@ public class SongsView extends JPanel {
 
 
     public void registerController(SongsController controller){
+        this.songsController = controller;
         jbSearch.addActionListener(controller);
         jbRefresh.addActionListener(controller);
         songsTable.getSelectionModel().addListSelectionListener(controller);
@@ -292,20 +294,30 @@ public class SongsView extends JPanel {
         revalidate();
     }
 
-    public void showLoadingDialog(){
+
+
+    public void showLoadingDialog(SongsController controller) {
         JOptionPane pane = new JOptionPane("Loading",
                 JOptionPane.INFORMATION_MESSAGE);
         JDialog dialog = pane.createDialog(this, "");
         dialog.setModal(false);
-        dialog.setVisible(true);
+        SwingWorker worker = new SwingWorker() {
 
-        new Timer(TIME_VISIBLE, new ActionListener() {
             @Override
-            public void actionPerformed(ActionEvent e) {
-                dialog.setVisible(false);
+            protected Object doInBackground() throws Exception {
+                return 0;
             }
-        }).start();
+
+            @Override
+            protected void done() {
+                dialog.dispose();
+            }
+        };
+        worker.execute();
+        dialog.setVisible(true);
     }
+
+
 
     public String getSongTitle(){
         return jlTitle.getText().trim();
