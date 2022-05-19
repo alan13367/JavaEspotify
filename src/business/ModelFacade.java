@@ -64,7 +64,7 @@ public class ModelFacade implements BusinessFacade {
 
     @Override
     public void addSong(String title, String album, String genre, String author, String filepath, long duration) {
-        songManager.addSong(title, author, genre, album,filepath, duration, getCurrentUser());
+        songManager.addSong(title, album, genre, author,filepath, duration, getCurrentUser());
     }
 
     @Override
@@ -159,6 +159,11 @@ public class ModelFacade implements BusinessFacade {
     @Override
     public LinkedList<Song> getSongsFromPlaylist(String name, String owner) {
        return playlistManager.getSongsFromPlaylist(name,owner);
+    }
+
+    @Override
+    public void deleteSongFromPlaylist(String playlistName, String songName, String songAuthor) {
+        playlistManager.deleteSongFromPlaylist(playlistName,getCurrentUser(),getSong(songName,songAuthor));
     }
 
     public void addPlaylistToQueue(Playlist playlist){

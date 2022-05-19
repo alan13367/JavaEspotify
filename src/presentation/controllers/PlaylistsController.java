@@ -3,6 +3,7 @@ package presentation.controllers;
 import business.BusinessFacade;
 import business.entities.Playlist;
 import business.entities.Song;
+import presentation.views.PlayerView;
 import presentation.views.PlaylistsView;
 
 import javax.swing.*;
@@ -18,12 +19,14 @@ import java.util.List;
 
 public class PlaylistsController implements ActionListener, MouseListener {
     private final PlaylistsView playlistsView;
+    private final PlayerView playerView;
     private final BusinessFacade businessFacade;
 
 
-    public PlaylistsController(PlaylistsView playlistsView, BusinessFacade businessFacade) {
+    public PlaylistsController(PlaylistsView playlistsView, PlayerView playerView,BusinessFacade businessFacade) {
         this.playlistsView = playlistsView;
         this.businessFacade = businessFacade;
+        this.playerView = playerView;
     }
 
     public void loadPlaylists(String username){
@@ -81,11 +84,41 @@ public class PlaylistsController implements ActionListener, MouseListener {
             case (PlaylistsView.BTN_PLAY_PLAYLIST)->{
                 System.out.println("playing playlist");
                 // get playlist and add it to queue
-                LinkedList<Song> playlist = businessFacade.getSongsFromPlaylist(playlistsView.getPlaylistName(), playlistsView.getPlaylistOwner());
+                LinkedList<Song> playlist = new LinkedList<>();
+                for (PlaylistsView.SongItemHolder s: playlistsView.getSongsHolder()){
+                    playlist.add(businessFacade.getSong(s.getSongName(),s.getAuthor()));
+                }
                 //play first song
-                businessFacade.playSong(playlist.get(0));
+                playerView.changePlayPause(true);
+                businessFacade.playSong(playlist.get(1));
                 System.out.println("playing "+playlist.get(0).getTitle());
             }
+
+            case(PlaylistsView.BTN_MOVE_SONG_UP)->{
+                PlaylistsView.SongItemHolder songItemHolder = ((PlaylistsView.SongItemHolder) ((JButton)e.getSource()).getParent().getParent().getParent());
+                int position = songItemHolder.getPosition()-1;
+                if(position > 0)
+                    playlistsView.moveSongInPlaylist(position,PlaylistsView.MOVEUP);
+            }
+            case(PlaylistsView.BTN_MOVE_SONG_DOWN)->{
+                PlaylistsView.SongItemHolder songItemHolder = ((PlaylistsView.SongItemHolder) ((JButton)e.getSource()).getParent().getParent().getParent());
+                int position = songItemHolder.getPosition()-1;
+                if(position < playlistsView.getSongsListSize()-1)
+                    playlistsView.moveSongInPlaylist(position,PlaylistsView.MOVEDOWN);
+            }
+
+            case (PlaylistsView.BTN_DELETE_SONG_FROM_PLAYLIST)->{
+                PlaylistsView.SongItemHolder songItemHolder = ((PlaylistsView.SongItemHolder) ((JButton)e.getSource()).getParent().getParent());
+
+                int response = playlistsView.showPlaylistOptionDialog("Are you sure you want to delete this song from the playlist?"
+                        ,"Deleting Song From Playlist");
+                if(response==JOptionPane.YES_OPTION){
+                    businessFacade.deleteSongFromPlaylist(playlistsView.getPlaylistName()
+                            , songItemHolder.getSongName(), songItemHolder.getAuthor());
+                    playlistsView.deleteSongFromPlaylist(songItemHolder.getPosition()-1);
+                }
+            }
+
         }
     }
 
@@ -95,8 +128,9 @@ public class PlaylistsController implements ActionListener, MouseListener {
             PlaylistsView.PlaylistItemHolder playlistItemHolder = (PlaylistsView.PlaylistItemHolder) e.getSource();
             String owner = playlistItemHolder.getPlaylistOwner();
             boolean isOwner = businessFacade.getCurrentUser().equals(owner);
-            for(int i = 0;i<50;i++){
-                playlistsView.addSongToPanel("name "+i,"author "+i,i,isOwner);
+            List<Song> playlistSongs =  businessFacade.getSongsFromPlaylist(playlistItemHolder.getPlaylistName(), owner);
+            for(int i = 0;i<playlistSongs.size();i++){
+                playlistsView.addSongToPanel(playlistSongs.get(i).getTitle(),playlistSongs.get(i).getAuthor(),i+1,isOwner);
             }
             playlistsView.showPlaylistInfoCard(playlistItemHolder.getPlaylistName(),owner,isOwner);
         }

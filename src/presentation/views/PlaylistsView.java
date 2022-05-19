@@ -5,12 +5,10 @@ import presentation.views.GUIassets.MyScrollBarUI;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
-import javax.swing.plaf.basic.BasicArrowButton;
-import javax.swing.plaf.basic.BasicScrollBarUI;
 import java.awt.*;
 import java.awt.font.TextAttribute;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
+import java.util.List;
 
 public class PlaylistsView extends JPanel {
     //General Assets
@@ -34,11 +32,9 @@ public class PlaylistsView extends JPanel {
     private static final String ALL_PLAYLISTS_CARD = "ALL_PLAYLISTS_CARD";
 
     //Playlist Info Panel
-    private JPanel playlistInfoPanel;
-    private JPanel jpSongsFromPlaylist;
+    private JPanel playlistInfoPanel,jpSongsFromPlaylist;
     private JScrollPane songsScrollPane;
-    private JLabel jlPlaylistName;
-    private JLabel jlPlaylistOwner;
+    private JLabel jlPlaylistName,jlPlaylistOwner;
     private JButton jbClose,jbPlayPlaylist,jbDeletePlaylist;
     public static final String BTN_CLOSE = "BTN_CLOSE";
     public static final String BTN_PLAY_PLAYLIST = "BTN_PLAY_PLAYLIST";
@@ -51,10 +47,13 @@ public class PlaylistsView extends JPanel {
     private static final String PLAYLISTS_CARD = "PLAYLISTS_CARD";
     private static final String PLAYLIST_INFO_CARD = "PLAYLIST_INFO_CARD";
     private PlaylistsController playlistsController;
-
+    private final List<SongItemHolder> songsHolder;
+    public  static final int MOVEUP = 1;
+    public  static final int MOVEDOWN = 0;
 
 
     public PlaylistsView(){
+        songsHolder = new ArrayList<>();
         viewManager = new CardLayout();
         playlistsPanelManager = new CardLayout();
         setLayout(viewManager);
@@ -202,39 +201,18 @@ public class PlaylistsView extends JPanel {
         revalidate();
     }
 
-    private JScrollPane configureScrollBarUI(JScrollPane jScrollPane){
-        jScrollPane.getVerticalScrollBar().setBackground(new Color(16,16,16));
-        jScrollPane.getVerticalScrollBar().setUI(new BasicScrollBarUI() {
-            @Override
-            protected void configureScrollBarColors() {
-                this.thumbColor = new Color(80,80,80);
-            }
-
-            @Override
-            protected JButton createDecreaseButton(int orientation) {
-                return new BasicArrowButton(orientation,new Color(16,16,16),new Color(16,16,16)
-                        ,Color.white,new Color(16,16,16));
-            }
-
-            @Override
-            protected JButton createIncreaseButton(int orientation) {
-                return new BasicArrowButton(orientation,new Color(16,16,16),new Color(16,16,16)
-                        ,Color.white,new Color(16,16,16));
-            }
-        });
-        return jScrollPane;
-    }
-
     public void addSongToPanel(String name,String author,int position,boolean isOwner){
         SongItemHolder songItemHolder = new SongItemHolder(name,author,position,isOwner);
         songItemHolder.registerController(playlistsController);
         jpSongsFromPlaylist.add(songItemHolder);
+        songsHolder.add(songItemHolder);
         validate();
         repaint();
     }
 
     public void clearSongsPanel(){
         jpSongsFromPlaylist.removeAll();
+        songsHolder.clear();
         validate();
         repaint();
     }
@@ -333,6 +311,44 @@ public class PlaylistsView extends JPanel {
         return jlPlaylistOwner.getText();
     }
 
+    private void reloadSongsPanel(){
+        jpSongsFromPlaylist.removeAll();
+        validate();
+        repaint();
+        for (int i = 0;i<songsHolder.size();i++){
+            songsHolder.get(i).setPosition(i+1);
+            jpSongsFromPlaylist.add(songsHolder.get(i));
+            validate();
+            repaint();
+        }
+    }
+
+    public void moveSongInPlaylist(int position,final int upOrDown){
+        switch(upOrDown){
+            case MOVEUP ->{
+                Collections.swap(songsHolder,position,position-1);
+            }
+            case MOVEDOWN ->{
+                Collections.swap(songsHolder,position,position+1);
+            }
+        }
+
+        reloadSongsPanel();
+    }
+
+    public void deleteSongFromPlaylist(int position){
+        songsHolder.remove(position);
+        reloadSongsPanel();
+    }
+
+    public int getSongsListSize(){
+        return songsHolder.size();
+    }
+
+    public List<SongItemHolder> getSongsHolder(){
+        return new ArrayList<>(songsHolder);
+    }
+
     public static class PlaylistItemHolder extends JPanel{
         private JLabel playlistName;
         private JLabel playlistOwner;
@@ -377,12 +393,9 @@ public class PlaylistsView extends JPanel {
         private JButton deleteSong,moveUp,moveDown;
 
         private SongItemHolder(String name,String author,int position,boolean isOwner){
-            /*
-            this.setPreferredSize(new Dimension(400,50));
-            this.setMaximumSize(this.getPreferredSize());
+            this.setPreferredSize(new Dimension(1150,70));
             this.setMinimumSize(this.getPreferredSize());
-
-             */
+            this.setMaximumSize(this.getPreferredSize());
             this.setBackground(new Color(16,16,16));
             this.setLayout(new BorderLayout());
             JPanel centerPanel = new JPanel(new GridLayout(1,4));
@@ -408,6 +421,7 @@ public class PlaylistsView extends JPanel {
             buttonsPanel.setBackground(new Color(16,16,16));
             JPanel arrowsPanel = new JPanel(new GridLayout(2,1));
             arrowsPanel.setBackground(new Color(16,16,16));
+            arrowsPanel.setBorder(new EmptyBorder(0,0,0,10));
 
             moveUp = new JButton(new ImageIcon("assets/arrowup.png"));
             moveUp.setActionCommand(BTN_MOVE_SONG_UP);
@@ -449,6 +463,16 @@ public class PlaylistsView extends JPanel {
             this.position.setText("   "+position+".");
         }
 
+        public String getSongName(){
+            return songName.getText();
+        }
+        public String getAuthor(){
+            return songAuthor.getText();
+        }
 
+        public int getPosition(){
+            String[] split = position.getText().split("\\.");
+            return Integer.parseInt(split[0].trim());
+        }
     }
 }
