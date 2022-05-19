@@ -15,8 +15,7 @@ public class ModelFacade implements BusinessFacade {
     private final UserManager userManager;
     private final PlaylistManager playlistManager;
     private final SongPlayerManager songPlayerManager;
-    private Thread playerThread;
-    private Player player;
+
     //Managers
 
     public ModelFacade() {
@@ -24,7 +23,6 @@ public class ModelFacade implements BusinessFacade {
         this.userManager = new UserManager();
         this.playlistManager = new PlaylistManager();
         this.songPlayerManager = new SongPlayerManager();
-        this.player = new Player();
     }
 
     @Override
@@ -144,20 +142,16 @@ public class ModelFacade implements BusinessFacade {
 
     @Override
     public void pausePlayer() {
-        player.pauseSong();
+       songPlayerManager.pauseCurrentSong();
     }
 
     @Override
-    public void playSong(Song song) {
-        try {
-            player.playSong(song);
-        } catch (FileNotFoundException | JavaLayerException e) {
-            throw new RuntimeException(e);
-        }
+    public void playSong(String songTitle,String songAuthor) {
+        songPlayerManager.playSong(getSong(songTitle, songAuthor));
     }
 
     @Override
-    public LinkedList<Song> getSongsFromPlaylist(String name, String owner) {
+    public List<Song> getSongsFromPlaylist(String name, String owner) {
        return playlistManager.getSongsFromPlaylist(name,owner);
     }
 
@@ -166,15 +160,21 @@ public class ModelFacade implements BusinessFacade {
         playlistManager.deleteSongFromPlaylist(playlistName,getCurrentUser(),getSong(songName,songAuthor));
     }
 
-    public void addPlaylistToQueue(Playlist playlist){
-        songPlayerManager.addPlaylistToQueue(playlist.getName(),playlist.getOwner());
+
+    public void addPlaylistToQueue(List<Song> playlist){
+        songPlayerManager.addPlaylistToQueue(playlist);
     }
 
-    public LinkedList<Song> getSongQueue(){
+    @Override
+    public boolean isPlaying() {
+        return songPlayerManager.isPlaying();
+    }
+
+    public List<Song> getSongQueue(){
        return songPlayerManager.getSongQueue();
     }
 
-    public LinkedList<Song> getPlayedSongs(){
+    public List<Song> getPlayedSongs(){
         return songPlayerManager.getPlayedSongs();
     }
 
@@ -183,7 +183,7 @@ public class ModelFacade implements BusinessFacade {
     }
 
     public void playNextSong(){
-        songPlayerManager.playNextSong(getSongQueue(),getIndexCurrentSong());
+        //songPlayerManager.playNextSong(songPlayerManager.getSongQueue(),getIndexCurrentSong());
     }
 
     @Override

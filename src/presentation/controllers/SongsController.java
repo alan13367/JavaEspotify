@@ -3,6 +3,7 @@ package presentation.controllers;
 import business.BusinessFacade;
 import business.entities.Song;
 
+import presentation.views.PlayerView;
 import presentation.views.SongsView;
 import presentation.views.StatisticsView;
 
@@ -19,20 +20,16 @@ import java.util.ArrayList;
 public class SongsController implements ActionListener, ListSelectionListener {
 
     private final SongsView view;
+    private final PlayerView playerView;
     private final BusinessFacade businessFacade;
     private StatisticsView statisticsView;
-    private Song songToPlay ;
 
-    public Song getSongToPlay() {
-        String title = view.getSongTitle();
-        String author = view.getSongAuthor();
-        return businessFacade.getSong(title,author);
-    }
 
-    public SongsController(SongsView view, BusinessFacade businessFacade, StatisticsView statisticsView){
+    public SongsController(SongsView view, BusinessFacade businessFacade, StatisticsView statisticsView,PlayerView playerView){
         this.view = view;
         this.businessFacade = businessFacade;
         this.statisticsView = statisticsView;
+        this.playerView = playerView;
         loadSongs();
     }
 
@@ -94,7 +91,8 @@ public class SongsController implements ActionListener, ListSelectionListener {
                 String title = view.getSongTitle();
                 String author = view.getSongAuthor();
                 //businessFacade.startPlayer(businessFacade.getSong(title,author));
-                businessFacade.playSong(businessFacade.getSong(title,author));
+                businessFacade.playSong(title,author);
+                playerView.changePlayPause(businessFacade.isPlaying());
             }
 
             case (SongsView.BTN_ADD_TO_PLAYLIST)->{

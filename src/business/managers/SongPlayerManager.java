@@ -22,10 +22,15 @@ public class SongPlayerManager {
     private boolean playPrev;
     private boolean isPlaying;
     Player player;
-    PlaylistManager manager;
-    LinkedList<Song> songQueue; // al terminar song, la quitas y va a played songs
-    LinkedList<Song> playedSongs = new LinkedList<>();
+    List<Song> songQueue; // al terminar song, la quitas y va a played songs
+    List<Song> playedSongs;
     int currentSong =0;
+
+    public SongPlayerManager() {
+        this.player = new Player();
+        playedSongs = new LinkedList<>();
+        isPlaying = false;
+    }
 
     public void setShuffle(boolean shuffle) {
         isShuffle = shuffle;
@@ -37,15 +42,19 @@ public class SongPlayerManager {
     public void setPrev(boolean isPrev){playPrev = isPrev; }
 
     // fill songQueue with a playlist
-    public void addPlaylistToQueue(String name, String owner){
-        songQueue = manager.getSongsFromPlaylist(name,owner);
+    public void addPlaylistToQueue(List<Song> playlist){
+        songQueue = playlist;
     }
 
-    public LinkedList<Song> getSongQueue() {
+    public boolean isPlaying(){
+        return isPlaying;
+    }
+
+    public List<Song> getSongQueue() {
         return songQueue;
     }
 
-    public LinkedList<Song> getPlayedSongs() {
+    public List<Song> getPlayedSongs() {
         return playedSongs;
     }
 
@@ -64,22 +73,24 @@ public class SongPlayerManager {
 
 
     public void playSong(Song song){
-        try {
-            player.playSong(song);
-            songQueue.remove(song);
-            playedSongs.add(song);
-        } catch (FileNotFoundException | JavaLayerException e) {
-            throw new RuntimeException(e);
+        if(!isPlaying){
+            isPlaying = true;
+            try {
+                player.playSong(song);
+            } catch (FileNotFoundException | JavaLayerException e) {
+                throw new RuntimeException(e);
+            }
         }
     }
 
 
-    public Song getRandomSong(Playlist playlist){
-        Random random = new Random();
-        LinkedList<Song>songs = manager.getSongsFromPlaylist(playlist.getName(),playlist.getOwner());
-        int next;
-        next = random.nextInt(songs.size());
-        return songs.get(next);
+    public Song getRandomSong(){
+        return songQueue.get(new Random().nextInt(songQueue.size()));
+    }
+
+    public void pauseCurrentSong() {
+        player.pauseSong();
+        isPlaying = false;
     }
 
 

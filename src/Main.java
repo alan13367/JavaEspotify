@@ -15,7 +15,7 @@ public class Main {
                     ,businessFacade,mainView);
             HomeController homeController = new HomeController(mainView,mainView.getHomeView(), businessFacade);
             SongsController songsController = new SongsController(mainView.getHomeView().getSongsView(), businessFacade
-                    , mainView.getHomeView().getStatisticsView());
+                    , mainView.getHomeView().getStatisticsView(),mainView.getHomeView().getPlayerView());
             PlaylistsController playlistsController = new PlaylistsController(mainView.getHomeView().getPlaylistsView()
                     ,mainView.getHomeView().getPlayerView(),businessFacade);
             PlayerController playerController = new PlayerController(mainView.getHomeView().getPlayerView(),businessFacade);

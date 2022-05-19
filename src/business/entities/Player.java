@@ -26,7 +26,7 @@ public class Player implements Runnable {
         this.song = song;
     }
 
-    public void playSong(Song song ) throws FileNotFoundException, JavaLayerException {
+    public void playSong(Song song) throws FileNotFoundException, JavaLayerException {
         InputStream is = new FileInputStream(song.getFilepath());
         player = new AdvancedPlayer(is);
         Thread playerThread = new Thread(this);
@@ -66,5 +66,6 @@ public class Player implements Runnable {
         } catch (JavaLayerException e) {
             throw new RuntimeException(e);
         }
+
     }
 }

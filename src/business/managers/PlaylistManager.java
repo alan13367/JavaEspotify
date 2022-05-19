@@ -60,7 +60,7 @@ public class PlaylistManager {
         return new ArrayList<>(playlists);
     }
 
-    public LinkedList<Song> getSongsFromPlaylist(String title, String author){
+    public List<Song> getSongsFromPlaylist(String title, String author){
         return playlistDAO.getSongsFromPlaylists(title,author);
     }
 

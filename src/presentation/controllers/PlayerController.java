@@ -10,11 +10,7 @@ import java.awt.event.ActionListener;
 public class PlayerController implements ActionListener {
     private final BusinessFacade businessFacade;
     private final PlayerView view;
-    private SongPlayerManager player = new SongPlayerManager();
-    private PlaylistsController playlistsController;
-    private boolean playing = true;
-    private SongsController songsController; // FIXME: COMO LE PASO EL CONTROLLER
-    private int songInPlaylistId; 
+
     public PlayerController(PlayerView view,BusinessFacade businessFacade) {
         this.businessFacade = businessFacade;
         this.view = view;
@@ -24,16 +20,14 @@ public class PlayerController implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         switch (e.getActionCommand()){
             case(PlayerView.BTN_PLAYPAUSE)->{ // default is in play mode
-                if(playing){
-                    System.out.println("Song paused");
-                    view.changePlayPause(playing);
-                    businessFacade.pausePlayer();
-                }else{
-                    playing = true;
+                if(!businessFacade.isPlaying()){
                     System.out.println("Song resumed");
-                    view.changePlayPause(playing);
-                   // businessFacade.resumePlayer();
+                    view.changePlayPause(businessFacade.isPlaying());
+                }else {
+                    businessFacade.pausePlayer();
+                    view.changePlayPause(businessFacade.isPlaying());
                 }
+
             }
 
             // TODO: si estamos en una playlist habra q usar songs de la playlist,
@@ -42,7 +36,6 @@ public class PlayerController implements ActionListener {
             case (PlayerView.BTN_NEXT)->{
                 System.out.println("Next");
 
-                businessFacade.playNextSong();
             } // la cancion q va aqui es la seleccionada en la song view
 
             case (PlayerView.BTN_PREV)->{

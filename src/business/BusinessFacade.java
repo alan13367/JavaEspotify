@@ -31,8 +31,9 @@ public interface BusinessFacade {
     void setShuffle(boolean isShuffle);
     void setLoop(boolean isLoop);
     void pausePlayer();
-    void playSong(Song song);
-    LinkedList<Song> getSongsFromPlaylist(String name, String owner);
+    void playSong(String songTitle,String songAuthor);
+    List<Song> getSongsFromPlaylist(String name, String owner);
     void deleteSongFromPlaylist(String playlistName,String songName,String songAuthor);
-    void addPlaylistToQueue(Playlist playlist);
+    void addPlaylistToQueue(List<Song> playlist);
+    boolean isPlaying();
 }
