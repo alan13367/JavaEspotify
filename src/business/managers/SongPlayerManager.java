@@ -60,11 +60,15 @@ public class SongPlayerManager {
     }
 
     public void playNextSong(){
-        try {
-            player.playSong(songQueue.get(currentSong++));
-        } catch (FileNotFoundException | JavaLayerException e) {
-            throw new RuntimeException(e);
+        if(!isPlaying){
+            isPlaying = true;
+            try {
+                player.playSong(songQueue.get(currentSong++));
+            } catch (FileNotFoundException | JavaLayerException e) {
+                throw new RuntimeException(e);
+            }
         }
+
 
     }
 
