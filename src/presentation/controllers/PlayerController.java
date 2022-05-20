@@ -27,13 +27,11 @@ public class PlayerController implements ActionListener {
                     businessFacade.pausePlayer();
                     view.changePlayPause(businessFacade.isPlaying());
                 }
-
             }
 
-            // TODO: si estamos en una playlist habra q usar songs de la playlist,
-            //  añadir "if in playlist"
-
             case (PlayerView.BTN_NEXT)->{
+                businessFacade.pausePlayer();
+                businessFacade.playNextSong();
                 System.out.println("Next");
 
             } // la cancion q va aqui es la seleccionada en la song view

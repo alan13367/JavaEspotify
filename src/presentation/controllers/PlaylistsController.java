@@ -90,7 +90,8 @@ public class PlaylistsController implements ActionListener, MouseListener {
                 }
                 //play first song
                 playerView.changePlayPause(true);
-                businessFacade.playSong(playlist.get(1).getTitle(),playlist.get(1).getAuthor());
+                businessFacade.playSong(playlist.get(0).getTitle(),playlist.get(0).getAuthor());
+                businessFacade.addPlaylistToQueue(playlist);
                 System.out.println("playing "+playlist.get(0).getTitle());
             }
 

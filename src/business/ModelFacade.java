@@ -150,6 +150,10 @@ public class ModelFacade implements BusinessFacade {
         songPlayerManager.playSong(getSong(songTitle, songAuthor));
     }
 
+    public void playNextSong(){
+        songPlayerManager.playNextSong();
+    }
+
     @Override
     public List<Song> getSongsFromPlaylist(String name, String owner) {
        return playlistManager.getSongsFromPlaylist(name,owner);
@@ -180,10 +184,6 @@ public class ModelFacade implements BusinessFacade {
 
     public int getIndexCurrentSong(){
         return songPlayerManager.getCurrentSong();
-    }
-
-    public void playNextSong(){
-        //songPlayerManager.playNextSong(songPlayerManager.getSongQueue(),getIndexCurrentSong());
     }
 
     @Override

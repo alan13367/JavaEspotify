@@ -1,15 +1,12 @@
 package business.managers;
 
 import business.entities.Player;
-import business.entities.Playlist;
 import business.entities.Song;
 import javazoom.jl.decoder.JavaLayerException;
-import persistence.SQL.SQLSongDAO;
 
 import java.io.FileNotFoundException;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Queue;
 import java.util.Random;
 
 public class SongPlayerManager {
@@ -62,15 +59,14 @@ public class SongPlayerManager {
         return currentSong;
     }
 
-    public void playNextSong(LinkedList<Song> songsQueue, int index)   {
+    public void playNextSong(){
         try {
-            player.playSong(songsQueue.get(index));
+            player.playSong(songQueue.get(currentSong++));
         } catch (FileNotFoundException | JavaLayerException e) {
             throw new RuntimeException(e);
         }
 
     }
-
 
     public void playSong(Song song){
         if(!isPlaying){
@@ -93,15 +89,6 @@ public class SongPlayerManager {
         isPlaying = false;
     }
 
-
-    // when a next/prev arrow is pressed
-    /*public void playNextSong(Song song, Thread thread) throws FileNotFoundException, JavaLayerException {
-        if(isShuffle){
-            player.playSong(getRandomSong());
-        } else if (isLoopSong) {
-            player.playSong(song);
-        }
-    }*/
 }
 
 
