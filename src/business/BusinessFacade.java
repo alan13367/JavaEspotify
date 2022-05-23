@@ -3,6 +3,7 @@ package business;
 import business.entities.Playlist;
 import business.entities.Song;
 
+import javax.swing.*;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
@@ -39,6 +40,8 @@ public interface BusinessFacade {
     void deleteSongFromPlaylist(String playlistName,String songName,String songAuthor);
     void addPlaylistToQueue(List<Song> playlist);
     boolean isPlaying();
-    void playNextInLoop();
+    void playNextInLoop(Song song);
     Song getCurrentSong();
+
+    void moveSlider(JSlider slider);
 }

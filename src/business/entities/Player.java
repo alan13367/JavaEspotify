@@ -60,6 +60,22 @@ public class Player implements Runnable {
         player.stop();
     }
 
+    public void moveSlider(JSlider slider) {
+        int nValue = slider.getValue();
+        int nMaxValue = slider.getMaximum();
+        do {
+            nValue++;
+            slider.setValue(nValue);
+            try{
+                Thread.sleep(1000);
+            }catch(InterruptedException e) {
+                e.printStackTrace();
+            }
+            slider.setValue(nValue);
+            System.out.println("Value is " + nValue);
+            System.out.println("Max value is " + nMaxValue);
+        }while(nValue<nMaxValue);
+    }
 
 
     public void setProgramInit(boolean programInit) {

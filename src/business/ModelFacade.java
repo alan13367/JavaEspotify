@@ -5,6 +5,7 @@ import business.entities.Song;
 import business.managers.*;
 import com.google.gson.*;
 
+import javax.swing.*;
 import java.util.*;
 
 public class ModelFacade implements BusinessFacade {
@@ -160,9 +161,9 @@ public class ModelFacade implements BusinessFacade {
         songPlayerManager.playSong(songPlayerManager.getRandomSong());
     }
 
-    public void playNextInLoop(){
+    public void playNextInLoop(Song song){
         // cuando llegues al final de la playlist vuelve a la primera cancion
-        songPlayerManager.playNextInLoop();
+        songPlayerManager.playNextInLoop(song);
     }
 
     @Override
@@ -195,6 +196,10 @@ public class ModelFacade implements BusinessFacade {
 
     public Song getCurrentSong(){
         return songPlayerManager.getCurrentSong();
+    }
+
+    public void moveSlider(JSlider slider){
+        songPlayerManager.moveSlider(slider);
     }
 
     @Override

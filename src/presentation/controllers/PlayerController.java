@@ -11,8 +11,8 @@ public class PlayerController implements ActionListener {
     private final BusinessFacade businessFacade;
     private final PlayerView view;
     private final SongsView songsView;
-    private boolean isLoop;
-    private boolean isShuffle;
+    private boolean isLoop = false;
+    private boolean isShuffle = false;
 
     public PlayerController(PlayerView view, BusinessFacade businessFacade, SongsView songsView) {
         this.businessFacade = businessFacade;
@@ -37,13 +37,15 @@ public class PlayerController implements ActionListener {
                 businessFacade.pausePlayer();
                 if(isLoop){
                     System.out.println("playing in loop");
-                    businessFacade.playNextInLoop();
+                    businessFacade.playNextInLoop(businessFacade.getCurrentSong());
                 } else if (isShuffle) {
                     System.out.println("shuffln");
                     businessFacade.playRandomSong();
                 }else{
                         businessFacade.playNextSong();
                         view.changeShownSong(businessFacade.getCurrentSong().getTitle(),businessFacade.getCurrentSong().getAuthor());
+                       // view.initSlider(businessFacade.getCurrentSong());
+                       // businessFacade.moveSlider(view.getJslider());
                         System.out.println("Next");
                 }
             }

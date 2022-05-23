@@ -4,6 +4,7 @@ import business.entities.Player;
 import business.entities.Song;
 import javazoom.jl.decoder.JavaLayerException;
 
+import javax.swing.*;
 import java.io.FileNotFoundException;
 import java.util.LinkedList;
 import java.util.List;
@@ -111,17 +112,16 @@ public class SongPlayerManager{
         return currentSong;
     }
 
-    public void playNextInLoop(){
+    public void moveSlider(JSlider slider){
+        player.moveSlider(slider);
+    }
+
+    public void playNextInLoop(Song song){
         if(!isPlaying){
             isPlaying = true;
             try{
-                if(currentSongId == songQueue.size()-1){
-                    currentSongId = 0;
-                    player.playSong(songQueue.get(0));
-                }else{
-                    currentSongId++;
-                    player.playSong(songQueue.get(currentSongId));
-                }
+                player.playSong(song);
+
             } catch (FileNotFoundException | JavaLayerException e) {
                 throw new RuntimeException(e);
             }
