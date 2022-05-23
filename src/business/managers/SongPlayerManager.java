@@ -102,7 +102,6 @@ public class SongPlayerManager{
         }
     }
 
-    //
     public void playNextInLoop(){
         if(!isPlaying){
             isPlaying = true;
