@@ -66,8 +66,14 @@ public class SongPlayerManager{
         if(!isPlaying){
             isPlaying = true;
             try {
-                if(currentSong >= 0){
-                    player.playSong(songQueue.get(currentSong++));
+                if(currentSong >= 0 && currentSong < songQueue.size()-1){
+                    currentSong++;
+                    player.playSong(songQueue.get(currentSong));
+                    System.out.println("current song id: "+currentSong);
+                } else if (currentSong == songQueue.size()-1 ) {
+                    System.out.println("stop please");
+                    player.playSong(songQueue.get(0));
+                    currentSong = 0;
                 }
             } catch (FileNotFoundException | JavaLayerException e) {
                 throw new RuntimeException(e);

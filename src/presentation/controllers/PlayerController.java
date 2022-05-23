@@ -40,8 +40,8 @@ public class PlayerController implements ActionListener {
                     System.out.println("shuffln");
                     businessFacade.playRandomSong();
                 }else{
-                    businessFacade.playNextSong();
-                    System.out.println("Next");
+                        businessFacade.playNextSong();
+                        System.out.println("Next");
                 }
             }
 
