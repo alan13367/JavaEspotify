@@ -34,11 +34,13 @@ public class PlayerController implements ActionListener {
             case (PlayerView.BTN_NEXT)->{
                 businessFacade.pausePlayer();
                 if(isLoop){
+                    System.out.println("playing in loop");
                     businessFacade.playNextInLoop();
                 } else if (isShuffle) {
+                    System.out.println("shuffln");
                     businessFacade.playRandomSong();
                 }else{
-                    businessFacade.playNextSong();
+                    businessFacade.pausePlayer();
                     System.out.println("Next");
                 }
             }

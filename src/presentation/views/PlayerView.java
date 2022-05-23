@@ -103,7 +103,7 @@ public class PlayerView extends JPanel {
         jbShuffle.setBackground(null);
         jbShuffle.setBorder(BorderFactory.createEmptyBorder());
         jbShuffle.setContentAreaFilled(false);
-        jbShuffle.setActionCommand(BTN_PREV);
+        jbShuffle.setActionCommand(BTN_SHUFFLE);
         controlsPanel.add(jbShuffle);
         controlsPanel.add(aux4);
 
