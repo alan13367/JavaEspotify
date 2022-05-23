@@ -18,7 +18,7 @@ public class Main {
                     , mainView.getHomeView().getStatisticsView(),mainView.getHomeView().getPlayerView());
             PlaylistsController playlistsController = new PlaylistsController(mainView.getHomeView().getPlaylistsView()
                     ,mainView.getHomeView().getPlayerView(),businessFacade);
-            PlayerController playerController = new PlayerController(mainView.getHomeView().getPlayerView(),businessFacade);
+            PlayerController playerController = new PlayerController(mainView.getHomeView().getPlayerView(),businessFacade, mainView.getHomeView().getSongsView());
             StatisticsController statisticsController = new StatisticsController(mainView.getHomeView().getStatisticsView(), businessFacade);
             AddSongsController addSongsController = new AddSongsController(mainView.getHomeView().getAddSongsView()
                     ,mainView.getHomeView(),businessFacade, mainView.getHomeView().getStatisticsView());

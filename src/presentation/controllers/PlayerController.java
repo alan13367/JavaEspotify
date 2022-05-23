@@ -1,8 +1,8 @@
 package presentation.controllers;
 
 import business.BusinessFacade;
-import business.managers.SongPlayerManager;
 import presentation.views.PlayerView;
+import presentation.views.SongsView;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -10,12 +10,14 @@ import java.awt.event.ActionListener;
 public class PlayerController implements ActionListener {
     private final BusinessFacade businessFacade;
     private final PlayerView view;
+    private final SongsView songsView;
     private boolean isLoop;
     private boolean isShuffle;
 
-    public PlayerController(PlayerView view,BusinessFacade businessFacade) {
+    public PlayerController(PlayerView view, BusinessFacade businessFacade, SongsView songsView) {
         this.businessFacade = businessFacade;
         this.view = view;
+        this.songsView = songsView;
     }
 
     @Override
@@ -41,7 +43,7 @@ public class PlayerController implements ActionListener {
                     businessFacade.playRandomSong();
                 }else{
                         businessFacade.playNextSong();
-                        view.changeShownSong(businessFacade.getCurrentSong());
+                        view.changeShownSong(businessFacade.getCurrentSong().getTitle(),businessFacade.getCurrentSong().getAuthor());
                         System.out.println("Next");
                 }
             }

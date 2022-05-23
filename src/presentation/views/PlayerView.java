@@ -167,9 +167,9 @@ public class PlayerView extends JPanel {
         }
     }
 
-    public void changeShownSong(Song song){
-        songName.setText(song.getTitle());
-        songAuthor.setText(song.getAuthor());
+    public void changeShownSong(String title, String author){
+        songName.setText(title);
+        songAuthor.setText(author);
     }
 
 

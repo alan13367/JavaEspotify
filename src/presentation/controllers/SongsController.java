@@ -93,6 +93,7 @@ public class SongsController implements ActionListener, ListSelectionListener {
                 //businessFacade.startPlayer(businessFacade.getSong(title,author));
                 businessFacade.playSong(title,author);
                 playerView.changePlayPause(businessFacade.isPlaying());
+                playerView.changeShownSong(title,author);
             }
 
             case (SongsView.BTN_ADD_TO_PLAYLIST)->{
