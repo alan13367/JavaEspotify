@@ -5,6 +5,7 @@ import javazoom.jl.player.advanced.AdvancedPlayer;
 import javazoom.jl.player.advanced.PlaybackEvent;
 import javazoom.jl.player.advanced.PlaybackListener;
 
+import javax.swing.*;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
@@ -19,6 +20,7 @@ public class Player implements Runnable {
     private boolean pauseSong;
     private Song song;
     private int songIndex;
+    boolean isPlaying = false;
     //private final Thread playerThread = new Thread();
 
 
@@ -27,6 +29,7 @@ public class Player implements Runnable {
     }
 
     public void playSong(Song song) throws FileNotFoundException, JavaLayerException {
+        isPlaying = true;
         InputStream is = new FileInputStream(song.getFilepath());
         player = new AdvancedPlayer(is);
         Thread playerThread = new Thread(this);
@@ -40,20 +43,21 @@ public class Player implements Runnable {
         });
     }
 
+    // iterar todos los frames, cuando de error es q ha acabado
+
     public void pauseSong(){
+        isPlaying = false;
         player.stop();
     }
+
+
 
     public void setProgramInit(boolean programInit) {
         this.programInit = programInit;
     }
-
-
     public void setPlaySong(boolean playSong) {
         this.playSong = playSong;
     }
-
-
     public void setPauseSong(boolean pauseSong) {
         this.pauseSong = pauseSong;
     }
@@ -63,6 +67,7 @@ public class Player implements Runnable {
     public void run() {
         try {
             player.play();
+
         } catch (JavaLayerException e) {
             throw new RuntimeException(e);
         }

@@ -33,8 +33,12 @@ public interface BusinessFacade {
     void pausePlayer();
     void playSong(String songTitle,String songAuthor);
     void playNextSong();
+    void playPrevSong();
+    void playRandomSong();
     List<Song> getSongsFromPlaylist(String name, String owner);
     void deleteSongFromPlaylist(String playlistName,String songName,String songAuthor);
     void addPlaylistToQueue(List<Song> playlist);
     boolean isPlaying();
+    void playNextInLoop();
+    Song getCurrentSong();
 }

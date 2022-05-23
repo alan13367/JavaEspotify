@@ -136,9 +136,9 @@ public class PlayerView extends JPanel {
         songPanel.add(songAuthor);
     }
 
-    public void initSlider(int seconds) {
-        jslider = new JSlider(0, seconds, 0);
-    }
+   // public void initSlider(int seconds) {
+       // jslider = new JSlider(0, seconds, 0);
+   // }
 
     public void registerController(PlayerController controller){
         jbPlayPause.addActionListener(controller);

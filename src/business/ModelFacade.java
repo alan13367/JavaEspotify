@@ -1,13 +1,10 @@
 package business;
 
-import business.entities.Player;
 import business.entities.Playlist;
 import business.entities.Song;
 import business.managers.*;
 import com.google.gson.*;
-import javazoom.jl.decoder.JavaLayerException;
 
-import java.io.FileNotFoundException;
 import java.util.*;
 
 public class ModelFacade implements BusinessFacade {
@@ -154,6 +151,20 @@ public class ModelFacade implements BusinessFacade {
         songPlayerManager.playNextSong();
     }
 
+    public void playPrevSong(){
+        songPlayerManager.playPrevSong();
+    }
+
+    public void playRandomSong(){
+        // en vd ha de ser una funcion que meta random songs en la queue
+        songPlayerManager.playSong(songPlayerManager.getRandomSong());
+    }
+
+    public void playNextInLoop(){
+        // cuando llegues al final de la playlist vuelve a la primera cancion
+        songPlayerManager.playNextInLoop();
+    }
+
     @Override
     public List<Song> getSongsFromPlaylist(String name, String owner) {
        return playlistManager.getSongsFromPlaylist(name,owner);
@@ -182,7 +193,7 @@ public class ModelFacade implements BusinessFacade {
         return songPlayerManager.getPlayedSongs();
     }
 
-    public int getIndexCurrentSong(){
+    public Song getCurrentSong(){
         return songPlayerManager.getCurrentSong();
     }
 
