@@ -1,5 +1,7 @@
 package presentation.views;
 
+import business.BusinessFacade;
+import business.entities.Song;
 import presentation.controllers.PlayerController;
 
 import javax.swing.*;
@@ -9,6 +11,7 @@ public class PlayerView extends JPanel {
     //Player Buttons
     private JButton jbPlayPause, jbShuffle, jbLoop, jbNext, jbPrevious;
     private JSlider jslider;
+    private JLabel songName, songAuthor;
 
     public static final String BTN_PLAYPAUSE = "BTN_PLAYPAUSE";
     public static final String BTN_LOOP = "BTN_LOOP";
@@ -124,8 +127,8 @@ public class PlayerView extends JPanel {
 
         playerPanel.add(jsliderPanel);
 
-        JLabel songName = new JLabel("\n   She don't give a fo");
-        JLabel songAuthor = new JLabel("     Duki");
+        songName = new JLabel("\n   ");
+        songAuthor = new JLabel("   ");
         songName.setBackground(new Color(32, 32, 32));
         songName.setFont(new Font("Arial", Font.PLAIN, 20));
         songAuthor.setBackground(new Color(32, 32, 32));
@@ -162,6 +165,11 @@ public class PlayerView extends JPanel {
             icon = new ImageIcon( newimg );
             jbPlayPause.setIcon(icon);
         }
+    }
+
+    public void changeShownSong(Song song){
+        songName.setText(song.getTitle());
+        songAuthor.setText(song.getAuthor());
     }
 
 

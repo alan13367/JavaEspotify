@@ -41,6 +41,7 @@ public class PlayerController implements ActionListener {
                     businessFacade.playRandomSong();
                 }else{
                         businessFacade.playNextSong();
+                        view.changeShownSong(businessFacade.getCurrentSong());
                         System.out.println("Next");
                 }
             }

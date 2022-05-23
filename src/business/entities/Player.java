@@ -19,6 +19,7 @@ public class Player implements Runnable {
     private boolean playSong;
     private boolean pauseSong;
     private Song song;
+    private Song currentSong;
     private int songIndex;
     boolean isPlaying = false;
     //private final Thread playerThread = new Thread();
@@ -28,7 +29,16 @@ public class Player implements Runnable {
         this.song = song;
     }
 
+    public void setCurrentSong(Song currentSong) {
+        this.currentSong = currentSong;
+    }
+
+    public Song getCurrentSong() {
+        return currentSong;
+    }
+
     public void playSong(Song song) throws FileNotFoundException, JavaLayerException {
+        setCurrentSong(song);
         isPlaying = true;
         InputStream is = new FileInputStream(song.getFilepath());
         player = new AdvancedPlayer(is);
