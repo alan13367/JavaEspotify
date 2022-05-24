@@ -1,16 +1,18 @@
 package business.managers;
 
 import business.entities.Player;
+import business.entities.Playlist;
 import business.entities.Song;
 import javazoom.jl.decoder.JavaLayerException;
+import persistence.SQL.SQLSongDAO;
 
-import javax.swing.*;
 import java.io.FileNotFoundException;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Queue;
 import java.util.Random;
 
-public class SongPlayerManager{
+public class SongPlayerManager {
 
    // private Player player = new Player(); // tengo dos players, he de usar solo uno!!!!
     private boolean isShuffle;
@@ -19,16 +21,16 @@ public class SongPlayerManager{
     private boolean playNext;
     private boolean playPrev;
     private boolean isPlaying;
-    Player player;
-    List<Song> songQueue; // al terminar song, la quitas y va a played songs
-    List<Song> playedSongs;
+    private Player player;
+    private int position;
+    private Song song;
+    private List<Song> songQueue; // al terminar song, la quitas y va a played songs
+    private List<Song> playedSongs;
     int currentSongId =0;
     Thread sliderThread;
     Song currentSong;
 
-
     public SongPlayerManager() {
-        this.player = new Player();
         playedSongs = new LinkedList<>();
         isPlaying = false;
     }
@@ -93,9 +95,33 @@ public class SongPlayerManager{
                 throw new RuntimeException(e);
             }
         }
+
     }
 
+
     public void playSong(Song song){
+        if(!isPlaying && this.song != song){
+            this.song= song;
+            position = 0;
+            player = new Player(position,song);
+            isPlaying = true;
+        }
+        else if (!isPlaying){
+            player = new Player(position,song);
+            isPlaying = true;
+        }else if(song != this.song){
+            player.pauseSong();
+            this.song= song;
+            position = 0;
+            player = new Player(position,song);
+            isPlaying = true;
+        }
+
+    }
+
+    public void resumeSong(){
+        isPlaying = true;
+        player = new Player(position,song);
         if(!isPlaying){
             isPlaying = true;
             try {
@@ -112,9 +138,12 @@ public class SongPlayerManager{
         return currentSong;
     }
 
+    /*
     public void moveSlider(JSlider slider){
         player.moveSlider(slider);
     }
+
+     */
 
     public void playNextInLoop(Song song){
         if(!isPlaying){
@@ -129,20 +158,24 @@ public class SongPlayerManager{
     }
 
 
-
-
     public Song getRandomSong(){
         return songQueue.get(new Random().nextInt(songQueue.size()));
     }
 
-
     public void pauseCurrentSong() {
-        if(isPlaying){
-            player.pauseSong();
-            isPlaying = false;
-        }
+        position += player.pauseSong();
+        isPlaying = false;
     }
 
+
+    // when a next/prev arrow is pressed
+    /*public void playNextSong(Song song, Thread thread) throws FileNotFoundException, JavaLayerException {
+        if(isShuffle){
+            player.playSong(getRandomSong());
+        } else if (isLoopSong) {
+            player.playSong(song);
+        }
+    }*/
 }
 
 

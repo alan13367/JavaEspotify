@@ -26,6 +26,7 @@ public class PlayerController implements ActionListener {
             case(PlayerView.BTN_PLAYPAUSE)->{ // default is in play mode
                 if(!businessFacade.isPlaying()){
                     System.out.println("Song resumed");
+                    businessFacade.resumeSong();
                     view.changePlayPause(businessFacade.isPlaying());
                 }else {
                     businessFacade.pausePlayer();

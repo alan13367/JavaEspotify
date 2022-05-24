@@ -12,8 +12,6 @@ public interface PlaylistDAO {
     List<Playlist> loadPlaylists();
     void addSongToPlaylist(Song song, Playlist playlist);
     void deleteSongFromPlaylist(Song song, Playlist playlist);
-
     void deleteSongsFromPlaylistLink(Playlist playlist);
-
     LinkedList<Song> getSongsFromPlaylists(String name, String owner);
 }

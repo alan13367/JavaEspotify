@@ -182,6 +182,11 @@ public class ModelFacade implements BusinessFacade {
     }
 
     @Override
+    public void resumeSong() {
+        songPlayerManager.resumeSong();
+    }
+
+    @Override
     public boolean isPlaying() {
         return songPlayerManager.isPlaying();
     }
@@ -198,9 +203,17 @@ public class ModelFacade implements BusinessFacade {
         return songPlayerManager.getCurrentSong();
     }
 
+    @Override
+    public void moveSlider(JSlider slider) {
+
+    }
+
+    /*
     public void moveSlider(JSlider slider){
         songPlayerManager.moveSlider(slider);
     }
+
+     */
 
     @Override
     public void logOut() {

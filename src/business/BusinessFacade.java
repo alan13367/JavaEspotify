@@ -39,6 +39,7 @@ public interface BusinessFacade {
     List<Song> getSongsFromPlaylist(String name, String owner);
     void deleteSongFromPlaylist(String playlistName,String songName,String songAuthor);
     void addPlaylistToQueue(List<Song> playlist);
+    void resumeSong();
     boolean isPlaying();
     void playNextInLoop(Song song);
     Song getCurrentSong();
