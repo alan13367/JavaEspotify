@@ -39,9 +39,11 @@ public class PlayerController implements ActionListener {
                 if(isLoop){
                     System.out.println("playing in loop");
                     businessFacade.playNextInLoop(businessFacade.getCurrentSong());
+
                 } else if (isShuffle) {
                     System.out.println("shuffln");
                     businessFacade.playRandomSong();
+                    view.changeShownSong(businessFacade.getCurrentSong().getTitle(),businessFacade.getCurrentSong().getAuthor());
                 }else{
                         businessFacade.playNextSong();
                         view.changeShownSong(businessFacade.getCurrentSong().getTitle(),businessFacade.getCurrentSong().getAuthor());
@@ -54,19 +56,20 @@ public class PlayerController implements ActionListener {
             case (PlayerView.BTN_PREV)->{
                 businessFacade.pausePlayer();
                 if(isLoop){
-                    businessFacade.playPrevSong();
+                    System.out.println("playing in loop");
+                    businessFacade.playNextInLoop(businessFacade.getCurrentSong());
+
                 } else if (isShuffle) {
                     businessFacade.playRandomSong();
+                    view.changeShownSong(businessFacade.getCurrentSong().getTitle(),businessFacade.getCurrentSong().getAuthor());
                 }else {
                     businessFacade.playPrevSong();
+                    view.changeShownSong(businessFacade.getCurrentSong().getTitle(),businessFacade.getCurrentSong().getAuthor());
                 }
                 System.out.println("Previous");
             }
 
             case (PlayerView.BTN_SHUFFLE)->{
-                //businessFacade.setLoop(false);
-                //businessFacade.setShuffle(true);
-                //businessFacade.playRandomSong();
                 System.out.println("hola");
                 if(isShuffle){
                     isShuffle = false;
@@ -79,9 +82,6 @@ public class PlayerController implements ActionListener {
             }
 
             case (PlayerView.BTN_LOOP)->{
-                //businessFacade.setShuffle(false);
-                //businessFacade.setLoop(true);
-               // businessFacade.playInLoop();
                 if(isLoop){
                     isLoop = false;
                     System.out.println("NOT looping");

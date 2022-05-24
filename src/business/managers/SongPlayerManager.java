@@ -64,18 +64,19 @@ public class SongPlayerManager {
     public void playNextSong(){
         if(!isPlaying){
             isPlaying = true;
-            try {
-                if(currentSongId >= 0 && currentSongId < songQueue.size()-1){
-                    currentSongId++;
-                    player.playSong(songQueue.get(currentSongId));
-                    System.out.println("current song id: "+ currentSongId);
-                } else if (currentSongId == songQueue.size()-1 ) {
-                    System.out.println("stop please");
-                    player.playSong(songQueue.get(0));
-                    currentSongId = 0;
-                }
-            } catch (FileNotFoundException | JavaLayerException e) {
-                throw new RuntimeException(e);
+            if(currentSongId >= 0 && currentSongId < songQueue.size()-1){
+                currentSongId++;
+                //player.playSong(songQueue.get(currentSongId));
+                position =0;
+                this.song = songQueue.get(currentSongId);
+                player = new Player(position, song);
+                System.out.println("current song id: "+ currentSongId);
+            } else if (currentSongId == songQueue.size()-1 ) {
+                System.out.println("stop please");
+                position =0;
+                this.song = songQueue.get(0);
+                player = new Player(position, song);
+                currentSongId = 0;
             }
         }
     }
@@ -84,15 +85,16 @@ public class SongPlayerManager {
     public void playPrevSong(){
         if(!isPlaying){
             isPlaying = true;
-            try {
-                currentSongId--;
-                if(currentSongId >= 0){
-                    player.playSong(songQueue.get(currentSongId));
-                } else {
-                    player.playSong(songQueue.get(0));
-                }
-            } catch (FileNotFoundException | JavaLayerException e) {
-                throw new RuntimeException(e);
+            currentSongId--;
+            if(currentSongId >= 0){
+                position =0;
+                this.song = songQueue.get(currentSongId);
+                player = new Player(position, song);
+            } else {
+                position =0;
+                this.song = songQueue.get(0);
+                player = new Player(position, song);
+                currentSongId = 0;
             }
         }
 
@@ -134,26 +136,15 @@ public class SongPlayerManager {
     }
 
     public Song getCurrentSong() {
-        currentSong =  player.getCurrentSong();
-        return currentSong;
+        return this.song;
     }
-
-    /*
-    public void moveSlider(JSlider slider){
-        player.moveSlider(slider);
-    }
-
-     */
 
     public void playNextInLoop(Song song){
         if(!isPlaying){
             isPlaying = true;
-            try{
-                player.playSong(song);
-
-            } catch (FileNotFoundException | JavaLayerException e) {
-                throw new RuntimeException(e);
-            }
+            position = 0;
+            player = new Player(position,song);
+            isPlaying = true;
         }
     }
 
