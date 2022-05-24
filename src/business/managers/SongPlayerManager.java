@@ -20,6 +20,7 @@ public class SongPlayerManager {
     private boolean isLoopPlaylist;
     private boolean playNext;
     private boolean playPrev;
+    private boolean inPlaylist;
     private boolean isPlaying;
     private Player player;
     private int position;
@@ -35,6 +36,7 @@ public class SongPlayerManager {
         isPlaying = false;
     }
 
+
     public void setShuffle(boolean shuffle) {
         isShuffle = shuffle;
     }
@@ -43,6 +45,10 @@ public class SongPlayerManager {
     }
     public void setNext(boolean isNext){playNext=isNext; }
     public void setPrev(boolean isPrev){playPrev = isPrev; }
+
+    public void setInPlaylist(boolean inPlaylist) {
+        this.inPlaylist = inPlaylist;
+    }
 
     // fill songQueue with a playlist
     public void addPlaylistToQueue(List<Song> playlist){
@@ -59,6 +65,10 @@ public class SongPlayerManager {
 
     public List<Song> getPlayedSongs() {
         return playedSongs;
+    }
+
+    public boolean isInPlaylist() {
+        return inPlaylist;
     }
 
     public void playNextSong(){

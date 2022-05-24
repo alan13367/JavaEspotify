@@ -43,6 +43,7 @@ public interface BusinessFacade {
     boolean isPlaying();
     void playNextInLoop(Song song);
     Song getCurrentSong();
-
+    boolean getInPlaylist();
+    void setInPlaylist(boolean inPlaylist);
     void moveSlider(JSlider slider);
 }

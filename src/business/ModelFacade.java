@@ -208,12 +208,13 @@ public class ModelFacade implements BusinessFacade {
 
     }
 
-    /*
-    public void moveSlider(JSlider slider){
-        songPlayerManager.moveSlider(slider);
+    public void setInPlaylist(boolean inPlaylist){
+        songPlayerManager.setInPlaylist(inPlaylist);
     }
 
-     */
+    public boolean getInPlaylist(){
+        return songPlayerManager.isInPlaylist();
+    }
 
     @Override
     public void logOut() {

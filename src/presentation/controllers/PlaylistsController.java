@@ -82,6 +82,7 @@ public class PlaylistsController implements ActionListener, MouseListener {
                 }
             }
             case (PlaylistsView.BTN_PLAY_PLAYLIST)->{
+                businessFacade.setInPlaylist(true);
                 System.out.println("playing playlist");
                 // get playlist and add it to queue
                 LinkedList<Song> playlist = new LinkedList<>();
@@ -93,6 +94,7 @@ public class PlaylistsController implements ActionListener, MouseListener {
                 businessFacade.playSong(playlist.get(0).getTitle(),playlist.get(0).getAuthor());
                 businessFacade.addPlaylistToQueue(playlist);
                 System.out.println("playing "+playlist.get(0).getTitle());
+
             }
 
             case(PlaylistsView.BTN_MOVE_SONG_UP)->{
