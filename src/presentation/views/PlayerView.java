@@ -12,6 +12,8 @@ public class PlayerView extends JPanel {
     private JButton jbPlayPause, jbShuffle, jbLoop, jbNext, jbPrevious;
     private JSlider jslider;
     private JLabel songName, songAuthor;
+    private JTextField currentTime;
+    private JTextField totalTime;
 
     public static final String BTN_PLAYPAUSE = "BTN_PLAYPAUSE";
     public static final String BTN_LOOP = "BTN_LOOP";
@@ -122,9 +124,21 @@ public class PlayerView extends JPanel {
         JPanel aux2 = new JPanel();
         aux2.setSize(60, 60);
         aux2.setBackground(new Color(32, 32, 32));
-
+        currentTime = new JTextField();
+        totalTime = new JTextField();
+        currentTime.setBackground(new Color(32, 32, 32));
+        currentTime.setFont(new Font("arial", Font.PLAIN, 15));
+        totalTime.setFont(new Font("arial", Font.PLAIN, 15));
+        currentTime.setForeground(Color.white);
+        totalTime.setForeground(Color.white);
+        totalTime.setBorder(javax.swing.BorderFactory.createEmptyBorder());
+        currentTime.setBorder(javax.swing.BorderFactory.createEmptyBorder());
+        totalTime.setBackground(new Color(32, 32, 32));
+        currentTime.setEditable(false);
+        totalTime.setEditable(false);
+        jsliderPanel.add(currentTime);
         jsliderPanel.add(jslider);
-
+        jsliderPanel.add(totalTime);
         playerPanel.add(jsliderPanel);
 
         songName = new JLabel("\n   ");
@@ -179,5 +193,10 @@ public class PlayerView extends JPanel {
         songAuthor.setText(author);
     }
 
-
+    public void changeTotalTime(int minutes, int seconds) {
+        int seconds_rest;
+        seconds_rest = seconds % 60;
+        String time = minutes + ":" + seconds_rest;
+        totalTime.setText(time);
+    }
 }
