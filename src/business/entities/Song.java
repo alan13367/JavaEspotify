@@ -1,14 +1,17 @@
 package business.entities;
 
-public class Song {
-    private String title;
-    private String album;
-    private String genre;
-    private String author;
-    private String filepath;
-    private long duration;
-    private String owner;
+// Song entity. Represents a song objects, which can be played, added or deleted from the system or from a playlist.
 
+public class Song {
+    private String title; // title of the song
+    private String album; // album of the song
+    private String genre; // genre of the song
+    private String author; // author of the song
+    private String filepath; // mp3 file location
+    private long duration; // duration of the song
+    private String owner; // user who added the song
+
+    // song constructor
     public Song(String title, String album, String genre, String author, String filepath, long duration, String owner) {
         this.title = title;
         this.album = album;

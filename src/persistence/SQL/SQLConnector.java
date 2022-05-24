@@ -4,7 +4,7 @@ import java.sql.*;
 
 public class SQLConnector {
 
-    // here we will implement the jdbc with the data read from SQLconfigDAO
+    //  implementation of the jdbc with the data read from SQLconfigDAO
 
     private final String username;
     private final String password;
@@ -22,6 +22,7 @@ public class SQLConnector {
         this.password = data[2];
     }
 
+    // generate instance
     public static SQLConnector getInstance() {
         if(instance == null){
             instance = new SQLConnector();
@@ -41,7 +42,7 @@ public class SQLConnector {
         System.out.println("TEST");
     }
 
-    // USED FOR QUERIES THAT INSERT STUFF
+    // implement addition query
     public void addQuery(String query){
         try{
             Statement statement = connection.createStatement();
@@ -51,7 +52,7 @@ public class SQLConnector {
         }
     }
 
-    // USED FOR QUERIES THAT SELECT STUFF
+    // implement selection query
     public ResultSet selectQuery(String query){
         ResultSet rs = null;
         try {
@@ -64,7 +65,7 @@ public class SQLConnector {
         return rs;
     }
 
-    // USED FOR QUERIES THAT DELETE STUFF
+    // implement deletion query
     public void deleteQuery(String query){
         try {
             Statement s = connection.createStatement();

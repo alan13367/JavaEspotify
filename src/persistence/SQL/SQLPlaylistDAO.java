@@ -10,20 +10,24 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
+// implementation of all the queries that retrieve or add data related to Playlists
 
 public class SQLPlaylistDAO implements PlaylistDAO {
 
+    // add a new playlist
     public void addPlaylist(Playlist playlist){
         String query = "INSERT INTO Playlist(name, author) VALUES ('"+playlist.getName()+"','"+playlist.getOwner()+"');";
         SQLConnector.getInstance().addQuery(query);
     }
 
+    // delete existent playlist
     @Override
     public void deletePlayList(Playlist playlist) {
         String query = "DELETE FROM Playlist WHERE name = '"+playlist.getName()+"' AND author = '"+playlist.getOwner()+"';";
         SQLConnector.getInstance().deleteQuery(query);
     }
 
+    // load all playlists
     public List<Playlist> loadPlaylists(){
         List<Playlist> playlists = new ArrayList<>();
         String query = "SELECT * FROM Playlist";
@@ -40,8 +44,7 @@ public class SQLPlaylistDAO implements PlaylistDAO {
         return new ArrayList<>(playlists);
     }
 
-    //TODO: añadir position en database songplaylistlink
-
+    // relate song with playlist in songPlaylistLink table
     @Override
     public void addSongToPlaylist(Song song, Playlist playlist) {
         int position = getSongsFromPlaylists(playlist.getName(), playlist.getOwner()).size()+1;
@@ -49,6 +52,7 @@ public class SQLPlaylistDAO implements PlaylistDAO {
         SQLConnector.getInstance().addQuery(query);
     }
 
+    // delete song from songPlaylistLink table
     @Override
     public void deleteSongFromPlaylist(Song song, Playlist playlist) {
         String query = "DELETE FROM SongPlaylistLink WHERE playlistName = '"+playlist.getName()+
@@ -56,7 +60,7 @@ public class SQLPlaylistDAO implements PlaylistDAO {
         SQLConnector.getInstance().deleteQuery(query);
     }
 
-    //  get all playlists from the database
+
     private List<Playlist> getPlaylists(){
         List<Playlist> playlists = new ArrayList<>();
         String query = "SELECT * FROM Playlist";
@@ -74,6 +78,7 @@ public class SQLPlaylistDAO implements PlaylistDAO {
         return new ArrayList<>(playlists);
     }
 
+    //  get all playlists from the database
     public LinkedList<Song> getSongsFromPlaylists(String name, String playlistOwner){
         LinkedList<Song> songs = new LinkedList<>();
         String query = "SELECT * FROM Song JOIN SongPlaylistLink ON Song.title = SongPlaylistLink.songTitle WHERE playlistName = '"+ name +"' AND playlistAuthor = '"+ playlistOwner +"'";
@@ -97,6 +102,7 @@ public class SQLPlaylistDAO implements PlaylistDAO {
         return songs;
     }
 
+    // delete relation of a playlist with all of its songs
     public void deleteSongsFromPlaylistLink(Playlist playlist){
         String query = "DELETE FROM SongPlaylistLink WHERE SongPlaylistLink.playlistAuthor = '"+playlist.getOwner()+"' AND SongPlaylistLink.playlistName = '"+playlist.getName()+"';";
         SQLConnector.getInstance().deleteQuery(query);

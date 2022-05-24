@@ -11,7 +11,8 @@ import javax.swing.*;
 import javax.lang.model.element.ElementVisitor;
 import java.io.*;
 
-// plays a song, pauses or resumes it.
+// Player entity:
+// plays a song, pauses or resumes it inside a Thread.
 
 public class Player extends Thread {
     private AudioDevice audioDevice;
@@ -25,9 +26,8 @@ public class Player extends Thread {
     private Song currentSong;
     private int songIndex;
     boolean isPlaying = false;
-    //private final Thread playerThread = new Thread();
 
-
+    // player constructor
     public Player(int position, Song song) {
         this.position = position;
         this.song = song;
@@ -55,22 +55,25 @@ public class Player extends Thread {
         this.start();
     }
 
+    // set a song to play
     public void setSong(Song song) {
         this.song = song;
     }
 
+    // set current playing song
     public void setCurrentSong(Song currentSong) {
         this.currentSong = currentSong;
     }
 
+    // get song currently playing
     public Song getCurrentSong() {
         return currentSong;
     }
 
+    // method to have a song playing.
     public void playSong(Song song) throws FileNotFoundException, JavaLayerException {
         setCurrentSong(song);
         isPlaying = true;
-
         System.out.println(song.getTitle()+" playing");
         player.setPlayBackListener(new PlaybackListener() {
             @Override
@@ -80,8 +83,8 @@ public class Player extends Thread {
         });
     }
 
-    // iterar todos los frames, cuando de error es q ha acabado
 
+    // pauses a currently playing song and stores the frame where it has been paused.
     public int pauseSong(){
         int position = audioDevice.getPosition() / 26;
         isPlaying = false;
@@ -118,6 +121,8 @@ public class Player extends Thread {
     }
 
 
+    // Runnable implementation. It makes the audio file sound inside a thread,
+    // allowing the rest of the program to work simultaneously.
     @Override
     public void run() {
         try {

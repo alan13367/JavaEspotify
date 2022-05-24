@@ -9,8 +9,11 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+// implementation of all the queries that retrieve or add data related to Songs
+
 public class SQLSongDAO implements SongDAO {
 
+    // loads all the songs from the database
     @Override
     public List<Song> loadSongs() {
 
@@ -36,7 +39,7 @@ public class SQLSongDAO implements SongDAO {
     }
 
 
-    //ADD SONGS
+    //add a new genre
     public void addGenre(String genreName){
         String query = "INSERT INTO Genre(name) VALUES ('"+genreName+"');";
         SQLConnector connector;
@@ -44,6 +47,7 @@ public class SQLSongDAO implements SongDAO {
         connector.addQuery(query);
     }
 
+    // add a new song to the database
     public void addSong(Song song)  {
         addGenre(song.getGenre());
         String query = "INSERT INTO Song(title,author,genre,album,filepath,duration,owner) VALUES ('"+ song.getTitle()
@@ -54,7 +58,7 @@ public class SQLSongDAO implements SongDAO {
         connector.addQuery(query);
     }
 
-    //GET HOW MANY SONGS ARE IN EACH GENRE (get only 10)
+    // count all genres
     @Override
     public HashMap<String, Integer> getGenreCount(){
         HashMap<String, Integer> songs = new HashMap<>();
@@ -75,7 +79,7 @@ public class SQLSongDAO implements SongDAO {
         return songs;
     }
 
-    //DELETE SONGS
+    //delete a song
     @Override
     public void deleteSong(Song song) {
         String query = "DELETE FROM Song WHERE title = '"+song.getTitle()+"' AND author = '"+song.getAuthor()+"';";

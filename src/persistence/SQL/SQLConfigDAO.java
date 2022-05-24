@@ -18,6 +18,7 @@ public class SQLConfigDAO {
 
     }
 
+    // get json instance
     public static SQLConfigDAO getInstance(){
         if(instance == null){
             readConfigJson();
@@ -25,6 +26,7 @@ public class SQLConfigDAO {
         return instance;
     }
 
+    // reads the configuration Json file
     private static void readConfigJson(){
         try{
             // read with GSON
