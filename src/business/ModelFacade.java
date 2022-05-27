@@ -203,10 +203,6 @@ public class ModelFacade implements BusinessFacade {
         return songPlayerManager.getCurrentSong();
     }
 
-    @Override
-    public void moveSlider(JSlider slider) {
-
-    }
 
     public void setInPlaylist(boolean inPlaylist){
         songPlayerManager.setInPlaylist(inPlaylist);
