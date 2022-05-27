@@ -16,17 +16,17 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 
 public class AddSongsController implements ActionListener {
-    private  AddSongsView view;
-    private HomeView homeView;
-    private StatisticsView statisticsView;
-    private  BusinessFacade businessFacade;
+    private final AddSongsView view;
+    private final HomeView homeView;
+    private final StatisticsView statisticsView;
+    private final BusinessFacade businessFacade;
 
 
-    public AddSongsController(AddSongsView view, HomeView homeView,BusinessFacade businessFacade, StatisticsView statisticsView) {
-        this.view = view;
+    public AddSongsController(HomeView homeView,BusinessFacade businessFacade) {
+        this.view = homeView.getAddSongsView();
         this.businessFacade = businessFacade;
         this.homeView = homeView;
-        this.statisticsView = statisticsView;
+        this.statisticsView = homeView.getStatisticsView();
     }
 
     @Override

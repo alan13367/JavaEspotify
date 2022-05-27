@@ -1,6 +1,7 @@
 package presentation.controllers;
 
 import business.BusinessFacade;
+import presentation.views.HomeView;
 import presentation.views.PlayerView;
 import presentation.views.SongsView;
 
@@ -15,10 +16,10 @@ public class PlayerController implements ActionListener {
     private boolean isShuffle = false;
     private boolean inPlaylist;
 
-    public PlayerController(PlayerView view, BusinessFacade businessFacade, SongsView songsView) {
+    public PlayerController(HomeView homeView, BusinessFacade businessFacade) {
         this.businessFacade = businessFacade;
-        this.view = view;
-        this.songsView = songsView;
+        this.view = homeView.getPlayerView();
+        this.songsView = homeView.getSongsView();
     }
 
     @Override

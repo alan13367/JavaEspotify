@@ -67,7 +67,7 @@ public class SignInSignUpView extends JPanel{
 
         GridBagConstraints constraints = new GridBagConstraints();
 
-        userTextFieldSignUp =new MyHintTextField.RoundedMyHintTextField("username                                     ");
+        userTextFieldSignUp =new MyHintTextField.RoundedMyHintTextField("Username");
         userTextFieldSignUp.setToolTipText("Enter username");
         userTextFieldSignUp.setFont(arialFont);
         userTextFieldSignUp.setForeground(Color.gray);
@@ -82,7 +82,7 @@ public class SignInSignUpView extends JPanel{
         constraints.weightx = 0.0;
         constraints.weighty = 0.0;
 
-        emailField=new MyHintTextField.RoundedMyHintTextField("email                                            ");
+        emailField=new MyHintTextField.RoundedMyHintTextField("Email");
         emailField.setToolTipText("Enter email");
         emailField.setFont(arialFont);
         emailField.setForeground(Color.gray);
@@ -97,7 +97,7 @@ public class SignInSignUpView extends JPanel{
         constraints.weightx = 0.0;
         constraints.weighty = 0.0;
 
-        pwdFieldSignUp =new MyHintPwdField.RoundedMyHintPwdField("password                                      ");
+        pwdFieldSignUp =new MyHintPwdField.RoundedMyHintPwdField("Password");
         pwdFieldSignUp.setToolTipText("Enter password");
         pwdFieldSignUp.setFont(arialFont);
         pwdFieldSignUp.setForeground(Color.gray);

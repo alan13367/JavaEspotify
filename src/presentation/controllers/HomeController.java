@@ -15,9 +15,9 @@ public class HomeController implements ActionListener {
     private final MainView mainView;
 
 
-    public HomeController(MainView mainView,HomeView view, BusinessFacade businessFacade){
+    public HomeController(MainView mainView, BusinessFacade businessFacade){
         this.mainView = mainView;
-        this.view = view;
+        this.view = mainView.getHomeView();
         this.businessFacade = businessFacade;
     }
 
@@ -59,6 +59,7 @@ public class HomeController implements ActionListener {
                 System.out.println("Log Out");
                 int dialogResult = JOptionPane.showConfirmDialog(null,"Are you sure you want to Log Out?","Warning",JOptionPane.YES_NO_OPTION);
                 if(dialogResult == JOptionPane.YES_OPTION){
+                    view.getPlaylistsView().clearPlaylistsPanel();
                     businessFacade.logOut();
                     mainView.showRegisterView();
                 }

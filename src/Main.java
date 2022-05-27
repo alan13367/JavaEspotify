@@ -11,17 +11,13 @@ public class Main {
         SwingUtilities.invokeLater(() -> {
             BusinessFacade businessFacade = new ModelFacade();
             MainView mainView = new MainView();
-            SignInSignUpController signInSignUpController = new SignInSignUpController(mainView.getRegisterView()
-                    ,businessFacade,mainView);
-            HomeController homeController = new HomeController(mainView,mainView.getHomeView(), businessFacade);
-            SongsController songsController = new SongsController(mainView.getHomeView().getSongsView(), businessFacade
-                    , mainView.getHomeView().getStatisticsView(),mainView.getHomeView().getPlayerView());
-            PlaylistsController playlistsController = new PlaylistsController(mainView.getHomeView().getPlaylistsView()
-                    ,mainView.getHomeView().getPlayerView(),businessFacade);
-            PlayerController playerController = new PlayerController(mainView.getHomeView().getPlayerView(),businessFacade, mainView.getHomeView().getSongsView());
-            StatisticsController statisticsController = new StatisticsController(mainView.getHomeView().getStatisticsView(), businessFacade);
-            AddSongsController addSongsController = new AddSongsController(mainView.getHomeView().getAddSongsView()
-                    ,mainView.getHomeView(),businessFacade, mainView.getHomeView().getStatisticsView());
+            SignInSignUpController signInSignUpController = new SignInSignUpController(mainView,businessFacade);
+            HomeController homeController = new HomeController(mainView, businessFacade);
+            SongsController songsController = new SongsController(mainView.getHomeView(), businessFacade);
+            PlaylistsController playlistsController = new PlaylistsController(mainView.getHomeView(),businessFacade);
+            PlayerController playerController = new PlayerController(mainView.getHomeView(),businessFacade);
+            StatisticsController statisticsController = new StatisticsController(mainView.getHomeView(), businessFacade);
+            AddSongsController addSongsController = new AddSongsController(mainView.getHomeView(),businessFacade);
             mainView.registerControllers(homeController, songsController,signInSignUpController,playlistsController
                     ,playerController,addSongsController, statisticsController);
             mainView.start();

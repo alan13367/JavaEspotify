@@ -3,6 +3,7 @@ package presentation.controllers;
 import business.BusinessFacade;
 import business.entities.Song;
 
+import presentation.views.HomeView;
 import presentation.views.PlayerView;
 import presentation.views.SongsView;
 import presentation.views.StatisticsView;
@@ -22,14 +23,14 @@ public class SongsController implements ActionListener, ListSelectionListener {
     private final SongsView view;
     private final PlayerView playerView;
     private final BusinessFacade businessFacade;
-    private StatisticsView statisticsView;
+    private final StatisticsView statisticsView;
 
 
-    public SongsController(SongsView view, BusinessFacade businessFacade, StatisticsView statisticsView,PlayerView playerView){
-        this.view = view;
+    public SongsController(HomeView homeView, BusinessFacade businessFacade){
+        this.view = homeView.getSongsView();
         this.businessFacade = businessFacade;
-        this.statisticsView = statisticsView;
-        this.playerView = playerView;
+        this.statisticsView = homeView.getStatisticsView();
+        this.playerView = homeView.getPlayerView();
         loadSongs();
     }
 

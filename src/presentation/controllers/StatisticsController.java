@@ -2,6 +2,7 @@ package presentation.controllers;
 
 import business.BusinessFacade;
 import business.ModelFacade;
+import presentation.views.HomeView;
 import presentation.views.StatisticsView;
 
 import javax.swing.*;
@@ -12,8 +13,8 @@ public class StatisticsController{
     private final StatisticsView view;
     private final BusinessFacade businessFacade;
 
-    public StatisticsController(StatisticsView view, BusinessFacade businessFacade) {
-        this.view = view;
+    public StatisticsController(HomeView homeView, BusinessFacade businessFacade) {
+        this.view = homeView.getStatisticsView();
         this.businessFacade = businessFacade;
 
         ArrayList<String> stringArrayList = businessFacade.getStatsGenres();

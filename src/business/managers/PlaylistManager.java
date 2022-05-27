@@ -12,7 +12,7 @@ import java.util.List;
 import java.util.Objects;
 
 /**
- * manager if the playlists, in charge of creating, deleting and editting playlists
+ * Manager of the Playlists, in charge of creating, deleting and editing playlists
  * @author: Alan Beltrán, Álvaro Feher, Marc Barberà, Youssef Bat, Albert Gomez
  *  @version 1.0
  *  @since 12/4/2022
@@ -23,7 +23,7 @@ public class PlaylistManager {
 
 
     /**
-     * playlist manager constructor
+     * Playlist manager constructor
      */
     public PlaylistManager() {
         this.playlistDAO = new SQLPlaylistDAO();
@@ -42,7 +42,7 @@ public class PlaylistManager {
     }
 
     /**
-     * delete playlist
+     * Method that will delete a playlist by its name and owner
      * @param name name of playlist to delete
      * @param owner playlist owner
      */
@@ -121,7 +121,15 @@ public class PlaylistManager {
         return list;
     }
 
-    public PlaylistDAO getPlaylistDAO() {
-        return playlistDAO;
+    /**
+     * Method that will delete all the playlists in the system that belong to the user given
+     * @param username username to delete the playlists from
+     */
+    public void deletePlaylistsFromUser(String username){
+        for(Playlist playlist:playlists){
+            if (playlist.getOwner().equals(username)){
+                playlistDAO.deletePlayList(playlist);
+            }
+        }
     }
 }

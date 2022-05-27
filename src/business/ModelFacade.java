@@ -6,6 +6,7 @@ import business.managers.*;
 import com.google.gson.*;
 
 import javax.swing.*;
+import java.io.FileNotFoundException;
 import java.util.*;
 
 public class ModelFacade implements BusinessFacade {
@@ -23,6 +24,7 @@ public class ModelFacade implements BusinessFacade {
         this.songPlayerManager = new SongPlayerManager();
     }
 
+
     @Override
     public List<Song> getSongs() {
         return songManager.getSongs();
@@ -30,6 +32,7 @@ public class ModelFacade implements BusinessFacade {
 
     @Override
     public void deleteAccount() {
+        playlistManager.deletePlaylistsFromUser(getCurrentUser());
         songManager.deleteSongsFromUser(getCurrentUser());
         userManager.deleteAccount();
     }
@@ -111,8 +114,8 @@ public class ModelFacade implements BusinessFacade {
     }
 
     @Override
-    public void deletePlaylist(String name, String owner) {
-        playlistManager.deletePlaylist(name,owner);
+    public void deletePlaylist(String name) {
+        playlistManager.deletePlaylist(name,getCurrentUser());
     }
 
     @Override
@@ -144,24 +147,24 @@ public class ModelFacade implements BusinessFacade {
     }
 
     @Override
-    public void playSong(String songTitle,String songAuthor) {
+    public void playSong(String songTitle,String songAuthor) throws FileNotFoundException {
         songPlayerManager.playSong(getSong(songTitle, songAuthor));
     }
 
-    public void playNextSong(){
+    public void playNextSong() throws FileNotFoundException {
         songPlayerManager.playNextSong();
     }
 
-    public void playPrevSong(){
+    public void playPrevSong() throws FileNotFoundException {
         songPlayerManager.playPrevSong();
     }
 
-    public void playRandomSong(){
+    public void playRandomSong() throws FileNotFoundException {
         // en vd ha de ser una funcion que meta random songs en la queue
         songPlayerManager.playSong(songPlayerManager.getRandomSong());
     }
 
-    public void playNextInLoop(Song song){
+    public void playNextInLoop(Song song) throws FileNotFoundException {
         // cuando llegues al final de la playlist vuelve a la primera cancion
         songPlayerManager.playNextInLoop(song);
     }
@@ -182,7 +185,7 @@ public class ModelFacade implements BusinessFacade {
     }
 
     @Override
-    public void resumeSong() {
+    public void resumeSong() throws FileNotFoundException {
         songPlayerManager.resumeSong();
     }
 

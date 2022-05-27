@@ -3,6 +3,7 @@ package presentation.controllers;
 import business.BusinessFacade;
 import business.entities.Playlist;
 import business.entities.Song;
+import presentation.views.HomeView;
 import presentation.views.PlayerView;
 import presentation.views.PlaylistsView;
 
@@ -12,6 +13,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.io.FileNotFoundException;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.LinkedList;
@@ -23,10 +25,10 @@ public class PlaylistsController implements ActionListener, MouseListener {
     private final BusinessFacade businessFacade;
 
 
-    public PlaylistsController(PlaylistsView playlistsView, PlayerView playerView,BusinessFacade businessFacade) {
-        this.playlistsView = playlistsView;
+    public PlaylistsController(HomeView homeView, BusinessFacade businessFacade) {
+        this.playlistsView = homeView.getPlaylistsView();
         this.businessFacade = businessFacade;
-        this.playerView = playerView;
+        this.playerView = homeView.getPlayerView();
     }
 
     public void loadPlaylists(String username){
@@ -74,7 +76,7 @@ public class PlaylistsController implements ActionListener, MouseListener {
                 int option = playlistsView.showPlaylistOptionDialog("Are you sure you want to delete this playlist?"
                         ,"Deleting Playlist");
                 if(option == JOptionPane.YES_OPTION){
-                    businessFacade.deletePlaylist(playlistsView.getPlaylistName(), playlistsView.getPlaylistOwner());
+                    businessFacade.deletePlaylist(playlistsView.getPlaylistName());
                     playlistsView.clearPlaylistsPanel();
                     loadPlaylists(businessFacade.getCurrentUser());
                     playlistsView.clearSongsPanel();
@@ -91,7 +93,11 @@ public class PlaylistsController implements ActionListener, MouseListener {
                 }
                 //play first song
                 playerView.changePlayPause(true);
-                businessFacade.playSong(playlist.get(0).getTitle(),playlist.get(0).getAuthor());
+                try {
+                    businessFacade.playSong(playlist.get(0).getTitle(),playlist.get(0).getAuthor());
+                } catch (FileNotFoundException ex) {
+                    playlistsView.showErrorDialog("File of the song was not found");
+                }
                 businessFacade.addPlaylistToQueue(playlist);
                 System.out.println("playing "+playlist.get(0).getTitle());
 

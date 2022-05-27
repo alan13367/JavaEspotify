@@ -241,6 +241,7 @@ public class PlaylistsView extends JPanel {
     }
 
 
+
     public String createPlaylistDialog(){
         return (String)JOptionPane.showInputDialog(
                 null,

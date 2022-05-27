@@ -7,8 +7,6 @@ import javazoom.jl.player.advanced.AdvancedPlayer;
 import javazoom.jl.player.advanced.PlaybackEvent;
 import javazoom.jl.player.advanced.PlaybackListener;
 
-import javax.swing.*;
-import javax.lang.model.element.ElementVisitor;
 import java.io.*;
 
 /**
@@ -37,7 +35,7 @@ public class Player extends Thread {
      * @param position frame of the song
      * @param song song to play
      */
-    public Player(int position, Song song) {
+    public Player(int position, Song song) throws FileNotFoundException {
         this.position = position;
         this.song = song;
         FactoryRegistry r = FactoryRegistry.systemRegistry();
@@ -46,7 +44,7 @@ public class Player extends Thread {
             audioDevice = r.createAudioDevice();
             is = new BufferedInputStream(new FileInputStream(song.getFilepath()));
             player = new AdvancedPlayer(is,audioDevice);
-        } catch (JavaLayerException | FileNotFoundException e) {
+        } catch (JavaLayerException e) {
             throw new RuntimeException(e);
         }
 

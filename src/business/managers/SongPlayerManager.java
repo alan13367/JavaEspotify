@@ -125,7 +125,7 @@ public class SongPlayerManager {
     /**
      * method to play the next song from a playlist queue
      */
-    public void playNextSong(){
+    public void playNextSong() throws FileNotFoundException {
         if(!isPlaying){
             isPlaying = true;
             if(currentSongId >= 0 && currentSongId < songQueue.size()-1){
@@ -148,7 +148,7 @@ public class SongPlayerManager {
     /**
      * method to play the previous song from a playlist queue
      */
-    public void playPrevSong(){
+    public void playPrevSong() throws FileNotFoundException {
         if(!isPlaying){
             isPlaying = true;
             currentSongId--;
@@ -170,7 +170,7 @@ public class SongPlayerManager {
      * plays a song
      * @param song song to be played
      */
-    public void playSong(Song song){
+    public void playSong(Song song) throws FileNotFoundException {
         if(!isPlaying && this.song != song){
             this.song= song;
             position = 0;
@@ -193,7 +193,7 @@ public class SongPlayerManager {
     /**
      * resumes a currently playing song starting where it was paused
      */
-    public void resumeSong(){
+    public void resumeSong() throws FileNotFoundException {
         isPlaying = true;
         player = new Player(position,song);
         if(!isPlaying){
@@ -219,7 +219,7 @@ public class SongPlayerManager {
      * plays currently song, used when loop mode is ON
      * @param song
      */
-    public void playNextInLoop(Song song){
+    public void playNextInLoop(Song song) throws FileNotFoundException {
         if(!isPlaying){
             isPlaying = true;
             position = 0;
