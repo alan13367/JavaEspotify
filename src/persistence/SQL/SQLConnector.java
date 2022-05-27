@@ -2,6 +2,13 @@ package persistence.SQL;
 
 import java.sql.*;
 
+/**
+ * manager if the playlists, in charge of creating, deleting and editting playlists
+ * @author: Alan Beltrán, Álvaro Feher, Marc Barberà, Youssef Bat, Albert Gomez
+ *  @version 1.0
+ *  @since 12/4/2022
+ */
+
 public class SQLConnector {
     /**
      * implementation of the jdbc with the data read from SQLconfigDAO

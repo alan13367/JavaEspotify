@@ -9,6 +9,12 @@ import java.sql.SQLException;
 
 /**
  * implementation of all the queries that retrieve or add data related to Users
+ *
+ *   manager if the playlists, in charge of creating, deleting and editting playlists
+ *   @author: Alan Beltrán, Álvaro Feher, Marc Barberà, Youssef Bat, Albert Gomez
+ *    @version 1.0
+ *    @since 12/4/2022
+ *
  */
 
 public class SQLUserDAO implements UserDAO {

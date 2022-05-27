@@ -4,6 +4,11 @@ package business.entities;
 import java.util.LinkedList;
 import java.util.Locale;
 
+/**
+ * @author Alan Beltrán, Álvaro Feher, Marc Barberà, Youssef Bat, Albert Gomez
+ * @version
+ * @since
+ */
 
 public class Playlist implements Comparable<Playlist> {
     private int index; // not related to the id of the database, just to get the index of a song

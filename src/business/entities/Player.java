@@ -12,11 +12,14 @@ import javax.lang.model.element.ElementVisitor;
 import java.io.*;
 
 
-
 /**
- * // Player entity:
- * // plays a song, pauses or resumes it inside a Thread.
+ *  Player entity:
+ * plays a song, pauses or resumes it inside a Thread.
+ * @author: Alan Beltrán, Álvaro Feher, Marc Barberà, Youssef Bat, Albert Gomez
+ * @version 1.0
+ * @since 12/4/2022
  */
+
 public class Player extends Thread {
     private AudioDevice audioDevice;
     private AdvancedPlayer player;
@@ -112,7 +115,6 @@ public class Player extends Thread {
         player.stop();
         return position;
     }
-
 
     /**
      * Runnable implementation. It makes the audio file sound inside a thread,

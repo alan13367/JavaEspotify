@@ -8,8 +8,12 @@ import java.util.List;
 
 /**
  * Interface to persist Playlist data in the database
+ *@author: Alan Beltrán, Álvaro Feher, Marc Barberà, Youssef Bat, Albert Gomez
+ * @version 1.0
+ * @since 12/4/2022
  *
  */
+
 public interface PlaylistDAO {
     /**
      * adds a new playlist in the database
