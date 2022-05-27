@@ -2,16 +2,32 @@ package presentation.controllers;
 
 import business.BusinessFacade;
 import presentation.MainView;
+import presentation.views.PlaylistsView;
 import presentation.views.SignInSignUpView;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseListener;
 
+/**
+ * SignInSignUpController class manages the behaviour of the {@link SignInSignUpView} by implementing the {@link  ActionListener}
+ * interface.
+ *
+ * @author Alan Beltrán, Álvaro Feher, Marc Barberà, Youssef Bat, Albert Gomez
+ * @version 1.0
+ * @since 25/4/2022
+ */
 public class SignInSignUpController implements ActionListener {
     private final SignInSignUpView view;
     private final MainView mainView;
     private final BusinessFacade businessFacade;
 
+    /**
+     * Default SignInSignUpController Constructor that will link the views needed with {@link MainView} and the business
+     * logic with the {@link BusinessFacade} interface.
+     * @param mainView MainView object
+     * @param businessFacade link to the logic of the program
+     */
     public SignInSignUpController(MainView mainView, BusinessFacade businessFacade) {
         this.view = mainView.getRegisterView();
         this.businessFacade = businessFacade;
@@ -53,7 +69,11 @@ public class SignInSignUpController implements ActionListener {
         }
     }
 
-    public boolean caseSignUp() {
+    /**
+     * Logic to check the signUp
+     * @return true if correct false otherwise
+     */
+    private boolean caseSignUp() {
         String email = view.getEmailFieldSignUp();
         String password = view.getPwdFieldSignUp();
         if(!businessFacade.checkEmailFormat(email)) {
@@ -72,7 +92,11 @@ public class SignInSignUpController implements ActionListener {
         return true;
     }
 
-    public boolean caseSignIn() {
+    /**
+     * Logic for the login to the program
+     * @return true if correct false otherwise
+     */
+    private boolean caseSignIn() {
         return businessFacade.login(view.getUserFieldSignIn(), view.getPwdFieldSignIn());
     }
 

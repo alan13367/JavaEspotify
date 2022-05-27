@@ -3,22 +3,28 @@ package presentation.controllers;
 import business.BusinessFacade;
 import business.entities.Song;
 
-import presentation.views.HomeView;
-import presentation.views.PlayerView;
-import presentation.views.SongsView;
-import presentation.views.StatisticsView;
+import presentation.MainView;
+import presentation.views.*;
 
 import javax.swing.*;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseListener;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 
-// guardar la current song en la database
 
 
+/**
+ * SongsController class manages the behaviour of the {@link SongsView} by implementing the {@link  ActionListener}
+ * interface and the {@link ListSelectionListener} interface.
+ *
+ * @author Alan Beltrán, Álvaro Feher, Marc Barberà, Youssef Bat, Albert Gomez
+ * @version 1.0
+ * @since 25/4/2022
+ */
 public class SongsController implements ActionListener, ListSelectionListener {
 
     private final SongsView view;
@@ -26,7 +32,12 @@ public class SongsController implements ActionListener, ListSelectionListener {
     private final BusinessFacade businessFacade;
     private final StatisticsView statisticsView;
 
-
+    /**
+     * Default SongsController Constructor that will link the views needed with {@link MainView} and the business
+     * logic with the {@link BusinessFacade} interface.
+     * @param homeView HomeView reference
+     * @param businessFacade link to the logic of the program
+     */
     public SongsController(HomeView homeView, BusinessFacade businessFacade){
         this.view = homeView.getSongsView();
         this.businessFacade = businessFacade;
@@ -35,6 +46,9 @@ public class SongsController implements ActionListener, ListSelectionListener {
         loadSongs();
     }
 
+    /**
+     * Method that will load the songs into the JTable graphical component of the SongsView
+     */
     private void loadSongs(){
         for (Song song: businessFacade.getSongs()){
             view.addTableRow(song.getTitle(),song.getGenre(),song.getAlbum(),song.getAuthor(),song.getOwner());

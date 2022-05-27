@@ -9,19 +9,28 @@ import presentation.views.StatisticsView;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.ArrayList;
 
+/**
+ * AddSongsController class manages the behaviour of the {@link AddSongsView} by implementing the {@link  ActionListener}
+ * interface.
+ *
+ * @author Alan Beltrán, Álvaro Feher, Marc Barberà, Youssef Bat, Albert Gomez
+ * @version 1.0
+ * @since 19/4/2022
+ */
 public class AddSongsController implements ActionListener {
     private final AddSongsView view;
     private final HomeView homeView;
     private final StatisticsView statisticsView;
     private final BusinessFacade businessFacade;
 
-
+    /**
+     * Default AddSongsController Constructor that will link the views needed with {@link HomeView} and the business
+     * logic with the {@link BusinessFacade} interface.
+     * @param homeView HomeView object
+     * @param businessFacade link to the logic of the program
+     */
     public AddSongsController(HomeView homeView,BusinessFacade businessFacade) {
         this.view = homeView.getAddSongsView();
         this.businessFacade = businessFacade;
@@ -75,14 +84,5 @@ public class AddSongsController implements ActionListener {
         }
     }
 }
-
-//for (Song song: businessFacade.getSongs()){
-//            view.addTableRow(song.getTitle(),song.getGenre(),song.getAlbum(),song.getAuthor(),song.getOwner());
-//            if ((song.getTitle() == view.getTitleFieldAdd()) || song.getAuthor() == view.getAuthorFieldAdd())
-//            {
-//
-//            }
-//        }
-
 
 

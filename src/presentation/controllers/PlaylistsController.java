@@ -19,18 +19,36 @@ import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 
+/**
+ * PlaylistsController class manages the behaviour of the {@link PlaylistsView} by implementing the {@link  ActionListener}
+ * interface and the {@link MouseListener} interface.
+ *
+ * @author Alan Beltrán, Álvaro Feher, Marc Barberà, Youssef Bat, Albert Gomez
+ * @version 1.0
+ * @since 25/4/2022
+ */
 public class PlaylistsController implements ActionListener, MouseListener {
     private final PlaylistsView playlistsView;
     private final PlayerView playerView;
     private final BusinessFacade businessFacade;
 
 
+    /**
+     * Default PlaylistsController Constructor that will link the views needed with {@link HomeView} and the business
+     * logic with the {@link BusinessFacade} interface.
+     * @param homeView HomeView reference
+     * @param businessFacade link to the logic of the program
+     */
     public PlaylistsController(HomeView homeView, BusinessFacade businessFacade) {
         this.playlistsView = homeView.getPlaylistsView();
         this.businessFacade = businessFacade;
         this.playerView = homeView.getPlayerView();
     }
 
+    /**
+     * Method that will load the playlists to the view
+     * @param username username logged in the system
+     */
     public void loadPlaylists(String username){
         List<Playlist> playlists = businessFacade.getPlaylists();
         Collections.sort(playlists);
