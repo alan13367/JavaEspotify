@@ -175,16 +175,18 @@ public class SongPlayerManager {
             this.song= song;
             position = 0;
             player = new Player(position,song);
-            isPlaying = true;
+
         }
         else if (!isPlaying){
             player = new Player(position,song);
-            isPlaying = true;
         }else if(song != this.song){
             player.pauseSong();
             this.song= song;
             position = 0;
             player = new Player(position,song);
+        }
+
+        if(player != null){
             isPlaying = true;
         }
 
