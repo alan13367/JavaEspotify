@@ -13,6 +13,7 @@ import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 
 // guardar la current song en la database
@@ -85,7 +86,7 @@ public class SongsController implements ActionListener, ListSelectionListener {
                     }
                 }
                 else{
-                    view.showOwnerErrorDialog();
+                    view.showErrorDialog("You can't delete this Song because you are not the owner.");
                 }
             }
             case(SongsView.BTN_PLAY_SONG) ->{
@@ -93,7 +94,11 @@ public class SongsController implements ActionListener, ListSelectionListener {
                 String title = view.getSongTitle();
                 String author = view.getSongAuthor();
                 //businessFacade.startPlayer(businessFacade.getSong(title,author));
-                businessFacade.playSong(title,author);
+                try {
+                    businessFacade.playSong(title,author);
+                } catch (FileNotFoundException ex) {
+                    view.showErrorDialog("File for song: "+ title+" was not found.");
+                }
                 playerView.changePlayPause(businessFacade.isPlaying());
                 playerView.changeShownSong(title,author);
                 playerView.changeTotalTime(businessFacade.getSong(title, author).getSongMinutes(), businessFacade.getSong(title, author).getSongSeconds());

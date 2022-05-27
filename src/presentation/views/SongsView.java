@@ -332,9 +332,8 @@ public class SongsView extends JPanel {
                 "Warning",JOptionPane.YES_NO_OPTION);
     }
 
-    public void showOwnerErrorDialog(){
-        JOptionPane.showMessageDialog(this, "You can't delete this Song because you are not the owner.",
-                "Error", JOptionPane.ERROR_MESSAGE);
+    public void showErrorDialog(String message){
+        JOptionPane.showMessageDialog(this, message,"Error", JOptionPane.ERROR_MESSAGE);
     }
     public void showPlaylistsErrorDialog(){
         JOptionPane.showMessageDialog(this, "You don't have any playlist to add the song to.",
