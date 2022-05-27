@@ -11,10 +11,22 @@ import java.awt.*;
 import java.util.ArrayList;
 import java.util.Comparator;
 
+
+/**
+ * the GUI of the statistics panel
+ * @author Alan Beltrán, Álvaro Feher, Marc Barberà, Youssef Bat, Albert Gomez
+ * @version 1.0
+ * @since 08/05/2022
+ */
 public class StatisticsView extends JPanel {
 
 
     private StatisticsController statisticsController;
+
+    /**
+     * register any action taking inside the stats view
+     * @param statisticsController
+     */
     public void registerController(StatisticsController statisticsController) {
         this.statisticsController = statisticsController;
     }
@@ -43,7 +55,9 @@ public class StatisticsView extends JPanel {
     private static final String CARD_STATISTICS = "CARD_STATISTICS";
 
 
-
+    /**
+     * The view constructor, sets the layout of the panel and configures view, also calls a new card layout that will manage which panel it shows
+     */
     public StatisticsView() {
         cardManager = new CardLayout();
         charts = new ArrayList<>();
@@ -78,16 +92,27 @@ public class StatisticsView extends JPanel {
         add(x_axis, BorderLayout.PAGE_END);
     }
 
-
+    /**
+     * empty the list of bars
+     */
     public void removeAllBars(){
         charts.clear();
     }
 
+    /**
+     * add a bar that contains the data in the parameter
+     * @param value the occurrences of that genre in the system
+     * @param genre the genre of the music
+     */
     public void addBar(int value, String genre) {
         Chart chart = new Chart(value, genre);
         charts.add(chart);
     }
 
+    /**
+     * plot the bars that are in the list, adjust the view proportionally to the biggest value in the list,
+     * designing the look of the bars, labeling the bars proportionally to where each bar is
+     */
     public void plotBars() {
         x_axis.removeAll();
         jpGraph.removeAll();
@@ -144,29 +169,45 @@ public class StatisticsView extends JPanel {
         }
     }
 
+    /**
+     * generates a random color
+     * @return a random color
+     */
     public Color randomColor() {
         return new Color((int)(Math.random() * 0x1000000));
     }
 
+    /**
+     * class that holds the data of e single bar
+     */
     public static class Chart {
         private int value;
         private String genre;
 
+        /**
+         * constructor
+         * @param value the occurrences of that genre in the system
+         * @param genre the genre of the music
+         */
         public Chart(int value, String genre) {
             this.value = value;
             this.genre = genre;
         }
 
+        /**
+         * the value getter
+         * @return the value
+         */
         public int getValue() {return value;}
-        public void setValue(int value) {
-            this.value = value;
-        }
+
+        /**
+         * the genre getter
+         * @return the genre
+         */
         public String getGenre() {
             return genre;
         }
-        public void setGenre(String genre) {
-            this.genre = genre;
-        }
+
     }
 
 
