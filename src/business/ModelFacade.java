@@ -156,7 +156,8 @@ public class ModelFacade implements BusinessFacade {
 
     @Override
     public void playSong(String songTitle,String songAuthor) throws FileNotFoundException {
-        songPlayerManager.playSong(getSong(songTitle, songAuthor));
+        Song song = getSong(songTitle, songAuthor);
+        songPlayerManager.playSong(song);
     }
 
     public void playNextSong() throws FileNotFoundException {

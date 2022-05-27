@@ -102,7 +102,7 @@ public class AddSongsView extends JPanel {
         constraints.weightx = 0.0;
         constraints.weighty = 0.0;
 
-        durationField = new MyHintTextField.RoundedMyHintTextField("duration");
+        durationField = new MyHintTextField.RoundedMyHintTextField("duration min:secs");
         durationField.setToolTipText("Duration");
         durationField.setFont(arialFont);
         durationField.setForeground(Color.gray);
@@ -172,22 +172,22 @@ public class AddSongsView extends JPanel {
     }
 
     public String getTitleFieldAdd(){
-        return String.valueOf(titleField.getText());
+        return String.valueOf(titleField.getText()).trim();
     }
 
     public String getAlbumFieldAdd(){
-        return String.valueOf(albumField.getText());
+        return String.valueOf(albumField.getText()).trim();
     }
 
     public String getAuthorFieldAdd(){
-        return String.valueOf(authorField.getText());
+        return String.valueOf(authorField.getText()).trim();
     }
 
     public String getGenreFieldAdd(){
-        return String.valueOf(genreField.getText());
+        return String.valueOf(genreField.getText()).trim();
     }
 
-    public long getDurationFieldAdd(){return Long.parseLong(durationField.getText());}
+    public String getDurationFieldAdd(){return durationField.getText().trim();}
 
     public boolean addSongsFieldEmpty(){
         return getTitleFieldAdd().isEmpty() || getGenreFieldAdd().isEmpty() || getAlbumFieldAdd().isEmpty()
@@ -211,13 +211,17 @@ public class AddSongsView extends JPanel {
         return file.getName();
     }
 
+    public boolean checkDurationFormat(){
+        return getDurationFieldAdd().matches("[0-5]?\\d:[0-5]\\d$");
+    }
+
     public void clearFields() {
-        titleField = new MyHintTextField.RoundedMyHintTextField("Title");
-        albumField = new MyHintTextField.RoundedMyHintTextField("Album");
-        authorField= new MyHintTextField.RoundedMyHintTextField("Author");
-        genreField = new MyHintTextField.RoundedMyHintTextField("Genre");
-        durationField = new MyHintTextField.RoundedMyHintTextField("Duration");
-        fc = new JFileChooser("songs/");
+        titleField.setText("");
+        albumField.setText("");
+        authorField.setText("");
+        genreField.setText("");
+        durationField.setText("");
+        fc.cancelSelection();
     }
 }
 
