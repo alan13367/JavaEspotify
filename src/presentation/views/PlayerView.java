@@ -199,4 +199,8 @@ public class PlayerView extends JPanel {
         String time = minutes + ":" + seconds_rest;
         totalTime.setText(time);
     }
+
+    public void showErrorDialog(String message){
+        JOptionPane.showMessageDialog(this, message,"Error", JOptionPane.ERROR_MESSAGE);
+    }
 }

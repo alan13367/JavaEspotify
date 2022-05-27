@@ -7,6 +7,7 @@ import presentation.views.SongsView;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.FileNotFoundException;
 
 public class PlayerController implements ActionListener {
     private final BusinessFacade businessFacade;
@@ -28,7 +29,11 @@ public class PlayerController implements ActionListener {
             case(PlayerView.BTN_PLAYPAUSE)->{ // default is in play mode
                 if(!businessFacade.isPlaying()){
                     System.out.println("Song resumed");
-                    businessFacade.resumeSong();
+                    try {
+                        businessFacade.resumeSong();
+                    } catch (FileNotFoundException ex) {
+                        view.showErrorDialog("File of the song was not found.");
+                    }
                     view.changePlayPause(businessFacade.isPlaying());
                 }else {
                     businessFacade.pausePlayer();
@@ -42,14 +47,26 @@ public class PlayerController implements ActionListener {
                     businessFacade.pausePlayer();
                     if(isLoop){
                         System.out.println("playing in loop");
-                        businessFacade.playNextInLoop(businessFacade.getCurrentSong());
+                        try {
+                            businessFacade.playNextInLoop(businessFacade.getCurrentSong());
+                        } catch (FileNotFoundException ex) {
+                            view.showErrorDialog("File of the song was not found.");
+                        }
 
                     } else if (isShuffle) {
                         System.out.println("shuffln");
-                        businessFacade.playRandomSong();
+                        try {
+                            businessFacade.playRandomSong();
+                        } catch (FileNotFoundException ex) {
+                            view.showErrorDialog("File of the song was not found.");
+                        }
                         view.changeShownSong(businessFacade.getCurrentSong().getTitle(),businessFacade.getCurrentSong().getAuthor());
                     }else{
-                        businessFacade.playNextSong();
+                        try {
+                            businessFacade.playNextSong();
+                        } catch (FileNotFoundException ex) {
+                            view.showErrorDialog("File of the song was not found.");
+                        }
                         view.changeShownSong(businessFacade.getCurrentSong().getTitle(),businessFacade.getCurrentSong().getAuthor());
                         // view.initSlider(businessFacade.getCurrentSong());
                         // businessFacade.moveSlider(view.getJslider());
@@ -65,13 +82,25 @@ public class PlayerController implements ActionListener {
                     businessFacade.pausePlayer();
                     if(isLoop){
                         System.out.println("playing in loop");
-                        businessFacade.playNextInLoop(businessFacade.getCurrentSong());
+                        try {
+                            businessFacade.playNextInLoop(businessFacade.getCurrentSong());
+                        } catch (FileNotFoundException ex) {
+                            view.showErrorDialog("File of the song was not found.");
+                        }
 
                     } else if (isShuffle) {
-                        businessFacade.playRandomSong();
+                        try {
+                            businessFacade.playRandomSong();
+                        } catch (FileNotFoundException ex) {
+                            view.showErrorDialog("File of the song was not found.");
+                        }
                         view.changeShownSong(businessFacade.getCurrentSong().getTitle(),businessFacade.getCurrentSong().getAuthor());
                     }else {
-                        businessFacade.playPrevSong();
+                        try {
+                            businessFacade.playPrevSong();
+                        } catch (FileNotFoundException ex) {
+                            view.showErrorDialog("File of the song was not found.");
+                        }
                         view.changeShownSong(businessFacade.getCurrentSong().getTitle(),businessFacade.getCurrentSong().getAuthor());
                     }
                     System.out.println("Previous");
