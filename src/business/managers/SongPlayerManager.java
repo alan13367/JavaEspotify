@@ -159,7 +159,10 @@ public class SongPlayerManager {
 
     }
 
-
+    /**
+     * plays a song
+     * @param song song to be played
+     */
     public void playSong(Song song){
         if(!isPlaying && this.song != song){
             this.song= song;
@@ -180,6 +183,9 @@ public class SongPlayerManager {
 
     }
 
+    /**
+     * resumes a currently playing song starting where it was paused
+     */
     public void resumeSong(){
         isPlaying = true;
         player = new Player(position,song);
@@ -194,10 +200,18 @@ public class SongPlayerManager {
         }
     }
 
+    /**
+     * gets currently playing song
+     * @return song playing
+     */
     public Song getCurrentSong() {
         return this.song;
     }
 
+    /**
+     * plays currently song, used when loop mode is ON
+     * @param song
+     */
     public void playNextInLoop(Song song){
         if(!isPlaying){
             isPlaying = true;
@@ -207,11 +221,17 @@ public class SongPlayerManager {
         }
     }
 
-
+    /**
+     * plays random song from song queue, used when shuffle mode is ON
+     * @return
+     */
     public Song getRandomSong(){
         return songQueue.get(new Random().nextInt(songQueue.size()));
     }
 
+    /**
+     * pauses currently playing song
+     */
     public void pauseCurrentSong() {
         position += player.pauseSong();
         isPlaying = false;
