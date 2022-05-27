@@ -4,7 +4,7 @@ import java.sql.*;
 
 /**
  * manager if the playlists, in charge of creating, deleting and editting playlists
- * @author: Alan Beltrán, Álvaro Feher, Marc Barberà, Youssef Bat, Albert Gomez
+ * @author Alan Beltrán, Álvaro Feher, Marc Barberà, Youssef Bat, Albert Gomez
  *  @version 1.0
  *  @since 12/4/2022
  */
@@ -33,7 +33,7 @@ public class SQLConnector {
 
     /**
      * generate instance
-     * @return instance to stablish connection with the database
+     * @return instance to establish connection with the database
      */
     public static SQLConnector getInstance() {
         if(instance == null){

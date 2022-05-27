@@ -13,7 +13,7 @@ import java.util.Objects;
 
 /**
  * Manager of the Playlists, in charge of creating, deleting and editing playlists
- * @author: Alan Beltrán, Álvaro Feher, Marc Barberà, Youssef Bat, Albert Gomez
+ * @author Alan Beltrán, Álvaro Feher, Marc Barberà, Youssef Bat, Albert Gomez
  *  @version 1.0
  *  @since 12/4/2022
  */
