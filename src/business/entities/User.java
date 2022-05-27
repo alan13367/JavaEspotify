@@ -1,6 +1,7 @@
 package business.entities;
 
 /**
+ * Class to represent a User in the program
  * @author Alan Beltrán, Álvaro Feher, Marc Barberà, Youssef Bat, Albert Gomez
  * @version 1.0
  * @since 18/5/2022

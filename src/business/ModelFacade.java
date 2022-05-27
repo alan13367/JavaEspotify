@@ -5,18 +5,26 @@ import business.entities.Song;
 import business.managers.*;
 import com.google.gson.*;
 
-import javax.swing.*;
 import java.io.FileNotFoundException;
 import java.util.*;
 
+/**
+ * Class used to Implement our {@link BusinessFacade} interface and related with all the needed managers in the program
+ *
+ * @author Alan Beltrán, Álvaro Feher, Marc Barberà, Youssef Bat, Albert Gomez
+ * @version 1.0
+ * @since 10-04-2022
+ */
 public class ModelFacade implements BusinessFacade {
     private final SongManager songManager;
     private final UserManager userManager;
     private final PlaylistManager playlistManager;
     private final SongPlayerManager songPlayerManager;
 
-    //Managers
 
+    /**
+     * Constructor of the class that will initialize all the needed managers
+     */
     public ModelFacade() {
         this.songManager = new SongManager();
         this.userManager = new UserManager();

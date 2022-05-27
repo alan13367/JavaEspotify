@@ -13,7 +13,7 @@ import java.util.List;
  *  The BusinessFacade Interface manages all of the Business layer systems to provide a reasonable
  *  interface to the rest of the program, particularly to layers above the business.
  *
- * @author Alan Beltran, Alvaro Feher, Marc Barbera, Youssef Bat, Albert Gomez
+ * @author Alan Beltrán, Álvaro Feher, Marc Barberà, Youssef Bat, Albert Gomez
  * @version 1.0
  * @since 10-04-2022
  */
