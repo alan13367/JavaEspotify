@@ -106,9 +106,12 @@ public class Player extends Thread {
      * @return position where the song is paused
      */
     public int pauseSong(){
-        int position = audioDevice.getPosition() / 26;
-        isPlaying = false;
-        player.stop();
+        int position = 0;
+        if(audioDevice != null){
+            position = audioDevice.getPosition() / 26;
+            isPlaying = false;
+            player.stop();
+        }
         return position;
     }
 
