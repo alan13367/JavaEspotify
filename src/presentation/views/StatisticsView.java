@@ -25,7 +25,7 @@ public class StatisticsView extends JPanel {
 
     /**
      * register any action taking inside the stats view
-     * @param statisticsController
+     * @param statisticsController statistics controller
      */
     public void registerController(StatisticsController statisticsController) {
         this.statisticsController = statisticsController;
