@@ -1,6 +1,7 @@
 package presentation.controllers;
 
 import business.BusinessFacade;
+import presentation.MainView;
 import presentation.views.HomeView;
 import presentation.views.PlayerView;
 import presentation.views.SongsView;
@@ -9,6 +10,14 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.FileNotFoundException;
 
+/**
+ * PlayerController class manages the behaviour of the {@link PlayerView} by implementing the {@link  ActionListener}
+ * interface.
+ *
+ * @author Alan Beltrán, Álvaro Feher, Marc Barberà, Youssef Bat, Albert Gomez
+ * @version 1.0
+ * @since 19/4/2022
+ */
 public class PlayerController implements ActionListener {
     private final BusinessFacade businessFacade;
     private final PlayerView view;
@@ -17,6 +26,12 @@ public class PlayerController implements ActionListener {
     private boolean isShuffle = false;
     private boolean inPlaylist;
 
+    /**
+     * Default HomeController Constructor that will link the views needed with {@link HomeView} and the business
+     * logic with the {@link BusinessFacade} interface.
+     * @param homeView HomeView reference
+     * @param businessFacade link to the logic of the program
+     */
     public PlayerController(HomeView homeView, BusinessFacade businessFacade) {
         this.businessFacade = businessFacade;
         this.view = homeView.getPlayerView();

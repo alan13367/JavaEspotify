@@ -9,12 +9,25 @@ import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+/**
+ * HomeController class manages the behaviour of the {@link HomeView} by implementing the {@link  ActionListener}
+ * interface.
+ *
+ * @author Alan Beltrán, Álvaro Feher, Marc Barberà, Youssef Bat, Albert Gomez
+ * @version 1.0
+ * @since 30/4/2022
+ */
 public class HomeController implements ActionListener {
     private final HomeView view;
     private final BusinessFacade businessFacade;
     private final MainView mainView;
 
-
+    /**
+     * Default HomeController Constructor that will link the views needed with {@link MainView} and the business
+     * logic with the {@link BusinessFacade} interface.
+     * @param mainView MainView object
+     * @param businessFacade link to the logic of the program
+     */
     public HomeController(MainView mainView, BusinessFacade businessFacade){
         this.mainView = mainView;
         this.view = mainView.getHomeView();
