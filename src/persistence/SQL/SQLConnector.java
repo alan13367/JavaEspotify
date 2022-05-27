@@ -3,9 +3,9 @@ package persistence.SQL;
 import java.sql.*;
 
 public class SQLConnector {
-
-    //  implementation of the jdbc with the data read from SQLconfigDAO
-
+    /**
+     * implementation of the jdbc with the data read from SQLconfigDAO
+     */
     private final String username;
     private final String password;
     private final String url;
@@ -13,7 +13,9 @@ public class SQLConnector {
 
     private static SQLConnector instance;
 
-    // CONSTRUCTOR TO GET JSON DATA FROM CONFIG DAO
+    /**
+     * CONSTRUCTOR TO GET JSON DATA FROM CONFIG DAO
+     */
     public SQLConnector() {
         SQLConfigDAO configDAO = SQLConfigDAO.getInstance();
         String[] data = configDAO.getData();
@@ -22,7 +24,10 @@ public class SQLConnector {
         this.password = data[2];
     }
 
-    // generate instance
+    /**
+     * generate instance
+     * @return instance to stablish connection with the database
+     */
     public static SQLConnector getInstance() {
         if(instance == null){
             instance = new SQLConnector();
@@ -32,7 +37,9 @@ public class SQLConnector {
             return instance;
     }
 
-    // CONNECT TO THE DATABASE
+    /**
+     * method to connect to the database
+     */
     private void connect() {
         try{
         connection = DriverManager.getConnection(url,username,password);
@@ -42,7 +49,10 @@ public class SQLConnector {
         System.out.println("TEST");
     }
 
-    // implement addition query
+    /**
+     * implement addition query
+     * @param query query to run in database
+     */
     public void addQuery(String query){
         try{
             Statement statement = connection.createStatement();
@@ -52,7 +62,11 @@ public class SQLConnector {
         }
     }
 
-    // implement selection query
+    /**
+     * implement selection query
+     * @param query query to run in database
+     * @return result set
+     */
     public ResultSet selectQuery(String query){
         ResultSet rs = null;
         try {
@@ -65,7 +79,12 @@ public class SQLConnector {
         return rs;
     }
 
-    // implement deletion query
+
+
+    /**
+     *  implement deletion query
+     * @param query query to run in database
+     */
     public void deleteQuery(String query){
         try {
             Statement s = connection.createStatement();
@@ -77,7 +96,9 @@ public class SQLConnector {
 
     }
 
-    // DISCONNECT FROM SERVER
+    /**
+     * DISCONNECT FROM SERVER
+     */
     public void disconnect() {
         try {
             connection.close();

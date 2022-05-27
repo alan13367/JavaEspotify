@@ -31,46 +31,93 @@ public class SongPlayerManager {
     Thread sliderThread;
     Song currentSong;
 
+    /**
+     * manager of the player
+     */
     public SongPlayerManager() {
         playedSongs = new LinkedList<>();
         isPlaying = false;
     }
 
-
+    /**
+     * sets shuffle mode off or on
+     * @param shuffle on/off indicator
+     */
     public void setShuffle(boolean shuffle) {
         isShuffle = shuffle;
     }
+
+    /**
+     * sets loop mode off or on
+     * @param loop on/off indicator
+     */
     public void setLoop(boolean loop) {
         isLoopSong = loop;
     }
+
+    /**
+     * sets next on or off, plays next song if on
+     * @param isNext on/off indicator
+     */
     public void setNext(boolean isNext){playNext=isNext; }
+
+    /**
+     * sets next on or off, plays prev song if on
+     * @param isPrev on/off indicator
+     */
     public void setPrev(boolean isPrev){playPrev = isPrev; }
 
+    /**
+     * checks user is playing a playlist or an individual song
+     * @param inPlaylist indicator of a user playing a playlist or a single song
+     */
     public void setInPlaylist(boolean inPlaylist) {
         this.inPlaylist = inPlaylist;
     }
 
-    // fill songQueue with a playlist
+    /**
+     * fill songQueue with a playlist
+     * @param playlist playlist to add to queue
+     */
     public void addPlaylistToQueue(List<Song> playlist){
         songQueue = playlist;
     }
 
+    /**
+     * indicator that a song is currently playing
+     * @return indicator that a song is being played
+     */
     public boolean isPlaying(){
         return isPlaying;
     }
 
+    /**
+     * get queue with songs to play
+     * @return song queue
+     */
     public List<Song> getSongQueue() {
         return songQueue;
     }
 
+    /**
+     * gets list of songs that have already been played
+     * @return list of songs
+     */
     public List<Song> getPlayedSongs() {
         return playedSongs;
     }
 
+    /**
+     * indicates if a song is in a playlist
+     * @return indicator that a song is in a playlist
+     */
     public boolean isInPlaylist() {
         return inPlaylist;
     }
 
+    /**
+     * method to play the next song from a playlist queue
+     */
     public void playNextSong(){
         if(!isPlaying){
             isPlaying = true;
@@ -91,7 +138,9 @@ public class SongPlayerManager {
         }
     }
 
-
+    /**
+     * method to play the previous song from a playlist queue
+     */
     public void playPrevSong(){
         if(!isPlaying){
             isPlaying = true;
@@ -169,14 +218,6 @@ public class SongPlayerManager {
     }
 
 
-    // when a next/prev arrow is pressed
-    /*public void playNextSong(Song song, Thread thread) throws FileNotFoundException, JavaLayerException {
-        if(isShuffle){
-            player.playSong(getRandomSong());
-        } else if (isLoopSong) {
-            player.playSong(song);
-        }
-    }*/
 }
 
 

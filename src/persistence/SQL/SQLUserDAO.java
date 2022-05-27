@@ -6,7 +6,10 @@ import persistence.UserDAO;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-// implementation of all the queries that retrieve or add data related to Users
+
+/**
+ * implementation of all the queries that retrieve or add data related to Users
+ */
 
 public class SQLUserDAO implements UserDAO {
     // get data from an existent user
@@ -27,7 +30,11 @@ public class SQLUserDAO implements UserDAO {
         return null;
     }
 
-    // add a new user to the database
+    /**
+     *
+     // add a new user to the database
+     * @param user user to add
+     */
     @Override
     public void addUser(User user) {
         String query = "INSERT into User(username, email, password) VALUES('"+user.getUsername()+"'" +
@@ -35,7 +42,10 @@ public class SQLUserDAO implements UserDAO {
         SQLConnector.getInstance().addQuery(query);
     }
 
-    // delete existent user from the database
+    /**
+     * delete existent user from the database
+     * @param username name of the user to delete
+     */
     @Override
     public void deleteUser(String username) {
         String query = "DELETE FROM User WHERE username = '" + username + "'";

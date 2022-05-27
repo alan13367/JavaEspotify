@@ -3,9 +3,12 @@ import com.google.gson.Gson;
 import java.io.FileReader;
 import java.io.IOException;
 
-// here we will read the config json with Gson and keep the data to initialize the database
+
 
 public class SQLConfigDAO {
+    /**
+     * here we will read the config json with Gson and keep the data to initialize the database
+     */
     private static SQLConfigDAO instance; // singletone instance
     private String name;
     private String username;
@@ -15,10 +18,12 @@ public class SQLConfigDAO {
     private static final String jsonPath = "config/config.json"; // FIXME: put json file path
 
     private SQLConfigDAO(){  // constructor
-
     }
 
-    // get json instance
+    /**
+     * get json instance
+     * @return json instance
+     */
     public static SQLConfigDAO getInstance(){
         if(instance == null){
             readConfigJson();
@@ -26,7 +31,9 @@ public class SQLConfigDAO {
         return instance;
     }
 
-    // reads the configuration Json file
+    /**
+     * reads the configuration Json file
+     */
     private static void readConfigJson(){
         try{
             // read with GSON
@@ -37,6 +44,10 @@ public class SQLConfigDAO {
         }
     }
 
+    /**
+     * get databse data
+     * @return data string from jason
+     */
     public String[] getData(){
         String[] data = new String[3];
         data[0] = "jdbc:mysql://" + ip + ":" + port + "/" + name ;

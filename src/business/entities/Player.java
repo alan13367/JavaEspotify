@@ -11,9 +11,12 @@ import javax.swing.*;
 import javax.lang.model.element.ElementVisitor;
 import java.io.*;
 
-// Player entity:
-// plays a song, pauses or resumes it inside a Thread.
 
+
+/**
+ * // Player entity:
+ * // plays a song, pauses or resumes it inside a Thread.
+ */
 public class Player extends Thread {
     private AudioDevice audioDevice;
     private AdvancedPlayer player;
@@ -27,7 +30,12 @@ public class Player extends Thread {
     private int songIndex;
     boolean isPlaying = false;
 
-    // player constructor
+
+    /**
+     * player constructor
+     * @param position frame of the song
+     * @param song song to play
+     */
     public Player(int position, Song song) {
         this.position = position;
         this.song = song;
@@ -55,12 +63,18 @@ public class Player extends Thread {
         this.start();
     }
 
-    // set a song to play
+    /**
+     * set a song to play
+     * @param song song to play
+     */
     public void setSong(Song song) {
         this.song = song;
     }
 
-    // set current playing song
+    /**
+     * set current playing song
+     * @param currentSong current playing song
+     */
     public void setCurrentSong(Song currentSong) {
         this.currentSong = currentSong;
     }
@@ -70,7 +84,12 @@ public class Player extends Thread {
         return currentSong;
     }
 
-    // method to have a song playing.
+    /**
+     * set a song to be played
+     * @param song song object
+     * @throws FileNotFoundException file not found
+     * @throws JavaLayerException javalayer exception
+     */
     public void playSong(Song song) throws FileNotFoundException, JavaLayerException {
         setCurrentSong(song);
         isPlaying = true;
@@ -83,8 +102,10 @@ public class Player extends Thread {
         });
     }
 
-
-    // pauses a currently playing song and stores the frame where it has been paused.
+    /**
+     * pauses a currently playing song and stores the frame where it has been paused.
+     * @return position where the song is paused
+     */
     public int pauseSong(){
         int position = audioDevice.getPosition() / 26;
         isPlaying = false;
@@ -92,37 +113,11 @@ public class Player extends Thread {
         return position;
     }
 
-    public void moveSlider(JSlider slider) {
-        int nValue = slider.getValue();
-        int nMaxValue = slider.getMaximum();
-        do {
-            nValue++;
-            slider.setValue(nValue);
-            try{
-                Thread.sleep(1000);
-            }catch(InterruptedException e) {
-                e.printStackTrace();
-            }
-            slider.setValue(nValue);
-            System.out.println("Value is " + nValue);
-            System.out.println("Max value is " + nMaxValue);
-        }while(nValue<nMaxValue);
-    }
 
-
-    public void setProgramInit(boolean programInit) {
-        this.programInit = programInit;
-    }
-    public void setIsPlayingTrue() {
-        this.isPlayingSong = true;
-    }
-    public void setPauseSong(boolean pauseSong) {
-        this.pauseSong = pauseSong;
-    }
-
-
-    // Runnable implementation. It makes the audio file sound inside a thread,
-    // allowing the rest of the program to work simultaneously.
+    /**
+     * Runnable implementation. It makes the audio file sound inside a thread,
+     *    allowing the rest of the program to work simultaneously.
+     */
     @Override
     public void run() {
         try {
