@@ -67,7 +67,7 @@ public class StatisticsView extends JPanel {
         title_label = new JLabel("Music Statistics");
         title_label.setForeground(Color.WHITE);
         title_label.setHorizontalAlignment(JLabel.CENTER);
-        title_label.setFont(new Font("Arial", Font.BOLD, 40));
+        title_label.setFont(new Font("Arial", Font.BOLD, 30));
         title.add(title_label);
 
         setBackground(new Color(16,16,16));
@@ -110,6 +110,7 @@ public class StatisticsView extends JPanel {
             chart_label.setHorizontalAlignment(JLabel.CENTER);
             chart_label.setVerticalTextPosition(JLabel.TOP);
             chart_label.setVerticalAlignment(JLabel.BOTTOM);
+            chart_label.setHorizontalTextPosition(JLabel.CENTER);
             chart_label.setFont(new Font("Arial", Font.BOLD, 20));
             int finalI = i;
             chart_label.setIcon(new Icon() {
