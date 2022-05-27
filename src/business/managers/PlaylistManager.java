@@ -4,16 +4,14 @@ import business.entities.Playlist;
 import business.entities.Song;
 import persistence.PlaylistDAO;
 import persistence.SQL.SQLPlaylistDAO;
-import presentation.views.PlaylistsView;
 
 import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Objects;
 
 /**
  * Manager of the Playlists, in charge of creating, deleting and editing playlists
- * @author Alan Beltrán, Álvaro Feher, Marc Barberà, Youssef Bat, Albert Gomez
+ *  @author Alan Beltrán, Álvaro Feher, Marc Barberà, Youssef Bat, Albert Gomez
  *  @version 1.0
  *  @since 12/4/2022
  */

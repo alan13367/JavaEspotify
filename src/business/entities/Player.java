@@ -10,7 +10,7 @@ import javazoom.jl.player.advanced.PlaybackListener;
 import java.io.*;
 
 /**
- *  Player entity:
+ * Player entity:
  * plays a song, pauses or resumes it inside a Thread.
  * @author Alan Beltrán, Álvaro Feher, Marc Barberà, Youssef Bat, Albert Gomez
  * @version 1.0

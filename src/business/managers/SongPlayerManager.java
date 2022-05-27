@@ -14,7 +14,7 @@ import java.util.Random;
 
 /**
  * manager of the playlists, in charge of creating, deleting and editting playlists
- * @author Alan Beltrán, Álvaro Feher, Marc Barberà, Youssef Bat, Albert Gomez
+ *  @author Alan Beltrán, Álvaro Feher, Marc Barberà, Youssef Bat, Albert Gomez
  *  @version 1.0
  *  @since 12/4/2022
  */
@@ -230,7 +230,7 @@ public class SongPlayerManager {
 
     /**
      * plays random song from song queue, used when shuffle mode is ON
-     * @return random song from queue
+     * @return
      */
     public Song getRandomSong(){
         return songQueue.get(new Random().nextInt(songQueue.size()));
