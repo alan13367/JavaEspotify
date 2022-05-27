@@ -61,7 +61,4 @@ public class SQLConfigDAO {
         return data;
     }
 
-
-
-
 }

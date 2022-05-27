@@ -2,8 +2,8 @@ package business.entities;
 
 /**
  * @author Alan Beltrán, Álvaro Feher, Marc Barberà, Youssef Bat, Albert Gomez
- * @version
- * @since
+ * @version 1.0
+ * @since 18/5/2022
  */
 public class User {
     private String username;

@@ -6,8 +6,8 @@ import java.util.Locale;
 
 /**
  * @author Alan Beltrán, Álvaro Feher, Marc Barberà, Youssef Bat, Albert Gomez
- * @version
- * @since
+ * @version 1.0
+ * @since 14/5/2022
  */
 
 public class Playlist implements Comparable<Playlist> {

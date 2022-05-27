@@ -102,7 +102,7 @@ public class SQLSongDAO implements SongDAO {
 
 
     /**
-     *   //delete a song
+     *  delete a song from the system
      * @param song song to delete
      */
     @Override

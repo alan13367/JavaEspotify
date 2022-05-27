@@ -11,7 +11,6 @@ import javax.swing.*;
 import javax.lang.model.element.ElementVisitor;
 import java.io.*;
 
-
 /**
  *  Player entity:
  * plays a song, pauses or resumes it inside a Thread.
@@ -32,7 +31,6 @@ public class Player extends Thread {
     private Song currentSong;
     private int songIndex;
     boolean isPlaying = false;
-
 
     /**
      * player constructor

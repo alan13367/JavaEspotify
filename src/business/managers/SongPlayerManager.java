@@ -13,7 +13,7 @@ import java.util.Queue;
 import java.util.Random;
 
 /**
- * manager if the playlists, in charge of creating, deleting and editting playlists
+ * manager of the playlists, in charge of creating, deleting and editting playlists
  * @author: Alan Beltrán, Álvaro Feher, Marc Barberà, Youssef Bat, Albert Gomez
  *  @version 1.0
  *  @since 12/4/2022

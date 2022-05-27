@@ -5,8 +5,8 @@ package business.entities;
  * Song entity. Represents a song object, it can be played, added or deleted from the system or from a playlist.
  *
  *  @author Alan Beltrán, Álvaro Feher, Marc Barberà, Youssef Bat, Albert Gomez
- *   @version
- *  @since
+ *   @version 1.0
+ *  @since 16/4/2022
  *
  */
 public class Song {
