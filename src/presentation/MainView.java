@@ -7,6 +7,12 @@ import presentation.views.SignInSignUpView;
 import javax.swing.*;
 import java.awt.*;
 
+/**
+ * the GUI of the whole frame
+ * @author Alan Beltrán, Álvaro Feher, Marc Barberà, Youssef Bat, Albert Gomez
+ * @version 1.0
+ * @since 05/04/2022
+ */
 public class MainView extends JFrame {
 
 
@@ -20,7 +26,9 @@ public class MainView extends JFrame {
 
     private static final String HOMEVIEW_CARD ="HOMEVIEW_CARD";
 
-
+    /**
+     * The main view constructor, sets the layout of the frame and adds all the views and configures the window
+     */
     public MainView(){
         viewManager = new CardLayout();
         getContentPane().setLayout(viewManager);
@@ -43,6 +51,9 @@ public class MainView extends JFrame {
         setResizable(false);
     }
 
+    /**
+     * shows the sign in and sign up view
+     */
     public void showRegisterView() {
         setSize(900,700);
         setLocationRelativeTo(null);
@@ -50,6 +61,10 @@ public class MainView extends JFrame {
         viewManager.show(getContentPane(), REGISTER_VIEW_CARD);
     }
 
+    /**
+     * shows the home view (songs - playlist - stats - add song - etc.)
+     * @param username the username credentials
+     */
     public void showHomeView(String username){
         setSize(1500,720);
         setLocationRelativeTo(null);
@@ -58,11 +73,23 @@ public class MainView extends JFrame {
         viewManager.show(getContentPane(),HOMEVIEW_CARD);
     }
 
+    /**
+     * set the frame to visible
+     */
     public void start(){
         setVisible(true);
     }
 
-
+    /**
+     * register all the controllers we have in the system
+     * @param homeController homeController
+     * @param songsController songsController
+     * @param signInSignUpController signInSignUpController
+     * @param playlistsController playlistsController
+     * @param playerController playerController
+     * @param addSongsController addSongsController
+     * @param statisticsController statisticsController
+     */
     public void registerControllers(HomeController homeController, SongsController songsController
             , SignInSignUpController signInSignUpController, PlaylistsController playlistsController
             , PlayerController playerController,AddSongsController addSongsController, StatisticsController statisticsController){
@@ -75,10 +102,18 @@ public class MainView extends JFrame {
         homeView.getStatisticsView().registerController(statisticsController);
     }
 
+    /**
+     * getter of home view
+     * @return the home view
+     */
     public HomeView getHomeView() {
         return homeView;
     }
 
+    /**
+     * getter of SignInSignUpView
+     * @return the signIn and Signup view
+     */
     public SignInSignUpView getRegisterView() {
         return registerView;
     }
