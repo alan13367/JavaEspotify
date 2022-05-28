@@ -1,12 +1,17 @@
 package presentation.views;
 
-import business.BusinessFacade;
 import business.entities.Song;
 import presentation.controllers.PlayerController;
 
 import javax.swing.*;
 import java.awt.*;
 
+/**
+ * the GUI of the player view
+ * @author Alan Beltrán, Álvaro Feher, Marc Barberà, Youssef Bat, Albert Gomez
+ * @version 1.0
+ * @since 19/04/2022
+ */
 public class PlayerView extends JPanel {
     //Player Buttons
     private JButton jbPlayPause, jbShuffle, jbLoop, jbNext, jbPrevious;
@@ -21,7 +26,9 @@ public class PlayerView extends JPanel {
     public static final String BTN_PREV = "BTN_PREV";
     public static final String BTN_SHUFFLE ="BTN_SHUFFLE";
 
-
+    /**
+     * The view constructor, sets the layout of the panel and configures view
+     */
     public PlayerView(){
         setLayout(new BorderLayout());
         configureView();
@@ -153,17 +160,28 @@ public class PlayerView extends JPanel {
         songPanel.add(songAuthor);
     }
 
+    /**
+     * Initializing the slider
+     * @param song song data
+     */
     public void initSlider(Song song) {
         jslider = new JSlider(0, song.getSongSeconds(), 0);
         //moveSlider(jslider);
     }
 
 
-
+    /**
+     * jSlider getter
+     * @return the slider
+     */
     public JSlider getJslider() {
         return jslider;
     }
 
+    /**
+     * adds an action listener to all the components
+     * @param controller playerController
+     */
     public void registerController(PlayerController controller){
         jbPlayPause.addActionListener(controller);
         jbNext.addActionListener(controller);
@@ -172,6 +190,10 @@ public class PlayerView extends JPanel {
         jbLoop.addActionListener(controller);
     }
 
+    /**
+     * change the button icon from paused to played, and vice versa
+     * @param isPlaying true if the song is playing, false otherwise
+     */
     public void changePlayPause(boolean isPlaying){
         if(isPlaying){
             ImageIcon icon = new ImageIcon("assets/pause.png");
@@ -188,11 +210,21 @@ public class PlayerView extends JPanel {
         }
     }
 
+    /**
+     * change the song details view
+     * @param title of the song
+     * @param author author of the song
+     */
     public void changeShownSong(String title, String author){
         songName.setText(title);
         songAuthor.setText(author);
     }
 
+    /**
+     * change the song time view
+     * @param minutes minutes part duration of the song
+     * @param seconds seconds part duration of the song
+     */
     public void changeTotalTime(int minutes, int seconds) {
         int seconds_rest;
         seconds_rest = seconds % 60;
@@ -200,6 +232,10 @@ public class PlayerView extends JPanel {
         totalTime.setText(time);
     }
 
+    /**
+     * pops up an error message
+     * @param message the error message
+     */
     public void showErrorDialog(String message){
         JOptionPane.showMessageDialog(this, message,"Error", JOptionPane.ERROR_MESSAGE);
     }
