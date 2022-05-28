@@ -6,6 +6,8 @@ import presentation.controllers.PlayerController;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 public class PlayerView extends JPanel {
     //Player Buttons
@@ -14,6 +16,8 @@ public class PlayerView extends JPanel {
     private JLabel songName, songAuthor;
     private JTextField currentTime;
     private JTextField totalTime;
+    private Timer timer;
+    private int position=0;
 
     public static final String BTN_PLAYPAUSE = "BTN_PLAYPAUSE";
     public static final String BTN_LOOP = "BTN_LOOP";
@@ -151,6 +155,7 @@ public class PlayerView extends JPanel {
         songAuthor.setForeground(Color.white);
         songPanel.add(songName);
         songPanel.add(songAuthor);
+
     }
 
     public void initSlider(Song song) {
@@ -202,5 +207,32 @@ public class PlayerView extends JPanel {
 
     public void showErrorDialog(String message){
         JOptionPane.showMessageDialog(this, message,"Error", JOptionPane.ERROR_MESSAGE);
+    }
+
+    public void startTimer(int seconds){
+        if(timer != null){
+            timer.stop();
+        }
+        jslider.setMaximum(seconds);
+        position = 0;
+        timer = new Timer(1000, new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                jslider.setValue(position++);
+                if(position == seconds){
+                    timer.stop();
+                    jslider.setValue(0);
+                }
+            }
+        });
+        timer.start();
+    }
+
+    public void resumeTimer(){
+        timer.start();
+    }
+
+    public void pauseTimer(){
+        timer.stop();
     }
 }

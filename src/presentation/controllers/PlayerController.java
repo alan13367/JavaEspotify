@@ -50,9 +50,11 @@ public class PlayerController implements ActionListener {
                         view.showErrorDialog("File of the song was not found.");
                     }
                     view.changePlayPause(businessFacade.isPlaying());
+                    view.resumeTimer();
                 }else {
                     businessFacade.pausePlayer();
                     view.changePlayPause(businessFacade.isPlaying());
+                    view.pauseTimer();
                 }
             }
 

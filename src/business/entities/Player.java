@@ -110,7 +110,7 @@ public class Player extends Thread {
         if(audioDevice != null){
             position = audioDevice.getPosition() / 26;
             isPlaying = false;
-            player.stop();
+            player.close();
         }
         return position;
     }

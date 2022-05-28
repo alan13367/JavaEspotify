@@ -116,7 +116,8 @@ public class SongsController implements ActionListener, ListSelectionListener {
                 playerView.changePlayPause(businessFacade.isPlaying());
                 playerView.changeShownSong(title,author);
                 playerView.changeTotalTime(businessFacade.getSong(title, author).getSongMinutes(), businessFacade.getSong(title, author).getSongSeconds());
-                playerView.initSlider(businessFacade.getSong(title,author));
+                playerView.startTimer(businessFacade.getSong(title, author).getSongSeconds());
+                //playerView.initSlider(businessFacade.getSong(title,author));
                // businessFacade.moveSlider();
             }
 
