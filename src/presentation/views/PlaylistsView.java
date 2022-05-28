@@ -10,6 +10,12 @@ import java.awt.font.TextAttribute;
 import java.util.*;
 import java.util.List;
 
+/**
+ * the GUI of the playlist panel
+ * @author Alan Beltrán, Álvaro Feher, Marc Barberà, Youssef Bat, Albert Gomez
+ * @version 1.0
+ * @since 12/04/2022
+ */
 public class PlaylistsView extends JPanel {
     //General Assets
     private final CardLayout viewManager;
@@ -51,7 +57,9 @@ public class PlaylistsView extends JPanel {
     public  static final int MOVEUP = 1;
     public  static final int MOVEDOWN = 0;
 
-
+    /**
+     * The view constructor, sets the layout of the panel and configures the cards, also calls a new array list that holds the songs
+     */
     public PlaylistsView(){
         songsHolder = new ArrayList<>();
         viewManager = new CardLayout();
@@ -201,6 +209,13 @@ public class PlaylistsView extends JPanel {
         revalidate();
     }
 
+    /**
+     * adds a chosen song to a chosen playlist
+     * @param name name of the song
+     * @param author author of the song
+     * @param position position of the song in the list
+     * @param isOwner true if the user is the owner of the song, false otherwise
+     */
     public void addSongToPanel(String name,String author,int position,boolean isOwner){
         SongItemHolder songItemHolder = new SongItemHolder(name,author,position,isOwner);
         songItemHolder.registerController(playlistsController);
@@ -210,6 +225,9 @@ public class PlaylistsView extends JPanel {
         repaint();
     }
 
+    /**
+     * empty a playlist from songs
+     */
     public void clearSongsPanel(){
         jpSongsFromPlaylist.removeAll();
         songsHolder.clear();
@@ -217,6 +235,11 @@ public class PlaylistsView extends JPanel {
         repaint();
     }
 
+    /**
+     * adds a new playlist to my playlist panel
+     * @param name name of the playlist
+     * @param owner owner of the playlist
+     */
     public void addMyPlaylists(String name, String owner){
         PlaylistItemHolder playlistItemHolder = new PlaylistItemHolder(name,owner);
         playlistItemHolder.registerController(playlistsController);
@@ -225,6 +248,11 @@ public class PlaylistsView extends JPanel {
         repaint();
     }
 
+    /**
+     * adds all the playlists to all playlists panel
+     * @param name name of the playlist
+     * @param owner owner of the playlist
+     */
     public void addAllPlaylists(String name,String owner){
         PlaylistItemHolder playlistItemHolder = new PlaylistItemHolder(name,owner);
         playlistItemHolder.registerController(playlistsController);
@@ -233,6 +261,9 @@ public class PlaylistsView extends JPanel {
         repaint();
     }
 
+    /**
+     * empty the 'my playlists' and 'all playlists' panels
+     */
     public void clearPlaylistsPanel(){
         allPlaylists.removeAll();
         myPlaylistsListPanel.removeAll();
@@ -241,7 +272,10 @@ public class PlaylistsView extends JPanel {
     }
 
 
-
+    /**
+     * pop dialog to enter the name of the playlist the user wants to create
+     * @return the playlist name
+     */
     public String createPlaylistDialog(){
         return (String)JOptionPane.showInputDialog(
                 null,
@@ -254,6 +288,10 @@ public class PlaylistsView extends JPanel {
         );
     }
 
+    /**
+     * adds an action listener to all the components of the view
+     * @param playlistsController playlistsController
+     */
     public void registerController(PlaylistsController playlistsController){
         this.playlistsController = playlistsController;
         jbCreatePlaylist.addActionListener(playlistsController);
@@ -265,6 +303,9 @@ public class PlaylistsView extends JPanel {
     }
 
 
+    /**
+     * shows my playlist view
+     */
     public void showMyPlaylistsCard() {
         jbMyPlaylists.setForeground(Color.green);
         jbMyPlaylists.setFont(switchButtonsFont.deriveFont(underlinedText));
@@ -273,6 +314,9 @@ public class PlaylistsView extends JPanel {
         playlistsPanelManager.show(playlistsWrapperPanel,MY_PLAYLISTS_CARD);
     }
 
+    /**
+     * shows all playlist views
+     */
     public void showAllPlaylistsCard() {
         jbAllPlaylists.setForeground(Color.green);
         jbAllPlaylists.setFont(switchButtonsFont.deriveFont(underlinedText));
@@ -281,6 +325,12 @@ public class PlaylistsView extends JPanel {
         playlistsPanelManager.show(playlistsWrapperPanel,ALL_PLAYLISTS_CARD);
     }
 
+    /**
+     * shows the information of the playlist
+     * @param name name of the playlist
+     * @param owner owner of the playlist
+     * @param isOwner if the current user is the owner
+     */
     public void showPlaylistInfoCard(String name,String owner,boolean isOwner){
         jlPlaylistName.setText(name);
         jlPlaylistOwner.setText(owner);
@@ -288,26 +338,51 @@ public class PlaylistsView extends JPanel {
         viewManager.show(this,PLAYLIST_INFO_CARD);
     }
 
+    /**
+     * shows the view panel
+     */
     public void showPlaylistsPanelCard() {
         viewManager.show(this,PLAYLISTS_CARD);
     }
 
+    /**
+     * loads all playlist owned by the user
+     * @param username the current username of the user
+     */
     public void loadUserPlaylists(String username){
         playlistsController.loadPlaylists(username);
     }
 
+    /**
+     * pops up an error message
+     * @param message the error message
+     */
     public void showErrorDialog(String message){
         JOptionPane.showMessageDialog(this, message,"Error", JOptionPane.ERROR_MESSAGE);
     }
 
+    /**
+     * shows a confirmation pop-ip dialog
+     * @param message the message where the user will either choose yes or no as an answer
+     * @param title brief idea of what the pop-up dialog is about
+     * @return
+     */
     public int showPlaylistOptionDialog(String message,String title){
         return JOptionPane.showConfirmDialog(this,message, title,JOptionPane.YES_NO_OPTION);
     }
 
+    /**
+     * playlist name getter
+     * @return the playlist name
+     */
     public String getPlaylistName() {
         return jlPlaylistName.getText();
     }
 
+    /**
+     * playlist owner getter
+     * @return the playlist owner
+     */
     public String getPlaylistOwner() {
         return jlPlaylistOwner.getText();
     }
@@ -324,6 +399,11 @@ public class PlaylistsView extends JPanel {
         }
     }
 
+    /**
+     * moves a song position in the playlist
+     * @param position position of song in the playlist
+     * @param upOrDown up or down buttons
+     */
     public void moveSongInPlaylist(int position,final int upOrDown){
         switch(upOrDown){
             case MOVEUP ->{
@@ -337,19 +417,34 @@ public class PlaylistsView extends JPanel {
         reloadSongsPanel();
     }
 
+    /**
+     * deletes a song from a playlist
+     * @param position position of the song in the playlist
+     */
     public void deleteSongFromPlaylist(int position){
         songsHolder.remove(position);
         reloadSongsPanel();
     }
 
+    /**
+     * gets the size of the song holder list
+     * @return the size of the song holder list
+     */
     public int getSongsListSize(){
         return songsHolder.size();
     }
 
+    /**
+     * song holder getter
+     * @return the song holder list
+     */
     public List<SongItemHolder> getSongsHolder(){
         return new ArrayList<>(songsHolder);
     }
 
+    /**
+     * internal class extending a panel, holds playlists
+     */
     public static class PlaylistItemHolder extends JPanel{
         private JLabel playlistName;
         private JLabel playlistOwner;
@@ -373,20 +468,35 @@ public class PlaylistsView extends JPanel {
             this.add(this.playlistOwner);
         }
 
+        /**
+         * adds a mouse listener
+         * @param playlistsController playlistsController
+         */
         public void registerController(PlaylistsController playlistsController){
             this.addMouseListener(playlistsController);
         }
 
+        /**
+         * the playlist name getter
+         * @return the playlist name
+         */
         public String getPlaylistName(){
             return this.playlistName.getText();
         }
 
+        /**
+         * the playlist owner getter
+         * @return the playlist owner
+         */
         public String getPlaylistOwner(){
             return this.playlistOwner.getText();
         }
 
     }
 
+    /**
+     * internal class extending a panel, holds the songs in a playlist
+     */
     public static class SongItemHolder extends JPanel {
         private JLabel position;
         private JLabel songName;
@@ -460,17 +570,34 @@ public class PlaylistsView extends JPanel {
             this.moveDown.addActionListener(playlistsController);
         }
 
+        /**
+         * position setter
+         * @param position position of the song in the playlist
+         */
         public void setPosition(int position){
             this.position.setText("   "+position+".");
         }
 
+        /**
+         * song name getter
+         * @return the song name
+         */
         public String getSongName(){
             return songName.getText();
         }
+
+        /**
+         * song author getter
+         * @return the song author
+         */
         public String getAuthor(){
             return songAuthor.getText();
         }
 
+        /**
+         * song position getter
+         * @return the position of the song in the playlist
+         */
         public int getPosition(){
             String[] split = position.getText().split("\\.");
             return Integer.parseInt(split[0].trim());

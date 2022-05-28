@@ -11,6 +11,13 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 
+
+/**
+ * the GUI of signIn panel and signUP panel
+ * @author Alan Beltrán, Álvaro Feher, Marc Barberà, Youssef Bat, Albert Gomez
+ * @version 1.0
+ * @since 10/04/2022
+ */
 public class SignInSignUpView extends JPanel{
 
     private JPanel signUpView;
@@ -44,6 +51,10 @@ public class SignInSignUpView extends JPanel{
     private static final Font alegreyaFont = new Font("Alegreya Sans SC", Font.BOLD, 30);
     private static final Font smallerArialFont = new Font("Arial", Font.ITALIC, 15);
 
+
+    /**
+     * The view constructor, sets the layout of the panel and configures all the views, also calls a new card layout that will manage which panel it shows
+     */
     public SignInSignUpView(){
         setLayout(new BorderLayout());
         mainPanelManager = new CardLayout();
@@ -212,10 +223,15 @@ public class SignInSignUpView extends JPanel{
         constraints.weighty = 0.0;
     }
 
-
+    /**
+     *  the mainPanel which has card layout shows the sign in panel
+     */
     public void showSignInCard(){
         mainPanelManager.show(jpMain,CARD_SIGN_IN);
     }
+    /**
+     *  the mainPanel which has card layout shows the sign up panel
+     */
     public void showSignUpCard(){
         mainPanelManager.show(jpMain,CARD_SIGN_UP);
     }
@@ -369,6 +385,10 @@ public class SignInSignUpView extends JPanel{
         constraints.weighty = 0.0;
     }
 
+    /**
+     * adding action listeners to all the buttons of both panels that have to make a change when clicked
+     * @param controller handler of all action events
+     */
     public void registerController(ActionListener controller) {
         signUpButton_bottom.addActionListener(controller);
         signInButton_north.addActionListener(controller);
@@ -376,47 +396,92 @@ public class SignInSignUpView extends JPanel{
         signUpButton.addActionListener(controller);
     }
 
+    /**
+     * pops up an error message to the user
+     * @param message the text that will appear in the middle of the pop-up dialog
+     * @param title the main idea of why the dialog popped up.
+     */
     public void pop_up_ErrorDialog(String message, String title) {
             JOptionPane.showMessageDialog(this, message, title, JOptionPane.ERROR_MESSAGE);
     }
 
+    /**
+     * pops up an information message to the user showing that an action was successful
+     * @param message the text that will appear in the middle of the pop-up dialog
+     * @param title the main idea of why the dialog popped up.
+     */
     public void pop_up_SuccessDialog(String message, String title) {
         JOptionPane.showMessageDialog(this, message, title, JOptionPane.INFORMATION_MESSAGE);
     }
 
+    /**
+     * gets the email the user has signed up with
+     * @return whatever the user has entered in the email text field in the sign-up view
+     */
     public String getEmailFieldSignUp(){
         return emailField.getText();
     }
 
+    /**
+     * gets the password the user has signed up with
+     * @return whatever the user has entered in the password text field in the sign-up view
+     */
     public String getPwdFieldSignUp(){
         return String.valueOf(pwdFieldSignUp.getPassword());
     }
 
+    /**
+     * gets the replica password the user has signed up with
+     * @return whatever the user has entered in confirm password text field in the sign-up view
+     */
     public String getConfirmationPwdFieldSignUp(){
         return String.valueOf(pwdFieldConfirmSignUp.getPassword());
     }
 
+    /**
+     * gets the username the user has signed up with
+     * @return whatever the user has entered in the username text field in the sign-up view
+     */
     public String getUserFieldSignUp(){
         return userTextFieldSignUp.getText();
     }
 
+    /**
+     * gets the username the user has signed in with
+     * @return whatever the user has entered in the username text field in the sign-in view
+     */
     public String getUserFieldSignIn(){
         return userFieldSignIn.getText();
     }
 
+    /**
+     * gets the password the user has signed in with
+     * @return whatever the user has entered in the password text field in the sign-in view
+     */
     public String getPwdFieldSignIn(){
         return String.valueOf(pwdFieldSignIn.getPassword());
     }
 
+    /**
+     * checks if any of the text fields in the sign in panel is empty.
+     * @return true in case one of the text fields is empty or both are empty, false otherwise
+     */
     public boolean signInFieldsEmpty(){
         return getUserFieldSignIn().isEmpty() || getPwdFieldSignIn().isEmpty();
     }
 
+    /**
+     * checks if any of the text fields in the sign up panel is empty.
+     * @return true in case at least one of the text fields is empty , false otherwise
+     */
     public boolean signUpFieldsEmpty(){
         return getEmailFieldSignUp().isEmpty() || getUserFieldSignUp().isEmpty() || getPwdFieldSignUp().isEmpty()
                 || getConfirmationPwdFieldSignUp().isEmpty();
     }
 
+    /**
+     * clear all the text fields to be empty
+     */
     public void clearFields() {
         userFieldSignIn.setText("");
         pwdFieldSignIn.setText("");

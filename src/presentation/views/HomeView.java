@@ -2,16 +2,16 @@ package presentation.views;
 
 import presentation.controllers.HomeController;
 
-import javax.imageio.ImageIO;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
-import java.awt.event.ActionListener;
-import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
-import java.net.UnknownServiceException;
 
+/**
+ * the GUI of the home view
+ * @author Alan Beltrán, Álvaro Feher, Marc Barberà, Youssef Bat, Albert Gomez
+ * @version 1.0
+ * @since 30/04/2022
+ */
 public class HomeView extends JPanel {
 
     private SongsView songsView;
@@ -46,7 +46,9 @@ public class HomeView extends JPanel {
     public static final String CARD_STATISTICS = "CARD_STATISTICS";
     public static final String CARD_ADD_SONGS = "CARD_ADD_SONGS";
 
-
+    /**
+     * The view constructor, sets the layout of the panel and configures view, calls all other views except the sign in and sign up view
+     */
     public HomeView(){
         setLayout(new BorderLayout());
         mainPanelManager = new CardLayout();
@@ -145,10 +147,18 @@ public class HomeView extends JPanel {
         add(playerView,BorderLayout.SOUTH);
     }
 
+    /**
+     * username setter
+     * @param username the username of the current user
+     */
     public void setUsername(String username){
         this.username.setText("  "+username);
     }
 
+    /**
+     * adds an action listener to all the components
+     * @param controller home Controller
+     */
     public void registerController(HomeController controller){
         jbPlaylists.addActionListener(controller);
         jbStatistics.addActionListener(controller);
@@ -173,25 +183,67 @@ public class HomeView extends JPanel {
     private void configureAddSongsCard() { jpMain.add(addSongsView,CARD_ADD_SONGS); }
 
 
-
+    /**
+     * shows the songs view
+     * @see SongsView
+     */
     public void showSongsCard(){
         mainPanelManager.show(jpMain,CARD_SONGS);
     }
+
+    /**
+     * shows the playlist view
+     * @see PlaylistsView
+     */
     public void showPlaylistsCard(){
         mainPanelManager.show(jpMain,CARD_PLAYLISTS);
     }
+
+    /**
+     * shows the stats view
+     * @see StatisticsView
+     */
     public void showStatisticsCard(){
         mainPanelManager.show(jpMain,CARD_STATISTICS);
     }
+
+    /**
+     * shows the add song view
+     * @see AddSongsView
+     */
     public void showAddSongsCard() { mainPanelManager.show(jpMain, CARD_ADD_SONGS);}
 
 
+    /**
+     * songs view getter
+     * @return the songs view
+     */
     public SongsView getSongsView(){
         return songsView;
     }
+
+    /**
+     * playlist view getter
+     * @return the playlist view
+     */
     public PlaylistsView getPlaylistsView(){return playlistsView;}
+
+    /**
+     * add song view getter
+     * @return the add song view
+     */
     public AddSongsView getAddSongsView(){return addSongsView;}
+
+    /**
+     * player view getter
+     * @return the player view
+     */
     public PlayerView getPlayerView(){return playerView;}
+
+    /**
+     * statistics view getter
+     * @return the statistics view
+     */
     public StatisticsView getStatisticsView() {return statisticsView;}
 
 }
