@@ -135,6 +135,13 @@ public class PlayerController implements ActionListener {
                 inPlaylist = businessFacade.isPlayingPlaylist();
                 if(inPlaylist){
                     System.out.println("hola");
+                    businessFacade.pausePlayer();
+                    try {
+                        businessFacade.playRandomSong();
+                        view.changeShownSong(businessFacade.getCurrentSong().getTitle(),businessFacade.getCurrentSong().getAuthor());
+                    } catch (FileNotFoundException ex) {
+                        throw new RuntimeException(ex);
+                    }
                     if(isShuffle){
                         isShuffle = false;
                         System.out.println("Shuffle true");
