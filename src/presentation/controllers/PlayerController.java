@@ -101,15 +101,19 @@ public class PlayerController implements ActionListener {
             }
 
             case (PlayerView.BTN_STOP)->{
-                if(businessFacade.isPlaying()){
-                    businessFacade.stopPlayer();
+                if(timer != null){
+                    if(businessFacade.isPlaying()){
+                        businessFacade.stopPlayer();
+                    }else {
+                        businessFacade.clearCurrentSong();
+                    }
+                    timer.stop();
+                    view.updateCurrentTime(0);
+                    view.changeTotalTime(0,0);
+                    view.changePlayPause(businessFacade.isPlaying());
+                    view.changeShownSong("","");
+                    view.moveSliderPosition(0);
                 }
-                timer.stop();
-                view.updateCurrentTime(0);
-                view.changeTotalTime(0,0);
-                view.changePlayPause(businessFacade.isPlaying());
-                view.changeShownSong("","");
-                view.moveSliderPosition(0);
             }
 
             case (PlayerView.BTN_LOOP)->{

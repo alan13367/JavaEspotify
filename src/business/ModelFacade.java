@@ -162,6 +162,11 @@ public class ModelFacade implements BusinessFacade {
     }
 
     @Override
+    public void clearCurrentSong() {
+        songPlayerManager.clearCurrentSong();
+    }
+
+    @Override
     public void pausePlayer() {
        songPlayerManager.pauseCurrentSong();
     }

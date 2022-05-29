@@ -97,7 +97,36 @@ public class SongPlayerManager {
         return playingPlaylist;
     }
 
+    /**
+     * Will return whether the queue is empty or not
+     * @return whether if the queue is empty
+     */
+    public boolean queueIsEmpty(){
+        return songQueue.isEmpty();
+    }
 
+    /**
+     * Method that will return if the playedSongs list is empty or not
+     * @return whether if the playedSongsList is empty or not
+     */
+    public boolean playedSongsIsEmpty(){
+        return playedSongs.isEmpty();
+    }
+
+    /**
+     * gets currently playing song
+     * @return song playing
+     */
+    public Song getCurrentSong() {
+        return this.song;
+    }
+
+    /**
+     * Clears the current song in the player and sets it to null
+     */
+    public void clearCurrentSong(){
+        this.song = null;
+    }
 
 
     /**
@@ -172,14 +201,6 @@ public class SongPlayerManager {
         player = new Player(framePosition,song);
     }
 
-    /**
-     * gets currently playing song
-     * @return song playing
-     */
-    public Song getCurrentSong() {
-        return this.song;
-    }
-
 
     /**
      * pauses currently playing song
@@ -189,21 +210,7 @@ public class SongPlayerManager {
         isPlaying = false;
     }
 
-    /**
-     * Will return whether the queue is empty or not
-     * @return whether if the queue is empty
-     */
-    public boolean queueIsEmpty(){
-        return songQueue.isEmpty();
-    }
 
-    /**
-     * Method that will return if the playedSongs list is empty or not
-     * @return whether if the playedSongsList is empty or not
-     */
-    public boolean playedSongsIsEmpty(){
-        return playedSongs.isEmpty();
-    }
 
     /**
      * Method that will totally stop the player

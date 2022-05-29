@@ -82,19 +82,31 @@ public class SongsController implements ActionListener, ListSelectionListener {
                 if(businessFacade.getSong(title,author).getOwner().equals(businessFacade.getCurrentUser())){
                     int dialogResult = view.showSongDeleteDialog();
                     if(dialogResult == JOptionPane.YES_OPTION){
-                        businessFacade.deleteSong(title,author);
-                        view.clearTable();
-                        loadSongs();
-                        view.showSongsTableCard();
-
-                        //update stats
-                        ArrayList<String> stringArrayList = businessFacade.getStatsGenres();
-                        ArrayList<Integer> valueArrayList = businessFacade.getStatsValues();
-                        statisticsView.removeAllBars();
-                        for (int i=0;i<stringArrayList.size();i++) {
-                            statisticsView.addBar(valueArrayList.get(i), stringArrayList.get(i));
+                        boolean canDelete = true;
+                        if(businessFacade.getCurrentSong() != null){
+                            Song song = businessFacade.getCurrentSong();
+                            if(song.getTitle().equals(title) && song.getAuthor().equals(author)){
+                                canDelete = false;
+                            }
                         }
-                        statisticsView.plotBars();
+                        if(canDelete){
+                            businessFacade.deleteSong(title,author);
+                            view.clearTable();
+                            loadSongs();
+                            view.showSongsTableCard();
+
+                            //update stats
+                            ArrayList<String> stringArrayList = businessFacade.getStatsGenres();
+                            ArrayList<Integer> valueArrayList = businessFacade.getStatsValues();
+                            statisticsView.removeAllBars();
+                            for (int i=0;i<stringArrayList.size();i++) {
+                                statisticsView.addBar(valueArrayList.get(i), stringArrayList.get(i));
+                            }
+                            statisticsView.plotBars();
+                        }else {
+                            view.showErrorDialog("You can't delete this Song because its currently playing.");
+                        }
+
                     }
                 }
                 else{

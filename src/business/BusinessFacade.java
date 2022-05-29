@@ -262,4 +262,6 @@ public interface BusinessFacade {
      * @return if the song is looping or not
      */
     boolean isLoopingSong();
+
+    void clearCurrentSong();
 }
