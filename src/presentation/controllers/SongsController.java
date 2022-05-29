@@ -20,7 +20,7 @@ import java.util.ArrayList;
  * SongsController class manages the behaviour of the {@link SongsView} by implementing the {@link  ActionListener}
  * interface and the {@link ListSelectionListener} interface.
  *
- * @author Alan Beltrán, Álvaro Feher, Marc Barberà, Youssef Bat, Albert Gomez
+ * @author Alan Beltrán, Alvaro Feher, Marc Barberà, Youssef Bat, Albert Gomez
  * @version 1.0
  * @since 25/4/2022
  */

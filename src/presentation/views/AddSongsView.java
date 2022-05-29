@@ -9,7 +9,7 @@ import java.io.File;
 
 /**
  * the GUI of the add song view
- * @author Alan Beltrán, Álvaro Feher, Marc Barberà, Youssef Bat, Albert Gomez
+ * @author Alan Beltrán, Alvaro Feher, Marc Barberà, Youssef Bat, Albert Gomez
  * @version 1.0
  * @since 19/04/2022
  */

@@ -10,7 +10,7 @@ import java.nio.charset.StandardCharsets;
 /**
  * SongLyricsAPI Class used to retrieve the lyrics of a certain Song given its title and author
  *
- * @author Alan Beltrán, Álvaro Feher, Marc Barberà, Youssef Bat, Albert Gomez
+ * @author Alan Beltrán, Alvaro Feher, Marc Barbera, Youssef Bat, Albert Gomez
  * @version 1.0
  * @since 10-04-2022
  */

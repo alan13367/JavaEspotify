@@ -11,7 +11,7 @@ import java.awt.*;
 
 /**
  * the GUI of the songs panel
- * @author Alan Beltrán, Álvaro Feher, Marc Barberà, Youssef Bat, Albert Gomez
+ * @author Alan Beltrán, Alvaro Feher, Marc Barberà, Youssef Bat, Albert Gomez
  * @version 1.0
  * @since 04/05/2022
  */

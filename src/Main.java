@@ -7,7 +7,7 @@ import javax.swing.*;
 
 /**
  * the Main class, executes the program AKA the Runnable on the AWT event-dispatching thread.
- * @author Alan Beltrán, Álvaro Feher, Marc Barberà, Youssef Bat, Albert Gomez
+ * @author Alan Beltrán, Alvaro Feher, Marc Barberà, Youssef Bat, Albert Gomez
  * @version 1.0
  * @since 29/03/2022
  */

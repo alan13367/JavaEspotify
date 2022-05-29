@@ -14,7 +14,7 @@ import javax.swing.Timer;
  * PlayerController class manages the behaviour of the {@link PlayerView} by implementing the {@link  ActionListener}
  * interface.
  *
- * @author Alan Beltrán, Álvaro Feher, Marc Barberà, Youssef Bat, Albert Gomez
+ * @author Alan Beltrán, Alvaro Feher, Marc Barberà, Youssef Bat, Albert Gomez
  * @version 1.0
  * @since 19/4/2022
  */
