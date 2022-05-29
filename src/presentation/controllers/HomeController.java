@@ -76,6 +76,7 @@ public class HomeController implements ActionListener {
                     view.getPlayerView().changeShownSong("","");
                     view.getPlayerView().changePlayPause(businessFacade.isPlaying());
                     view.getPlayerView().moveSliderPosition(0);
+                    view.getPlayerView().updateCurrentTime(0);
                     businessFacade.logOut();
                     mainView.showRegisterView();
                 }
