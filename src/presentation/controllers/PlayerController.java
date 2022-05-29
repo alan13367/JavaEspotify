@@ -169,6 +169,7 @@ public class PlayerController implements ActionListener {
             @Override
             public void actionPerformed(ActionEvent e) {
                 view.moveSliderPosition(secondsSong++);
+                view.updateCurrentTime(secondsSong);
                 if(secondsSong == songDuration+1){
                     businessFacade.stopPlayer();
                     view.changePlayPause(businessFacade.isPlaying());

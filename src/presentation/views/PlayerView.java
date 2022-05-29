@@ -212,7 +212,12 @@ public class PlayerView extends JPanel {
     public void changeTotalTime(int minutes, int seconds) {
         int seconds_rest;
         seconds_rest = seconds % 60;
-        String time = minutes + ":" + seconds_rest;
+        String time;
+        if(seconds<10) {
+            time =  minutes + ":0" + seconds_rest;
+        }else {
+            time =  minutes + ":" + seconds_rest;
+        }
         totalTime.setText(time);
     }
 
@@ -234,5 +239,23 @@ public class PlayerView extends JPanel {
 
     public void startTimer(int songDuration){
         playerController.startTimer(songDuration);
+    }
+    /**
+     * change current time of the song in the player view
+     * @param secondsSong seconds part duration of the song
+     */
+    public void updateCurrentTime(int secondsSong) {
+        int minutes = secondsSong/60;
+        int seconds = secondsSong%60;
+        String time;
+        if(seconds<10) {
+            time =  minutes + ":0" + seconds;
+        }else {
+            time =  minutes + ":" + seconds;
+        }
+        System.out.println(time);
+        currentTime.setText(time);
+        this.validate();
+        this.repaint();
     }
 }
