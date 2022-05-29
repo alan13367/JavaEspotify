@@ -54,4 +54,5 @@ public interface PlaylistDAO {
      * @return list of songs
      */
     LinkedList<Song> getSongsFromPlaylists(String name, String owner);
+
 }

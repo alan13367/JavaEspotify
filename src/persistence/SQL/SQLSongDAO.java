@@ -116,4 +116,14 @@ public class SQLSongDAO implements SongDAO {
         SQLConnector.getInstance().deleteQuery(query);
     }
 
+
+    /**
+     * delete song from the system
+     * @param song song to delete
+     */
+    public void deleteSongFromAllPlaylists(Song song){
+        String query = "DELETE FROM SongPlaylistLink WHERE songArtist = '"+song.getAuthor()+"' AND songTitle = '"+song.getTitle()+"'";
+        SQLConnector.getInstance().deleteQuery(query);
+    }
+
 }

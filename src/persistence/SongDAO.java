@@ -36,4 +36,10 @@ public interface SongDAO {
      * @param song song to delete
      */
     void deleteSong(Song song);
+
+    /**
+     * Deletes a song from all the playlists existing
+     * @param song song to be deleted
+     */
+    void deleteSongFromAllPlaylists(Song song);
 }

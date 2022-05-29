@@ -263,5 +263,8 @@ public interface BusinessFacade {
      */
     boolean isLoopingSong();
 
+    /**
+     * Clears the song that is currently in the player
+     */
     void clearCurrentSong();
 }

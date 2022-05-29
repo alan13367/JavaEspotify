@@ -138,21 +138,4 @@ public class SQLPlaylistDAO implements PlaylistDAO {
         return songs;
     }
 
-    /**
-     * delete relation of a playlist with all of its songs
-     * @param playlist playlist which songs will be removed
-     */
-    public void deleteSongsFromPlaylistLink(Playlist playlist){
-        String query = "DELETE FROM SongPlaylistLink WHERE SongPlaylistLink.playlistAuthor = '"+playlist.getOwner()+"' AND SongPlaylistLink.playlistName = '"+playlist.getName()+"';";
-        SQLConnector.getInstance().deleteQuery(query);
-    }
-
-    /**
-     * delete song from the system
-     * @param song song to delete
-     */
-    public void deleteSongFromSystem(Song song){
-        String query = "DELETE FROM SongPlaylistLink WHERE songArtist = '"+song.getAuthor()+"' AND songTitle = '"+song.getTitle()+"'";
-        SQLConnector.getInstance().deleteQuery(query);
-    }
 }

@@ -60,6 +60,7 @@ public class SongManager {
      */
     public void deleteSong(Song song){
         songDAO.deleteSong(song);
+        songDAO.deleteSongFromAllPlaylists(song);
         songs.remove(song);
     }
 
@@ -71,6 +72,8 @@ public class SongManager {
         for(Song song:songs){
             if (song.getOwner().equals(username)){
                 songDAO.deleteSong(song);
+                songDAO.deleteSongFromAllPlaylists(song);
+                songs.remove(song);
             }
         }
 
