@@ -46,7 +46,6 @@ public interface PlaylistDAO {
      * @param playlist playlist where the song is deleted
      */
     void deleteSongFromPlaylist(Song song, Playlist playlist);
-    void deleteSongsFromPlaylistLink(Playlist playlist);
 
     /**
      * gets all songs from a playlist

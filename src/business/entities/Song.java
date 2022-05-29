@@ -10,13 +10,13 @@ package business.entities;
  *
  */
 public class Song {
-    private String title; // title of the song
-    private String album; // album of the song
-    private String genre; // genre of the song
-    private String author; // author of the song
-    private String filepath; // mp3 file location
-    private long duration; // duration of the song
-    private String owner; // user who added the song
+    private final String title; // title of the song
+    private final String album; // album of the song
+    private final String genre; // genre of the song
+    private final String author; // author of the song
+    private final String filepath; // mp3 file location
+    private final long duration; // duration of the song
+    private final String owner; // user who added the song
     /**
      * song constructor
      * @param title song title

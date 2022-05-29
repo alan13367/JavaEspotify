@@ -14,15 +14,15 @@ import java.awt.*;
  */
 public class HomeView extends JPanel {
 
-    private SongsView songsView;
+    private final SongsView songsView;
 
-    private PlaylistsView playlistsView;
+    private final PlaylistsView playlistsView;
 
-    private AddSongsView addSongsView;
+    private final AddSongsView addSongsView;
 
-    private PlayerView playerView;
+    private final PlayerView playerView;
 
-    private StatisticsView statisticsView;
+    private final StatisticsView statisticsView;
 
     private JPanel jpMain;
 

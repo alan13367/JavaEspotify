@@ -31,7 +31,6 @@ public class AddSongsView extends JPanel {
 
     Font arialFont = new Font("Arial", Font.PLAIN, 25);
     Font alegreyaFont = new Font("Alegreya Sans SC", Font.BOLD, 30);
-    Font smallerArialFont = new Font("Arial", Font.ITALIC, 15);
 
     /**
      * the view constructor, configures the view

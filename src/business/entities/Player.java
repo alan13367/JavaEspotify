@@ -21,8 +21,7 @@ public class Player extends Thread {
     private final AudioDevice audioDevice;
     private final AdvancedPlayer player;
     private final int position;
-    private Song song;
-    boolean isPlaying = false;
+    private final Song song;
 
     /**
      * player constructor
@@ -65,7 +64,6 @@ public class Player extends Thread {
         int position = 0;
         if(audioDevice != null){
             position = audioDevice.getPosition() / 26;
-            isPlaying = false;
             player.close();
         }
         return position;

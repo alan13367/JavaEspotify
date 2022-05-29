@@ -59,6 +59,8 @@ public class PlaylistsController implements ActionListener, MouseListener {
             playlistsView.addAllPlaylists(playlist.getName(),playlist.getOwner());
         }
     }
+
+
     @Override
     public void actionPerformed(ActionEvent e) {
         switch (e.getActionCommand()){

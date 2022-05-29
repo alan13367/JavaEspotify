@@ -7,9 +7,9 @@ package business.entities;
  * @since 18/5/2022
  */
 public class User {
-    private String username;
-    private String email;
-    private String password;
+    private final String username;
+    private final String email;
+    private final String password;
 
     /**
      * User constructor

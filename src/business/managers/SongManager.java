@@ -17,9 +17,9 @@ import java.util.List;
  */
 
 public class SongManager {
-    private List<Song> songs;
-    private SongDAO songDAO;
-    private SongLyricsAPI songLyricsAPI;
+    private final List<Song> songs;
+    private final SongDAO songDAO;
+    private final SongLyricsAPI songLyricsAPI;
 
     /**
      * song manager constructor

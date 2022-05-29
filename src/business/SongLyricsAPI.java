@@ -16,9 +16,6 @@ import java.nio.charset.StandardCharsets;
  */
 public class SongLyricsAPI {
 
-    private String URL = "https://api.lyrics.ovh/v1/";
-    private String charset = "UTF-8";
-
     /**
      * Method that will return the json containing the lyrics of the song
      *
@@ -33,11 +30,13 @@ public class SongLyricsAPI {
             artist = artist.split("ft")[0].trim();
         }
         try {
+            String URL = "https://api.lyrics.ovh/v1/";
             URL urlObj = new URL(URL + artist + "/" + title);
 
             HttpURLConnection conn = (HttpURLConnection) urlObj.openConnection();
             conn.setDoOutput(false);
             conn.setRequestMethod("GET");
+            String charset = "UTF-8";
             conn.setRequestProperty("Accept-Charset", charset);
             conn.setConnectTimeout(15000);
             conn.connect();

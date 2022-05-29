@@ -10,8 +10,8 @@ import java.util.Locale;
  * @since 14/5/2022
  */
 public class Playlist implements Comparable<Playlist> {
-    private String name;
-    private String owner;
+    private final String name;
+    private final String owner;
     private LinkedList<Song> songs;
 
     /**
