@@ -16,7 +16,7 @@ import java.security.MessageDigest;
 
 public class UserManager {
     private User user;
-    private UserDAO userDAO;
+    private final UserDAO userDAO;
 
     /**
      * user manager constructor, gets user from database

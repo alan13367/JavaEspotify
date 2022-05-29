@@ -18,16 +18,10 @@ import java.io.*;
  */
 
 public class Player extends Thread {
-    private AudioDevice audioDevice;
-    private AdvancedPlayer player;
-    private int pausedOnFrame;
-    private int position;
-    private boolean programInit;
-    private boolean isPlayingSong;
-    private boolean pauseSong;
+    private final AudioDevice audioDevice;
+    private final AdvancedPlayer player;
+    private final int position;
     private Song song;
-    private Song currentSong;
-    private int songIndex;
     boolean isPlaying = false;
 
     /**
@@ -62,44 +56,6 @@ public class Player extends Thread {
         this.start();
     }
 
-    /**
-     * set a song to play
-     * @param song song to play
-     */
-    public void setSong(Song song) {
-        this.song = song;
-    }
-
-    /**
-     * set current playing song
-     * @param currentSong current playing song
-     */
-    public void setCurrentSong(Song currentSong) {
-        this.currentSong = currentSong;
-    }
-
-    // get song currently playing
-    public Song getCurrentSong() {
-        return currentSong;
-    }
-
-    /**
-     * set a song to be played
-     * @param song song object
-     * @throws FileNotFoundException file not found
-     * @throws JavaLayerException javalayer exception
-     */
-    public void playSong(Song song) throws FileNotFoundException, JavaLayerException {
-        setCurrentSong(song);
-        isPlaying = true;
-        System.out.println(song.getTitle()+" playing");
-        player.setPlayBackListener(new PlaybackListener() {
-            @Override
-            public void playbackFinished(PlaybackEvent event) {
-                pausedOnFrame = event.getFrame();
-            }
-        });
-    }
 
     /**
      * pauses a currently playing song and stores the frame where it has been paused.

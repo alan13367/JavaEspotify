@@ -1,12 +1,9 @@
 package presentation.views;
 
-import business.entities.Song;
 import presentation.controllers.PlayerController;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 /**
  * the GUI of the player view
@@ -16,7 +13,7 @@ import java.awt.event.ActionListener;
  */
 public class PlayerView extends JPanel {
     //Player Buttons
-    private JButton jbPlayPause, jbShuffle, jbLoop, jbNext, jbPrevious;
+    private JButton jbPlayPause, jbStop, jbLoop, jbNext, jbPrevious;
     private JSlider jslider;
     private JLabel songName, songAuthor;
     private JTextField currentTime;
@@ -26,7 +23,7 @@ public class PlayerView extends JPanel {
     public static final String BTN_LOOP = "BTN_LOOP";
     public static final String BTN_NEXT = "BTN_NEXT";
     public static final String BTN_PREV = "BTN_PREV";
-    public static final String BTN_SHUFFLE ="BTN_SHUFFLE";
+    public static final String BTN_STOP ="BTN_SHUFFLE";
     private PlayerController playerController;
 
     /**
@@ -107,16 +104,16 @@ public class PlayerView extends JPanel {
         jbNext.setActionCommand(BTN_NEXT);
         controlsPanel.add(jbNext);
 
-        icon = new ImageIcon("assets/shuffle.png");
+        icon = new ImageIcon("assets/stop.jpg");
         img = icon.getImage();
         newimg = img.getScaledInstance( 15, 15,  java.awt.Image.SCALE_SMOOTH ) ;
         icon = new ImageIcon( newimg );
-        jbShuffle = new JButton(icon);
-        jbShuffle.setBackground(null);
-        jbShuffle.setBorder(BorderFactory.createEmptyBorder());
-        jbShuffle.setContentAreaFilled(false);
-        jbShuffle.setActionCommand(BTN_SHUFFLE);
-        controlsPanel.add(jbShuffle);
+        jbStop = new JButton(icon);
+        jbStop.setBackground(null);
+        jbStop.setBorder(BorderFactory.createEmptyBorder());
+        jbStop.setContentAreaFilled(false);
+        jbStop.setActionCommand(BTN_STOP);
+        controlsPanel.add(jbStop);
         controlsPanel.add(aux4);
 
         playerPanel.add(controlsPanel);
@@ -158,7 +155,6 @@ public class PlayerView extends JPanel {
         songAuthor.setForeground(Color.white);
         songPanel.add(songName);
         songPanel.add(songAuthor);
-
     }
 
     /**
@@ -168,7 +164,7 @@ public class PlayerView extends JPanel {
     public void registerController(PlayerController controller){
         jbPlayPause.addActionListener(controller);
         jbNext.addActionListener(controller);
-        jbShuffle.addActionListener(controller);
+        jbStop.addActionListener(controller);
         jbPrevious.addActionListener(controller);
         jbLoop.addActionListener(controller);
         this.playerController = controller;
@@ -238,8 +234,14 @@ public class PlayerView extends JPanel {
     }
 
     public void startTimer(int songDuration){
-        playerController.startTimer(songDuration);
+        playerController.startSongTimer(songDuration);
     }
+
+    public void stopTimer(){
+        playerController.pauseTimer();
+    }
+
+
     /**
      * change current time of the song in the player view
      * @param secondsSong seconds part duration of the song
@@ -253,7 +255,6 @@ public class PlayerView extends JPanel {
         }else {
             time =  minutes + ":" + seconds;
         }
-        System.out.println(time);
         currentTime.setText(time);
         this.validate();
         this.repaint();

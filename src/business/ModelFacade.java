@@ -117,7 +117,6 @@ public class ModelFacade implements BusinessFacade {
 
     @Override
     public void addSongToPlaylist(String playlistName, Song song) {
-        //Missing implementation of adding song to a user playlist
         playlistManager.addSongToPlaylist(playlistName,getCurrentUser(),song);
     }
 
@@ -142,10 +141,6 @@ public class ModelFacade implements BusinessFacade {
         return new ArrayList<>(values);
     }
 
-    public void setShuffle(boolean isShuffle){
-        songPlayerManager.setShuffle(isShuffle);
-    }
-
     @Override
     public void setLoopingPlaylist(boolean isLoop) {
         songPlayerManager.setLoopPlaylist(isLoop);
@@ -154,6 +149,16 @@ public class ModelFacade implements BusinessFacade {
     @Override
     public boolean isLoopingPlaylist() {
         return songPlayerManager.isLoopPlaylist();
+    }
+
+    @Override
+    public void setLoopingSong(boolean loopingSong) {
+        songPlayerManager.setLoopingSong(loopingSong);
+    }
+
+    @Override
+    public boolean isLoopingSong() {
+        return songPlayerManager.isLoopingSong();
     }
 
     @Override
@@ -167,22 +172,14 @@ public class ModelFacade implements BusinessFacade {
         songPlayerManager.playSong(song);
     }
 
+    @Override
     public void playNextSong() throws FileNotFoundException {
         songPlayerManager.playNextSong();
     }
 
+    @Override
     public void playPrevSong() throws FileNotFoundException {
         songPlayerManager.playPrevSong();
-    }
-
-    public void playRandomSong() throws FileNotFoundException {
-        // en vd ha de ser una funcion que meta random songs en la queue
-        songPlayerManager.playSong(songPlayerManager.getRandomSong());
-    }
-
-    public void playNextInLoop(Song song) throws FileNotFoundException {
-        // cuando llegues al final de la playlist vuelve a la primera cancion
-        songPlayerManager.playNextInLoop(song);
     }
 
     @Override
@@ -195,7 +192,7 @@ public class ModelFacade implements BusinessFacade {
         playlistManager.deleteSongFromPlaylist(playlistName,getCurrentUser(),getSong(songName,songAuthor));
     }
 
-
+    @Override
     public void addPlaylistToQueue(LinkedList<Song> playlist){
         songPlayerManager.addPlaylistToQueue(playlist);
     }
@@ -210,19 +207,12 @@ public class ModelFacade implements BusinessFacade {
         return songPlayerManager.isPlaying();
     }
 
-    public List<Song> getSongQueue(){
-       return songPlayerManager.getSongQueue();
-    }
-
-    public List<Song> getPlayedSongs(){
-        return songPlayerManager.getPlayedSongs();
-    }
-
+    @Override
     public Song getCurrentSong(){
         return songPlayerManager.getCurrentSong();
     }
 
-
+    @Override
     public void setPlayingPlaylist(boolean inPlaylist){
         songPlayerManager.setPlayingPlaylist(inPlaylist);
     }
@@ -232,6 +222,12 @@ public class ModelFacade implements BusinessFacade {
         return songPlayerManager.queueIsEmpty();
     }
 
+    @Override
+    public boolean playedSongsIsEmpty() {
+        return songPlayerManager.playedSongsIsEmpty();
+    }
+
+    @Override
     public boolean isPlayingPlaylist(){
         return songPlayerManager.isPlayingPlaylist();
     }

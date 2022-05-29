@@ -47,6 +47,8 @@ public class HomeController implements ActionListener {
                 System.out.println("Playlists");
                 //Show Playlists
                 view.showPlaylistsCard();
+                view.getPlaylistsView().clearSongsPanel();
+                view.getPlaylistsView().showPlaylistsPanelCard();
             }
             case (HomeView.BTN_STATISTICS) -> {
                 System.out.println("Statistics");
@@ -73,6 +75,13 @@ public class HomeController implements ActionListener {
                 int dialogResult = JOptionPane.showConfirmDialog(null,"Are you sure you want to Log Out?","Warning",JOptionPane.YES_NO_OPTION);
                 if(dialogResult == JOptionPane.YES_OPTION){
                     view.getPlaylistsView().clearPlaylistsPanel();
+                    if(businessFacade.isPlaying()){
+                        businessFacade.stopPlayer();
+                        view.getPlayerView().stopTimer();
+                    }
+                    view.getPlayerView().changeShownSong("","");
+                    view.getPlayerView().changePlayPause(businessFacade.isPlaying());
+                    view.getPlayerView().moveSliderPosition(0);
                     businessFacade.logOut();
                     mainView.showRegisterView();
                 }

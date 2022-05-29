@@ -17,7 +17,6 @@ import java.util.List;
  * @since 10-04-2022
  */
 public interface BusinessFacade {
-    //Methods to be implemented in ModelFacade
 
     /**
      * Method to login to the program, will return true if successfully logged in and false if login failed.
@@ -149,9 +148,6 @@ public interface BusinessFacade {
     ArrayList<Integer> getStatsValues();
 
 
-    void setShuffle(boolean isShuffle);
-
-
     void setLoopingPlaylist(boolean isLoop);
 
     /**
@@ -178,11 +174,6 @@ public interface BusinessFacade {
      */
     void playPrevSong() throws FileNotFoundException;
 
-    /**
-     * play random song from queue
-     * @throws FileNotFoundException if the file was not found
-     */
-    void playRandomSong() throws FileNotFoundException;
 
     /**
      * gets all songs from a playlist
@@ -218,12 +209,6 @@ public interface BusinessFacade {
      */
     boolean isPlaying();
 
-    /**
-     * plays next song in loop
-     * @param song song to play
-     * @throws FileNotFoundException if the file was not found
-     */
-    void playNextInLoop(Song song) throws FileNotFoundException;
 
     /**
      * gets current playing song
@@ -243,9 +228,38 @@ public interface BusinessFacade {
      */
     void setPlayingPlaylist(boolean inPlaylist);
 
+    /**
+     * Method that will return if the queue is empty
+     * @return if queue is empty
+     */
     boolean queueIsEmpty();
 
+    /**
+     * Method that will return if the played songs list is empty
+     * @return if played songs list is empty
+     */
+    boolean playedSongsIsEmpty();
+
+    /**
+     * Method that will fully stop the player
+     */
     void stopPlayer();
 
+    /**
+     * Method that will check if the playlist is in loop mode
+     * @return if the playlist is looping or not
+     */
     boolean isLoopingPlaylist();
+
+    /**
+     * Method that will set the song in loop mode
+     * @param loopingSong value to be set the loop on
+     */
+    void setLoopingSong(boolean loopingSong);
+
+    /**
+     * Method that will check if the song is in loop mode
+     * @return if the song is looping or not
+     */
+    boolean isLoopingSong();
 }

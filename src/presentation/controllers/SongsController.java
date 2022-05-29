@@ -109,15 +109,13 @@ public class SongsController implements ActionListener, ListSelectionListener {
                 //businessFacade.startPlayer(businessFacade.getSong(title,author));
                 try {
                     businessFacade.playSong(title,author);
+                    playerView.changePlayPause(businessFacade.isPlaying());
+                    playerView.changeShownSong(title,author);
+                    playerView.changeTotalTime(businessFacade.getSong(title, author).getSongMinutes(), businessFacade.getSong(title, author).getSongSeconds());
+                    playerView.startTimer(businessFacade.getSong(title, author).getSongSeconds());
                 } catch (FileNotFoundException ex) {
                     view.showErrorDialog("File for song: "+ title+" was not found.");
                 }
-                playerView.changePlayPause(businessFacade.isPlaying());
-                playerView.changeShownSong(title,author);
-                playerView.changeTotalTime(businessFacade.getSong(title, author).getSongMinutes(), businessFacade.getSong(title, author).getSongSeconds());
-                playerView.startTimer(businessFacade.getSong(title, author).getSongSeconds());
-                //playerView.initSlider(businessFacade.getSong(title,author));
-               // businessFacade.moveSlider();
             }
 
             case (SongsView.BTN_ADD_TO_PLAYLIST)->{

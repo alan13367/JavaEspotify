@@ -109,7 +109,11 @@ public class PlaylistsController implements ActionListener, MouseListener {
                 for (PlaylistsView.SongItemHolder s: playlistsView.getSongsHolder()){
                     playlist.add(businessFacade.getSong(s.getSongName(),s.getAuthor()));
                 }
-
+                if(businessFacade.isPlaying()){
+                    businessFacade.stopPlayer();
+                    playerView.stopTimer();
+                    playerView.moveSliderPosition(0);
+                }
                 try {
                     String title = playlist.get(0).getTitle();
                     String author = playlist.get(0).getAuthor();

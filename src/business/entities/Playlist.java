@@ -9,14 +9,10 @@ import java.util.Locale;
  * @version 1.0
  * @since 14/5/2022
  */
-
 public class Playlist implements Comparable<Playlist> {
-    private int index; // not related to the id of the database, just to get the index of a song
     private String name;
     private String owner;
     private LinkedList<Song> songs;
-    private boolean isLooping;
-    private boolean isShuffle;
 
     /**
      * playlist constructor
@@ -26,7 +22,6 @@ public class Playlist implements Comparable<Playlist> {
     public Playlist(String name, String owner) {
         this.name = name;
         this.owner = owner;
-        index =0; // start the index at 0
     }
 
     /**

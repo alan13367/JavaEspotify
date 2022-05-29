@@ -70,6 +70,7 @@ public class MainView extends JFrame {
         setLocationRelativeTo(null);
         homeView.setUsername(username);
         homeView.getPlaylistsView().loadUserPlaylists(username);
+        homeView.showSongsCard();
         viewManager.show(getContentPane(),HOMEVIEW_CARD);
     }
 
