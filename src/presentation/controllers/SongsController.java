@@ -20,7 +20,7 @@ import java.util.ArrayList;
  * SongsController class manages the behaviour of the {@link SongsView} by implementing the {@link  ActionListener}
  * interface and the {@link ListSelectionListener} interface.
  *
- * @author Alan Beltrán, Álvaro Feher, Marc Barberà, Youssef Bat, Albert Gomez
+ * @author Alan Beltrán, Alvaro Feher, Marc Barberà, Youssef Bat, Albert Gomez
  * @version 1.0
  * @since 25/4/2022
  */
@@ -58,7 +58,6 @@ public class SongsController implements ActionListener, ListSelectionListener {
     public void actionPerformed(ActionEvent e) {
         switch (e.getActionCommand()) {
             case (SongsView.BTN_SEARCH) -> {
-                System.out.println("SEARCH");
                 if(!view.searchFieldEmpty()){
                     view.clearTable();
                     for (Song song: businessFacade.getSongs()){
@@ -83,19 +82,31 @@ public class SongsController implements ActionListener, ListSelectionListener {
                 if(businessFacade.getSong(title,author).getOwner().equals(businessFacade.getCurrentUser())){
                     int dialogResult = view.showSongDeleteDialog();
                     if(dialogResult == JOptionPane.YES_OPTION){
-                        businessFacade.deleteSong(title,author);
-                        view.clearTable();
-                        loadSongs();
-                        view.showSongsTableCard();
-
-                        //update stats
-                        ArrayList<String> stringArrayList = businessFacade.getStatsGenres();
-                        ArrayList<Integer> valueArrayList = businessFacade.getStatsValues();
-                        statisticsView.removeAllBars();
-                        for (int i=0;i<stringArrayList.size();i++) {
-                            statisticsView.addBar(valueArrayList.get(i), stringArrayList.get(i));
+                        boolean canDelete = true;
+                        if(businessFacade.getCurrentSong() != null){
+                            Song song = businessFacade.getCurrentSong();
+                            if(song.getTitle().equals(title) && song.getAuthor().equals(author)){
+                                canDelete = false;
+                            }
                         }
-                        statisticsView.plotBars();
+                        if(canDelete){
+                            businessFacade.deleteSong(title,author);
+                            view.clearTable();
+                            loadSongs();
+                            view.showSongsTableCard();
+
+                            //update stats
+                            ArrayList<String> stringArrayList = businessFacade.getStatsGenres();
+                            ArrayList<Integer> valueArrayList = businessFacade.getStatsValues();
+                            statisticsView.removeAllBars();
+                            for (int i=0;i<stringArrayList.size();i++) {
+                                statisticsView.addBar(valueArrayList.get(i), stringArrayList.get(i));
+                            }
+                            statisticsView.plotBars();
+                        }else {
+                            view.showErrorDialog("You can't delete this Song because its currently playing.");
+                        }
+
                     }
                 }
                 else{
@@ -109,15 +120,13 @@ public class SongsController implements ActionListener, ListSelectionListener {
                 //businessFacade.startPlayer(businessFacade.getSong(title,author));
                 try {
                     businessFacade.playSong(title,author);
+                    playerView.changePlayPause(businessFacade.isPlaying());
+                    playerView.changeShownSong(title,author);
+                    playerView.changeTotalTime(businessFacade.getSong(title, author).getSongMinutes(), businessFacade.getSong(title, author).getSongSeconds());
+                    playerView.startTimer(businessFacade.getSong(title, author).getSongSeconds());
                 } catch (FileNotFoundException ex) {
                     view.showErrorDialog("File for song: "+ title+" was not found.");
                 }
-                playerView.changePlayPause(businessFacade.isPlaying());
-                playerView.changeShownSong(title,author);
-                playerView.changeTotalTime(businessFacade.getSong(title, author).getSongMinutes(), businessFacade.getSong(title, author).getSongSeconds());
-                playerView.startTimer(businessFacade.getSong(title, author).getSongSeconds());
-                //playerView.initSlider(businessFacade.getSong(title,author));
-               // businessFacade.moveSlider();
             }
 
             case (SongsView.BTN_ADD_TO_PLAYLIST)->{
@@ -128,7 +137,20 @@ public class SongsController implements ActionListener, ListSelectionListener {
                     int option = view.showPlaylistPickerDialog(jComboBox);
                     if (option ==JOptionPane.YES_OPTION){
                         System.out.println(jComboBox.getSelectedItem());
-                        businessFacade.addSongToPlaylist((String) jComboBox.getSelectedItem(),businessFacade.getSong(title,author));
+                        Song song = businessFacade.getSong(title,author);
+                        boolean exists = false;
+                        for (Song s:businessFacade.getSongsFromPlaylist((String) jComboBox.getSelectedItem()
+                                ,businessFacade.getCurrentUser())){
+                            if(song.getTitle().equals(s.getTitle())&&song.getAuthor().equals(s.getAuthor())){
+                                exists = true;
+                                view.showErrorDialog("Song Already Exists in the playlist!!");
+                                break;
+                            }
+                        }
+                        if(!exists){
+                            businessFacade.addSongToPlaylist((String) jComboBox.getSelectedItem(),song);
+                        }
+
                     }
                 }else {
                     view.showPlaylistsErrorDialog();

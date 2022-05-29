@@ -2,18 +2,16 @@ package presentation.controllers;
 
 import business.BusinessFacade;
 import presentation.MainView;
-import presentation.views.PlaylistsView;
 import presentation.views.SignInSignUpView;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.MouseListener;
 
 /**
  * SignInSignUpController class manages the behaviour of the {@link SignInSignUpView} by implementing the {@link  ActionListener}
  * interface.
  *
- * @author Alan Beltrán, Álvaro Feher, Marc Barberà, Youssef Bat, Albert Gomez
+ * @author Alan Beltrán, Alvaro Feher, Marc Barberà, Youssef Bat, Albert Gomez
  * @version 1.0
  * @since 25/4/2022
  */
@@ -38,18 +36,15 @@ public class SignInSignUpController implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         switch (e.getActionCommand()) {
             case (SignInSignUpView.BTN_SIGN_IN_SWITCH) -> {
-                System.out.println("sign in clicked in sign up");
                 view.showSignInCard();
 
             }
             case (SignInSignUpView.BTN_SIGN_UP_SWITCH) -> {
-                System.out.println("sign up clicked in sign in");
                 view.showSignUpCard();
             }
             case (SignInSignUpView.BTN_SIGN_UP) -> {
                 if(!view.signUpFieldsEmpty()){
                     if(caseSignUp()) {
-                        System.out.println("sign up clicked in sign up");
                         view.pop_up_SuccessDialog("You have Succesfully Signed Up","Sign Up Success");
                         mainView.showHomeView(view.getUserFieldSignUp());
                     }

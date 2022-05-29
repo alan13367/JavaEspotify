@@ -9,14 +9,14 @@ import java.security.MessageDigest;
 
 /**
  * manager if the playlists, in charge of creating, deleting and editting playlists
- * @author Alan Beltrán, Álvaro Feher, Marc Barberà, Youssef Bat, Albert Gomez
+ * @author Alan Beltrán, Alvaro Feher, Marc Barberà, Youssef Bat, Albert Gomez
  * @version 1.0
  * @since 12/4/2022
  */
 
 public class UserManager {
     private User user;
-    private UserDAO userDAO;
+    private final UserDAO userDAO;
 
     /**
      * user manager constructor, gets user from database

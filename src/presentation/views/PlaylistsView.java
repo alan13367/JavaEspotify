@@ -12,18 +12,16 @@ import java.util.List;
 
 /**
  * the GUI of the playlist panel
- * @author Alan Beltrán, Álvaro Feher, Marc Barberà, Youssef Bat, Albert Gomez
+ * @author Alan Beltrán, Alvaro Feher, Marc Barberà, Youssef Bat, Albert Gomez
  * @version 1.0
  * @since 12/04/2022
  */
 public class PlaylistsView extends JPanel {
     //General Assets
     private final CardLayout viewManager;
-    private JPanel playlistsGeneralPanel;
 
     //My Playlists and All Playlists Panels
     private final CardLayout playlistsPanelManager;
-    private JPanel myPlaylists;
     private JPanel myPlaylistsListPanel;
     private JPanel allPlaylists;
     private JPanel playlistsWrapperPanel;
@@ -39,7 +37,6 @@ public class PlaylistsView extends JPanel {
 
     //Playlist Info Panel
     private JPanel playlistInfoPanel,jpSongsFromPlaylist;
-    private JScrollPane songsScrollPane;
     private JLabel jlPlaylistName,jlPlaylistOwner;
     private JButton jbClose,jbPlayPlaylist,jbDeletePlaylist;
     public static final String BTN_CLOSE = "BTN_CLOSE";
@@ -70,11 +67,11 @@ public class PlaylistsView extends JPanel {
         configurePlaylistInfoCard();
     }
     private void configurePlaylistsCard(){
-        playlistsGeneralPanel = new JPanel(new BorderLayout());
+        JPanel playlistsGeneralPanel = new JPanel(new BorderLayout());
         playlistsWrapperPanel = new JPanel(playlistsPanelManager);
 
         //My Playlists Section
-        myPlaylists = new JPanel(new BorderLayout());
+        JPanel myPlaylists = new JPanel(new BorderLayout());
         myPlaylists.setBackground(new Color(16,16,16));
         myPlaylistsListPanel = new JPanel();
         myPlaylistsListPanel.setBackground(new Color(16,16,16));
@@ -201,7 +198,7 @@ public class PlaylistsView extends JPanel {
         jpSongsFromPlaylist.setLayout(new BoxLayout(jpSongsFromPlaylist,BoxLayout.Y_AXIS));
         jpSongsFromPlaylist.setBackground(new Color(16,16,16));
 
-        songsScrollPane = new JScrollPane(jpSongsFromPlaylist,JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+        JScrollPane songsScrollPane = new JScrollPane(jpSongsFromPlaylist, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
         songsScrollPane.setBackground(new Color(16,16,16));
         songsScrollPane.setBorder(BorderFactory.createEmptyBorder());
         songsScrollPane.getVerticalScrollBar().setUI(new MyScrollBarUI());
@@ -365,7 +362,7 @@ public class PlaylistsView extends JPanel {
      * shows a confirmation pop-ip dialog
      * @param message the message where the user will either choose yes or no as an answer
      * @param title brief idea of what the pop-up dialog is about
-     * @return
+     * @return option chosen YES or NO
      */
     public int showPlaylistOptionDialog(String message,String title){
         return JOptionPane.showConfirmDialog(this,message, title,JOptionPane.YES_NO_OPTION);
@@ -379,13 +376,6 @@ public class PlaylistsView extends JPanel {
         return jlPlaylistName.getText();
     }
 
-    /**
-     * playlist owner getter
-     * @return the playlist owner
-     */
-    public String getPlaylistOwner() {
-        return jlPlaylistOwner.getText();
-    }
 
     private void reloadSongsPanel(){
         jpSongsFromPlaylist.removeAll();
@@ -446,8 +436,8 @@ public class PlaylistsView extends JPanel {
      * internal class extending a panel, holds playlists
      */
     public static class PlaylistItemHolder extends JPanel{
-        private JLabel playlistName;
-        private JLabel playlistOwner;
+        private final JLabel playlistName;
+        private final JLabel playlistOwner;
 
         private PlaylistItemHolder(String playlistName,String playlistOwner){
             this.setPreferredSize(new Dimension(1150,180));
@@ -498,10 +488,12 @@ public class PlaylistsView extends JPanel {
      * internal class extending a panel, holds the songs in a playlist
      */
     public static class SongItemHolder extends JPanel {
-        private JLabel position;
-        private JLabel songName;
-        private JLabel songAuthor;
-        private JButton deleteSong,moveUp,moveDown;
+        private final JLabel position;
+        private final JLabel songName;
+        private final JLabel songAuthor;
+        private final JButton deleteSong;
+        private final JButton moveUp;
+        private final JButton moveDown;
 
         private SongItemHolder(String name,String author,int position,boolean isOwner){
             this.setPreferredSize(new Dimension(1150,70));

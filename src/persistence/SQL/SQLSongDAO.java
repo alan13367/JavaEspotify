@@ -12,8 +12,8 @@ import java.util.List;
 /**
  * implementation of all the queries that retrieve or add data related to Songs
  *
- *   manager of the playlists, in charge of creating, deleting and editting playlists
- *   @author Alan Beltrán, Álvaro Feher, Marc Barberà, Youssef Bat, Albert Gomez
+ *   manager if the playlists, in charge of creating, deleting and editting playlists
+ *    @author Alan Beltrán, Alvaro Feher, Marc Barberà, Youssef Bat, Albert Gomez
  *    @version 1.0
  *    @since 12/4/2022
  */
@@ -57,7 +57,10 @@ public class SQLSongDAO implements SongDAO {
         String query = "INSERT INTO Genre(name) VALUES ('"+genreName+"');";
         SQLConnector connector;
         connector = SQLConnector.getInstance();
-        connector.addQuery(query);
+        try {
+            connector.addQuery(query);
+        } catch (SQLException e) {
+        }
     }
 
     /**
@@ -71,7 +74,11 @@ public class SQLSongDAO implements SongDAO {
                 +song.getDuration()+"','"+song.getOwner()+"');";
         SQLConnector connector;
         connector = SQLConnector.getInstance();
-        connector.addQuery(query);
+        try {
+            connector.addQuery(query);
+        } catch (SQLException e) {
+            System.out.println("Song was not added");
+        }
     }
 
 
@@ -94,8 +101,6 @@ public class SQLSongDAO implements SongDAO {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        System.out.println(songs);
-
         return songs;
     }
 

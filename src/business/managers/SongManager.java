@@ -11,15 +11,15 @@ import java.util.List;
 
 /**
  * manager if the playlists, in charge of creating, deleting and editting playlists
- *  @author Alan Beltrán, Álvaro Feher, Marc Barberà, Youssef Bat, Albert Gomez
+ *  @author Alan Beltrán, Alvaro Feher, Marc Barberà, Youssef Bat, Albert Gomez
  *  @version 1.0
  *  @since 12/4/2022
  */
 
 public class SongManager {
-    private List<Song> songs;
-    private SongDAO songDAO;
-    private SongLyricsAPI songLyricsAPI;
+    private final List<Song> songs;
+    private final SongDAO songDAO;
+    private final SongLyricsAPI songLyricsAPI;
 
     /**
      * song manager constructor

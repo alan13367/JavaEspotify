@@ -10,14 +10,11 @@ import java.nio.charset.StandardCharsets;
 /**
  * SongLyricsAPI Class used to retrieve the lyrics of a certain Song given its title and author
  *
- * @author Alan Beltrán, Álvaro Feher, Marc Barberà, Youssef Bat, Albert Gomez
+ * @author Alan Beltrán, Alvaro Feher, Marc Barbera, Youssef Bat, Albert Gomez
  * @version 1.0
  * @since 10-04-2022
  */
 public class SongLyricsAPI {
-
-    private String URL = "https://api.lyrics.ovh/v1/";
-    private String charset = "UTF-8";
 
     /**
      * Method that will return the json containing the lyrics of the song
@@ -33,11 +30,13 @@ public class SongLyricsAPI {
             artist = artist.split("ft")[0].trim();
         }
         try {
+            String URL = "https://api.lyrics.ovh/v1/";
             URL urlObj = new URL(URL + artist + "/" + title);
 
             HttpURLConnection conn = (HttpURLConnection) urlObj.openConnection();
             conn.setDoOutput(false);
             conn.setRequestMethod("GET");
+            String charset = "UTF-8";
             conn.setRequestProperty("Accept-Charset", charset);
             conn.setConnectTimeout(15000);
             conn.connect();

@@ -8,21 +8,21 @@ import java.awt.*;
 
 /**
  * the GUI of the home view
- * @author Alan Beltrán, Álvaro Feher, Marc Barberà, Youssef Bat, Albert Gomez
+ * @author Alan Beltrán, Alvaro Feher, Marc Barberà, Youssef Bat, Albert Gomez
  * @version 1.0
  * @since 30/04/2022
  */
 public class HomeView extends JPanel {
 
-    private SongsView songsView;
+    private final SongsView songsView;
 
-    private PlaylistsView playlistsView;
+    private final PlaylistsView playlistsView;
 
-    private AddSongsView addSongsView;
+    private final AddSongsView addSongsView;
 
-    private PlayerView playerView;
+    private final PlayerView playerView;
 
-    private StatisticsView statisticsView;
+    private final StatisticsView statisticsView;
 
     private JPanel jpMain;
 

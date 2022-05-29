@@ -15,7 +15,7 @@ import java.util.ArrayList;
  * AddSongsController class manages the behaviour of the {@link AddSongsView} by implementing the {@link  ActionListener}
  * interface.
  *
- * @author Alan Beltrán, Álvaro Feher, Marc Barberà, Youssef Bat, Albert Gomez
+ * @author Alan Beltrán, Alvaro Feher, Marc Barberà, Youssef Bat, Albert Gomez
  * @version 1.0
  * @since 19/4/2022
  */
@@ -56,7 +56,6 @@ public class AddSongsController implements ActionListener {
                     view.pop_up_ErrorDialog("Duration format is incorrect, use minutes:seconds!", "Error");
                 } else {
                     String filename = view.getFilename();
-                    System.out.println(filename);
                     File file = new File(view.getFilePath());
                     file.renameTo(new File("songs/" + view.getFilename()));
                     String[] stringSplit = view.getDurationFieldAdd().split(":");

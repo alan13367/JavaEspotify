@@ -14,7 +14,7 @@ import java.util.Comparator;
 
 /**
  * the GUI of the statistics panel
- * @author Alan Beltrán, Álvaro Feher, Marc Barberà, Youssef Bat, Albert Gomez
+ * @author Alan Beltrán, Alvaro Feher, Marc Barberà, Youssef Bat, Albert Gomez
  * @version 1.0
  * @since 08/05/2022
  */
@@ -31,8 +31,6 @@ public class StatisticsView extends JPanel {
         this.statisticsController = statisticsController;
     }
 
-
-    private CardLayout cardManager;
 
     private JPanel title;
     private JPanel jpGraph;
@@ -59,7 +57,7 @@ public class StatisticsView extends JPanel {
      * The view constructor, sets the layout of the panel and configures view, also calls a new card layout that will manage which panel it shows
      */
     public StatisticsView() {
-        cardManager = new CardLayout();
+        CardLayout cardManager = new CardLayout();
         charts = new ArrayList<>();
         setLayout(cardManager);
         convigureView();

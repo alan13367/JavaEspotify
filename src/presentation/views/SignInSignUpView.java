@@ -14,7 +14,7 @@ import java.io.IOException;
 
 /**
  * the GUI of signIn panel and signUP panel
- * @author Alan Beltrán, Álvaro Feher, Marc Barberà, Youssef Bat, Albert Gomez
+ * @author Alan Beltrán, Alvaro Feher, Marc Barberà, Youssef Bat, Albert Gomez
  * @version 1.0
  * @since 10/04/2022
  */
@@ -235,6 +235,7 @@ public class SignInSignUpView extends JPanel{
     public void showSignUpCard(){
         mainPanelManager.show(jpMain,CARD_SIGN_UP);
     }
+
     private void configureSignInCard(){
         jpMain.add(signInView,CARD_SIGN_IN);
     }

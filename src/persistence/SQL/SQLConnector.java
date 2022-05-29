@@ -4,7 +4,7 @@ import java.sql.*;
 
 /**
  * manager if the playlists, in charge of creating, deleting and editting playlists
- *  @author Alan Beltrán, Álvaro Feher, Marc Barberà, Youssef Bat, Albert Gomez
+ *  @author Alan Beltrán, Alvaro Feher, Marc Barberà, Youssef Bat, Albert Gomez
  *  @version 1.0
  *  @since 12/4/2022
  */
@@ -53,20 +53,15 @@ public class SQLConnector {
         } catch(SQLException e) {
             System.err.println("Couldn't connect to --> " + url + " (" + e.getMessage() + ")");
         }
-        System.out.println("TEST");
     }
 
     /**
      * implement addition query
      * @param query query to run in database
      */
-    public void addQuery(String query){
-        try{
-            Statement statement = connection.createStatement();
-            statement.executeUpdate(query);
-        }catch(SQLException e){
-            System.out.println("ERROR: query not added");
-        }
+    public void addQuery(String query) throws SQLException {
+        Statement statement = connection.createStatement();
+        statement.executeUpdate(query);
     }
 
     /**

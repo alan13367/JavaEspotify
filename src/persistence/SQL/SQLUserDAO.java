@@ -10,8 +10,8 @@ import java.sql.SQLException;
 /**
  * implementation of all the queries that retrieve or add data related to Users
  *
- *   manager of the playlists, in charge of creating, deleting and editting playlists
- *   @author Alan Beltrán, Álvaro Feher, Marc Barberà, Youssef Bat, Albert Gomez
+ *   manager if the playlists, in charge of creating, deleting and editting playlists
+ *    @author Alan Beltrán, Alvaro Feher, Marc Barberà, Youssef Bat, Albert Gomez
  *    @version 1.0
  *    @since 12/4/2022
  *
@@ -45,7 +45,11 @@ public class SQLUserDAO implements UserDAO {
     public void addUser(User user) {
         String query = "INSERT into User(username, email, password) VALUES('"+user.getUsername()+"'" +
                 ",'"+user.getEmail()+"','"+user.getPassword()+"')";
-        SQLConnector.getInstance().addQuery(query);
+        try {
+            SQLConnector.getInstance().addQuery(query);
+        } catch (SQLException e) {
+
+        }
     }
 
     /**

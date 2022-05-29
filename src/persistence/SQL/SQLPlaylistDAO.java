@@ -11,11 +11,12 @@ import java.util.LinkedList;
 import java.util.List;
 
 
+
 /**
  * implementation of all the queries that retrieve or add data related to Playlists
  *
- *   manager of the playlists, in charge of creating, deleting and editting playlists
- *   @author Alan Beltrán, Álvaro Feher, Marc Barberà, Youssef Bat, Albert Gomez
+ *   manager if the playlists, in charge of creating, deleting and editting playlists
+ *    @author Alan Beltrán, Alvaro Feher, Marc Barberà, Youssef Bat, Albert Gomez
  *    @version 1.0
  *    @since 12/4/2022
  */
@@ -26,7 +27,11 @@ public class SQLPlaylistDAO implements PlaylistDAO {
      */
     public void addPlaylist(Playlist playlist){
         String query = "INSERT INTO Playlist(name, author) VALUES ('"+playlist.getName()+"','"+playlist.getOwner()+"');";
-        SQLConnector.getInstance().addQuery(query);
+        try {
+            SQLConnector.getInstance().addQuery(query);
+        } catch (SQLException e) {
+            System.out.println("Playlist Not Created");
+        }
     }
 
     /**
@@ -68,7 +73,11 @@ public class SQLPlaylistDAO implements PlaylistDAO {
     public void addSongToPlaylist(Song song, Playlist playlist) {
         int position = getSongsFromPlaylists(playlist.getName(), playlist.getOwner()).size()+1;
         String query = "INSERT INTO SongPlaylistLink(playlistName,playlistAuthor,songArtist,songTitle) VALUES ('"+playlist.getName()+"','"+playlist.getOwner()+"','"+song.getAuthor()+"','"+song.getTitle()+"');";
-        SQLConnector.getInstance().addQuery(query);
+        try {
+            SQLConnector.getInstance().addQuery(query);
+        } catch (SQLException e) {
+            System.out.println("Song not added to Playlist");
+        }
     }
 
     /**

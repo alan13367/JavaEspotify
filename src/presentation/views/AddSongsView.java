@@ -9,7 +9,7 @@ import java.io.File;
 
 /**
  * the GUI of the add song view
- * @author Alan Beltrán, Álvaro Feher, Marc Barberà, Youssef Bat, Albert Gomez
+ * @author Alan Beltrán, Alvaro Feher, Marc Barberà, Youssef Bat, Albert Gomez
  * @version 1.0
  * @since 19/04/2022
  */
@@ -31,7 +31,6 @@ public class AddSongsView extends JPanel {
 
     Font arialFont = new Font("Arial", Font.PLAIN, 25);
     Font alegreyaFont = new Font("Alegreya Sans SC", Font.BOLD, 30);
-    Font smallerArialFont = new Font("Arial", Font.ITALIC, 15);
 
     /**
      * the view constructor, configures the view

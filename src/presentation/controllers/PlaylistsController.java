@@ -23,7 +23,7 @@ import java.util.List;
  * PlaylistsController class manages the behaviour of the {@link PlaylistsView} by implementing the {@link  ActionListener}
  * interface and the {@link MouseListener} interface.
  *
- * @author Alan Beltrán, Álvaro Feher, Marc Barberà, Youssef Bat, Albert Gomez
+ * @author Alan Beltrán, Alvaro Feher, Marc Barberà, Youssef Bat, Albert Gomez
  * @version 1.0
  * @since 25/4/2022
  */
@@ -59,6 +59,8 @@ public class PlaylistsController implements ActionListener, MouseListener {
             playlistsView.addAllPlaylists(playlist.getName(),playlist.getOwner());
         }
     }
+
+
     @Override
     public void actionPerformed(ActionEvent e) {
         switch (e.getActionCommand()){
@@ -103,28 +105,33 @@ public class PlaylistsController implements ActionListener, MouseListener {
             }
             case (PlaylistsView.BTN_PLAY_PLAYLIST)->{
 
-                System.out.println("playing playlist");
                 // get playlist and add it to queue
                 LinkedList<Song> playlist = new LinkedList<>();
                 for (PlaylistsView.SongItemHolder s: playlistsView.getSongsHolder()){
                     playlist.add(businessFacade.getSong(s.getSongName(),s.getAuthor()));
                 }
-
-                try {
-                    String title = playlist.get(0).getTitle();
-                    String author = playlist.get(0).getAuthor();
-                    int songTotalSeconds = playlist.get(0).getSongSeconds();
-                    businessFacade.addPlaylistToQueue(new LinkedList<>(playlist));
-                    businessFacade.playSong(title,author);
-                    playerView.changeShownSong(title,author);
-                    playerView.changeTotalTime(playlist.get(0).getSongMinutes(),songTotalSeconds );
-                    playerView.startTimer(songTotalSeconds);
-                    playerView.changePlayPause(businessFacade.isPlaying());
-                    businessFacade.setPlayingPlaylist(true);
-                    System.out.println("playing "+playlist.get(0).getTitle());
-                } catch (FileNotFoundException ex) {
-                    playlistsView.showErrorDialog("File of the song was not found");
+                if(!playlist.isEmpty()){
+                    if(businessFacade.isPlaying()){
+                        businessFacade.stopPlayer();
+                        playerView.stopTimer();
+                        playerView.moveSliderPosition(0);
+                    }
+                    try {
+                        String title = playlist.get(0).getTitle();
+                        String author = playlist.get(0).getAuthor();
+                        int songTotalSeconds = playlist.get(0).getSongSeconds();
+                        businessFacade.addPlaylistToQueue(new LinkedList<>(playlist));
+                        businessFacade.playSong(title,author);
+                        playerView.changeShownSong(title,author);
+                        playerView.changeTotalTime(playlist.get(0).getSongMinutes(),songTotalSeconds );
+                        playerView.startTimer(songTotalSeconds);
+                        playerView.changePlayPause(businessFacade.isPlaying());
+                        businessFacade.setPlayingPlaylist(true);
+                    } catch (FileNotFoundException ex) {
+                        playlistsView.showErrorDialog("File of the song was not found");
+                    }
                 }
+
 
             }
 

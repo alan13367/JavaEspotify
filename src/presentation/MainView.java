@@ -9,7 +9,7 @@ import java.awt.*;
 
 /**
  * the GUI of the whole frame
- * @author Alan Beltrán, Álvaro Feher, Marc Barberà, Youssef Bat, Albert Gomez
+ * @author Alan Beltrán, Alvaro Feher, Marc Barberà, Youssef Bat, Albert Gomez
  * @version 1.0
  * @since 05/04/2022
  */
@@ -70,6 +70,7 @@ public class MainView extends JFrame {
         setLocationRelativeTo(null);
         homeView.setUsername(username);
         homeView.getPlaylistsView().loadUserPlaylists(username);
+        homeView.showSongsCard();
         viewManager.show(getContentPane(),HOMEVIEW_CARD);
     }
 
