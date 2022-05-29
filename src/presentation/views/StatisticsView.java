@@ -32,8 +32,6 @@ public class StatisticsView extends JPanel {
     }
 
 
-    private CardLayout cardManager;
-
     private JPanel title;
     private JPanel jpGraph;
     private JPanel x_axis;
@@ -59,7 +57,7 @@ public class StatisticsView extends JPanel {
      * The view constructor, sets the layout of the panel and configures view, also calls a new card layout that will manage which panel it shows
      */
     public StatisticsView() {
-        cardManager = new CardLayout();
+        CardLayout cardManager = new CardLayout();
         charts = new ArrayList<>();
         setLayout(cardManager);
         convigureView();

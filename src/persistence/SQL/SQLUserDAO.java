@@ -45,7 +45,11 @@ public class SQLUserDAO implements UserDAO {
     public void addUser(User user) {
         String query = "INSERT into User(username, email, password) VALUES('"+user.getUsername()+"'" +
                 ",'"+user.getEmail()+"','"+user.getPassword()+"')";
-        SQLConnector.getInstance().addQuery(query);
+        try {
+            SQLConnector.getInstance().addQuery(query);
+        } catch (SQLException e) {
+
+        }
     }
 
     /**

@@ -27,7 +27,11 @@ public class SQLPlaylistDAO implements PlaylistDAO {
      */
     public void addPlaylist(Playlist playlist){
         String query = "INSERT INTO Playlist(name, author) VALUES ('"+playlist.getName()+"','"+playlist.getOwner()+"');";
-        SQLConnector.getInstance().addQuery(query);
+        try {
+            SQLConnector.getInstance().addQuery(query);
+        } catch (SQLException e) {
+            System.out.println("Playlist Not Created");
+        }
     }
 
     /**
@@ -69,7 +73,11 @@ public class SQLPlaylistDAO implements PlaylistDAO {
     public void addSongToPlaylist(Song song, Playlist playlist) {
         int position = getSongsFromPlaylists(playlist.getName(), playlist.getOwner()).size()+1;
         String query = "INSERT INTO SongPlaylistLink(playlistName,playlistAuthor,songArtist,songTitle) VALUES ('"+playlist.getName()+"','"+playlist.getOwner()+"','"+song.getAuthor()+"','"+song.getTitle()+"');";
-        SQLConnector.getInstance().addQuery(query);
+        try {
+            SQLConnector.getInstance().addQuery(query);
+        } catch (SQLException e) {
+            System.out.println("Song not added to Playlist");
+        }
     }
 
     /**

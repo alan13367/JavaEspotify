@@ -56,7 +56,6 @@ public class AddSongsController implements ActionListener {
                     view.pop_up_ErrorDialog("Duration format is incorrect, use minutes:seconds!", "Error");
                 } else {
                     String filename = view.getFilename();
-                    System.out.println(filename);
                     File file = new File(view.getFilePath());
                     file.renameTo(new File("songs/" + view.getFilename()));
                     String[] stringSplit = view.getDurationFieldAdd().split(":");

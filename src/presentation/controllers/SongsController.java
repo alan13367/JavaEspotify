@@ -58,7 +58,6 @@ public class SongsController implements ActionListener, ListSelectionListener {
     public void actionPerformed(ActionEvent e) {
         switch (e.getActionCommand()) {
             case (SongsView.BTN_SEARCH) -> {
-                System.out.println("SEARCH");
                 if(!view.searchFieldEmpty()){
                     view.clearTable();
                     for (Song song: businessFacade.getSongs()){

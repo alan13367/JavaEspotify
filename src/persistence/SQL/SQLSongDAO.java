@@ -57,7 +57,10 @@ public class SQLSongDAO implements SongDAO {
         String query = "INSERT INTO Genre(name) VALUES ('"+genreName+"');";
         SQLConnector connector;
         connector = SQLConnector.getInstance();
-        connector.addQuery(query);
+        try {
+            connector.addQuery(query);
+        } catch (SQLException e) {
+        }
     }
 
     /**
@@ -71,7 +74,11 @@ public class SQLSongDAO implements SongDAO {
                 +song.getDuration()+"','"+song.getOwner()+"');";
         SQLConnector connector;
         connector = SQLConnector.getInstance();
-        connector.addQuery(query);
+        try {
+            connector.addQuery(query);
+        } catch (SQLException e) {
+            System.out.println("Song was not added");
+        }
     }
 
 

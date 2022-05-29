@@ -41,7 +41,6 @@ public class PlayerController implements ActionListener {
             case(PlayerView.BTN_PLAYPAUSE)->{
                 if(businessFacade.getCurrentSong() != null){
                     if(!businessFacade.isPlaying()){
-                        System.out.println("Song resumed");
                         try {
                             businessFacade.resumeSong();
                         } catch (FileNotFoundException ex) {
@@ -119,10 +118,10 @@ public class PlayerController implements ActionListener {
                     if(businessFacade.isPlayingPlaylist()){
                         if(businessFacade.isLoopingPlaylist()){
                             businessFacade.setLoopingPlaylist(false);
-                            System.out.println("NOT looping");
+
                         }else {
                             businessFacade.setLoopingPlaylist(true);
-                            System.out.println("looping");
+
                         }
                     }
                     else{

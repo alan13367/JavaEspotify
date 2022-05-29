@@ -436,8 +436,8 @@ public class PlaylistsView extends JPanel {
      * internal class extending a panel, holds playlists
      */
     public static class PlaylistItemHolder extends JPanel{
-        private JLabel playlistName;
-        private JLabel playlistOwner;
+        private final JLabel playlistName;
+        private final JLabel playlistOwner;
 
         private PlaylistItemHolder(String playlistName,String playlistOwner){
             this.setPreferredSize(new Dimension(1150,180));
@@ -488,10 +488,12 @@ public class PlaylistsView extends JPanel {
      * internal class extending a panel, holds the songs in a playlist
      */
     public static class SongItemHolder extends JPanel {
-        private JLabel position;
-        private JLabel songName;
-        private JLabel songAuthor;
-        private JButton deleteSong,moveUp,moveDown;
+        private final JLabel position;
+        private final JLabel songName;
+        private final JLabel songAuthor;
+        private final JButton deleteSong;
+        private final JButton moveUp;
+        private final JButton moveDown;
 
         private SongItemHolder(String name,String author,int position,boolean isOwner){
             this.setPreferredSize(new Dimension(1150,70));

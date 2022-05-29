@@ -235,6 +235,7 @@ public class SignInSignUpView extends JPanel{
     public void showSignUpCard(){
         mainPanelManager.show(jpMain,CARD_SIGN_UP);
     }
+
     private void configureSignInCard(){
         jpMain.add(signInView,CARD_SIGN_IN);
     }
