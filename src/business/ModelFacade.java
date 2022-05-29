@@ -145,8 +145,15 @@ public class ModelFacade implements BusinessFacade {
     public void setShuffle(boolean isShuffle){
         songPlayerManager.setShuffle(isShuffle);
     }
-    public void setLoop(boolean isLoop){
-        songPlayerManager.setLoop(isLoop);
+
+    @Override
+    public void setLoopingPlaylist(boolean isLoop) {
+        songPlayerManager.setLoopPlaylist(isLoop);
+    }
+
+    @Override
+    public boolean isLoopingPlaylist() {
+        return songPlayerManager.isLoopPlaylist();
     }
 
     @Override
@@ -189,7 +196,7 @@ public class ModelFacade implements BusinessFacade {
     }
 
 
-    public void addPlaylistToQueue(List<Song> playlist){
+    public void addPlaylistToQueue(LinkedList<Song> playlist){
         songPlayerManager.addPlaylistToQueue(playlist);
     }
 
@@ -216,12 +223,17 @@ public class ModelFacade implements BusinessFacade {
     }
 
 
-    public void setInPlaylist(boolean inPlaylist){
-        songPlayerManager.setInPlaylist(inPlaylist);
+    public void setPlayingPlaylist(boolean inPlaylist){
+        songPlayerManager.setPlayingPlaylist(inPlaylist);
     }
 
-    public boolean getInPlaylist(){
-        return songPlayerManager.isInPlaylist();
+    @Override
+    public boolean queueIsEmpty() {
+        return songPlayerManager.queueIsEmpty();
+    }
+
+    public boolean isPlayingPlaylist(){
+        return songPlayerManager.isPlayingPlaylist();
     }
 
     @Override
@@ -229,4 +241,8 @@ public class ModelFacade implements BusinessFacade {
         userManager.logOut();
     }
 
+    @Override
+    public void stopPlayer() {
+        songPlayerManager.stopPlayer();
+    }
 }

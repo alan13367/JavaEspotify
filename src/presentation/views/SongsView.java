@@ -51,8 +51,6 @@ public class SongsView extends JPanel {
     public static final String BTN_DELETE_SONG = "BTN_DELETE_SONG";
     public static final String BTN_CLOSE = "BTN_CLOSE";
 
-    private SongsController songsController;
-
 
     /**
      * The view constructor, sets the layout of the panel and configures view, also calls a new card layout
@@ -289,6 +287,12 @@ public class SongsView extends JPanel {
         jlGenre.setText("Genre:  "+genre);
         jlDuration.setText("Duration:  "+duration);
         jlOwner.setText("Owner:  "+owner);
+        jpLyrics = new JPanel(new BorderLayout());
+        jpLyrics.setBackground(new Color(16,16,16));
+        jpLyrics.add(new JLabel(new ImageIcon("assets/loading1.gif")),BorderLayout.CENTER);
+        jpSong.add(jpLyrics,BorderLayout.CENTER);
+        validate();
+        repaint();
         cardManager.show(this,SONGPANEL_CARD);
    }
 
@@ -306,7 +310,6 @@ public class SongsView extends JPanel {
      * @param controller handler of all action events
      */
     public void registerController(SongsController controller){
-        this.songsController = controller;
         jbSearch.addActionListener(controller);
         jbRefresh.addActionListener(controller);
         songsTable.getSelectionModel().addListSelectionListener(controller);
@@ -321,6 +324,7 @@ public class SongsView extends JPanel {
      * @param lyrics lyrics of a song
      */
     public void createLyricsPanel(String lyrics){
+        jpSong.remove(jpLyrics);
         jpLyrics = new JPanel();
         jpLyrics.setLayout(new BoxLayout(jpLyrics,BoxLayout.Y_AXIS));
         jpLyrics.setBackground(new Color(16,16,16));
@@ -344,33 +348,8 @@ public class SongsView extends JPanel {
         lyricsPane.setBorder(BorderFactory.createEmptyBorder());
         lyricsPane.getVerticalScrollBar().setUI(new MyScrollBarUI());
         jpSong.add(lyricsPane,BorderLayout.CENTER);
-        revalidate();
-    }
-
-
-    /**
-     * shows a loading pop-up dialog meanwhile the program loads the panel of song details
-     * @param controller controller
-     */
-    public void showLoadingDialog(SongsController controller) {
-        JOptionPane pane = new JOptionPane("Loading",
-                JOptionPane.INFORMATION_MESSAGE);
-        JDialog dialog = pane.createDialog(this, "");
-        dialog.setModal(false);
-        SwingWorker worker = new SwingWorker() {
-
-            @Override
-            protected Object doInBackground() throws Exception {
-                return 0;
-            }
-
-            @Override
-            protected void done() {
-                dialog.dispose();
-            }
-        };
-        worker.execute();
-        dialog.setVisible(true);
+        validate();
+        repaint();
     }
 
 

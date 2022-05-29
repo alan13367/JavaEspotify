@@ -21,14 +21,13 @@ public class PlayerView extends JPanel {
     private JLabel songName, songAuthor;
     private JTextField currentTime;
     private JTextField totalTime;
-    private Timer timer;
-    private int position=0;
 
     public static final String BTN_PLAYPAUSE = "BTN_PLAYPAUSE";
     public static final String BTN_LOOP = "BTN_LOOP";
     public static final String BTN_NEXT = "BTN_NEXT";
     public static final String BTN_PREV = "BTN_PREV";
     public static final String BTN_SHUFFLE ="BTN_SHUFFLE";
+    private PlayerController playerController;
 
     /**
      * The view constructor, sets the layout of the panel and configures view
@@ -43,9 +42,6 @@ public class PlayerView extends JPanel {
         JPanel playerPanel = new JPanel();
         controlsPanel.setBackground(new Color(32,32,32));
         songPanel.setBackground(new Color(32, 32, 32));
-        /*playerPanel.setPreferredSize(new Dimension(50, 80));
-        playerPanel.setMaximumSize(controlsPanel.getPreferredSize());
-        playerPanel.setMinimumSize(controlsPanel.getPreferredSize());*/
         add(songPanel, BorderLayout.WEST);
         add(playerPanel,BorderLayout.CENTER);
 
@@ -166,24 +162,6 @@ public class PlayerView extends JPanel {
     }
 
     /**
-     * Initializing the slider
-     * @param song song data
-     */
-    public void initSlider(Song song) {
-        jslider = new JSlider(0, song.getSongSeconds(), 0);
-        //moveSlider(jslider);
-    }
-
-
-    /**
-     * jSlider getter
-     * @return the slider
-     */
-    public JSlider getJslider() {
-        return jslider;
-    }
-
-    /**
      * adds an action listener to all the components
      * @param controller playerController
      */
@@ -193,6 +171,7 @@ public class PlayerView extends JPanel {
         jbShuffle.addActionListener(controller);
         jbPrevious.addActionListener(controller);
         jbLoop.addActionListener(controller);
+        this.playerController = controller;
     }
 
     /**
@@ -245,30 +224,15 @@ public class PlayerView extends JPanel {
         JOptionPane.showMessageDialog(this, message,"Error", JOptionPane.ERROR_MESSAGE);
     }
 
-    public void startTimer(int seconds){
-        if(timer != null){
-            timer.stop();
-        }
-        jslider.setMaximum(seconds);
-        position = 0;
-        timer = new Timer(1000, new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                jslider.setValue(position++);
-                if(position == seconds){
-                    timer.stop();
-                    jslider.setValue(0);
-                }
-            }
-        });
-        timer.start();
+    public void setSliderMaximum(int maximum){
+        jslider.setMaximum(maximum);
     }
 
-    public void resumeTimer(){
-        timer.start();
+    public void moveSliderPosition(int position){
+        jslider.setValue(position);
     }
 
-    public void pauseTimer(){
-        timer.stop();
+    public void startTimer(int songDuration){
+        playerController.startTimer(songDuration);
     }
 }

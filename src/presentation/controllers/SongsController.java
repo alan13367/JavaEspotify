@@ -11,7 +11,6 @@ import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.MouseListener;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 
@@ -104,7 +103,7 @@ public class SongsController implements ActionListener, ListSelectionListener {
                 }
             }
             case(SongsView.BTN_PLAY_SONG) ->{
-                businessFacade.setInPlaylist(false);
+                businessFacade.setPlayingPlaylist(false);
                 String title = view.getSongTitle();
                 String author = view.getSongAuthor();
                 //businessFacade.startPlayer(businessFacade.getSong(title,author));
@@ -151,9 +150,16 @@ public class SongsController implements ActionListener, ListSelectionListener {
                 //Show song card with the song details
                 //GetSong
                 Song song = businessFacade.getSong(view.getSongTitleAtRow(index),view.getSongAuthorAtRow(index));
-                String lyrics = businessFacade.getLyrics(song.getAuthor(),song.getTitle());
+                Thread t1 = new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        // code goes here.
+                        String lyrics = businessFacade.getLyrics(song.getAuthor(),song.getTitle());
+                        view.createLyricsPanel(lyrics);
+                    }
+                });
+                t1.start();
 
-                view.createLyricsPanel(lyrics);
                 view.showSongCard(song.getTitle(),song.getAuthor(),song.getAlbum(),song.getGenre(),
                         song.getSongMinutes() + ":" + (song.getSongSeconds() - (song.getSongMinutes() * 60)),song.getOwner());
 
