@@ -126,7 +126,20 @@ public class SongsController implements ActionListener, ListSelectionListener {
                     int option = view.showPlaylistPickerDialog(jComboBox);
                     if (option ==JOptionPane.YES_OPTION){
                         System.out.println(jComboBox.getSelectedItem());
-                        businessFacade.addSongToPlaylist((String) jComboBox.getSelectedItem(),businessFacade.getSong(title,author));
+                        Song song = businessFacade.getSong(title,author);
+                        boolean exists = false;
+                        for (Song s:businessFacade.getSongsFromPlaylist((String) jComboBox.getSelectedItem()
+                                ,businessFacade.getCurrentUser())){
+                            if(song.getTitle().equals(s.getTitle())&&song.getAuthor().equals(s.getAuthor())){
+                                exists = true;
+                                view.showErrorDialog("Song Already Exists in the playlist!!");
+                                break;
+                            }
+                        }
+                        if(!exists){
+                            businessFacade.addSongToPlaylist((String) jComboBox.getSelectedItem(),song);
+                        }
+
                     }
                 }else {
                     view.showPlaylistsErrorDialog();
