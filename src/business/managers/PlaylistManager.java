@@ -127,6 +127,7 @@ public class PlaylistManager {
         for(Playlist playlist:playlists){
             if (playlist.getOwner().equals(username)){
                 playlistDAO.deletePlayList(playlist);
+                playlists.remove(playlist);
             }
         }
     }
