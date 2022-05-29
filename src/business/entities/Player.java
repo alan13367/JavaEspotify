@@ -12,7 +12,7 @@ import java.io.*;
 /**
  * Player entity:
  * plays a song, pauses or resumes it inside a Thread.
- * @author Alan Beltrán, Álvaro Feher, Marc Barberà, Youssef Bat, Albert Gomez
+ * @author Alan Beltrán, Alvaro Feher, Marc Barberà, Youssef Bat, Albert Gomez
  * @version 1.0
  * @since 12/4/2022
  */

@@ -23,7 +23,7 @@ import java.util.List;
  * PlaylistsController class manages the behaviour of the {@link PlaylistsView} by implementing the {@link  ActionListener}
  * interface and the {@link MouseListener} interface.
  *
- * @author Alan Beltrán, Álvaro Feher, Marc Barberà, Youssef Bat, Albert Gomez
+ * @author Alan Beltrán, Alvaro Feher, Marc Barberà, Youssef Bat, Albert Gomez
  * @version 1.0
  * @since 25/4/2022
  */

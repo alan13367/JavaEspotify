@@ -13,7 +13,7 @@ import java.awt.event.MouseListener;
  * SignInSignUpController class manages the behaviour of the {@link SignInSignUpView} by implementing the {@link  ActionListener}
  * interface.
  *
- * @author Alan Beltrán, Álvaro Feher, Marc Barberà, Youssef Bat, Albert Gomez
+ * @author Alan Beltrán, Alvaro Feher, Marc Barberà, Youssef Bat, Albert Gomez
  * @version 1.0
  * @since 25/4/2022
  */

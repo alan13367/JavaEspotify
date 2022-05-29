@@ -14,7 +14,7 @@ import java.util.Comparator;
 
 /**
  * the GUI of the statistics panel
- * @author Alan Beltrán, Álvaro Feher, Marc Barberà, Youssef Bat, Albert Gomez
+ * @author Alan Beltrán, Alvaro Feher, Marc Barberà, Youssef Bat, Albert Gomez
  * @version 1.0
  * @since 08/05/2022
  */

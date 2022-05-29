@@ -9,7 +9,7 @@ import java.awt.geom.RoundRectangle2D;
 /**
  * MyHintTextField Class that extes a {@link JTextField} and Implements an {@link FocusListener} interface in order to
  * be able to see a hint in the password field
- * @author Alan Beltrán, Álvaro Feher, Marc Barberà, Youssef Bat, Albert Gomez
+ * @author Alan Beltrán, Alvaro Feher, Marc Barbera, Youssef Bat, Albert Gomez
  * @version 1.0
  * @since 25/4/2022
  */
@@ -54,7 +54,7 @@ public class MyHintTextField extends JTextField implements FocusListener {
     /**
      * Inner class that modifies the {@link MyHintTextField} in order to make it rounded
      *
-     * @author Alan Beltrán, Álvaro Feher, Marc Barberà, Youssef Bat, Albert Gomez
+     * @author Alan Beltrán, Alvaro Feher, Marc Barberà, Youssef Bat, Albert Gomez
      * @version 1.0
      * @since 25/4/2022
      */

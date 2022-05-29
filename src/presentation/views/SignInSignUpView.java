@@ -14,7 +14,7 @@ import java.io.IOException;
 
 /**
  * the GUI of signIn panel and signUP panel
- * @author Alan Beltrán, Álvaro Feher, Marc Barberà, Youssef Bat, Albert Gomez
+ * @author Alan Beltrán, Alvaro Feher, Marc Barberà, Youssef Bat, Albert Gomez
  * @version 1.0
  * @since 10/04/2022
  */

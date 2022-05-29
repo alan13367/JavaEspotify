@@ -7,7 +7,7 @@ import java.util.List;
 
 /**
  * Interface to persist Song data in the database
- * @author Alan Beltrán, Álvaro Feher, Marc Barberà, Youssef Bat, Albert Gomez
+ * @author Alan Beltrán, Alvaro Feher, Marc Barberà, Youssef Bat, Albert Gomez
  * @version 1.0
  * @since 12/4/2022
  */

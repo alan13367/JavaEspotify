@@ -8,7 +8,7 @@ import java.awt.*;
 
 /**
  * the GUI of the home view
- * @author Alan Beltrán, Álvaro Feher, Marc Barberà, Youssef Bat, Albert Gomez
+ * @author Alan Beltrán, Alvaro Feher, Marc Barberà, Youssef Bat, Albert Gomez
  * @version 1.0
  * @since 30/04/2022
  */
