@@ -1,12 +1,19 @@
 package presentation.views;
 
-import business.BusinessFacade;
 import business.entities.Song;
 import presentation.controllers.PlayerController;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
+/**
+ * the GUI of the player view
+ * @author Alan Beltrán, Álvaro Feher, Marc Barberà, Youssef Bat, Albert Gomez
+ * @version 1.0
+ * @since 19/04/2022
+ */
 public class PlayerView extends JPanel {
     //Player Buttons
     private JButton jbPlayPause, jbShuffle, jbLoop, jbNext, jbPrevious;
@@ -20,8 +27,11 @@ public class PlayerView extends JPanel {
     public static final String BTN_NEXT = "BTN_NEXT";
     public static final String BTN_PREV = "BTN_PREV";
     public static final String BTN_SHUFFLE ="BTN_SHUFFLE";
+    private PlayerController playerController;
 
-
+    /**
+     * The view constructor, sets the layout of the panel and configures view
+     */
     public PlayerView(){
         setLayout(new BorderLayout());
         configureView();
@@ -32,9 +42,6 @@ public class PlayerView extends JPanel {
         JPanel playerPanel = new JPanel();
         controlsPanel.setBackground(new Color(32,32,32));
         songPanel.setBackground(new Color(32, 32, 32));
-        /*playerPanel.setPreferredSize(new Dimension(50, 80));
-        playerPanel.setMaximumSize(controlsPanel.getPreferredSize());
-        playerPanel.setMinimumSize(controlsPanel.getPreferredSize());*/
         add(songPanel, BorderLayout.WEST);
         add(playerPanel,BorderLayout.CENTER);
 
@@ -151,27 +158,26 @@ public class PlayerView extends JPanel {
         songAuthor.setForeground(Color.white);
         songPanel.add(songName);
         songPanel.add(songAuthor);
+
     }
 
-    public void initSlider(Song song) {
-        jslider = new JSlider(0, song.getSongSeconds(), 0);
-        //moveSlider(jslider);
-    }
-
-
-
-    public JSlider getJslider() {
-        return jslider;
-    }
-
+    /**
+     * adds an action listener to all the components
+     * @param controller playerController
+     */
     public void registerController(PlayerController controller){
         jbPlayPause.addActionListener(controller);
         jbNext.addActionListener(controller);
         jbShuffle.addActionListener(controller);
         jbPrevious.addActionListener(controller);
         jbLoop.addActionListener(controller);
+        this.playerController = controller;
     }
 
+    /**
+     * change the button icon from paused to played, and vice versa
+     * @param isPlaying true if the song is playing, false otherwise
+     */
     public void changePlayPause(boolean isPlaying){
         if(isPlaying){
             ImageIcon icon = new ImageIcon("assets/pause.png");
@@ -188,11 +194,21 @@ public class PlayerView extends JPanel {
         }
     }
 
+    /**
+     * change the song details view
+     * @param title of the song
+     * @param author author of the song
+     */
     public void changeShownSong(String title, String author){
         songName.setText(title);
         songAuthor.setText(author);
     }
 
+    /**
+     * change the song time view
+     * @param minutes minutes part duration of the song
+     * @param seconds seconds part duration of the song
+     */
     public void changeTotalTime(int minutes, int seconds) {
         int seconds_rest;
         seconds_rest = seconds % 60;
@@ -200,7 +216,23 @@ public class PlayerView extends JPanel {
         totalTime.setText(time);
     }
 
+    /**
+     * pops up an error message
+     * @param message the error message
+     */
     public void showErrorDialog(String message){
         JOptionPane.showMessageDialog(this, message,"Error", JOptionPane.ERROR_MESSAGE);
+    }
+
+    public void setSliderMaximum(int maximum){
+        jslider.setMaximum(maximum);
+    }
+
+    public void moveSliderPosition(int position){
+        jslider.setValue(position);
+    }
+
+    public void startTimer(int songDuration){
+        playerController.startTimer(songDuration);
     }
 }

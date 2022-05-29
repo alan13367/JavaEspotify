@@ -83,13 +83,14 @@ public class SongManager {
      * @return found song with entered title and author
      */
     public Song getSong(String title, String author) {
-        Song song = null;
-        for (Song song1:songs){
-            if (song1.getTitle().equals(title) && song1.getAuthor().equals(author)){
-                song = song1;
+        Song song1 = null;
+        for (Song song:songs){
+            if (song.getTitle().equals(title) && song.getAuthor().equals(author)){
+                song1 = song;
+                break;
             }
         }
-        return song;
+        return song1;
     }
 
     /**

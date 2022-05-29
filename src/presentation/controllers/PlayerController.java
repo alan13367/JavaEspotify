@@ -1,7 +1,7 @@
 package presentation.controllers;
 
 import business.BusinessFacade;
-import presentation.MainView;
+import business.entities.Song;
 import presentation.views.HomeView;
 import presentation.views.PlayerView;
 import presentation.views.SongsView;
@@ -9,6 +9,7 @@ import presentation.views.SongsView;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.FileNotFoundException;
+import javax.swing.Timer;
 
 /**
  * PlayerController class manages the behaviour of the {@link PlayerView} by implementing the {@link  ActionListener}
@@ -25,6 +26,8 @@ public class PlayerController implements ActionListener {
     private boolean isLoop = false;
     private boolean isShuffle = false;
     private boolean inPlaylist;
+    private Timer timer;
+    private int secondsSong;
 
     /**
      * Default HomeController Constructor that will link the views needed with {@link HomeView} and the business
@@ -41,59 +44,65 @@ public class PlayerController implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         switch (e.getActionCommand()){
-            case(PlayerView.BTN_PLAYPAUSE)->{ // default is in play mode
-                if(!businessFacade.isPlaying()){
-                    System.out.println("Song resumed");
-                    try {
-                        businessFacade.resumeSong();
-                    } catch (FileNotFoundException ex) {
-                        view.showErrorDialog("File of the song was not found.");
+            case(PlayerView.BTN_PLAYPAUSE)->{
+                if(businessFacade.getCurrentSong() != null){
+                    if(!businessFacade.isPlaying()){
+                        System.out.println("Song resumed");
+                        try {
+                            businessFacade.resumeSong();
+                        } catch (FileNotFoundException ex) {
+                            view.showErrorDialog("File of the song was not found.");
+                        }
+                        view.changePlayPause(businessFacade.isPlaying());
+                        resumeTimer();
+                    }else {
+                        businessFacade.pausePlayer();
+                        view.changePlayPause(businessFacade.isPlaying());
+                        pauseTimer();
                     }
-                    view.changePlayPause(businessFacade.isPlaying());
-                }else {
-                    businessFacade.pausePlayer();
-                    view.changePlayPause(businessFacade.isPlaying());
                 }
             }
 
             case (PlayerView.BTN_NEXT)->{
-                inPlaylist = businessFacade.getInPlaylist();
-                if(inPlaylist){
-                    businessFacade.pausePlayer();
-                    if(isLoop){
-                        System.out.println("playing in loop");
-                        try {
-                            businessFacade.playNextInLoop(businessFacade.getCurrentSong());
-                        } catch (FileNotFoundException ex) {
-                            view.showErrorDialog("File of the song was not found.");
-                        }
-
-                    } else if (isShuffle) {
-                        System.out.println("shuffln");
-                        try {
-                            businessFacade.playRandomSong();
-                        } catch (FileNotFoundException ex) {
-                            view.showErrorDialog("File of the song was not found.");
-                        }
-                        view.changeShownSong(businessFacade.getCurrentSong().getTitle(),businessFacade.getCurrentSong().getAuthor());
-                    }else{
-                        try {
-                            businessFacade.playNextSong();
-                        } catch (FileNotFoundException ex) {
-                            view.showErrorDialog("File of the song was not found.");
-                        }
-                        view.changeShownSong(businessFacade.getCurrentSong().getTitle(),businessFacade.getCurrentSong().getAuthor());
-                        // view.initSlider(businessFacade.getCurrentSong());
-                        // businessFacade.moveSlider(view.getJslider());
-                        System.out.println("Next");
+                if (isShuffle) {
+                    System.out.println("shuffln");
+                    try {
+                        businessFacade.playRandomSong();
+                    } catch (FileNotFoundException ex) {
+                        view.showErrorDialog("File of the song was not found.");
                     }
+                    view.changeShownSong(businessFacade.getCurrentSong().getTitle(),businessFacade.getCurrentSong().getAuthor());
                 }
 
+
+                if(businessFacade.isPlayingPlaylist()){
+                    businessFacade.stopPlayer();
+                    timer.stop();
+                    try {
+                        businessFacade.playNextSong();
+                    } catch (FileNotFoundException ex) {
+                        view.showErrorDialog("File of the song was not found.");
+                    }
+                    if(!businessFacade.queueIsEmpty()){
+                        Song song = businessFacade.getCurrentSong();
+                        view.changeShownSong(song.getTitle(),song.getAuthor());
+                        view.changeTotalTime(song.getSongMinutes(),song.getSongSeconds());
+                        view.startTimer(song.getSongSeconds());
+                    }else {
+                        view.changePlayPause(businessFacade.isPlaying());
+                        view.changeShownSong("","");
+                        timer.stop();
+                        view.moveSliderPosition(0);
+                    }
+
+                        // view.initSlider(businessFacade.getCurrentSong());
+                        // businessFacade.moveSlider(view.getJslider());
+                    System.out.println("Next");
+                }
             }
 
             case (PlayerView.BTN_PREV)->{
-                inPlaylist = businessFacade.getInPlaylist();
-                if(inPlaylist){
+                if(businessFacade.isPlayingPlaylist()){
                     businessFacade.pausePlayer();
                     if(isLoop){
                         System.out.println("playing in loop");
@@ -123,7 +132,7 @@ public class PlayerController implements ActionListener {
             }
 
             case (PlayerView.BTN_SHUFFLE)->{
-                inPlaylist = businessFacade.getInPlaylist();
+                inPlaylist = businessFacade.isPlayingPlaylist();
                 if(inPlaylist){
                     System.out.println("hola");
                     if(isShuffle){
@@ -137,17 +146,60 @@ public class PlayerController implements ActionListener {
             }
 
             case (PlayerView.BTN_LOOP)->{
-                inPlaylist = businessFacade.getInPlaylist();
-                if(inPlaylist){
-                    if(isLoop){
-                        isLoop = false;
+                if(businessFacade.isPlayingPlaylist()){
+                    if(businessFacade.isLoopingPlaylist()){
+                        businessFacade.setLoopingPlaylist(false);
                         System.out.println("NOT looping");
                     }else {
-                        isLoop = true;
+                        businessFacade.setLoopingPlaylist(true);
                         System.out.println("looping");
                     }
                 }
             }
         }
+    }
+
+    public void startTimer(int songDuration){
+        if(timer != null){
+            timer.stop();
+        }
+        view.setSliderMaximum(songDuration);
+        secondsSong = 0;
+        timer = new Timer(1000, new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                view.moveSliderPosition(secondsSong++);
+                if(secondsSong == songDuration+1){
+                    businessFacade.stopPlayer();
+                    view.changePlayPause(businessFacade.isPlaying());
+                    view.changeShownSong("","");
+                    timer.stop();
+                    view.moveSliderPosition(0);
+                    if(businessFacade.isPlayingPlaylist()){
+                        try {
+                            businessFacade.playNextSong();
+                        } catch (FileNotFoundException ex) {
+                            view.showErrorDialog("File of the song was not found.");
+                        }
+                        if(!businessFacade.queueIsEmpty()){
+                            Song song = businessFacade.getCurrentSong();
+                            view.changeShownSong(song.getTitle(),song.getAuthor());
+                            view.changeTotalTime(song.getSongMinutes(),song.getSongSeconds());
+                            view.startTimer(song.getSongSeconds());
+                        }
+                        view.changePlayPause(businessFacade.isPlaying());
+                    }
+                }
+            }
+        });
+        timer.start();
+    }
+
+    public void resumeTimer(){
+        timer.start();
+    }
+
+    public void pauseTimer(){
+        timer.stop();
     }
 }

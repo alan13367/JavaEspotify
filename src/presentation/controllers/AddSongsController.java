@@ -43,27 +43,26 @@ public class AddSongsController implements ActionListener {
         switch (e.getActionCommand()){
 
             case (AddSongsView.BTN_IMPORT_SONG) -> {
-                System.out.println("Import songs button pressed");
                 view.showFileChooser();
             }
             case (AddSongsView.BTN_ADD_SONG) -> {
-                System.out.println("Add songs button pressed");
-                System.out.println(view.getTitleFieldAdd());
-                System.out.println(view.getAuthorFieldAdd());
-                System.out.println(view.getGenreFieldAdd());
-                System.out.println(view.getDurationFieldAdd());
-                System.out.println(view.getAlbumFieldAdd());
 
                 if (view.addSongsFieldEmpty()) {
                     view.pop_up_ErrorDialog("There can no be empty values", "Error");
                 }
-                else {
+                else if(businessFacade.getSong(view.getTitleFieldAdd(),view.getAuthorFieldAdd()) != null){
+                    view.pop_up_ErrorDialog("Song Already Exists in the System!", "Error");
+                } else if (!view.checkDurationFormat()) {
+                    view.pop_up_ErrorDialog("Duration format is incorrect, use minutes:seconds!", "Error");
+                } else {
                     String filename = view.getFilename();
                     System.out.println(filename);
                     File file = new File(view.getFilePath());
                     file.renameTo(new File("songs/" + view.getFilename()));
+                    String[] stringSplit = view.getDurationFieldAdd().split(":");
+                    long duration = Integer.parseInt(stringSplit[0])* 60000L + Integer.parseInt(stringSplit[1])* 1000L;
                     businessFacade.addSong(view.getTitleFieldAdd(),view.getAlbumFieldAdd(),view.getGenreFieldAdd()
-                            ,view.getAuthorFieldAdd(),"songs/"+view.getFilename(),view.getDurationFieldAdd());
+                            ,view.getAuthorFieldAdd(),"songs/"+view.getFilename(),duration);
                     view.pop_up_SuccessDialog("Song added successfully", "Success");
                     view.clearFields();
                     homeView.showSongsCard();
@@ -83,6 +82,8 @@ public class AddSongsController implements ActionListener {
 
         }
     }
+
+
 }
 
 

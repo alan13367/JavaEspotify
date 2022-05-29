@@ -102,22 +102,29 @@ public class PlaylistsController implements ActionListener, MouseListener {
                 }
             }
             case (PlaylistsView.BTN_PLAY_PLAYLIST)->{
-                businessFacade.setInPlaylist(true);
+
                 System.out.println("playing playlist");
                 // get playlist and add it to queue
                 LinkedList<Song> playlist = new LinkedList<>();
                 for (PlaylistsView.SongItemHolder s: playlistsView.getSongsHolder()){
                     playlist.add(businessFacade.getSong(s.getSongName(),s.getAuthor()));
                 }
-                //play first song
-                playerView.changePlayPause(true);
+
                 try {
-                    businessFacade.playSong(playlist.get(0).getTitle(),playlist.get(0).getAuthor());
+                    String title = playlist.get(0).getTitle();
+                    String author = playlist.get(0).getAuthor();
+                    int songTotalSeconds = playlist.get(0).getSongSeconds();
+                    businessFacade.addPlaylistToQueue(new LinkedList<>(playlist));
+                    businessFacade.playSong(title,author);
+                    playerView.changeShownSong(title,author);
+                    playerView.changeTotalTime(playlist.get(0).getSongMinutes(),songTotalSeconds );
+                    playerView.startTimer(songTotalSeconds);
+                    playerView.changePlayPause(businessFacade.isPlaying());
+                    businessFacade.setPlayingPlaylist(true);
+                    System.out.println("playing "+playlist.get(0).getTitle());
                 } catch (FileNotFoundException ex) {
                     playlistsView.showErrorDialog("File of the song was not found");
                 }
-                businessFacade.addPlaylistToQueue(playlist);
-                System.out.println("playing "+playlist.get(0).getTitle());
 
             }
 

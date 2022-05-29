@@ -5,6 +5,12 @@ import presentation.controllers.*;
 
 import javax.swing.*;
 
+/**
+ * the Main class, executes the program AKA the Runnable on the AWT event-dispatching thread.
+ * @author Alan Beltrán, Álvaro Feher, Marc Barberà, Youssef Bat, Albert Gomez
+ * @version 1.0
+ * @since 29/03/2022
+ */
 public class Main {
     public static void main(String[] args) {
 

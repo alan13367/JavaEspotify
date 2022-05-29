@@ -1,15 +1,12 @@
 package business.managers;
 
 import business.entities.Player;
-import business.entities.Playlist;
 import business.entities.Song;
 import javazoom.jl.decoder.JavaLayerException;
-import persistence.SQL.SQLSongDAO;
 
 import java.io.FileNotFoundException;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Queue;
 import java.util.Random;
 
 /**
@@ -25,18 +22,14 @@ public class SongPlayerManager {
     private boolean isShuffle;
     private boolean isLoopSong;
     private boolean isLoopPlaylist;
-    private boolean playNext;
-    private boolean playPrev;
-    private boolean inPlaylist;
+    private boolean playingPlaylist;
     private boolean isPlaying;
     private Player player;
-    private int position;
+    private int framePosition;
     private Song song;
-    private List<Song> songQueue; // al terminar song, la quitas y va a played songs
+    private LinkedList<Song> songQueue; // al terminar song, la quitas y va a played songs
     private List<Song> playedSongs;
     int currentSongId =0;
-    Thread sliderThread;
-    Song currentSong;
 
     /**
      * manager of the player
@@ -62,31 +55,28 @@ public class SongPlayerManager {
         isLoopSong = loop;
     }
 
-    /**
-     * sets next on or off, plays next song if on
-     * @param isNext on/off indicator
-     */
-    public void setNext(boolean isNext){playNext=isNext; }
 
-    /**
-     * sets next on or off, plays prev song if on
-     * @param isPrev on/off indicator
-     */
-    public void setPrev(boolean isPrev){playPrev = isPrev; }
+    public void setLoopPlaylist(boolean loopPlaylist) {
+        isLoopPlaylist = loopPlaylist;
+    }
+
+    public boolean isLoopPlaylist() {
+        return isLoopPlaylist;
+    }
 
     /**
      * checks user is playing a playlist or an individual song
-     * @param inPlaylist indicator of a user playing a playlist or a single song
+     * @param playingPlaylist indicator of a user playing a playlist or a single song
      */
-    public void setInPlaylist(boolean inPlaylist) {
-        this.inPlaylist = inPlaylist;
+    public void setPlayingPlaylist(boolean playingPlaylist) {
+        this.playingPlaylist = playingPlaylist;
     }
 
     /**
      * fill songQueue with a playlist
      * @param playlist playlist to add to queue
      */
-    public void addPlaylistToQueue(List<Song> playlist){
+    public void addPlaylistToQueue(LinkedList<Song> playlist){
         songQueue = playlist;
     }
 
@@ -118,31 +108,38 @@ public class SongPlayerManager {
      * indicates if a song is in a playlist
      * @return indicator that a song is in a playlist
      */
-    public boolean isInPlaylist() {
-        return inPlaylist;
+    public boolean isPlayingPlaylist() {
+        return playingPlaylist;
     }
+
+
+
 
     /**
      * method to play the next song from a playlist queue
      */
     public void playNextSong() throws FileNotFoundException {
-        if(!isPlaying){
+
+        playedSongs.add(songQueue.poll());
+        if(!songQueue.isEmpty()){
+            this.song = songQueue.peek();
+            framePosition = 0;
+            player = new Player(framePosition,song);
             isPlaying = true;
-            if(currentSongId >= 0 && currentSongId < songQueue.size()-1){
-                currentSongId++;
-                //player.playSong(songQueue.get(currentSongId));
-                position =0;
-                this.song = songQueue.get(currentSongId);
-                player = new Player(position, song);
-                System.out.println("current song id: "+ currentSongId);
-            } else if (currentSongId == songQueue.size()-1 ) {
-                System.out.println("stop please");
-                position =0;
-                this.song = songQueue.get(0);
-                player = new Player(position, song);
-                currentSongId = 0;
-            }
+        }else if(isLoopPlaylist) {
+            songQueue = new LinkedList<>(playedSongs);
+            playedSongs.clear();
+            this.song = songQueue.peek();
+            framePosition = 0;
+            player = new Player(framePosition,song);
+            isPlaying = true;
+        }else {
+            playedSongs.clear();
+            isPlaying = false;
+            playingPlaylist = false;
         }
+
+
     }
 
     /**
@@ -153,13 +150,13 @@ public class SongPlayerManager {
             isPlaying = true;
             currentSongId--;
             if(currentSongId >= 0){
-                position =0;
+                framePosition =0;
                 this.song = songQueue.get(currentSongId);
-                player = new Player(position, song);
+                player = new Player(framePosition, song);
             } else {
-                position =0;
+                framePosition =0;
                 this.song = songQueue.get(0);
-                player = new Player(position, song);
+                player = new Player(framePosition, song);
                 currentSongId = 0;
             }
         }
@@ -173,18 +170,20 @@ public class SongPlayerManager {
     public void playSong(Song song) throws FileNotFoundException {
         if(!isPlaying && this.song != song){
             this.song= song;
-            position = 0;
-            player = new Player(position,song);
-            isPlaying = true;
+            framePosition = 0;
+            player = new Player(framePosition,song);
+
         }
         else if (!isPlaying){
-            player = new Player(position,song);
-            isPlaying = true;
+            player = new Player(framePosition,song);
         }else if(song != this.song){
             player.pauseSong();
             this.song= song;
-            position = 0;
-            player = new Player(position,song);
+            framePosition = 0;
+            player = new Player(framePosition,song);
+        }
+
+        if(player != null){
             isPlaying = true;
         }
 
@@ -195,7 +194,7 @@ public class SongPlayerManager {
      */
     public void resumeSong() throws FileNotFoundException {
         isPlaying = true;
-        player = new Player(position,song);
+        player = new Player(framePosition,song);
         if(!isPlaying){
             isPlaying = true;
             try {
@@ -222,8 +221,8 @@ public class SongPlayerManager {
     public void playNextInLoop(Song song) throws FileNotFoundException {
         if(!isPlaying){
             isPlaying = true;
-            position = 0;
-            player = new Player(position,song);
+            framePosition = 0;
+            player = new Player(framePosition,song);
             isPlaying = true;
         }
     }
@@ -240,8 +239,17 @@ public class SongPlayerManager {
      * pauses currently playing song
      */
     public void pauseCurrentSong() {
-        position += player.pauseSong();
+        framePosition += player.pauseSong();
         isPlaying = false;
+    }
+
+    public boolean queueIsEmpty(){
+        return songQueue.isEmpty();
+    }
+
+    public void stopPlayer(){
+        player.pauseSong();
+        this.song = null;
     }
 
 

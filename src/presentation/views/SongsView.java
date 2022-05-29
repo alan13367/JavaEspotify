@@ -8,9 +8,13 @@ import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
+/**
+ * the GUI of the songs panel
+ * @author Alan Beltrán, Álvaro Feher, Marc Barberà, Youssef Bat, Albert Gomez
+ * @version 1.0
+ * @since 04/05/2022
+ */
 public class SongsView extends JPanel {
 
     private CardLayout cardManager;
@@ -47,10 +51,10 @@ public class SongsView extends JPanel {
     public static final String BTN_DELETE_SONG = "BTN_DELETE_SONG";
     public static final String BTN_CLOSE = "BTN_CLOSE";
 
-    private SongsController songsController;
 
-
-
+    /**
+     * The view constructor, sets the layout of the panel and configures view, also calls a new card layout
+     */
     public SongsView(){
         cardManager = new CardLayout();
         setLayout(cardManager);
@@ -214,31 +218,68 @@ public class SongsView extends JPanel {
         jpSongs.add(searchPanel,BorderLayout.NORTH);
     }
 
+    /**
+     * checks if the search text field is empty.
+     * @return true if the search text field is empty, false otherwise
+     */
     public boolean searchFieldEmpty(){
         return searchField.getText().isEmpty() || searchField.getText().equals(HINT_TEXTFIELD);
     }
 
+    /**
+     * gets the text the user is searching
+     * @return whatever the user has entered in the search text field
+     */
     public String getSearchField(){
         return searchField.getText().trim();
     }
 
-
+    /**
+     * looks up for a song title by row position
+     * @param index a row in the songs table
+     * @return the title of the song at row position 'index'
+     */
     public String getSongTitleAtRow(int index){
         return songsTable.getValueAt(index,0).toString();
     }
 
+    /**
+     * looks up for a song author by row position
+     * @param index a row in the songs table
+     * @return the author of the song at row position 'index'
+     */
     public String getSongAuthorAtRow(int index){
         return songsTable.getValueAt(index,3).toString();
     }
 
+    /**
+     * adds a new song in the table
+     * @param title title of song
+     * @param genre genre of song
+     * @param album album of song
+     * @param author author of song
+     * @param owner owner of song
+     */
     public void addTableRow(String title,String genre,String album,String author,String owner){
         model.addRow(new String[]{title,genre,album,author,owner});
     }
 
+    /**
+     * set the table to be empty of rows
+     */
     public void clearTable(){
         model.setRowCount(0);
     }
 
+    /**
+     * shows the details of a song
+     * @param title title of song
+     * @param genre genre of song
+     * @param album album of song
+     * @param author author of song
+     * @param owner owner of song
+     * @param duration duration of song
+     */
    public void showSongCard(String title,String author,String album,String genre,String duration,String owner){
         jlTitle.setText("   "+title);
         jlAuthor.setText("    "+author);
@@ -246,18 +287,29 @@ public class SongsView extends JPanel {
         jlGenre.setText("Genre:  "+genre);
         jlDuration.setText("Duration:  "+duration);
         jlOwner.setText("Owner:  "+owner);
+        jpLyrics = new JPanel(new BorderLayout());
+        jpLyrics.setBackground(new Color(16,16,16));
+        jpLyrics.add(new JLabel(new ImageIcon("assets/loading1.gif")),BorderLayout.CENTER);
+        jpSong.add(jpLyrics,BorderLayout.CENTER);
+        validate();
+        repaint();
         cardManager.show(this,SONGPANEL_CARD);
    }
 
+    /**
+     * shows the song details along with the lyrics if exists
+     */
    public void showSongsTableCard(){
         if(lyricsPane!=null)
             jpSong.remove(lyricsPane);
         cardManager.show(this,SONGSTABLE_CARD);
    }
 
-
+    /**
+     * adding action listeners to all the components of the panel that have to make a change when clicked
+     * @param controller handler of all action events
+     */
     public void registerController(SongsController controller){
-        this.songsController = controller;
         jbSearch.addActionListener(controller);
         jbRefresh.addActionListener(controller);
         songsTable.getSelectionModel().addListSelectionListener(controller);
@@ -267,7 +319,12 @@ public class SongsView extends JPanel {
         jbDelete.addActionListener(controller);
     }
 
+    /**
+     * an internal panel that contains the lyrics of a song
+     * @param lyrics lyrics of a song
+     */
     public void createLyricsPanel(String lyrics){
+        jpSong.remove(jpLyrics);
         jpLyrics = new JPanel();
         jpLyrics.setLayout(new BoxLayout(jpLyrics,BoxLayout.Y_AXIS));
         jpLyrics.setBackground(new Color(16,16,16));
@@ -291,55 +348,57 @@ public class SongsView extends JPanel {
         lyricsPane.setBorder(BorderFactory.createEmptyBorder());
         lyricsPane.getVerticalScrollBar().setUI(new MyScrollBarUI());
         jpSong.add(lyricsPane,BorderLayout.CENTER);
-        revalidate();
+        validate();
+        repaint();
     }
 
 
-
-    public void showLoadingDialog(SongsController controller) {
-        JOptionPane pane = new JOptionPane("Loading",
-                JOptionPane.INFORMATION_MESSAGE);
-        JDialog dialog = pane.createDialog(this, "");
-        dialog.setModal(false);
-        SwingWorker worker = new SwingWorker() {
-
-            @Override
-            protected Object doInBackground() throws Exception {
-                return 0;
-            }
-
-            @Override
-            protected void done() {
-                dialog.dispose();
-            }
-        };
-        worker.execute();
-        dialog.setVisible(true);
-    }
-
-
-
+    /**
+     * gets the song title
+     * @return the song title
+     */
     public String getSongTitle(){
         return jlTitle.getText().trim();
     }
 
+    /**
+     * gets the song author
+     * @return the song author
+     */
     public String getSongAuthor(){
         return jlAuthor.getText().trim();
     }
 
+    /**
+     * pop-up dialog that asks the user for confirmation to delete the selected song
+     * @return if the user confirms the deletion of the song or not
+     */
     public int showSongDeleteDialog(){
         return JOptionPane.showConfirmDialog(null,"Are you sure you want to Delete this Song?",
                 "Warning",JOptionPane.YES_NO_OPTION);
     }
 
+    /**
+     * pop-up dialog that shows an error message
+     * @param message the error message
+     */
     public void showErrorDialog(String message){
         JOptionPane.showMessageDialog(this, message,"Error", JOptionPane.ERROR_MESSAGE);
     }
+
+    /**
+     * pop-up dialog that shows an error message when there is no playlist to add the song to
+     */
     public void showPlaylistsErrorDialog(){
         JOptionPane.showMessageDialog(this, "You don't have any playlist to add the song to.",
                 "Error", JOptionPane.ERROR_MESSAGE);
     }
 
+    /**
+     * pop up confirmation dialog where the user gets to make a selection
+     * @param playlistsNames the playlist the user owns
+     * @return the playlist the song would go to
+     */
     public int showPlaylistPickerDialog(JComboBox<String> playlistsNames){
         return JOptionPane.showConfirmDialog(this,playlistsNames,"Select the playlist to add the song to:", JOptionPane.YES_NO_OPTION);
     }

@@ -21,18 +21,19 @@ public class SongLyricsAPI {
 
     /**
      * Method that will return the json containing the lyrics of the song
+     *
      * @param artist name of the artist
-     * @param title title of the song
+     * @param title  title of the song
      * @return Json with the lyrics of the requested song or null if not found
      */
-    public String getLyricsJson(String artist,String title){
+    public String getLyricsJson(String artist, String title) {
         artist = URLEncoder.encode(artist, StandardCharsets.UTF_8);
-        title= URLEncoder.encode(title,StandardCharsets.UTF_8);
-        if(artist.contains("ft")){
+        title = URLEncoder.encode(title, StandardCharsets.UTF_8);
+        if (artist.contains("ft")) {
             artist = artist.split("ft")[0].trim();
         }
         try {
-            URL urlObj = new URL(URL+artist+"/"+title);
+            URL urlObj = new URL(URL + artist + "/" + title);
 
             HttpURLConnection conn = (HttpURLConnection) urlObj.openConnection();
             conn.setDoOutput(false);

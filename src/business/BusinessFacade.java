@@ -3,7 +3,6 @@ package business;
 import business.entities.Playlist;
 import business.entities.Song;
 
-import javax.swing.*;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.LinkedList;
@@ -151,7 +150,9 @@ public interface BusinessFacade {
 
 
     void setShuffle(boolean isShuffle);
-    void setLoop(boolean isLoop);
+
+
+    void setLoopingPlaylist(boolean isLoop);
 
     /**
      * pauses the player and keeps the frame where it is paused
@@ -203,7 +204,7 @@ public interface BusinessFacade {
      * adds all the songs from a playlist to the queue
      * @param playlist playlist to add to queue
      */
-    void addPlaylistToQueue(List<Song> playlist);
+    void addPlaylistToQueue(LinkedList<Song> playlist);
 
     /**
      * resumes a song from the frame where it was paused
@@ -234,12 +235,17 @@ public interface BusinessFacade {
      * check if the user is playing a song in a playlist
      * @return indicator that the user is playing a song in a playlist
      */
-    boolean getInPlaylist();
+    boolean isPlayingPlaylist();
 
     /**
      * set true if the user is playing a song inside a playlist
      * @param inPlaylist indicator that the user is playing a song in a playlist
      */
-    void setInPlaylist(boolean inPlaylist);
+    void setPlayingPlaylist(boolean inPlaylist);
 
+    boolean queueIsEmpty();
+
+    void stopPlayer();
+
+    boolean isLoopingPlaylist();
 }
