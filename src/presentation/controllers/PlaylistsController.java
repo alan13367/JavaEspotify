@@ -109,26 +109,29 @@ public class PlaylistsController implements ActionListener, MouseListener {
                 for (PlaylistsView.SongItemHolder s: playlistsView.getSongsHolder()){
                     playlist.add(businessFacade.getSong(s.getSongName(),s.getAuthor()));
                 }
-                if(businessFacade.isPlaying()){
-                    businessFacade.stopPlayer();
-                    playerView.stopTimer();
-                    playerView.moveSliderPosition(0);
+                if(!playlist.isEmpty()){
+                    if(businessFacade.isPlaying()){
+                        businessFacade.stopPlayer();
+                        playerView.stopTimer();
+                        playerView.moveSliderPosition(0);
+                    }
+                    try {
+                        String title = playlist.get(0).getTitle();
+                        String author = playlist.get(0).getAuthor();
+                        int songTotalSeconds = playlist.get(0).getSongSeconds();
+                        businessFacade.addPlaylistToQueue(new LinkedList<>(playlist));
+                        businessFacade.playSong(title,author);
+                        playerView.changeShownSong(title,author);
+                        playerView.changeTotalTime(playlist.get(0).getSongMinutes(),songTotalSeconds );
+                        playerView.startTimer(songTotalSeconds);
+                        playerView.changePlayPause(businessFacade.isPlaying());
+                        businessFacade.setPlayingPlaylist(true);
+                        System.out.println("playing "+playlist.get(0).getTitle());
+                    } catch (FileNotFoundException ex) {
+                        playlistsView.showErrorDialog("File of the song was not found");
+                    }
                 }
-                try {
-                    String title = playlist.get(0).getTitle();
-                    String author = playlist.get(0).getAuthor();
-                    int songTotalSeconds = playlist.get(0).getSongSeconds();
-                    businessFacade.addPlaylistToQueue(new LinkedList<>(playlist));
-                    businessFacade.playSong(title,author);
-                    playerView.changeShownSong(title,author);
-                    playerView.changeTotalTime(playlist.get(0).getSongMinutes(),songTotalSeconds );
-                    playerView.startTimer(songTotalSeconds);
-                    playerView.changePlayPause(businessFacade.isPlaying());
-                    businessFacade.setPlayingPlaylist(true);
-                    System.out.println("playing "+playlist.get(0).getTitle());
-                } catch (FileNotFoundException ex) {
-                    playlistsView.showErrorDialog("File of the song was not found");
-                }
+
 
             }
 
