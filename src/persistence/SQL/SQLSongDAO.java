@@ -101,8 +101,6 @@ public class SQLSongDAO implements SongDAO {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        System.out.println(songs);
-
         return songs;
     }
 
