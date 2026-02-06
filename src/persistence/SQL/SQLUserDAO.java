@@ -23,6 +23,10 @@ public class SQLUserDAO implements UserDAO {
     public User getUser(String username) {
         String query = "SELECT username, email, password FROM User WHERE username = '"+username+"'";
         ResultSet result = SQLConnector.getInstance().selectQuery(query);
+        if (result == null) {
+            System.err.println("Failed to get user: Database connection unavailable");
+            return null;
+        }
 
         try {
             result.next();
@@ -47,8 +51,11 @@ public class SQLUserDAO implements UserDAO {
                 ",'"+user.getEmail()+"','"+user.getPassword()+"')";
         try {
             SQLConnector.getInstance().addQuery(query);
+            System.out.println("✓ User created successfully: " + user.getUsername());
         } catch (SQLException e) {
-
+            System.err.println("✗ Failed to create user: " + user.getUsername());
+            System.err.println("  Error: " + e.getMessage());
+            e.printStackTrace();
         }
     }
 

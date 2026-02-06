@@ -176,15 +176,23 @@ public class PlaylistsView extends JPanel {
         gridLayout.setHgap(100);
         buttonPanel.setLayout(gridLayout);
         jbPlayPlaylist = new JButton(" Play Playlist",new ImageIcon("assets/play-32.png"));
-        jbPlayPlaylist.setBackground(new Color(0,80,0));
+        jbPlayPlaylist.setBackground(new Color(0,204,0));
         jbPlayPlaylist.setForeground(Color.white);
         jbPlayPlaylist.setFont(new Font("Arial",Font.BOLD,20));
+        jbPlayPlaylist.setOpaque(true);
+        jbPlayPlaylist.setFocusPainted(false);
+        jbPlayPlaylist.setBorderPainted(false);
+        jbPlayPlaylist.setBorder(BorderFactory.createEmptyBorder(15,15,15,15));
         jbPlayPlaylist.setActionCommand(BTN_PLAY_PLAYLIST);
         buttonPanel.add(jbPlayPlaylist);
         jbDeletePlaylist = new JButton(" Delete Playlist",new ImageIcon("assets/trashicon32.png"));
-        jbDeletePlaylist.setBackground(new Color(0,80,0));
+        jbDeletePlaylist.setBackground(new Color(0,204,0));
         jbDeletePlaylist.setForeground(Color.white);
         jbDeletePlaylist.setFont(new Font("Arial",Font.BOLD,20));
+        jbDeletePlaylist.setOpaque(true);
+        jbDeletePlaylist.setFocusPainted(false);
+        jbDeletePlaylist.setBorderPainted(false);
+        jbDeletePlaylist.setBorder(BorderFactory.createEmptyBorder(15,15,15,15));
         jbDeletePlaylist.setActionCommand(BTN_DELETE_PLAYLIST);
         buttonPanel.add(jbDeletePlaylist);
         playlistInfoPanel.add(buttonPanel,BorderLayout.SOUTH);
@@ -528,24 +536,30 @@ public class PlaylistsView extends JPanel {
 
             moveUp = new JButton(new ImageIcon("assets/arrowup.png"));
             moveUp.setActionCommand(BTN_MOVE_SONG_UP);
-            moveUp.setBackground(null);
-            moveUp.setBorder(BorderFactory.createEmptyBorder());
-            moveUp.setContentAreaFilled(false);
+            moveUp.setBackground(new Color(0,204,0));
+            moveUp.setOpaque(true);
+            moveUp.setFocusPainted(false);
+            moveUp.setBorderPainted(false);
+            moveUp.setBorder(BorderFactory.createEmptyBorder(5,5,5,5));
 
             moveDown = new JButton(new ImageIcon("assets/arrowdown.png"));
             moveDown.setActionCommand(BTN_MOVE_SONG_DOWN);
-            moveDown.setBackground(null);
-            moveDown.setBorder(BorderFactory.createEmptyBorder());
-            moveDown.setContentAreaFilled(false);
+            moveDown.setBackground(new Color(0,204,0));
+            moveDown.setOpaque(true);
+            moveDown.setFocusPainted(false);
+            moveDown.setBorderPainted(false);
+            moveDown.setBorder(BorderFactory.createEmptyBorder(5,5,5,5));
             arrowsPanel.add(moveUp);
             arrowsPanel.add(moveDown);
             buttonsPanel.add(arrowsPanel,BorderLayout.CENTER);
 
             deleteSong = new JButton(new ImageIcon("assets/trash-10-24.png"));
             deleteSong.setActionCommand(BTN_DELETE_SONG_FROM_PLAYLIST);
-            deleteSong.setBackground(null);
-            deleteSong.setBorder(BorderFactory.createEmptyBorder());
-            deleteSong.setContentAreaFilled(false);
+            deleteSong.setBackground(new Color(0,204,0));
+            deleteSong.setOpaque(true);
+            deleteSong.setFocusPainted(false);
+            deleteSong.setBorderPainted(false);
+            deleteSong.setBorder(BorderFactory.createEmptyBorder(5,5,5,5));
 
             moveDown.setVisible(isOwner);
             moveUp.setVisible(isOwner);

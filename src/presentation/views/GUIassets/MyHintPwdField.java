@@ -32,7 +32,7 @@ public class MyHintPwdField extends JPasswordField implements FocusListener {
     @Override
     public void focusGained(FocusEvent e) {
         if(this.getPassword() == null) {
-            setForeground(Color.BLACK);
+            setForeground(Color.WHITE);
             super.setEchoChar((char) 0x2022);
             super.setText("");
             showingHint = false;
@@ -68,7 +68,7 @@ public class MyHintPwdField extends JPasswordField implements FocusListener {
          */
         public RoundedMyHintPwdField(String hint) {
             super(hint);
-            this.setOpaque(false);
+            this.setOpaque(true);
         }
         @Override
         protected void paintComponent(Graphics g) {

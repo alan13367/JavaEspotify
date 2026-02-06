@@ -82,6 +82,7 @@ public class SignInSignUpView extends JPanel{
         userTextFieldSignUp.setToolTipText("Enter username");
         userTextFieldSignUp.setFont(arialFont);
         userTextFieldSignUp.setForeground(Color.gray);
+        userTextFieldSignUp.setBackground(new Color(40, 40, 40));
         userTextFieldSignUp.setPreferredSize(new Dimension(400,50));
         constraints.gridx = 1;
         constraints.gridy = 2;
@@ -97,6 +98,7 @@ public class SignInSignUpView extends JPanel{
         emailField.setToolTipText("Enter email");
         emailField.setFont(arialFont);
         emailField.setForeground(Color.gray);
+        emailField.setBackground(new Color(40, 40, 40));
         emailField.setPreferredSize(new Dimension(400,50));
         constraints.gridx = 1;
         constraints.gridy = 3;
@@ -112,6 +114,7 @@ public class SignInSignUpView extends JPanel{
         pwdFieldSignUp.setToolTipText("Enter password");
         pwdFieldSignUp.setFont(arialFont);
         pwdFieldSignUp.setForeground(Color.gray);
+        pwdFieldSignUp.setBackground(new Color(40, 40, 40));
         pwdFieldSignUp.setPreferredSize(new Dimension(400,50));
         constraints.gridx = 1;
         constraints.gridy = 4;
@@ -127,6 +130,7 @@ public class SignInSignUpView extends JPanel{
         pwdFieldConfirmSignUp.setToolTipText("confirm password");
         pwdFieldConfirmSignUp.setFont(arialFont);
         pwdFieldConfirmSignUp.setForeground(Color.gray);
+        pwdFieldConfirmSignUp.setBackground(new Color(40, 40, 40));
         pwdFieldConfirmSignUp.setPreferredSize(new Dimension(400,50));
         constraints.gridx = 1;
         constraints.gridy = 5;
@@ -141,12 +145,12 @@ public class SignInSignUpView extends JPanel{
         signUpButton_bottom=new JButton("SIGN UP");
         signUpButton_bottom.setActionCommand(BTN_SIGN_UP);
         signUpButton_bottom.setOpaque(true);
-        signUpButton_bottom.setFocusPainted(true);
-        signUpButton_bottom.setBorderPainted(true);
+        signUpButton_bottom.setFocusPainted(false);
+        signUpButton_bottom.setBorderPainted(false);
         signUpButton_bottom.setContentAreaFilled(true);
-        signUpButton_bottom.setBorder(BorderFactory.createEmptyBorder(10,10,10,10)); // Especially important
+        signUpButton_bottom.setBorder(BorderFactory.createEmptyBorder(10,10,10,10));
         signUpButton_bottom.setFont(alegreyaFont);
-        signUpButton_bottom.setBackground(Color.green);
+        signUpButton_bottom.setBackground(new Color(0,204,0));
         signUpButton_bottom.setForeground(Color.white);
         constraints.gridx = 1;
         constraints.gridy = 6;
@@ -256,6 +260,7 @@ public class SignInSignUpView extends JPanel{
         userFieldSignIn.setToolTipText("Enter username");
         userFieldSignIn.setFont(arialFont);
         userFieldSignIn.setForeground(Color.gray);
+        userFieldSignIn.setBackground(new Color(40, 40, 40));
         userFieldSignIn.setPreferredSize(new Dimension(400,50));
         constraints.gridx = 1;
         constraints.gridy = 2;
@@ -271,6 +276,7 @@ public class SignInSignUpView extends JPanel{
         pwdFieldSignIn.setToolTipText("Enter password");
         pwdFieldSignIn.setFont(arialFont);
         pwdFieldSignIn.setForeground(Color.gray);
+        pwdFieldSignIn.setBackground(new Color(40, 40, 40));
         pwdFieldSignIn.setPreferredSize(new Dimension(400,50));
         constraints.gridx = 1;
         constraints.gridy = 3;
@@ -285,12 +291,12 @@ public class SignInSignUpView extends JPanel{
         signInButton_bottom=new JButton("SIGN IN");
         signInButton_bottom.setActionCommand(BTN_SIGN_IN);
         signInButton_bottom.setOpaque(true);
-        signInButton_bottom.setFocusPainted(true);
-        signInButton_bottom.setBorderPainted(true);
+        signInButton_bottom.setFocusPainted(false);
+        signInButton_bottom.setBorderPainted(false);
         signInButton_bottom.setContentAreaFilled(true);
-        signInButton_bottom.setBorder(BorderFactory.createEmptyBorder(10,10,10,10)); // Especially important
+        signInButton_bottom.setBorder(BorderFactory.createEmptyBorder(10,10,10,10));
         signInButton_bottom.setFont(alegreyaFont);
-        signInButton_bottom.setBackground(Color.green);
+        signInButton_bottom.setBackground(new Color(0,204,0));
         signInButton_bottom.setForeground(Color.white);
         constraints.gridx = 1;
         constraints.gridy = 4;
@@ -346,10 +352,10 @@ public class SignInSignUpView extends JPanel{
         forgotPasswordButton.setForeground(Color.white);
         forgotPasswordButton.setFont(smallerArialFont);
         forgotPasswordButton.setBackground(myBlack);
-        signInButton_bottom.setOpaque(true);
-        signInButton_bottom.setFocusPainted(true);
-        signInButton_bottom.setBorderPainted(false);
-        signInButton_bottom.setContentAreaFilled(true);
+        forgotPasswordButton.setOpaque(true);
+        forgotPasswordButton.setFocusPainted(true);
+        forgotPasswordButton.setBorderPainted(false);
+        forgotPasswordButton.setContentAreaFilled(true);
         constraints.gridx = 1;
         constraints.gridy = 5;
         constraints.gridwidth = 2;

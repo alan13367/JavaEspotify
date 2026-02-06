@@ -32,7 +32,7 @@ public class MyHintTextField extends JTextField implements FocusListener {
     @Override
     public void focusGained(FocusEvent e) {
         if(this.getText().isEmpty()) {
-            setForeground(Color.BLACK);
+            setForeground(Color.WHITE);
             super.setText("");
             showingHint = false;
         }
@@ -67,7 +67,7 @@ public class MyHintTextField extends JTextField implements FocusListener {
          */
         public RoundedMyHintTextField(String hint) {
             super(hint);
-            this.setOpaque(false);
+            this.setOpaque(true);
         }
         @Override
         protected void paintComponent(Graphics g) {

@@ -55,14 +55,22 @@ public class AddSongsController implements ActionListener {
                 } else if (!view.checkDurationFormat()) {
                     view.pop_up_ErrorDialog("Duration format is incorrect, use minutes:seconds!", "Error");
                 } else {
+                    if (businessFacade.getCurrentUser() == null || businessFacade.getCurrentUser().isEmpty()) {
+                        view.pop_up_ErrorDialog("You must be logged in to add songs!", "Error");
+                        return;
+                    }
                     String filename = view.getFilename();
                     File file = new File(view.getFilePath());
-                    file.renameTo(new File("songs/" + view.getFilename()));
+                    boolean fileMoved = file.renameTo(new File("songs/" + view.getFilename()));
+                    if (!fileMoved && !new File("songs/" + view.getFilename()).exists()) {
+                        view.pop_up_ErrorDialog("Failed to move music file. Check file permissions.", "Error");
+                        return;
+                    }
                     String[] stringSplit = view.getDurationFieldAdd().split(":");
                     long duration = Integer.parseInt(stringSplit[0])* 60000L + Integer.parseInt(stringSplit[1])* 1000L;
                     businessFacade.addSong(view.getTitleFieldAdd(),view.getAlbumFieldAdd(),view.getGenreFieldAdd()
                             ,view.getAuthorFieldAdd(),"songs/"+view.getFilename(),duration);
-                    view.pop_up_SuccessDialog("Song added successfully", "Success");
+                    view.pop_up_SuccessDialog("Song added by " + businessFacade.getCurrentUser(), "Success");
                     view.clearFields();
                     homeView.showSongsCard();
 

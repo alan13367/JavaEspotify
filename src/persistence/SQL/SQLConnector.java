@@ -60,6 +60,9 @@ public class SQLConnector {
      * @param query query to run in database
      */
     public void addQuery(String query) throws SQLException {
+        if (connection == null) {
+            throw new SQLException("Database connection is not established");
+        }
         Statement statement = connection.createStatement();
         statement.executeUpdate(query);
     }
@@ -71,6 +74,10 @@ public class SQLConnector {
      */
     public ResultSet selectQuery(String query){
         ResultSet rs = null;
+        if (connection == null) {
+            System.err.println("Cannot execute query: Database connection is not established");
+            return null;
+        }
         try {
             Statement s = connection.createStatement();
             rs = s.executeQuery(query);
@@ -88,6 +95,10 @@ public class SQLConnector {
      * @param query query to run in database
      */
     public void deleteQuery(String query){
+        if (connection == null) {
+            System.err.println("Cannot execute query: Database connection is not established");
+            return;
+        }
         try {
             Statement s = connection.createStatement();
             s.executeUpdate(query);

@@ -139,6 +139,12 @@ public class HomeView extends JPanel {
         button.setActionCommand(actionCommand);
         button.setForeground(Color.white);
         button.setBackground(new Color(0,204,0));
+        button.setOpaque(true);
+        button.setFocusPainted(false);
+        button.setBorderPainted(false);
+        button.setContentAreaFilled(true);
+        button.setHorizontalAlignment(SwingConstants.LEFT);
+        button.setBorder(BorderFactory.createEmptyBorder(10,10,10,10));
         button.setAlignmentX(Component.CENTER_ALIGNMENT);
         return button;
     }

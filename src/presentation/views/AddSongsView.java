@@ -53,6 +53,7 @@ public class AddSongsView extends JPanel {
         titleField.setToolTipText("Title");
         titleField.setFont(arialFont);
         titleField.setForeground(Color.gray);
+        titleField.setBackground(new Color(40, 40, 40));
         titleField.setPreferredSize(new Dimension(400,50));
         constraints.gridx = 1;
         constraints.gridy = 2;
@@ -68,6 +69,7 @@ public class AddSongsView extends JPanel {
         authorField.setToolTipText("Author");
         authorField.setFont(arialFont);
         authorField.setForeground(Color.gray);
+        authorField.setBackground(new Color(40, 40, 40));
         authorField.setPreferredSize(new Dimension(400,50));
         constraints.gridx = 1;
         constraints.gridy = 3;
@@ -83,6 +85,7 @@ public class AddSongsView extends JPanel {
         genreField.setToolTipText("Genre");
         genreField.setFont(arialFont);
         genreField.setForeground(Color.gray);
+        genreField.setBackground(new Color(40, 40, 40));
         genreField.setPreferredSize(new Dimension(400,50));
         constraints.gridx = 1;
         constraints.gridy = 4;
@@ -98,6 +101,7 @@ public class AddSongsView extends JPanel {
         albumField.setToolTipText("Album");
         albumField.setFont(arialFont);
         albumField.setForeground(Color.gray);
+        albumField.setBackground(new Color(40, 40, 40));
         albumField.setPreferredSize(new Dimension(400,50));
         constraints.gridx = 1;
         constraints.gridy = 5;
@@ -113,6 +117,7 @@ public class AddSongsView extends JPanel {
         durationField.setToolTipText("Duration");
         durationField.setFont(arialFont);
         durationField.setForeground(Color.gray);
+        durationField.setBackground(new Color(40, 40, 40));
         durationField.setPreferredSize(new Dimension(400,50));
         constraints.gridx = 1;
         constraints.gridy = 6;
@@ -127,12 +132,12 @@ public class AddSongsView extends JPanel {
         importSongButton = new JButton("import file...");
         importSongButton.setOpaque(true);
         importSongButton.setActionCommand(BTN_IMPORT_SONG);
-        importSongButton.setFocusPainted(true);
-        importSongButton.setBorderPainted(true);
+        importSongButton.setFocusPainted(false);
+        importSongButton.setBorderPainted(false);
         importSongButton.setContentAreaFilled(true);
-        importSongButton.setBorder(BorderFactory.createEmptyBorder(10,10,10,10)); // Especially important
+        importSongButton.setBorder(BorderFactory.createEmptyBorder(10,10,10,10));
         importSongButton.setFont(alegreyaFont);
-        importSongButton.setBackground(Color.green);
+        importSongButton.setBackground(new Color(0,204,0));
         importSongButton.setForeground(Color.white);
         constraints.gridx = 1;
         constraints.gridy = 7;
@@ -147,12 +152,12 @@ public class AddSongsView extends JPanel {
         addButton_bottom=new JButton("    ADD SONG    ");
         addButton_bottom.setActionCommand(BTN_ADD_SONG);
         addButton_bottom.setOpaque(true);
-        addButton_bottom.setFocusPainted(true);
-        addButton_bottom.setBorderPainted(true);
+        addButton_bottom.setFocusPainted(false);
+        addButton_bottom.setBorderPainted(false);
         addButton_bottom.setContentAreaFilled(true);
-        addButton_bottom.setBorder(BorderFactory.createEmptyBorder(10,10,10,10)); // Especially important
+        addButton_bottom.setBorder(BorderFactory.createEmptyBorder(10,10,10,10));
         addButton_bottom.setFont(alegreyaFont);
-        addButton_bottom.setBackground(Color.green);
+        addButton_bottom.setBackground(new Color(0,204,0));
         addButton_bottom.setForeground(Color.white);
         constraints.gridx = 1;
         constraints.gridy = 8;

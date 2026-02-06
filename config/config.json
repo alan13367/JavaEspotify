@@ -1,7 +1,7 @@
 {
   "port": "3306",
-  "ip": "remotemysql.com",
-  "name": "7l0RIFIKzM",
-  "username": "7l0RIFIKzM",
-  "password": "4j8bSvSpej"
+  "ip": "localhost",
+  "name": "espotify",
+  "username": "espotify_user",
+  "password": "espotify_pass"
 }

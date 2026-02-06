@@ -30,6 +30,10 @@ public class SQLSongDAO implements SongDAO {
         List<Song> songs = new ArrayList<>();
         String query = "SELECT * FROM Song;";
         ResultSet result = SQLConnector.getInstance().selectQuery(query);
+        if (result == null) {
+            System.err.println("Failed to load songs: Database connection unavailable");
+            return songs;
+        }
         try {
             while (result.next()) {
                 String title= result.getString("title");
@@ -76,8 +80,12 @@ public class SQLSongDAO implements SongDAO {
         connector = SQLConnector.getInstance();
         try {
             connector.addQuery(query);
+            System.out.println("✓ Song added successfully: " + song.getTitle() + " by " + song.getAuthor());
         } catch (SQLException e) {
-            System.out.println("Song was not added");
+            System.err.println("✗ Failed to add song: " + song.getTitle());
+            System.err.println("  Error: " + e.getMessage());
+            System.err.println("  Hint: Make sure you're logged in and the user exists in the database");
+            e.printStackTrace();
         }
     }
 
@@ -92,6 +100,10 @@ public class SQLSongDAO implements SongDAO {
         //select genre, count(*) as cnt FROM Song GROUP BY genre
         String query = "SELECT genre, COUNT(*) AS CNT FROM Song GROUP BY genre ORDER BY CNT DESC LIMIT 10";
         ResultSet result = SQLConnector.getInstance().selectQuery(query);
+        if (result == null) {
+            System.err.println("Failed to get genre count: Database connection unavailable");
+            return songs;
+        }
         try {
             while (result.next()) {
                 String genre= result.getString("genre");

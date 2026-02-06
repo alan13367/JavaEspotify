@@ -113,21 +113,33 @@ public class SongsView extends JPanel {
         buttonPanel.setLayout(gridLayout);
 
         jbPlay = new JButton(" Play Song",new ImageIcon("assets/play-32.png"));
-        jbPlay.setBackground(new Color(0,80,0));
+        jbPlay.setBackground(new Color(0,204,0));
         jbPlay.setForeground(Color.white);
         jbPlay.setFont(new Font("Arial",Font.BOLD,20));
+        jbPlay.setOpaque(true);
+        jbPlay.setFocusPainted(false);
+        jbPlay.setBorderPainted(false);
+        jbPlay.setBorder(BorderFactory.createEmptyBorder(15,15,15,15));
         jbPlay.setActionCommand(BTN_PLAY_SONG);
 
         jbAddToPlaylist = new JButton(" Add To PlayList",new ImageIcon("assets/plus-4-32.png"));
-        jbAddToPlaylist.setBackground(new Color(0,80,0));
+        jbAddToPlaylist.setBackground(new Color(0,204,0));
         jbAddToPlaylist.setFont(new Font("Arial",Font.BOLD,20));
         jbAddToPlaylist.setForeground(Color.white);
+        jbAddToPlaylist.setOpaque(true);
+        jbAddToPlaylist.setFocusPainted(false);
+        jbAddToPlaylist.setBorderPainted(false);
+        jbAddToPlaylist.setBorder(BorderFactory.createEmptyBorder(15,15,15,15));
         jbAddToPlaylist.setActionCommand(BTN_ADD_TO_PLAYLIST);
 
         jbDelete = new JButton(" Delete Song",new ImageIcon("assets/trashicon32.png"));
-        jbDelete.setBackground(new Color(0,80,0));
+        jbDelete.setBackground(new Color(0,204,0));
         jbDelete.setForeground(Color.white);
         jbDelete.setFont(new Font("Arial",Font.BOLD,20));
+        jbDelete.setOpaque(true);
+        jbDelete.setFocusPainted(false);
+        jbDelete.setBorderPainted(false);
+        jbDelete.setBorder(BorderFactory.createEmptyBorder(15,15,15,15));
         jbDelete.setActionCommand(BTN_DELETE_SONG);
 
         buttonPanel.add(jbPlay);
@@ -202,15 +214,24 @@ public class SongsView extends JPanel {
 
         searchField = new MyHintTextField.RoundedMyHintTextField(HINT_TEXTFIELD);
         searchField.setFont(new Font("Tahome",Font.PLAIN,25));
+        searchField.setBackground(new Color(40, 40, 40));
         searchField.setPreferredSize(new Dimension(1000,30));
         searchPanel.add(searchField,BorderLayout.CENTER);
         jbSearch = new JButton(new ImageIcon("assets/lupa32.png"));
-        jbSearch.setBackground(null);
-        jbSearch.setContentAreaFilled(false);
+        jbSearch.setBackground(new Color(0,204,0));
+        jbSearch.setOpaque(true);
+        jbSearch.setFocusPainted(false);
+        jbSearch.setBorderPainted(false);
+        jbSearch.setContentAreaFilled(true);
+        jbSearch.setBorder(BorderFactory.createEmptyBorder(5,5,5,5));
         jbSearch.setActionCommand(BTN_SEARCH);
         jbRefresh = new JButton(new ImageIcon("assets/refresh-32.png"));
-        jbRefresh.setBackground(null);
-        jbRefresh.setContentAreaFilled(false);
+        jbRefresh.setBackground(new Color(0,204,0));
+        jbRefresh.setOpaque(true);
+        jbRefresh.setFocusPainted(false);
+        jbRefresh.setBorderPainted(false);
+        jbRefresh.setContentAreaFilled(true);
+        jbRefresh.setBorder(BorderFactory.createEmptyBorder(5,5,5,5));
         jbRefresh.setActionCommand(BTN_REFRESH);
         buttonsPanel.add(jbSearch);
         buttonsPanel.add(jbRefresh);
@@ -300,9 +321,10 @@ public class SongsView extends JPanel {
      * shows the song details along with the lyrics if exists
      */
    public void showSongsTableCard(){
-        if(lyricsPane!=null)
-            jpSong.remove(lyricsPane);
-        cardManager.show(this,SONGSTABLE_CARD);
+         if(lyricsPane!=null)
+             jpSong.remove(lyricsPane);
+         songsTable.clearSelection();
+         cardManager.show(this,SONGSTABLE_CARD);
    }
 
     /**

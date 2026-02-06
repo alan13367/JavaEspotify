@@ -52,6 +52,10 @@ public class SQLPlaylistDAO implements PlaylistDAO {
         List<Playlist> playlists = new ArrayList<>();
         String query = "SELECT * FROM Playlist";
         ResultSet result = SQLConnector.getInstance().selectQuery(query);
+        if (result == null) {
+            System.err.println("Failed to load playlists: Database connection unavailable");
+            return playlists;
+        }
         try {
             while (result.next()) {
                 String name= result.getString("name");
@@ -96,6 +100,10 @@ public class SQLPlaylistDAO implements PlaylistDAO {
         List<Playlist> playlists = new ArrayList<>();
         String query = "SELECT * FROM Playlist";
         ResultSet result = SQLConnector.getInstance().selectQuery(query);
+        if (result == null) {
+            System.err.println("Failed to get playlists: Database connection unavailable");
+            return playlists;
+        }
         try{
             while (result.next()) {
                 String name= result.getString("name");
@@ -119,6 +127,10 @@ public class SQLPlaylistDAO implements PlaylistDAO {
         LinkedList<Song> songs = new LinkedList<>();
         String query = "SELECT * FROM Song JOIN SongPlaylistLink ON Song.title = SongPlaylistLink.songTitle WHERE playlistName = '"+ name +"' AND playlistAuthor = '"+ playlistOwner +"'";
         ResultSet result = SQLConnector.getInstance().selectQuery(query);
+        if (result == null) {
+            System.err.println("Failed to get songs from playlist: Database connection unavailable");
+            return songs;
+        }
         try{
             while (result.next()) {
                 String title= result.getString("title");
