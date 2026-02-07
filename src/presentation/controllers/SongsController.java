@@ -20,7 +20,7 @@ import java.util.ArrayList;
  * SongsController class manages the behaviour of the {@link SongsView} by implementing the {@link  ActionListener}
  * interface and the {@link ListSelectionListener} interface.
  *
- * @author Alan Beltrán, Alvaro Feher, Marc Barberà, Youssef Bat, Albert Gomez
+ * @author Alan Beltrán
  * @version 1.0
  * @since 25/4/2022
  */
@@ -52,6 +52,14 @@ public class SongsController implements ActionListener, ListSelectionListener {
         for (Song song: businessFacade.getSongs()){
             view.addTableRow(song.getTitle(),song.getGenre(),song.getAlbum(),song.getAuthor(),song.getOwner());
         }
+    }
+
+    /**
+     * Refreshes the songs table by clearing and reloading all songs
+     */
+    public void refreshSongsTable() {
+        view.clearTable();
+        loadSongs();
     }
 
     @Override

@@ -1,10 +1,14 @@
 package persistence.SQL;
 
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 
 /**
  * manager if the playlists, in charge of creating, deleting and editting playlists
- *  @author Alan Beltrán, Alvaro Feher, Marc Barberà, Youssef Bat, Albert Gomez
+ *  @author Alan Beltrán
  *  @version 1.0
  *  @since 12/4/2022
  */
@@ -63,8 +67,9 @@ public class SQLConnector {
         if (connection == null) {
             throw new SQLException("Database connection is not established");
         }
-        Statement statement = connection.createStatement();
-        statement.executeUpdate(query);
+        try (Statement statement = connection.createStatement()) {
+            statement.executeUpdate(query);
+        }
     }
 
     /**
@@ -72,20 +77,19 @@ public class SQLConnector {
      * @param query query to run in database
      * @return result set
      */
-    public ResultSet selectQuery(String query){
-        ResultSet rs = null;
+    public ResultSet selectQuery(String query) {
         if (connection == null) {
             System.err.println("Cannot execute query: Database connection is not established");
             return null;
         }
         try {
             Statement s = connection.createStatement();
-            rs = s.executeQuery(query);
+            return s.executeQuery(query);
         } catch (SQLException e) {
             System.err.println(query);
             System.err.println("Problem when selecting data --> " + e.getSQLState() + " (" + e.getMessage() + ")");
+            return null;
         }
-        return rs;
     }
 
 
@@ -94,19 +98,17 @@ public class SQLConnector {
      *  implement deletion query
      * @param query query to run in database
      */
-    public void deleteQuery(String query){
+    public void deleteQuery(String query) {
         if (connection == null) {
             System.err.println("Cannot execute query: Database connection is not established");
             return;
         }
-        try {
-            Statement s = connection.createStatement();
+        try (Statement s = connection.createStatement()) {
             s.executeUpdate(query);
         } catch (SQLException e) {
             System.err.println(query);
             System.err.println("Problem when deleting --> " + e.getSQLState() + " (" + e.getMessage() + ")");
         }
-
     }
 
     /**
@@ -114,8 +116,12 @@ public class SQLConnector {
      */
     public void disconnect() {
         try {
-            connection.close();
-        } catch (SQLException ignored) { }
+            if (connection != null && !connection.isClosed()) {
+                connection.close();
+            }
+        } catch (SQLException e) {
+            System.err.println("Error closing connection: " + e.getMessage());
+        }
     }
 
 }

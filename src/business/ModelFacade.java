@@ -1,17 +1,27 @@
 package business;
 
+import business.audio.VolumeChangeListener;
 import business.entities.Playlist;
 import business.entities.Song;
-import business.managers.*;
-import com.google.gson.*;
+import business.managers.PlaylistManager;
+import business.managers.SongManager;
+import business.managers.SongPlayerManager;
+import business.managers.UserManager;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 
 import java.io.FileNotFoundException;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Set;
 
 /**
  * Class used to Implement our {@link BusinessFacade} interface and related with all the needed managers in the program
  *
- * @author Alan Beltrán, Alvaro Feher, Marc Barberà, Youssef Bat, Albert Gomez
+ * @author Alan Beltrán
  * @version 1.0
  * @since 10-04-2022
  */
@@ -86,10 +96,9 @@ public class ModelFacade implements BusinessFacade {
 
     @Override
     public String getLyrics(String author, String title) {
-        JsonParser jsonParser = new JsonParser();
         String s = songManager.getSongLyrics(author,title);
         if(s!=null){
-            JsonObject object = jsonParser.parse(s).getAsJsonObject();
+            JsonObject object = JsonParser.parseString(s).getAsJsonObject();
             return object.get("lyrics").getAsString();
         }
         return null;
@@ -164,6 +173,11 @@ public class ModelFacade implements BusinessFacade {
     @Override
     public void clearCurrentSong() {
         songPlayerManager.clearCurrentSong();
+    }
+
+    @Override
+    public void seekTo(int seconds) throws FileNotFoundException {
+        songPlayerManager.seekTo(seconds);
     }
 
     @Override
@@ -245,5 +259,40 @@ public class ModelFacade implements BusinessFacade {
     @Override
     public void stopPlayer() {
         songPlayerManager.stopPlayer();
+    }
+
+    @Override
+    public void setVolume(float volume) {
+        songPlayerManager.setVolume(volume);
+    }
+
+    @Override
+    public float getVolume() {
+        return songPlayerManager.getVolume();
+    }
+
+    @Override
+    public void mute() {
+        songPlayerManager.mute();
+    }
+
+    @Override
+    public void unmute() {
+        songPlayerManager.unmute();
+    }
+
+    @Override
+    public boolean isMuted() {
+        return songPlayerManager.isMuted();
+    }
+
+    @Override
+    public void addVolumeChangeListener(VolumeChangeListener listener) {
+        songPlayerManager.addVolumeChangeListener(listener);
+    }
+
+    @Override
+    public void removeVolumeChangeListener(VolumeChangeListener listener) {
+        songPlayerManager.removeVolumeChangeListener(listener);
     }
 }

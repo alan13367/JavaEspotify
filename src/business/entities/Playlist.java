@@ -5,7 +5,7 @@ import java.util.LinkedList;
 import java.util.Locale;
 
 /**
- * @author Alan Beltrán, Alvaro Feher, Marc Barberà, Youssef Bat, Albert Gomez
+ * @author Alan Beltrán
  * @version 1.0
  * @since 14/5/2022
  */

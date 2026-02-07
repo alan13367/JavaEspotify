@@ -1,5 +1,6 @@
 package business;
 
+import business.audio.VolumeChangeListener;
 import business.entities.Playlist;
 import business.entities.Song;
 
@@ -12,7 +13,7 @@ import java.util.List;
  *  The BusinessFacade Interface manages all of the Business layer systems to provide a reasonable
  *  interface to the rest of the program, particularly to layers above the business.
  *
- * @author Alan Beltrán, Alvaro Feher, Marc Barberà, Youssef Bat, Albert Gomez
+ * @author Alan Beltrán
  * @version 1.0
  * @since 10-04-2022
  */
@@ -267,4 +268,51 @@ public interface BusinessFacade {
      * Clears the song that is currently in the player
      */
     void clearCurrentSong();
+
+    /**
+     * Seeks to a specific position in the current song
+     * @param seconds position in seconds to seek to
+     * @throws FileNotFoundException if song file not found
+     */
+    void seekTo(int seconds) throws FileNotFoundException;
+
+    /**
+     * Sets the volume level.
+     * @param volume Volume level between 0.0 (silent) and 1.0 (maximum)
+     */
+    void setVolume(float volume);
+
+    /**
+     * Gets the current volume level.
+     * @return Current volume level between 0.0 and 1.0
+     */
+    float getVolume();
+
+    /**
+     * Mutes the audio output.
+     */
+    void mute();
+
+    /**
+     * Unmutes the audio output.
+     */
+    void unmute();
+
+    /**
+     * Checks if the audio is currently muted.
+     * @return true if muted, false otherwise
+     */
+    boolean isMuted();
+
+    /**
+     * Adds a listener to be notified of volume changes.
+     * @param listener The listener to add
+     */
+    void addVolumeChangeListener(VolumeChangeListener listener);
+
+    /**
+     * Removes a volume change listener.
+     * @param listener The listener to remove
+     */
+    void removeVolumeChangeListener(VolumeChangeListener listener);
 }

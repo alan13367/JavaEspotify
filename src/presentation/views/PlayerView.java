@@ -1,13 +1,15 @@
 package presentation.views;
 
 import presentation.controllers.PlayerController;
+import presentation.views.GUIassets.*;
 
 import javax.swing.*;
+import javax.swing.border.EmptyBorder;
 import java.awt.*;
 
 /**
  * the GUI of the player view
- * @author Alan Beltrán, Alvaro Feher, Marc Barberà, Youssef Bat, Albert Gomez
+ * @author Alan Beltrán
  * @version 1.0
  * @since 19/04/2022
  */
@@ -18,6 +20,7 @@ public class PlayerView extends JPanel {
     public static final String BTN_NEXT = "BTN_NEXT";
     public static final String BTN_PREV = "BTN_PREV";
     public static final String BTN_STOP = "BTN_STOP";
+    public static final String BTN_MUTE = "BTN_MUTE";
     
     // Constants for icon paths
     private static final String ICON_PLAY = "assets/playButton.png";
@@ -29,8 +32,8 @@ public class PlayerView extends JPanel {
     private static final String ICON_STOP = "assets/stop.jpg";
     
     //Player Buttons
-    private JButton jbPlayPause, jbStop, jbLoop, jbNext, jbPrevious;
-    private JSlider jslider;
+    private JButton jbPlayPause, jbStop, jbLoop, jbNext, jbPrevious, jbMute;
+    private JSlider jslider, volumeSlider;
     private JLabel songName, songAuthor;
     private JTextField currentTime;
     private JTextField totalTime;
@@ -46,87 +49,104 @@ public class PlayerView extends JPanel {
         configureView();
     }
     private void configureView(){
-        JPanel controlsPanel = new JPanel();
-        JPanel songPanel = new JPanel();
-        JPanel playerPanel = new JPanel();
-        controlsPanel.setBackground(new Color(32,32,32));
-        songPanel.setBackground(new Color(32, 32, 32));
-        add(songPanel, BorderLayout.WEST);
-        add(playerPanel,BorderLayout.CENTER);
+        setBackground(ThemeColors.PLAYER_BACKGROUND);
+        setPreferredSize(new Dimension(1500, ThemeDimensions.PLAYER_HEIGHT));
+        setBorder(new EmptyBorder(ThemeDimensions.COMPONENT_GAP, ThemeDimensions.CARD_PADDING, 
+                ThemeDimensions.COMPONENT_GAP, ThemeDimensions.CARD_PADDING));
 
-        GridLayout playerControlsGridLay = new GridLayout(1,5);
-        playerControlsGridLay.setHgap(2);
-        playerControlsGridLay.setVgap(0);
-        setBackground(new Color(32,32,32));
-        setPreferredSize(new Dimension(1500,80));
-        controlsPanel.setLayout(playerControlsGridLay);
+        // Song info panel (left side)
+        JPanel songPanel = new JPanel(new GridLayout(2, 1, 0, ThemeDimensions.COMPONENT_GAP));
+        songPanel.setBackground(ThemeColors.PLAYER_BACKGROUND);
+        songPanel.setPreferredSize(new Dimension(300, ThemeDimensions.PLAYER_HEIGHT - 20));
 
-        playerPanel.setLayout(new GridLayout(2, 1));
-        songPanel.setLayout(new GridLayout(2, 1, 1, 1));
+        songName = new JLabel("   ");
+        songName.setFont(ThemeFonts.PLAYER_TITLE);
+        songName.setForeground(ThemeColors.TEXT_PRIMARY);
+        songName.setBackground(ThemeColors.PLAYER_BACKGROUND);
 
-        JPanel aux3 = new JPanel();
-        aux3.setSize(400, 60);
-        aux3.setBackground(new Color(32, 32, 32));
-        JPanel aux4 = new JPanel();
-        aux4.setSize(400, 60);
-        aux4.setBackground(new Color(32, 32, 32));
-
-        jbLoop = createIconButton(ICON_LOOP, 15, 15, BTN_LOOP);
-        controlsPanel.add(aux3);
-        controlsPanel.add(jbLoop);
-
-        jbPrevious = createIconButton(ICON_PREVIOUS, 20, 20, BTN_PREV);
-        controlsPanel.add(jbPrevious);
-
-        jbPlayPause = createIconButton(ICON_PLAY, 30, 30, BTN_PLAYPAUSE);
-        controlsPanel.add(jbPlayPause);
-
-        jbNext = createIconButton(ICON_NEXT, 20, 20, BTN_NEXT);
-        controlsPanel.add(jbNext);
-
-        jbStop = createIconButton(ICON_STOP, 15, 15, BTN_STOP);
-        controlsPanel.add(jbStop);
-        controlsPanel.add(aux4);
-
-        playerPanel.add(controlsPanel);
-        jslider = new JSlider(0, 100, 0);
-        jslider.setBackground(new Color(32, 32, 32));
-        jslider.setPreferredSize(new Dimension(800,20));
-        JPanel jsliderPanel = new JPanel(new FlowLayout());
-        jsliderPanel.setBackground(new Color(32, 32, 32));
-        JPanel aux = new JPanel();
-        aux.setSize(60, 60);
-        aux.setBackground(new Color(32, 32, 32));
-        JPanel aux2 = new JPanel();
-        aux2.setSize(60, 60);
-        aux2.setBackground(new Color(32, 32, 32));
-        currentTime = new JTextField();
-        totalTime = new JTextField();
-        currentTime.setBackground(new Color(32, 32, 32));
-        currentTime.setFont(new Font("arial", Font.PLAIN, 15));
-        totalTime.setFont(new Font("arial", Font.PLAIN, 15));
-        currentTime.setForeground(Color.white);
-        totalTime.setForeground(Color.white);
-        totalTime.setBorder(javax.swing.BorderFactory.createEmptyBorder());
-        currentTime.setBorder(javax.swing.BorderFactory.createEmptyBorder());
-        totalTime.setBackground(new Color(32, 32, 32));
-        currentTime.setEditable(false);
-        totalTime.setEditable(false);
-        jsliderPanel.add(currentTime);
-        jsliderPanel.add(jslider);
-        jsliderPanel.add(totalTime);
-        playerPanel.add(jsliderPanel);
-
-        songName = new JLabel("\n   ");
         songAuthor = new JLabel("   ");
-        songName.setBackground(new Color(32, 32, 32));
-        songName.setFont(new Font("Arial", Font.PLAIN, 20));
-        songAuthor.setBackground(new Color(32, 32, 32));
-        songAuthor.setFont(new Font("Arial", Font.PLAIN, 14));
-        songName.setForeground(Color.white);
-        songAuthor.setForeground(Color.white);
+        songAuthor.setFont(ThemeFonts.PLAYER_ARTIST);
+        songAuthor.setForeground(ThemeColors.TEXT_SECONDARY);
+        songAuthor.setBackground(ThemeColors.PLAYER_BACKGROUND);
+
         songPanel.add(songName);
         songPanel.add(songAuthor);
+        add(songPanel, BorderLayout.WEST);
+
+        // Player controls panel (center)
+        JPanel playerPanel = new JPanel(new BorderLayout());
+        playerPanel.setBackground(ThemeColors.PLAYER_BACKGROUND);
+
+        // Control buttons
+        JPanel controlsPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, ThemeDimensions.COMPONENT_GAP_LARGE, 0));
+        controlsPanel.setBackground(ThemeColors.PLAYER_BACKGROUND);
+
+        jbLoop = createIconButton(ICON_LOOP, 20, 20, BTN_LOOP);
+        controlsPanel.add(jbLoop);
+
+        jbPrevious = createIconButton(ICON_PREVIOUS, 24, 24, BTN_PREV);
+        controlsPanel.add(jbPrevious);
+
+        jbPlayPause = createIconButton(ICON_PLAY, 36, 36, BTN_PLAYPAUSE);
+        controlsPanel.add(jbPlayPause);
+
+        jbNext = createIconButton(ICON_NEXT, 24, 24, BTN_NEXT);
+        controlsPanel.add(jbNext);
+
+        jbStop = createIconButton(ICON_STOP, 20, 20, BTN_STOP);
+        controlsPanel.add(jbStop);
+
+        playerPanel.add(controlsPanel, BorderLayout.NORTH);
+
+        // Progress bar panel
+        JPanel progressPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, ThemeDimensions.COMPONENT_GAP, 0));
+        progressPanel.setBackground(ThemeColors.PLAYER_BACKGROUND);
+
+        currentTime = new JTextField("0:00");
+        currentTime.setFont(ThemeFonts.PLAYER_TIME);
+        currentTime.setForeground(ThemeColors.TEXT_SECONDARY);
+        currentTime.setBackground(ThemeColors.PLAYER_BACKGROUND);
+        currentTime.setBorder(BorderFactory.createEmptyBorder());
+        currentTime.setEditable(false);
+        currentTime.setPreferredSize(new Dimension(45, 20));
+
+        totalTime = new JTextField("0:00");
+        totalTime.setFont(ThemeFonts.PLAYER_TIME);
+        totalTime.setForeground(ThemeColors.TEXT_SECONDARY);
+        totalTime.setBackground(ThemeColors.PLAYER_BACKGROUND);
+        totalTime.setBorder(BorderFactory.createEmptyBorder());
+        totalTime.setEditable(false);
+        totalTime.setPreferredSize(new Dimension(45, 20));
+
+        jslider = new JSlider(0, 100, 0);
+        jslider.setBackground(ThemeColors.PLAYER_BACKGROUND);
+        jslider.setPreferredSize(new Dimension(600, 20));
+        jslider.setCursor(new Cursor(Cursor.HAND_CURSOR));
+
+        progressPanel.add(currentTime);
+        progressPanel.add(jslider);
+        progressPanel.add(totalTime);
+
+        playerPanel.add(progressPanel, BorderLayout.SOUTH);
+        add(playerPanel, BorderLayout.CENTER);
+
+        // Volume panel (right side)
+        JPanel volumePanel = new JPanel(new FlowLayout(FlowLayout.CENTER, ThemeDimensions.COMPONENT_GAP, 0));
+        volumePanel.setBackground(ThemeColors.PLAYER_BACKGROUND);
+        volumePanel.setPreferredSize(new Dimension(200, ThemeDimensions.PLAYER_HEIGHT - 20));
+
+        // Volume mute button - using programmatic icon
+        jbMute = createVolumeButton(2, 24, 24, BTN_MUTE); // Start with medium volume icon
+        volumePanel.add(jbMute);
+
+        // Volume slider
+        volumeSlider = new JSlider(0, 100, 50); // Default 50%
+        volumeSlider.setBackground(ThemeColors.PLAYER_BACKGROUND);
+        volumeSlider.setPreferredSize(new Dimension(120, 20));
+        volumeSlider.setCursor(new Cursor(Cursor.HAND_CURSOR));
+        volumePanel.add(volumeSlider);
+
+        add(volumePanel, BorderLayout.EAST);
     }
 
     /**
@@ -151,6 +171,95 @@ public class PlayerView extends JPanel {
     }
 
     /**
+     * Creates a volume icon button with programmatically drawn icon
+     * @param volumeLevel 0=mute, 1=low, 2=medium, 3=high
+     * @param width icon width
+     * @param height icon height
+     * @param actionCommand action command
+     * @return JButton with volume icon
+     */
+    private JButton createVolumeButton(int volumeLevel, int width, int height, String actionCommand) {
+        JButton button = new JButton();
+        button.setPreferredSize(new Dimension(width, height));
+        button.setBackground(null);
+        button.setBorder(BorderFactory.createEmptyBorder());
+        button.setContentAreaFilled(false);
+        button.setActionCommand(actionCommand);
+        
+        // Draw volume icon
+        ImageIcon icon = createVolumeIcon(volumeLevel, width, height);
+        button.setIcon(icon);
+        
+        return button;
+    }
+
+    /**
+     * Creates a volume icon image programmatically
+     * @param volumeLevel 0=mute, 1=low, 2=medium, 3=high
+     * @param width icon width
+     * @param height icon height
+     * @return ImageIcon with volume graphic
+     */
+    private ImageIcon createVolumeIcon(int volumeLevel, int width, int height) {
+        java.awt.image.BufferedImage image = new java.awt.image.BufferedImage(width, height, java.awt.image.BufferedImage.TYPE_INT_ARGB);
+        Graphics2D g2d = image.createGraphics();
+        
+        g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+        g2d.setColor(ThemeColors.TEXT_PRIMARY);
+        
+        int speakerX = 2;
+        int speakerY = height / 4;
+        int speakerW = width / 3;
+        int speakerH = height / 2;
+        
+        // Draw speaker body (trapezoid)
+        int[] xPoints = {speakerX, speakerX + speakerW/2, speakerX + speakerW/2, speakerX};
+        int[] yPoints = {speakerY + speakerH/4, speakerY, speakerY + speakerH, speakerY + 3*speakerH/4};
+        g2d.fillPolygon(xPoints, yPoints, 4);
+        
+        // Draw speaker base (rectangle)
+        g2d.fillRect(speakerX - 2, speakerY + speakerH/4, 4, speakerH/2);
+        
+        // Draw volume waves based on level
+        g2d.setStroke(new BasicStroke(2));
+        int waveX = speakerX + speakerW/2 + 2;
+        int centerY = height / 2;
+        
+        if (volumeLevel == 0) {
+            // Mute - draw X
+            g2d.setColor(ThemeColors.TEXT_SECONDARY);
+            g2d.drawLine(waveX + 2, centerY - 4, waveX + 8, centerY + 4);
+            g2d.drawLine(waveX + 8, centerY - 4, waveX + 2, centerY + 4);
+        } else {
+            // Draw sound waves
+            if (volumeLevel >= 1) {
+                // Low - small arc
+                g2d.drawArc(waveX, centerY - 3, 6, 6, -45, 90);
+            }
+            if (volumeLevel >= 2) {
+                // Medium - medium arc
+                g2d.drawArc(waveX + 2, centerY - 5, 10, 10, -45, 90);
+            }
+            if (volumeLevel >= 3) {
+                // High - large arc
+                g2d.drawArc(waveX + 4, centerY - 7, 14, 14, -45, 90);
+            }
+        }
+        
+        g2d.dispose();
+        return new ImageIcon(image);
+    }
+
+    /**
+     * Updates the volume button icon
+     * @param volumeLevel 0=mute, 1=low, 2=medium, 3=high
+     */
+    public void updateVolumeButtonIcon(int volumeLevel) {
+        ImageIcon icon = createVolumeIcon(volumeLevel, 24, 24);
+        jbMute.setIcon(icon);
+    }
+
+    /**
      * adds an action listener to all the components
      * @param controller playerController
      */
@@ -163,6 +272,8 @@ public class PlayerView extends JPanel {
         jbStop.addActionListener(controller);
         jbPrevious.addActionListener(controller);
         jbLoop.addActionListener(controller);
+        jbMute.addActionListener(controller);
+        volumeSlider.addChangeListener(controller);
         this.playerController = controller;
     }
 
@@ -252,6 +363,32 @@ public class PlayerView extends JPanel {
         playerController.pauseTimer();
     }
 
+    /**
+     * Gets the slider value at a specific X coordinate for seek functionality
+     * @param x X coordinate of the click
+     * @return corresponding slider value in seconds
+     */
+    public int getSliderValueAt(int x) {
+        int sliderWidth = jslider.getWidth();
+        int min = jslider.getMinimum();
+        int max = jslider.getMaximum();
+
+        // Account for slider insets
+        java.awt.Insets insets = jslider.getInsets();
+        int trackWidth = sliderWidth - insets.left - insets.right;
+
+        // Calculate value based on click position
+        int value = min + (int) ((double) (x - insets.left) / trackWidth * (max - min));
+        return Math.max(min, Math.min(max, value));
+    }
+
+    /**
+     * Adds a mouse listener to the progress slider for seeking
+     * @param listener MouseListener for seek functionality
+     */
+    public void addSliderMouseListener(java.awt.event.MouseListener listener) {
+        jslider.addMouseListener(listener);
+    }
 
     /**
      * change current time of the song in the player view
@@ -269,5 +406,40 @@ public class PlayerView extends JPanel {
         currentTime.setText(time);
         this.validate();
         this.repaint();
+    }
+
+    /**
+     * Gets the current volume slider value
+     * @return volume level (0-100)
+     */
+    public int getVolumeSliderValue() {
+        return volumeSlider.getValue();
+    }
+
+    /**
+     * Sets the volume slider value
+     * @param volume volume level (0-100)
+     */
+    public void setVolumeSliderValue(int volume) {
+        volumeSlider.setValue(volume);
+    }
+
+    /**
+     * Updates the volume icon based on volume level and mute state
+     * @param volume volume level (0.0 to 1.0)
+     * @param isMuted true if muted
+     */
+    public void updateVolumeIcon(float volume, boolean isMuted) {
+        int volumeLevel;
+        if (isMuted || volume <= 0.0f) {
+            volumeLevel = 0; // Mute
+        } else if (volume <= 0.33f) {
+            volumeLevel = 1; // Low
+        } else if (volume <= 0.66f) {
+            volumeLevel = 2; // Medium
+        } else {
+            volumeLevel = 3; // High
+        }
+        updateVolumeButtonIcon(volumeLevel);
     }
 }

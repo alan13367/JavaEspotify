@@ -11,7 +11,7 @@ import java.awt.event.ActionListener;
  * SignInSignUpController class manages the behaviour of the {@link SignInSignUpView} by implementing the {@link  ActionListener}
  * interface.
  *
- * @author Alan Beltrán, Alvaro Feher, Marc Barberà, Youssef Bat, Albert Gomez
+ * @author Alan Beltrán
  * @version 1.0
  * @since 25/4/2022
  */

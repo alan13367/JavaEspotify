@@ -14,7 +14,7 @@ import java.io.IOException;
 
 /**
  * the GUI of signIn panel and signUP panel
- * @author Alan Beltrán, Alvaro Feher, Marc Barberà, Youssef Bat, Albert Gomez
+ * @author Alan Beltrán
  * @version 1.0
  * @since 10/04/2022
  */
@@ -47,9 +47,9 @@ public class SignInSignUpView extends JPanel{
     public static final String CARD_SIGN_IN = "CARD_SIGN_IN";
     public static final String CARD_SIGN_UP = "CARD_SIGN_UP";
 
-    private static final Font arialFont = new Font("Arial", Font.PLAIN, 25);
-    private static final Font alegreyaFont = new Font("Alegreya Sans SC", Font.BOLD, 30);
-    private static final Font smallerArialFont = new Font("Arial", Font.ITALIC, 15);
+    private static final Font ARIAL_FONT = new Font("Arial", Font.PLAIN, 25);
+    private static final Font ALEGREYA_FONT = new Font("Alegreya Sans SC", Font.BOLD, 30);
+    private static final Font SMALLER_ARIAL_FONT = new Font("Arial", Font.ITALIC, 15);
 
 
     /**
@@ -80,7 +80,7 @@ public class SignInSignUpView extends JPanel{
 
         userTextFieldSignUp =new MyHintTextField.RoundedMyHintTextField("Username");
         userTextFieldSignUp.setToolTipText("Enter username");
-        userTextFieldSignUp.setFont(arialFont);
+        userTextFieldSignUp.setFont(ARIAL_FONT);
         userTextFieldSignUp.setForeground(Color.gray);
         userTextFieldSignUp.setBackground(new Color(40, 40, 40));
         userTextFieldSignUp.setPreferredSize(new Dimension(400,50));
@@ -96,7 +96,7 @@ public class SignInSignUpView extends JPanel{
 
         emailField=new MyHintTextField.RoundedMyHintTextField("Email");
         emailField.setToolTipText("Enter email");
-        emailField.setFont(arialFont);
+        emailField.setFont(ARIAL_FONT);
         emailField.setForeground(Color.gray);
         emailField.setBackground(new Color(40, 40, 40));
         emailField.setPreferredSize(new Dimension(400,50));
@@ -112,7 +112,7 @@ public class SignInSignUpView extends JPanel{
 
         pwdFieldSignUp =new MyHintPwdField.RoundedMyHintPwdField("Password");
         pwdFieldSignUp.setToolTipText("Enter password");
-        pwdFieldSignUp.setFont(arialFont);
+        pwdFieldSignUp.setFont(ARIAL_FONT);
         pwdFieldSignUp.setForeground(Color.gray);
         pwdFieldSignUp.setBackground(new Color(40, 40, 40));
         pwdFieldSignUp.setPreferredSize(new Dimension(400,50));
@@ -128,7 +128,7 @@ public class SignInSignUpView extends JPanel{
 
         pwdFieldConfirmSignUp =new MyHintPwdField.RoundedMyHintPwdField("confirm password                          ");
         pwdFieldConfirmSignUp.setToolTipText("confirm password");
-        pwdFieldConfirmSignUp.setFont(arialFont);
+        pwdFieldConfirmSignUp.setFont(ARIAL_FONT);
         pwdFieldConfirmSignUp.setForeground(Color.gray);
         pwdFieldConfirmSignUp.setBackground(new Color(40, 40, 40));
         pwdFieldConfirmSignUp.setPreferredSize(new Dimension(400,50));
@@ -149,7 +149,7 @@ public class SignInSignUpView extends JPanel{
         signUpButton_bottom.setBorderPainted(false);
         signUpButton_bottom.setContentAreaFilled(true);
         signUpButton_bottom.setBorder(BorderFactory.createEmptyBorder(10,10,10,10));
-        signUpButton_bottom.setFont(alegreyaFont);
+        signUpButton_bottom.setFont(ALEGREYA_FONT);
         signUpButton_bottom.setBackground(new Color(0,204,0));
         signUpButton_bottom.setForeground(Color.white);
         constraints.gridx = 1;
@@ -164,7 +164,7 @@ public class SignInSignUpView extends JPanel{
 
         signInButton_north=new JButton("SIGN IN");
         signInButton_north.setActionCommand(BTN_SIGN_IN_SWITCH);
-        signInButton_north.setFont(alegreyaFont);
+        signInButton_north.setFont(ALEGREYA_FONT);
         signInButton_north.setOpaque(true);
         signInButton_north.setFocusPainted(true);
         signInButton_north.setBorderPainted(true);
@@ -184,7 +184,7 @@ public class SignInSignUpView extends JPanel{
         constraints.weighty = 0.0;
 
         JButton signUpButton=new JButton("SIGN UP");
-        signUpButton.setFont(alegreyaFont);
+        signUpButton.setFont(ALEGREYA_FONT);
         signUpButton.setOpaque(true);
         signUpButton.setFocusPainted(true);
         signUpButton.setBorderPainted(false);
@@ -258,7 +258,7 @@ public class SignInSignUpView extends JPanel{
 
         userFieldSignIn = new MyHintTextField.RoundedMyHintTextField("username                         ");
         userFieldSignIn.setToolTipText("Enter username");
-        userFieldSignIn.setFont(arialFont);
+        userFieldSignIn.setFont(ARIAL_FONT);
         userFieldSignIn.setForeground(Color.gray);
         userFieldSignIn.setBackground(new Color(40, 40, 40));
         userFieldSignIn.setPreferredSize(new Dimension(400,50));
@@ -274,7 +274,7 @@ public class SignInSignUpView extends JPanel{
 
         pwdFieldSignIn =new MyHintPwdField.RoundedMyHintPwdField("password                          ");
         pwdFieldSignIn.setToolTipText("Enter password");
-        pwdFieldSignIn.setFont(arialFont);
+        pwdFieldSignIn.setFont(ARIAL_FONT);
         pwdFieldSignIn.setForeground(Color.gray);
         pwdFieldSignIn.setBackground(new Color(40, 40, 40));
         pwdFieldSignIn.setPreferredSize(new Dimension(400,50));
@@ -295,7 +295,7 @@ public class SignInSignUpView extends JPanel{
         signInButton_bottom.setBorderPainted(false);
         signInButton_bottom.setContentAreaFilled(true);
         signInButton_bottom.setBorder(BorderFactory.createEmptyBorder(10,10,10,10));
-        signInButton_bottom.setFont(alegreyaFont);
+        signInButton_bottom.setFont(ALEGREYA_FONT);
         signInButton_bottom.setBackground(new Color(0,204,0));
         signInButton_bottom.setForeground(Color.white);
         constraints.gridx = 1;
@@ -309,7 +309,7 @@ public class SignInSignUpView extends JPanel{
         constraints.weighty = 0.0;
 
         JButton signInButton_north=new JButton("SIGN IN");
-        signInButton_north.setFont(alegreyaFont);
+        signInButton_north.setFont(ALEGREYA_FONT);
         signInButton_north.setOpaque(true);
         signInButton_north.setFocusPainted(true);
         signInButton_north.setBorderPainted(true);
@@ -330,7 +330,7 @@ public class SignInSignUpView extends JPanel{
 
         signUpButton=new JButton("SIGN UP");
         signUpButton.setActionCommand(BTN_SIGN_UP_SWITCH);
-        signUpButton.setFont(alegreyaFont);
+        signUpButton.setFont(ALEGREYA_FONT);
         signUpButton.setOpaque(true);
         signUpButton.setFocusPainted(true);
         signUpButton.setBorderPainted(false);
@@ -350,7 +350,7 @@ public class SignInSignUpView extends JPanel{
 
         JButton forgotPasswordButton=new JButton("Forgot password? Click here!");
         forgotPasswordButton.setForeground(Color.white);
-        forgotPasswordButton.setFont(smallerArialFont);
+        forgotPasswordButton.setFont(SMALLER_ARIAL_FONT);
         forgotPasswordButton.setBackground(myBlack);
         forgotPasswordButton.setOpaque(true);
         forgotPasswordButton.setFocusPainted(true);

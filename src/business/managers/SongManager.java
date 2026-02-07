@@ -11,7 +11,7 @@ import java.util.List;
 
 /**
  * manager if the playlists, in charge of creating, deleting and editting playlists
- *  @author Alan Beltrán, Alvaro Feher, Marc Barberà, Youssef Bat, Albert Gomez
+ *  @author Alan Beltrán
  *  @version 1.0
  *  @since 12/4/2022
  */
@@ -68,15 +68,15 @@ public class SongManager {
      * delete all songs added by a user
      * @param username name of user owning songs
      */
-    public void deleteSongsFromUser(String username){
-        for(Song song:songs){
-            if (song.getOwner().equals(username)){
+    public void deleteSongsFromUser(String username) {
+        songs.removeIf(song -> {
+            if (song.getOwner().equals(username)) {
                 songDAO.deleteSong(song);
                 songDAO.deleteSongFromAllPlaylists(song);
-                songs.remove(song);
+                return true;
             }
-        }
-
+            return false;
+        });
     }
 
     /**

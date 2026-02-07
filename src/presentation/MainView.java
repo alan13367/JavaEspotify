@@ -9,7 +9,7 @@ import java.awt.*;
 
 /**
  * the GUI of the whole frame
- * @author Alan Beltrán, Alvaro Feher, Marc Barberà, Youssef Bat, Albert Gomez
+ * @author Alan Beltrán
  * @version 1.0
  * @since 05/04/2022
  */

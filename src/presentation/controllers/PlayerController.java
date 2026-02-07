@@ -1,6 +1,7 @@
 package presentation.controllers;
 
 import business.BusinessFacade;
+import business.audio.VolumeChangeListener;
 import business.entities.Song;
 import presentation.views.HomeView;
 import presentation.views.PlayerView;
@@ -9,21 +10,24 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.FileNotFoundException;
 import javax.swing.Timer;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 
 /**
  * PlayerController class manages the behaviour of the {@link PlayerView} by implementing the {@link  ActionListener}
  * interface.
  *
- * @author Alan Beltrán, Alvaro Feher, Marc Barberà, Youssef Bat, Albert Gomez
+ * @author Alan Beltrán
  * @version 1.0
  * @since 19/4/2022
  */
-public class PlayerController implements ActionListener {
+public class PlayerController implements ActionListener, ChangeListener, VolumeChangeListener {
     private final BusinessFacade businessFacade;
     private final PlayerView view;
     private Timer timer;
     private int secondsSong;
     private long songStartTime;
+    private boolean isAdjustingVolume = false;
 
     /**
      * Default PlayerController Constructor that will link the views needed with {@link HomeView} and the business
@@ -34,6 +38,41 @@ public class PlayerController implements ActionListener {
     public PlayerController(HomeView homeView, BusinessFacade businessFacade) {
         this.businessFacade = businessFacade;
         this.view = homeView.getPlayerView();
+        setupSliderSeekListener();
+        setupVolumeListener();
+        // Register as volume change listener to sync UI
+        businessFacade.addVolumeChangeListener(this);
+        // Initialize volume UI
+        float currentVolume = businessFacade.getVolume();
+        view.setVolumeSliderValue((int) (currentVolume * 100));
+        view.updateVolumeIcon(currentVolume, businessFacade.isMuted());
+    }
+
+    private void setupVolumeListener() {
+        // Volume slider listener is now handled by stateChanged method
+    }
+
+    private void setupSliderSeekListener() {
+        view.addSliderMouseListener(new java.awt.event.MouseAdapter() {
+            @Override
+            public void mouseReleased(java.awt.event.MouseEvent e) {
+                if (businessFacade.getCurrentSong() != null) {
+                    int seekPosition = view.getSliderValueAt(e.getX());
+                    try {
+                        // Update timer to match new position
+                        secondsSong = seekPosition;
+                        songStartTime = System.currentTimeMillis() - (secondsSong * 1000L);
+
+                        // Perform seek
+                        businessFacade.seekTo(seekPosition);
+                        view.updateCurrentTime(seekPosition);
+                        view.moveSliderPosition(seekPosition);
+                    } catch (FileNotFoundException ex) {
+                        view.showErrorDialog("File of the song was not found.");
+                    }
+                }
+            }
+        });
     }
 
     @Override
@@ -122,7 +161,41 @@ public class PlayerController implements ActionListener {
                 }
                 view.setLoopButtonState(isNowLooping);
             }
+
+            case (PlayerView.BTN_MUTE)->{
+                if (businessFacade.isMuted()) {
+                    businessFacade.unmute();
+                } else {
+                    businessFacade.mute();
+                }
+                // Icon will be updated via VolumeChangeListener
+            }
         }
+    }
+
+    @Override
+    public void stateChanged(ChangeEvent e) {
+        // Handle volume slider changes
+        if (!isAdjustingVolume) {
+            int sliderValue = view.getVolumeSliderValue();
+            float volume = sliderValue / 100.0f;
+            businessFacade.setVolume(volume);
+        }
+    }
+
+    @Override
+    public void onVolumeChanged(float newVolume) {
+        // Update UI when volume changes programmatically
+        isAdjustingVolume = true;
+        view.setVolumeSliderValue((int) (newVolume * 100));
+        view.updateVolumeIcon(newVolume, businessFacade.isMuted());
+        isAdjustingVolume = false;
+    }
+
+    @Override
+    public void onMuteStateChanged(boolean isMuted) {
+        // Update icon when mute state changes
+        view.updateVolumeIcon(businessFacade.getVolume(), isMuted);
     }
 
     /**

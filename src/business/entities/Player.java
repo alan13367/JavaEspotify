@@ -1,5 +1,6 @@
 package business.entities;
 
+import business.utils.VolumeAwareAudioDevice;
 import javazoom.jl.decoder.JavaLayerException;
 import javazoom.jl.player.AudioDevice;
 import javazoom.jl.player.FactoryRegistry;
@@ -7,18 +8,22 @@ import javazoom.jl.player.advanced.AdvancedPlayer;
 import javazoom.jl.player.advanced.PlaybackEvent;
 import javazoom.jl.player.advanced.PlaybackListener;
 
-import java.io.*;
+import java.io.BufferedInputStream;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStream;
 
 /**
  * Player entity:
  * plays a song, pauses or resumes it inside a Thread.
- * @author Alan Beltrán, Alvaro Feher, Marc Barberà, Youssef Bat, Albert Gomez
+ * @author Alan Beltrán
  * @version 1.0
  * @since 12/4/2022
  */
 
 public class Player extends Thread {
-    private final AudioDevice audioDevice;
+    private final VolumeAwareAudioDevice audioDevice;
     private final AdvancedPlayer player;
     private final int position;
     private final Song song;
@@ -31,28 +36,26 @@ public class Player extends Thread {
     public Player(int position, Song song) throws FileNotFoundException {
         this.position = position;
         this.song = song;
-        FactoryRegistry r = FactoryRegistry.systemRegistry();
-        InputStream is;
+        // FactoryRegistry r = FactoryRegistry.systemRegistry();
+        InputStream is = null;
         try {
-            audioDevice = r.createAudioDevice();
+            audioDevice = new VolumeAwareAudioDevice();
             is = new BufferedInputStream(new FileInputStream(song.getFilepath()));
-            player = new AdvancedPlayer(is,audioDevice);
+            player = new AdvancedPlayer(is, audioDevice);
         } catch (JavaLayerException e) {
             throw new RuntimeException(e);
         }
-
-        player.setPlayBackListener(new PlaybackListener() {
-            @Override
-            public void playbackStarted(PlaybackEvent evt) {
-
-            }
-
-            @Override
-            public void playbackFinished(PlaybackEvent evt) {
-
-            }
-        });
         this.start();
+    }
+
+    /**
+     * Sets the volume for the current playback.
+     * @param volume Volume level from 0.0 to 1.0
+     */
+    public void setVolume(float volume) {
+        if (audioDevice != null) {
+            audioDevice.setVolume(volume);
+        }
     }
 
 

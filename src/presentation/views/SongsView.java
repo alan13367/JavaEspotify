@@ -1,8 +1,7 @@
 package presentation.views;
 
 import presentation.controllers.SongsController;
-import presentation.views.GUIassets.MyHintTextField;
-import presentation.views.GUIassets.MyScrollBarUI;
+import presentation.views.GUIassets.*;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
@@ -11,7 +10,7 @@ import java.awt.*;
 
 /**
  * the GUI of the songs panel
- * @author Alan Beltrán, Alvaro Feher, Marc Barberà, Youssef Bat, Albert Gomez
+ * @author Alan Beltrán
  * @version 1.0
  * @since 04/05/2022
  */
@@ -66,101 +65,83 @@ public class SongsView extends JPanel {
     }
 
     private void configureSongPanel() {
-        //Configuration of a Song View Missing
+        jpSong = new RoundedPanel(ThemeDimensions.BORDER_RADIUS, ThemeColors.BACKGROUND_SECONDARY);
+        jpSong.setLayout(new BorderLayout());
+        jpSong.setBorder(new EmptyBorder(ThemeDimensions.CARD_PADDING, ThemeDimensions.CARD_PADDING,
+                ThemeDimensions.CARD_PADDING, ThemeDimensions.CARD_PADDING));
 
-        jpSong = new JPanel(new BorderLayout());
-        jpSong.setBackground(new Color(16,16,16));
-
+        // Top panel with close button
         JPanel topPanel = new JPanel(new BorderLayout());
-        topPanel.setBackground(new Color(16,16,16));
-        jbClose = new JButton(new ImageIcon("assets/x-mark-3-32.png"));
-        jbClose.setOpaque(false);
-        jbClose.setContentAreaFilled(false);
-        jbClose.setBorderPainted(false);
-        jbClose.setActionCommand(BTN_CLOSE);
-        topPanel.add(jbClose,BorderLayout.LINE_END);
-        jpSong.add(topPanel,BorderLayout.PAGE_START);
+        topPanel.setBackground(ThemeColors.BACKGROUND_SECONDARY);
+        topPanel.setBorder(new EmptyBorder(0, 0, ThemeDimensions.SECTION_GAP, 0));
 
-        JPanel songInfoPanel = new JPanel();
-        GridLayout gridLayout1 = new GridLayout(3,3);
-        gridLayout1.setHgap(30);
-        gridLayout1.setVgap(30);
-        songInfoPanel.setBackground(new Color(16,16,16));
-        songInfoPanel.setLayout(gridLayout1);
-        jlTitle = createSongLabels(35);
-        jlDuration = createSongLabels(25);
-        jlAuthor = createSongLabels(25);
-        jlAlbum = createSongLabels(25);
-        jlGenre =createSongLabels(25);
-        jlOwner = createSongLabels(25);
+        StyledButton closeButton = new StyledButton("", "assets/x-mark-3-32.png", StyledButton.ButtonType.ICON);
+        closeButton.setActionCommand(BTN_CLOSE);
+        this.jbClose = closeButton;
+        topPanel.add(closeButton, BorderLayout.LINE_END);
+
+        // Song info panel
+        JPanel songInfoPanel = new JPanel(new GridLayout(3, 3, ThemeDimensions.SECTION_GAP_LARGE, ThemeDimensions.SECTION_GAP));
+        songInfoPanel.setBackground(ThemeColors.BACKGROUND_SECONDARY);
+
+        jlTitle = createSongLabels(ThemeFonts.HEADER_MEDIUM.getSize());
+        jlDuration = createSongLabels(ThemeFonts.LABEL.getSize());
+        jlAuthor = createSongLabels(ThemeFonts.LABEL.getSize());
+        jlAlbum = createSongLabels(ThemeFonts.LABEL.getSize());
+        jlGenre = createSongLabels(ThemeFonts.LABEL.getSize());
+        jlOwner = createSongLabels(ThemeFonts.LABEL.getSize());
+
         songInfoPanel.add(jlTitle);
         songInfoPanel.add(jlAlbum);
         songInfoPanel.add(jlDuration);
         songInfoPanel.add(jlAuthor);
         songInfoPanel.add(jlGenre);
         songInfoPanel.add(jlOwner);
+
         JPanel jPanelAux = new JPanel();
-        jPanelAux.setBackground(new Color(16,16,16));
+        jPanelAux.setBackground(ThemeColors.BACKGROUND_SECONDARY);
         songInfoPanel.add(jPanelAux);
-        topPanel.add(songInfoPanel,BorderLayout.CENTER);
 
+        topPanel.add(songInfoPanel, BorderLayout.CENTER);
+        jpSong.add(topPanel, BorderLayout.PAGE_START);
 
-        //Buttons Panel
-        JPanel buttonPanel = new JPanel();
-        buttonPanel.setBackground(new Color(16,16,16));
-        GridLayout gridLayout = new GridLayout(1,3);
-        gridLayout.setHgap(50);
-        buttonPanel.setLayout(gridLayout);
+        // Buttons Panel
+        JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, ThemeDimensions.SECTION_GAP_LARGE, 0));
+        buttonPanel.setBackground(ThemeColors.BACKGROUND_SECONDARY);
+        buttonPanel.setBorder(new EmptyBorder(ThemeDimensions.SECTION_GAP, 0, ThemeDimensions.SECTION_GAP, 0));
 
-        jbPlay = new JButton(" Play Song",new ImageIcon("assets/play-32.png"));
-        jbPlay.setBackground(new Color(0,204,0));
-        jbPlay.setForeground(Color.white);
-        jbPlay.setFont(new Font("Arial",Font.BOLD,20));
-        jbPlay.setOpaque(true);
-        jbPlay.setFocusPainted(false);
-        jbPlay.setBorderPainted(false);
-        jbPlay.setBorder(BorderFactory.createEmptyBorder(15,15,15,15));
-        jbPlay.setActionCommand(BTN_PLAY_SONG);
+        StyledButton playButton = new StyledButton(" Play Song", "assets/play-32.png");
+        playButton.setActionCommand(BTN_PLAY_SONG);
+        this.jbPlay = playButton;
 
-        jbAddToPlaylist = new JButton(" Add To PlayList",new ImageIcon("assets/plus-4-32.png"));
-        jbAddToPlaylist.setBackground(new Color(0,204,0));
-        jbAddToPlaylist.setFont(new Font("Arial",Font.BOLD,20));
-        jbAddToPlaylist.setForeground(Color.white);
-        jbAddToPlaylist.setOpaque(true);
-        jbAddToPlaylist.setFocusPainted(false);
-        jbAddToPlaylist.setBorderPainted(false);
-        jbAddToPlaylist.setBorder(BorderFactory.createEmptyBorder(15,15,15,15));
-        jbAddToPlaylist.setActionCommand(BTN_ADD_TO_PLAYLIST);
+        StyledButton addButton = new StyledButton(" Add To Playlist", "assets/plus-4-32.png");
+        addButton.setActionCommand(BTN_ADD_TO_PLAYLIST);
+        this.jbAddToPlaylist = addButton;
 
-        jbDelete = new JButton(" Delete Song",new ImageIcon("assets/trashicon32.png"));
-        jbDelete.setBackground(new Color(0,204,0));
-        jbDelete.setForeground(Color.white);
-        jbDelete.setFont(new Font("Arial",Font.BOLD,20));
-        jbDelete.setOpaque(true);
-        jbDelete.setFocusPainted(false);
-        jbDelete.setBorderPainted(false);
-        jbDelete.setBorder(BorderFactory.createEmptyBorder(15,15,15,15));
-        jbDelete.setActionCommand(BTN_DELETE_SONG);
+        StyledButton deleteButton = new StyledButton(" Delete Song", "assets/trashicon32.png");
+        deleteButton.setActionCommand(BTN_DELETE_SONG);
+        this.jbDelete = deleteButton;
 
-        buttonPanel.add(jbPlay);
-        buttonPanel.add(jbAddToPlaylist);
-        buttonPanel.add(jbDelete);
+        buttonPanel.add(playButton);
+        buttonPanel.add(addButton);
+        buttonPanel.add(deleteButton);
 
-
-        jpSong.add(buttonPanel,BorderLayout.SOUTH);
-        add(jpSong,SONGPANEL_CARD);
+        jpSong.add(buttonPanel, BorderLayout.SOUTH);
+        add(jpSong, SONGPANEL_CARD);
     }
 
     private JLabel createSongLabels(int size){
         JLabel label = new JLabel();
-        label.setFont(new Font("Arial",Font.BOLD,size));
-        label.setForeground(Color.white);
+        label.setFont(new Font(ThemeFonts.BODY.getFamily(),Font.BOLD,size));
+        label.setForeground(ThemeColors.TEXT_PRIMARY);
         return label;
     }
 
     private void configureSongsPanel(){
-        jpSongs = new JPanel(new BorderLayout());
-        jpSongs.setBackground(new Color(16,16,16));
+        jpSongs = new RoundedPanel(ThemeDimensions.BORDER_RADIUS, ThemeColors.BACKGROUND_SECONDARY);
+        jpSongs.setLayout(new BorderLayout());
+        jpSongs.setBorder(new EmptyBorder(ThemeDimensions.CARD_PADDING, ThemeDimensions.CARD_PADDING,
+                ThemeDimensions.CARD_PADDING, ThemeDimensions.CARD_PADDING));
         configureSearch();
         configureTable();
         add(jpSongs,SONGSTABLE_CARD);
@@ -172,33 +153,48 @@ public class SongsView extends JPanel {
         songsTable = new JTable(new DefaultTableModel(columns,0){
             @Override
             public boolean isCellEditable(int row, int column) {
-                //all cells false
                 return false;
             }
         });
         songsTable.getTableHeader().setReorderingAllowed(false);
-        songsTable.setBackground(new Color(0,80,0));
-        songsTable.setGridColor(Color.white);
-        songsTable.setForeground(Color.white);
-        songsTable.setFont(new Font("Tahome", Font.PLAIN,20));
-        songsTable.setRowHeight(30);
+        songsTable.setBackground(ThemeColors.TABLE_BACKGROUND);
+        songsTable.setGridColor(ThemeColors.TABLE_GRID);
+        songsTable.setForeground(ThemeColors.TEXT_PRIMARY);
+        songsTable.setFont(ThemeFonts.TABLE_CELL);
+        songsTable.setRowHeight(ThemeDimensions.TABLE_ROW_HEIGHT);
         songsTable.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-        JTableHeader jTableHeader = songsTable.getTableHeader();
-        jTableHeader.setBackground(new Color(0,204,0));
-        jTableHeader.setForeground(Color.white);
-        jTableHeader.setFont(new Font("Tahome", Font.BOLD, 25)); // font name style size
-        ((DefaultTableCellRenderer)jTableHeader.getDefaultRenderer())
-                .setHorizontalAlignment(JLabel.CENTER); // center header text
+        songsTable.setSelectionBackground(ThemeColors.ACCENT_PRIMARY);
+        songsTable.setSelectionForeground(ThemeColors.TEXT_PRIMARY);
 
+        // Modern table header
+        JTableHeader jTableHeader = songsTable.getTableHeader();
+        jTableHeader.setBackground(ThemeColors.TABLE_HEADER_BACKGROUND);
+        jTableHeader.setForeground(ThemeColors.TEXT_PRIMARY);
+        jTableHeader.setFont(ThemeFonts.TABLE_HEADER);
+        ((DefaultTableCellRenderer)jTableHeader.getDefaultRenderer())
+                .setHorizontalAlignment(JLabel.CENTER);
+
+        // Custom row renderer for zebra striping
+        songsTable.setDefaultRenderer(Object.class, new DefaultTableCellRenderer() {
+            @Override
+            public Component getTableCellRendererComponent(JTable table, Object value,
+                    boolean isSelected, boolean hasFocus, int row, int column) {
+                Component c = super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
+                if (!isSelected) {
+                    c.setBackground(row % 2 == 0 ? ThemeColors.TABLE_BACKGROUND : ThemeColors.TABLE_ROW_ALTERNATE);
+                }
+                setHorizontalAlignment(JLabel.CENTER);
+                return c;
+            }
+        });
 
         JScrollPane jsp = new JScrollPane(songsTable);
-        jsp.getViewport().setBackground(new Color(16,16,16));
+        jsp.getViewport().setBackground(ThemeColors.BACKGROUND_SECONDARY);
         jsp.setBorder(BorderFactory.createEmptyBorder());
         jsp.getVerticalScrollBar().setUI(new MyScrollBarUI());
         JPanel panel = new JPanel();
-        panel.setBackground(new Color(16,16,16));
+        panel.setBackground(ThemeColors.BACKGROUND_SECONDARY);
         jsp.setCorner(JScrollPane.UPPER_RIGHT_CORNER, panel);
-        jpSongs.setBorder(new EmptyBorder(0,20,0,20));
         jpSongs.add(jsp,BorderLayout.CENTER);
 
         model = (DefaultTableModel) songsTable.getModel();
@@ -206,37 +202,38 @@ public class SongsView extends JPanel {
 
     private void configureSearch(){
         JPanel searchPanel = new JPanel(new BorderLayout());
-        searchPanel.setBorder(new EmptyBorder(10,0,20,0));
-        JPanel buttonsPanel = new JPanel(new GridLayout(1,3,20,0));
-        buttonsPanel.setBackground(new Color(16,16,16));
-        buttonsPanel.setBorder(new EmptyBorder(0,25,0,50));
-        searchPanel.setBackground(new Color(16,16,16));
+        searchPanel.setBorder(new EmptyBorder(0, 0, ThemeDimensions.SECTION_GAP, 0));
+        searchPanel.setBackground(ThemeColors.BACKGROUND_SECONDARY);
+
+        // Search field panel
+        JPanel searchFieldPanel = new JPanel(new FlowLayout(FlowLayout.LEFT, ThemeDimensions.COMPONENT_GAP, 0));
+        searchFieldPanel.setBackground(ThemeColors.BACKGROUND_SECONDARY);
 
         searchField = new MyHintTextField.RoundedMyHintTextField(HINT_TEXTFIELD);
-        searchField.setFont(new Font("Tahome",Font.PLAIN,25));
-        searchField.setBackground(new Color(40, 40, 40));
-        searchField.setPreferredSize(new Dimension(1000,30));
-        searchPanel.add(searchField,BorderLayout.CENTER);
-        jbSearch = new JButton(new ImageIcon("assets/lupa32.png"));
-        jbSearch.setBackground(new Color(0,204,0));
-        jbSearch.setOpaque(true);
-        jbSearch.setFocusPainted(false);
-        jbSearch.setBorderPainted(false);
-        jbSearch.setContentAreaFilled(true);
-        jbSearch.setBorder(BorderFactory.createEmptyBorder(5,5,5,5));
-        jbSearch.setActionCommand(BTN_SEARCH);
-        jbRefresh = new JButton(new ImageIcon("assets/refresh-32.png"));
-        jbRefresh.setBackground(new Color(0,204,0));
-        jbRefresh.setOpaque(true);
-        jbRefresh.setFocusPainted(false);
-        jbRefresh.setBorderPainted(false);
-        jbRefresh.setContentAreaFilled(true);
-        jbRefresh.setBorder(BorderFactory.createEmptyBorder(5,5,5,5));
-        jbRefresh.setActionCommand(BTN_REFRESH);
-        buttonsPanel.add(jbSearch);
-        buttonsPanel.add(jbRefresh);
-        searchPanel.add(buttonsPanel,BorderLayout.LINE_END);
-        jpSongs.add(searchPanel,BorderLayout.NORTH);
+        searchField.setFont(ThemeFonts.INPUT);
+        searchField.setBackground(ThemeColors.BACKGROUND_INPUT);
+        searchField.setForeground(ThemeColors.TEXT_PRIMARY);
+        searchField.setPreferredSize(new Dimension(800, ThemeDimensions.INPUT_HEIGHT));
+        searchFieldPanel.add(searchField);
+
+        // Buttons panel
+        JPanel buttonsPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT, ThemeDimensions.COMPONENT_GAP, 0));
+        buttonsPanel.setBackground(ThemeColors.BACKGROUND_SECONDARY);
+
+        StyledButton searchButton = new StyledButton("", "assets/lupa32.png", StyledButton.ButtonType.PRIMARY);
+        searchButton.setActionCommand(BTN_SEARCH);
+        this.jbSearch = searchButton;
+
+        StyledButton refreshButton = new StyledButton("", "assets/refresh-32.png", StyledButton.ButtonType.SECONDARY);
+        refreshButton.setActionCommand(BTN_REFRESH);
+        this.jbRefresh = refreshButton;
+
+        buttonsPanel.add(searchButton);
+        buttonsPanel.add(refreshButton);
+
+        searchPanel.add(searchFieldPanel, BorderLayout.CENTER);
+        searchPanel.add(buttonsPanel, BorderLayout.EAST);
+        jpSongs.add(searchPanel, BorderLayout.NORTH);
     }
 
     /**

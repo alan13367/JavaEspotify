@@ -1,5 +1,8 @@
 package business.managers;
 
+import business.audio.SimpleVolumeController;
+import business.audio.VolumeChangeListener;
+import business.audio.VolumeController;
 import business.entities.Player;
 import business.entities.Song;
 
@@ -8,7 +11,7 @@ import java.util.LinkedList;
 
 /**
  * manager of the playlists, in charge of creating, deleting and editting playlists
- *  @author Alan Beltrán, Alvaro Feher, Marc Barberà, Youssef Bat, Albert Gomez
+ *  @author Alan Beltrán
  *  @version 1.0
  *  @since 12/4/2022
  */
@@ -24,6 +27,7 @@ public class SongPlayerManager {
     private Song song;
     private LinkedList<Song> songQueue;
     private final LinkedList<Song> playedSongs;
+    private final VolumeController volumeController;
 
     /**
      * manager of the player
@@ -31,6 +35,7 @@ public class SongPlayerManager {
     public SongPlayerManager() {
         playedSongs = new LinkedList<>();
         isPlaying = false;
+        this.volumeController = new SimpleVolumeController();
     }
 
     /**
@@ -139,6 +144,7 @@ public class SongPlayerManager {
             this.song = songQueue.peek();
             framePosition = 0;
             player = new Player(framePosition,song);
+            player.setVolume(volumeController.getEffectiveVolume());
             isPlaying = true;
         }else if(isLoopPlaylist) {
             songQueue = new LinkedList<>(playedSongs);
@@ -146,6 +152,7 @@ public class SongPlayerManager {
             this.song = songQueue.peek();
             framePosition = 0;
             player = new Player(framePosition,song);
+            player.setVolume(volumeController.getEffectiveVolume());
             isPlaying = true;
         }else {
             playedSongs.clear();
@@ -164,6 +171,7 @@ public class SongPlayerManager {
         framePosition = 0;
         this.song = songQueue.peek();
         player = new Player(framePosition,song);
+        player.setVolume(volumeController.getEffectiveVolume());
         isPlaying = true;
     }
 
@@ -176,15 +184,18 @@ public class SongPlayerManager {
             this.song= song;
             framePosition = 0;
             player = new Player(framePosition,song);
+            player.setVolume(volumeController.getEffectiveVolume());
 
         }
         else if (!isPlaying){
             player = new Player(framePosition,song);
+            player.setVolume(volumeController.getEffectiveVolume());
         }else if(song != this.song){
             player.pauseSong();
             this.song= song;
             framePosition = 0;
             player = new Player(framePosition,song);
+            player.setVolume(volumeController.getEffectiveVolume());
         }
 
         if(player != null){
@@ -199,6 +210,7 @@ public class SongPlayerManager {
     public void resumeSong() throws FileNotFoundException {
         isPlaying = true;
         player = new Player(framePosition,song);
+        player.setVolume(volumeController.getEffectiveVolume());
     }
 
 
@@ -219,6 +231,89 @@ public class SongPlayerManager {
         player.pauseSong();
         this.song = null;
         isPlaying = false;
+    }
+
+    /**
+     * Seeks to a specific position in the current song
+     * @param seconds position in seconds to seek to
+     * @throws FileNotFoundException if song file not found
+     */
+    public void seekTo(int seconds) throws FileNotFoundException {
+        if (song != null && isPlaying) {
+            // Stop current playback
+            player.pauseSong();
+
+            // Convert seconds to frames (approximate: 38.46 fps = 1000/26)
+            framePosition = seconds * 38;
+
+            // Restart playback from new position
+            player = new Player(framePosition, song);
+            player.setVolume(volumeController.getEffectiveVolume());
+            isPlaying = true;
+        }
+    }
+
+    /**
+     * Sets the volume level.
+     * @param volume Volume level between 0.0 (silent) and 1.0 (maximum)
+     */
+    public void setVolume(float volume) {
+        volumeController.setVolume(volume);
+        if (player != null) {
+            player.setVolume(volumeController.getEffectiveVolume());
+        }
+    }
+
+    /**
+     * Gets the current volume level.
+     * @return Current volume level between 0.0 and 1.0
+     */
+    public float getVolume() {
+        return volumeController.getVolume();
+    }
+
+    /**
+     * Mutes the audio output.
+     */
+    public void mute() {
+        volumeController.mute();
+        if (player != null) {
+            player.setVolume(volumeController.getEffectiveVolume());
+        }
+    }
+
+    /**
+     * Unmutes the audio output.
+     */
+    public void unmute() {
+        volumeController.unmute();
+        if (player != null) {
+            player.setVolume(volumeController.getEffectiveVolume());
+        }
+    }
+
+    /**
+     * Checks if the audio is currently muted.
+     * @return true if muted, false otherwise
+     */
+    public boolean isMuted() {
+        return volumeController.isMuted();
+    }
+
+    /**
+     * Adds a listener to be notified of volume changes.
+     * @param listener The listener to add
+     */
+    public void addVolumeChangeListener(VolumeChangeListener listener) {
+        volumeController.addVolumeChangeListener(listener);
+    }
+
+    /**
+     * Removes a volume change listener.
+     * @param listener The listener to remove
+     */
+    public void removeVolumeChangeListener(VolumeChangeListener listener) {
+        volumeController.removeVolumeChangeListener(listener);
     }
 
 

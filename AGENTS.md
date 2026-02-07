@@ -4,7 +4,7 @@
 
 Espotify is a Java desktop music streaming application modeled after Spotify. It provides a Swing-based GUI for users to upload and manage MP3 music files, create playlists, play music with controls, and view song statistics by genre. The application also fetches song lyrics via an external API (lyrics.ovh).
 
-**Authors**: Alan Beltrán, Alvaro Feher, Marc Barberà, Youssef Bat, Albert Gomez  
+**Authors**: Alan Beltrán 
 **Version**: 1.0  
 **Since**: 29/03/2022
 

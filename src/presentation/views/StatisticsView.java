@@ -14,23 +14,20 @@ import java.util.Comparator;
 
 /**
  * the GUI of the statistics panel
- * @author Alan Beltrán, Alvaro Feher, Marc Barberà, Youssef Bat, Albert Gomez
+ * @author Alan Beltrán
  * @version 1.0
  * @since 08/05/2022
  */
 public class StatisticsView extends JPanel {
 
 
-    private StatisticsController statisticsController;
-
     /**
      * register any action taking inside the stats view
      * @param statisticsController statistics controller
      */
     public void registerController(StatisticsController statisticsController) {
-        this.statisticsController = statisticsController;
+        // Controller registered but not stored as it's not needed for this view
     }
-
 
     private JPanel title;
     private JPanel jpGraph;
@@ -50,7 +47,7 @@ public class StatisticsView extends JPanel {
 
     private int Max_value;
 
-    private static final String CARD_STATISTICS = "CARD_STATISTICS";
+
 
 
     /**

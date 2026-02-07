@@ -5,7 +5,7 @@ import business.BusinessFacade;
 import presentation.MainView;
 import presentation.views.HomeView;
 
-import javax.swing.*;
+import javax.swing.JOptionPane;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -13,7 +13,7 @@ import java.awt.event.ActionListener;
  * HomeController class manages the behaviour of the {@link HomeView} by implementing the {@link  ActionListener}
  * interface.
  *
- * @author Alan Beltrán, Alvaro Feher, Marc Barberà, Youssef Bat, Albert Gomez
+ * @author Alan Beltrán
  * @version 1.0
  * @since 30/4/2022
  */

@@ -1,6 +1,7 @@
 package presentation.views;
 
 import presentation.controllers.HomeController;
+import presentation.views.GUIassets.*;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
@@ -8,7 +9,7 @@ import java.awt.*;
 
 /**
  * the GUI of the home view
- * @author Alan Beltrán, Alvaro Feher, Marc Barberà, Youssef Bat, Albert Gomez
+ * @author Alan Beltrán
  * @version 1.0
  * @since 30/04/2022
  */
@@ -74,25 +75,25 @@ public class HomeView extends JPanel {
 
 
     private void configureMainPanel(){
-        jpMain = new JPanel(mainPanelManager);
-        jpMain.setBackground(new Color(64,64,64));
+        jpMain = new RoundedPanel(ThemeDimensions.BORDER_RADIUS_LARGE, ThemeColors.BACKGROUND_SECONDARY);
+        jpMain.setLayout(mainPanelManager);
+        jpMain.setBorder(new EmptyBorder(ThemeDimensions.CARD_PADDING, ThemeDimensions.CARD_PADDING,
+                ThemeDimensions.CARD_PADDING, ThemeDimensions.CARD_PADDING));
         add(jpMain,BorderLayout.CENTER);
     }
 
     private void configureSidePanel(){
-        JPanel sidePanel = new JPanel(new BorderLayout());
-        sidePanel.setBorder(new EmptyBorder(10,5,10,5));
-        sidePanel.setPreferredSize(new Dimension(300,720));
+        RoundedPanel sidePanel = new RoundedPanel(0, ThemeColors.BACKGROUND_PRIMARY);
+        sidePanel.setLayout(new BorderLayout());
+        sidePanel.setBorder(new EmptyBorder(ThemeDimensions.CARD_PADDING, ThemeDimensions.CARD_PADDING_SMALL,
+                ThemeDimensions.CARD_PADDING, ThemeDimensions.CARD_PADDING_SMALL));
+        sidePanel.setPreferredSize(new Dimension(ThemeDimensions.SIDEBAR_WIDTH, 720));
         sidePanel.setMaximumSize(sidePanel.getPreferredSize());
         sidePanel.setMinimumSize(sidePanel.getPreferredSize());
-        sidePanel.setBackground(Color.black);
 
         JPanel buttonPanel = new JPanel();
-        buttonPanel.setBackground(Color.black);
-        GridLayout northGridLayout = new GridLayout(5,1);
-        northGridLayout.setHgap(0);
-        northGridLayout.setVgap(15);
-        buttonPanel.setLayout(northGridLayout);
+        buttonPanel.setBackground(ThemeColors.BACKGROUND_PRIMARY);
+        buttonPanel.setLayout(new GridLayout(5, 1, 0, ThemeDimensions.SIDEBAR_GAP));
         sidePanel.add(buttonPanel,BorderLayout.NORTH);
 
         jbSongs = createHomeButton("Songs","assets/music-2-32.png",BTN_SONGS);
@@ -100,7 +101,6 @@ public class HomeView extends JPanel {
 
         jbPlaylists = createHomeButton("Playlists","assets/playlist-32.png",BTN_PLAYLISTS);
         buttonPanel.add(jbPlaylists);
-
 
         jbStatistics = createHomeButton("Statistics","assets/statistics-32.png",BTN_STATISTICS);
         buttonPanel.add(jbStatistics);
@@ -110,42 +110,29 @@ public class HomeView extends JPanel {
 
         //User Panel
         JPanel userPanel = new JPanel();
-        GridLayout gridLayout = new GridLayout(3,1);
-        userPanel.setBackground(Color.black);
-        gridLayout.setHgap(0);
-        gridLayout.setVgap(15);
-        userPanel.setLayout(gridLayout);
+        userPanel.setBackground(ThemeColors.BACKGROUND_PRIMARY);
+        userPanel.setLayout(new GridLayout(3, 1, 0, ThemeDimensions.SIDEBAR_GAP));
         username = new JLabel();
-        username.setForeground(Color.white);
-        username.setFont(new Font("Arial",Font.PLAIN,25));
+        username.setForeground(ThemeColors.TEXT_PRIMARY);
+        username.setFont(ThemeFonts.SIDEBAR_USER);
         userPanel.add(username);
 
         jbDeleteAcc = createHomeButton("Delete Account","assets/delete-2-32.png",BTN_DELETEACC);
-
         userPanel.add(jbDeleteAcc);
 
         jbLogOut = createHomeButton("Log Out","assets/exit-32.png",BTN_LOGOUT);
         userPanel.add(jbLogOut);
 
         sidePanel.add(userPanel,BorderLayout.SOUTH);
-
-
         add(sidePanel,BorderLayout.WEST);
     }
 
     private JButton createHomeButton(String text,String imagePath,final String actionCommand){
-        JButton button = new JButton(" "+text,new ImageIcon(imagePath));
-        button.setFont(new Font("Arial",Font.BOLD,29));
+        StyledButton button = new StyledButton(" " + text, imagePath, StyledButton.ButtonType.PRIMARY);
         button.setActionCommand(actionCommand);
-        button.setForeground(Color.white);
-        button.setBackground(new Color(0,204,0));
-        button.setOpaque(true);
-        button.setFocusPainted(false);
-        button.setBorderPainted(false);
-        button.setContentAreaFilled(true);
+        button.setFont(ThemeFonts.SIDEBAR_BUTTON);
         button.setHorizontalAlignment(SwingConstants.LEFT);
-        button.setBorder(BorderFactory.createEmptyBorder(10,10,10,10));
-        button.setAlignmentX(Component.CENTER_ALIGNMENT);
+        button.setPreferredSize(new Dimension(ThemeDimensions.SIDEBAR_WIDTH - 40, ThemeDimensions.SIDEBAR_BUTTON_HEIGHT));
         return button;
     }
 

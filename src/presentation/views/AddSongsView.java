@@ -1,5 +1,7 @@
 package presentation.views;
 
+import business.utils.MP3DurationUtil;
+import business.utils.MP3MetadataUtil;
 import presentation.views.GUIassets.MyHintTextField;
 
 import javax.swing.*;
@@ -9,7 +11,7 @@ import java.io.File;
 
 /**
  * the GUI of the add song view
- * @author Alan Beltrán, Alvaro Feher, Marc Barberà, Youssef Bat, Albert Gomez
+ * @author Alan Beltrán
  * @version 1.0
  * @since 19/04/2022
  */
@@ -29,8 +31,8 @@ public class AddSongsView extends JPanel {
 
     private JFileChooser fc;
 
-    Font arialFont = new Font("Arial", Font.PLAIN, 25);
-    Font alegreyaFont = new Font("Alegreya Sans SC", Font.BOLD, 30);
+    private static final Font ARIAL_FONT = new Font("Arial", Font.PLAIN, 25);
+    private static final Font ALEGREYA_FONT = new Font("Alegreya Sans SC", Font.BOLD, 30);
 
     /**
      * the view constructor, configures the view
@@ -51,7 +53,7 @@ public class AddSongsView extends JPanel {
 
         titleField = new MyHintTextField.RoundedMyHintTextField("Title");
         titleField.setToolTipText("Title");
-        titleField.setFont(arialFont);
+        titleField.setFont(ARIAL_FONT);
         titleField.setForeground(Color.gray);
         titleField.setBackground(new Color(40, 40, 40));
         titleField.setPreferredSize(new Dimension(400,50));
@@ -67,7 +69,7 @@ public class AddSongsView extends JPanel {
 
         authorField = new MyHintTextField.RoundedMyHintTextField("Author");
         authorField.setToolTipText("Author");
-        authorField.setFont(arialFont);
+        authorField.setFont(ARIAL_FONT);
         authorField.setForeground(Color.gray);
         authorField.setBackground(new Color(40, 40, 40));
         authorField.setPreferredSize(new Dimension(400,50));
@@ -83,7 +85,7 @@ public class AddSongsView extends JPanel {
 
         genreField = new MyHintTextField.RoundedMyHintTextField("Genre");
         genreField.setToolTipText("Genre");
-        genreField.setFont(arialFont);
+        genreField.setFont(ARIAL_FONT);
         genreField.setForeground(Color.gray);
         genreField.setBackground(new Color(40, 40, 40));
         genreField.setPreferredSize(new Dimension(400,50));
@@ -99,7 +101,7 @@ public class AddSongsView extends JPanel {
 
         albumField = new MyHintTextField.RoundedMyHintTextField("Album");
         albumField.setToolTipText("Album");
-        albumField.setFont(arialFont);
+        albumField.setFont(ARIAL_FONT);
         albumField.setForeground(Color.gray);
         albumField.setBackground(new Color(40, 40, 40));
         albumField.setPreferredSize(new Dimension(400,50));
@@ -115,7 +117,7 @@ public class AddSongsView extends JPanel {
 
         durationField = new MyHintTextField.RoundedMyHintTextField("duration min:secs");
         durationField.setToolTipText("Duration");
-        durationField.setFont(arialFont);
+        durationField.setFont(ARIAL_FONT);
         durationField.setForeground(Color.gray);
         durationField.setBackground(new Color(40, 40, 40));
         durationField.setPreferredSize(new Dimension(400,50));
@@ -136,7 +138,7 @@ public class AddSongsView extends JPanel {
         importSongButton.setBorderPainted(false);
         importSongButton.setContentAreaFilled(true);
         importSongButton.setBorder(BorderFactory.createEmptyBorder(10,10,10,10));
-        importSongButton.setFont(alegreyaFont);
+        importSongButton.setFont(ALEGREYA_FONT);
         importSongButton.setBackground(new Color(0,204,0));
         importSongButton.setForeground(Color.white);
         constraints.gridx = 1;
@@ -156,7 +158,7 @@ public class AddSongsView extends JPanel {
         addButton_bottom.setBorderPainted(false);
         addButton_bottom.setContentAreaFilled(true);
         addButton_bottom.setBorder(BorderFactory.createEmptyBorder(10,10,10,10));
-        addButton_bottom.setFont(alegreyaFont);
+        addButton_bottom.setFont(ALEGREYA_FONT);
         addButton_bottom.setBackground(new Color(0,204,0));
         addButton_bottom.setForeground(Color.white);
         constraints.gridx = 1;
@@ -261,7 +263,57 @@ public class AddSongsView extends JPanel {
         fc = new JFileChooser("songs/");
         int returnvalue = fc.showOpenDialog(null);
         if(returnvalue == JFileChooser.APPROVE_OPTION){
+            // Auto-import metadata from MP3
+            importMetadataFromMP3();
+        }
+    }
 
+    /**
+     * Imports metadata from the selected MP3 file
+     */
+    private void importMetadataFromMP3() {
+        String filepath = getFilePath();
+        if (filepath == null || filepath.isEmpty()) {
+            return;
+        }
+
+        // Extract metadata
+        MP3MetadataUtil.MP3Metadata metadata = MP3MetadataUtil.extractMetadata(filepath);
+
+        if (metadata.isValid()) {
+            // Auto-fill fields if metadata is available
+            if (metadata.getTitle() != null && !metadata.getTitle().isEmpty()) {
+                titleField.setText(metadata.getTitle());
+                titleField.setForeground(Color.WHITE);
+            }
+
+            if (metadata.getArtist() != null && !metadata.getArtist().isEmpty()) {
+                authorField.setText(metadata.getArtist());
+                authorField.setForeground(Color.WHITE);
+            }
+
+            if (metadata.getAlbum() != null && !metadata.getAlbum().isEmpty()) {
+                albumField.setText(metadata.getAlbum());
+                albumField.setForeground(Color.WHITE);
+            }
+
+            if (metadata.getGenre() != null && !metadata.getGenre().isEmpty()) {
+                genreField.setText(metadata.getGenre());
+                genreField.setForeground(Color.WHITE);
+            }
+
+            // Auto-detect duration
+            long duration = MP3DurationUtil.getDuration(filepath);
+            if (duration > 0) {
+                int minutes = (int) (duration / 60000);
+                int seconds = (int) ((duration % 60000) / 1000);
+                durationField.setText(String.format("%d:%02d", minutes, seconds));
+                durationField.setForeground(Color.WHITE);
+            }
+
+            pop_up_SuccessDialog("Metadata imported successfully from MP3 file!", "Import Success");
+        } else {
+            pop_up_ErrorDialog("No metadata found in MP3 file. Please enter manually.", "Import Warning");
         }
     }
 

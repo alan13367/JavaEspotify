@@ -1,11 +1,10 @@
 package persistence;
 
-import business.entities.Song;
 import business.entities.User;
 
 /**
  * Interface to persist User data in the database
- * @author Alan Beltrán, Alvaro Feher, Marc Barberà, Youssef Bat, Albert Gomez
+ * @author Alan Beltrán
  * @version 1.0
  * @since 12/4/2022
  */

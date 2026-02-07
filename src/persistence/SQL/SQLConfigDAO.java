@@ -5,7 +5,7 @@ import java.io.IOException;
 
 /**
  * manager if the playlists, in charge of creating, deleting and editting playlists
- *  @author Alan Beltrán, Alvaro Feher, Marc Barberà, Youssef Bat, Albert Gomez
+ *  @author Alan Beltrán
  *  @version 1.0
  *  @since 12/4/2022
  */
@@ -39,13 +39,12 @@ public class SQLConfigDAO {
     /**
      * reads the configuration Json file
      */
-    private static void readConfigJson(){
-        try{
+    private static void readConfigJson() {
+        try (FileReader fr = new FileReader(jsonPath)) {
             // read with GSON
-            FileReader fr = new FileReader(jsonPath);
             instance = new Gson().fromJson(fr, SQLConfigDAO.class);
-        }catch(IOException e){
-            System.out.println("error");
+        } catch (IOException e) {
+            System.err.println("Error reading config JSON: " + e.getMessage());
         }
     }
 

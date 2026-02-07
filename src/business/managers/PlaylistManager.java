@@ -11,7 +11,7 @@ import java.util.Objects;
 
 /**
  * Manager of the Playlists, in charge of creating, deleting and editing playlists
- *  @author Alan Beltrán, Alvaro Feher, Marc Barberà, Youssef Bat, Albert Gomez
+ *  @author Alan Beltrán
  *  @version 1.0
  *  @since 12/4/2022
  */
@@ -123,12 +123,13 @@ public class PlaylistManager {
      * Method that will delete all the playlists in the system that belong to the user given
      * @param username username to delete the playlists from
      */
-    public void deletePlaylistsFromUser(String username){
-        for(Playlist playlist:playlists){
-            if (playlist.getOwner().equals(username)){
+    public void deletePlaylistsFromUser(String username) {
+        playlists.removeIf(playlist -> {
+            if (playlist.getOwner().equals(username)) {
                 playlistDAO.deletePlayList(playlist);
-                playlists.remove(playlist);
+                return true;
             }
-        }
+            return false;
+        });
     }
 }

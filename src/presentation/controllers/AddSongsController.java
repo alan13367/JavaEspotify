@@ -1,6 +1,7 @@
 package presentation.controllers;
 
 import business.BusinessFacade;
+import business.utils.MP3DurationUtil;
 
 import presentation.views.AddSongsView;
 import presentation.views.HomeView;
@@ -15,7 +16,7 @@ import java.util.ArrayList;
  * AddSongsController class manages the behaviour of the {@link AddSongsView} by implementing the {@link  ActionListener}
  * interface.
  *
- * @author Alan Beltrán, Alvaro Feher, Marc Barberà, Youssef Bat, Albert Gomez
+ * @author Alan Beltrán
  * @version 1.0
  * @since 19/4/2022
  */
@@ -24,6 +25,7 @@ public class AddSongsController implements ActionListener {
     private final HomeView homeView;
     private final StatisticsView statisticsView;
     private final BusinessFacade businessFacade;
+    private Runnable songsRefreshCallback;
 
     /**
      * Default AddSongsController Constructor that will link the views needed with {@link HomeView} and the business
@@ -36,6 +38,20 @@ public class AddSongsController implements ActionListener {
         this.businessFacade = businessFacade;
         this.homeView = homeView;
         this.statisticsView = homeView.getStatisticsView();
+    }
+
+    /**
+     * Sets a callback to refresh the songs table after adding a song
+     * @param callback Runnable that refreshes the songs table
+     */
+    public void setSongsRefreshCallback(Runnable callback) {
+        this.songsRefreshCallback = callback;
+    }
+
+    private void refreshSongsTable() {
+        if (songsRefreshCallback != null) {
+            songsRefreshCallback.run();
+        }
     }
 
     @Override
@@ -66,14 +82,24 @@ public class AddSongsController implements ActionListener {
                         view.pop_up_ErrorDialog("Failed to move music file. Check file permissions.", "Error");
                         return;
                     }
-                    String[] stringSplit = view.getDurationFieldAdd().split(":");
-                    long duration = Integer.parseInt(stringSplit[0])* 60000L + Integer.parseInt(stringSplit[1])* 1000L;
+
+                    // Auto-detect real MP3 duration
+                    String songPath = "songs/" + view.getFilename();
+                    long duration = MP3DurationUtil.getDuration(songPath);
+
+                    // Fallback to user-entered duration if auto-detection fails
+                    if (duration <= 0) {
+                        String[] stringSplit = view.getDurationFieldAdd().split(":");
+                        duration = Integer.parseInt(stringSplit[0]) * 60000L + Integer.parseInt(stringSplit[1]) * 1000L;
+                    }
                     businessFacade.addSong(view.getTitleFieldAdd(),view.getAlbumFieldAdd(),view.getGenreFieldAdd()
                             ,view.getAuthorFieldAdd(),"songs/"+view.getFilename(),duration);
                     view.pop_up_SuccessDialog("Song added by " + businessFacade.getCurrentUser(), "Success");
                     view.clearFields();
                     homeView.showSongsCard();
 
+                    // Refresh songs table to show newly added song
+                    refreshSongsTable();
 
                     //stats update
                     ArrayList<String> stringArrayList = businessFacade.getStatsGenres();

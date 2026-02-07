@@ -7,7 +7,7 @@ import javax.swing.*;
 
 /**
  * the Main class, executes the program AKA the Runnable on the AWT event-dispatching thread.
- * @author Alan Beltrán, Alvaro Feher, Marc Barberà, Youssef Bat, Albert Gomez
+ * @author Alan Beltrán
  * @version 1.0
  * @since 29/03/2022
  */
@@ -24,6 +24,11 @@ public class Main {
             PlayerController playerController = new PlayerController(mainView.getHomeView(),businessFacade);
             StatisticsController statisticsController = new StatisticsController(mainView.getHomeView(), businessFacade);
             AddSongsController addSongsController = new AddSongsController(mainView.getHomeView(),businessFacade);
+            
+            // Connect AddSongsController with SongsController for auto-refresh
+            addSongsController.setSongsRefreshCallback(() -> {
+                songsController.refreshSongsTable();
+            });
             mainView.registerControllers(homeController, songsController,signInSignUpController,playlistsController
                     ,playerController,addSongsController, statisticsController);
             mainView.start();
