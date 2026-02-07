@@ -3,6 +3,7 @@ package presentation;
 import presentation.controllers.*;
 import presentation.views.HomeView;
 import presentation.views.SignInSignUpView;
+import presentation.views.GUIassets.ThemeColors;
 
 import javax.swing.*;
 import java.awt.*;
@@ -32,6 +33,7 @@ public class MainView extends JFrame {
     public MainView(){
         viewManager = new CardLayout();
         getContentPane().setLayout(viewManager);
+        getContentPane().setBackground(ThemeColors.BACKGROUND_PRIMARY);
         addViews();
         configureWindow();
     }
@@ -45,18 +47,17 @@ public class MainView extends JFrame {
 
     private void configureWindow(){
         setTitle("Espotify");
-        setSize(900,700);
+        setSize(1000, 750);
+        setMinimumSize(new Dimension(900, 600));
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
-        setResizable(false);
+        setResizable(true);
     }
 
     /**
      * shows the sign in and sign up view
      */
     public void showRegisterView() {
-        setSize(900,700);
-        setLocationRelativeTo(null);
         registerView.clearFields();
         viewManager.show(getContentPane(), REGISTER_VIEW_CARD);
     }
@@ -66,8 +67,6 @@ public class MainView extends JFrame {
      * @param username the username credentials
      */
     public void showHomeView(String username){
-        setSize(1500,720);
-        setLocationRelativeTo(null);
         homeView.setUsername(username);
         homeView.getPlaylistsView().loadUserPlaylists(username);
         homeView.showSongsCard();

@@ -3,6 +3,7 @@ package presentation.views;
 import business.utils.MP3DurationUtil;
 import business.utils.MP3MetadataUtil;
 import presentation.views.GUIassets.MyHintTextField;
+import presentation.views.GUIassets.ThemeColors;
 
 import javax.swing.*;
 import java.awt.*;
@@ -44,7 +45,7 @@ public class AddSongsView extends JPanel {
     private void configureView(){
         setLayout(new GridBagLayout());
 
-        Color myBlack = new Color(16, 16, 16);
+        Color myBlack = ThemeColors.BACKGROUND_PRIMARY;
         setBackground(myBlack);
 
         GridBagConstraints constraints = new GridBagConstraints();
@@ -55,7 +56,7 @@ public class AddSongsView extends JPanel {
         titleField.setToolTipText("Title");
         titleField.setFont(ARIAL_FONT);
         titleField.setForeground(Color.gray);
-        titleField.setBackground(new Color(40, 40, 40));
+        titleField.setBackground(ThemeColors.BACKGROUND_INPUT);
         titleField.setPreferredSize(new Dimension(400,50));
         constraints.gridx = 1;
         constraints.gridy = 2;
@@ -71,7 +72,7 @@ public class AddSongsView extends JPanel {
         authorField.setToolTipText("Author");
         authorField.setFont(ARIAL_FONT);
         authorField.setForeground(Color.gray);
-        authorField.setBackground(new Color(40, 40, 40));
+        authorField.setBackground(ThemeColors.BACKGROUND_INPUT);
         authorField.setPreferredSize(new Dimension(400,50));
         constraints.gridx = 1;
         constraints.gridy = 3;
@@ -87,7 +88,7 @@ public class AddSongsView extends JPanel {
         genreField.setToolTipText("Genre");
         genreField.setFont(ARIAL_FONT);
         genreField.setForeground(Color.gray);
-        genreField.setBackground(new Color(40, 40, 40));
+        genreField.setBackground(ThemeColors.BACKGROUND_INPUT);
         genreField.setPreferredSize(new Dimension(400,50));
         constraints.gridx = 1;
         constraints.gridy = 4;
@@ -103,7 +104,7 @@ public class AddSongsView extends JPanel {
         albumField.setToolTipText("Album");
         albumField.setFont(ARIAL_FONT);
         albumField.setForeground(Color.gray);
-        albumField.setBackground(new Color(40, 40, 40));
+        albumField.setBackground(ThemeColors.BACKGROUND_INPUT);
         albumField.setPreferredSize(new Dimension(400,50));
         constraints.gridx = 1;
         constraints.gridy = 5;
@@ -119,7 +120,7 @@ public class AddSongsView extends JPanel {
         durationField.setToolTipText("Duration");
         durationField.setFont(ARIAL_FONT);
         durationField.setForeground(Color.gray);
-        durationField.setBackground(new Color(40, 40, 40));
+        durationField.setBackground(ThemeColors.BACKGROUND_INPUT);
         durationField.setPreferredSize(new Dimension(400,50));
         constraints.gridx = 1;
         constraints.gridy = 6;
@@ -139,7 +140,7 @@ public class AddSongsView extends JPanel {
         importSongButton.setContentAreaFilled(true);
         importSongButton.setBorder(BorderFactory.createEmptyBorder(10,10,10,10));
         importSongButton.setFont(ALEGREYA_FONT);
-        importSongButton.setBackground(new Color(0,204,0));
+        importSongButton.setBackground(ThemeColors.ACCENT_PRIMARY);
         importSongButton.setForeground(Color.white);
         constraints.gridx = 1;
         constraints.gridy = 7;
@@ -159,7 +160,7 @@ public class AddSongsView extends JPanel {
         addButton_bottom.setContentAreaFilled(true);
         addButton_bottom.setBorder(BorderFactory.createEmptyBorder(10,10,10,10));
         addButton_bottom.setFont(ALEGREYA_FONT);
-        addButton_bottom.setBackground(new Color(0,204,0));
+        addButton_bottom.setBackground(ThemeColors.ACCENT_PRIMARY);
         addButton_bottom.setForeground(Color.white);
         constraints.gridx = 1;
         constraints.gridy = 8;

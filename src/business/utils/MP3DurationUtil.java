@@ -4,7 +4,6 @@ import javazoom.jl.decoder.Bitstream;
 import javazoom.jl.decoder.Header;
 
 import java.io.FileInputStream;
-import java.io.IOException;
 
 /**
  * Utility class for detecting real MP3 file duration using JLayer.

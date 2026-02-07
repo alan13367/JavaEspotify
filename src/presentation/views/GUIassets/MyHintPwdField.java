@@ -32,7 +32,7 @@ public class MyHintPwdField extends JPasswordField implements FocusListener {
     @Override
     public void focusGained(FocusEvent e) {
         if(this.getPassword() == null) {
-            setForeground(Color.WHITE);
+            setForeground(ThemeColors.TEXT_PRIMARY);
             super.setEchoChar((char) 0x2022);
             super.setText("");
             showingHint = false;
@@ -41,10 +41,25 @@ public class MyHintPwdField extends JPasswordField implements FocusListener {
     @Override
     public void focusLost(FocusEvent e) {
         if(this.getPassword() == null) {
-            setForeground(Color.gray);
+            setForeground(ThemeColors.TEXT_HINT);
             super.setEchoChar((char) 0);
             super.setText(hint);
             showingHint = true;
+        }
+    }
+
+    @Override
+    public void setText(String t) {
+        if (t == null || t.isEmpty()) {
+            super.setText(hint);
+            super.setEchoChar((char) 0);
+            showingHint = true;
+            setForeground(ThemeColors.TEXT_HINT);
+        } else {
+            super.setText(t);
+            super.setEchoChar((char) 0x2022);
+            showingHint = false;
+            setForeground(ThemeColors.TEXT_PRIMARY);
         }
     }
 
@@ -56,11 +71,12 @@ public class MyHintPwdField extends JPasswordField implements FocusListener {
     /**
      * Inner class that modifies the {@link MyHintPwdField} in order to make it rounded
      * @author Alan Beltrán
-     * @version 1.0
-     * @since 25/4/2022
+     * @version 2.0
+     * @since 06/02/2026
      */
     public static class RoundedMyHintPwdField extends MyHintPwdField {
         private Shape shape;
+        private boolean isFocused = false;
 
         /**
          * Default Constructor class that will match the superclass one.
@@ -68,23 +84,66 @@ public class MyHintPwdField extends JPasswordField implements FocusListener {
          */
         public RoundedMyHintPwdField(String hint) {
             super(hint);
-            this.setOpaque(true);
+            this.setOpaque(false);
+            setupFocusListener();
         }
+
+        private void setupFocusListener() {
+            addFocusListener(new FocusListener() {
+                @Override
+                public void focusGained(FocusEvent e) {
+                    isFocused = true;
+                    repaint();
+                }
+
+                @Override
+                public void focusLost(FocusEvent e) {
+                    isFocused = false;
+                    repaint();
+                }
+            });
+        }
+
         @Override
         protected void paintComponent(Graphics g) {
-            g.setColor(getBackground());
-            g.fillRoundRect(0, 0, getWidth()-1, getHeight()-1, 15, 15);
+            Graphics2D g2d = (Graphics2D) g.create();
+            g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+
+            // Draw background
+            g2d.setColor(getBackground());
+            g2d.fillRoundRect(0, 0, getWidth(), getHeight(),
+                ThemeDimensions.BORDER_RADIUS, ThemeDimensions.BORDER_RADIUS);
+
+            g2d.dispose();
             super.paintComponent(g);
         }
+
         @Override
         protected void paintBorder(Graphics g) {
-            g.setColor(getForeground());
-            g.drawRoundRect(0, 0, getWidth()-1, getHeight()-1, 15, 15);
+            Graphics2D g2d = (Graphics2D) g.create();
+            g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+
+            // Draw border with accent color when focused
+            if (isFocused) {
+                g2d.setColor(ThemeColors.ACCENT_PRIMARY);
+                g2d.setStroke(new BasicStroke(2));
+                g2d.drawRoundRect(1, 1, getWidth()-2, getHeight()-2,
+                    ThemeDimensions.BORDER_RADIUS, ThemeDimensions.BORDER_RADIUS);
+            } else {
+                g2d.setColor(ThemeColors.BORDER_COLOR);
+                g2d.setStroke(new BasicStroke(1));
+                g2d.drawRoundRect(0, 0, getWidth()-1, getHeight()-1,
+                    ThemeDimensions.BORDER_RADIUS, ThemeDimensions.BORDER_RADIUS);
+            }
+
+            g2d.dispose();
         }
+
         @Override
         public boolean contains(int x, int y) {
             if (shape == null || !shape.getBounds().equals(getBounds())) {
-                shape = new RoundRectangle2D.Float(0, 0, getWidth()-1, getHeight()-1, 15, 15);
+                shape = new RoundRectangle2D.Float(0, 0, getWidth(), getHeight(),
+                    ThemeDimensions.BORDER_RADIUS, ThemeDimensions.BORDER_RADIUS);
             }
             return shape.contains(x, y);
         }

@@ -57,6 +57,7 @@ public class SongsView extends JPanel {
     public SongsView(){
         cardManager = new CardLayout();
         setLayout(cardManager);
+        setBackground(ThemeColors.BACKGROUND_PRIMARY);
         configureView();
     }
     private void configureView(){
@@ -165,9 +166,11 @@ public class SongsView extends JPanel {
         songsTable.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         songsTable.setSelectionBackground(ThemeColors.ACCENT_PRIMARY);
         songsTable.setSelectionForeground(ThemeColors.TEXT_PRIMARY);
+        songsTable.setBorder(null);
 
         // Modern table header
         JTableHeader jTableHeader = songsTable.getTableHeader();
+        jTableHeader.setBorder(null);
         jTableHeader.setBackground(ThemeColors.TABLE_HEADER_BACKGROUND);
         jTableHeader.setForeground(ThemeColors.TEXT_PRIMARY);
         jTableHeader.setFont(ThemeFonts.TABLE_HEADER);
@@ -191,6 +194,7 @@ public class SongsView extends JPanel {
         JScrollPane jsp = new JScrollPane(songsTable);
         jsp.getViewport().setBackground(ThemeColors.BACKGROUND_SECONDARY);
         jsp.setBorder(BorderFactory.createEmptyBorder());
+        jsp.setViewportBorder(null);
         jsp.getVerticalScrollBar().setUI(new MyScrollBarUI());
         JPanel panel = new JPanel();
         panel.setBackground(ThemeColors.BACKGROUND_SECONDARY);
@@ -201,20 +205,24 @@ public class SongsView extends JPanel {
     }
 
     private void configureSearch(){
-        JPanel searchPanel = new JPanel(new BorderLayout());
+        JPanel searchPanel = new JPanel(new GridBagLayout());
         searchPanel.setBorder(new EmptyBorder(0, 0, ThemeDimensions.SECTION_GAP, 0));
         searchPanel.setBackground(ThemeColors.BACKGROUND_SECONDARY);
+        GridBagConstraints gbc = new GridBagConstraints();
 
         // Search field panel
-        JPanel searchFieldPanel = new JPanel(new FlowLayout(FlowLayout.LEFT, ThemeDimensions.COMPONENT_GAP, 0));
-        searchFieldPanel.setBackground(ThemeColors.BACKGROUND_SECONDARY);
-
         searchField = new MyHintTextField.RoundedMyHintTextField(HINT_TEXTFIELD);
         searchField.setFont(ThemeFonts.INPUT);
         searchField.setBackground(ThemeColors.BACKGROUND_INPUT);
         searchField.setForeground(ThemeColors.TEXT_PRIMARY);
-        searchField.setPreferredSize(new Dimension(800, ThemeDimensions.INPUT_HEIGHT));
-        searchFieldPanel.add(searchField);
+        searchField.setPreferredSize(new Dimension(200, ThemeDimensions.INPUT_HEIGHT));
+
+        gbc.gridx = 0;
+        gbc.gridy = 0;
+        gbc.weightx = 1.0;
+        gbc.fill = GridBagConstraints.HORIZONTAL;
+        gbc.insets = new Insets(0, 0, 0, ThemeDimensions.COMPONENT_GAP);
+        searchPanel.add(searchField, gbc);
 
         // Buttons panel
         JPanel buttonsPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT, ThemeDimensions.COMPONENT_GAP, 0));
@@ -231,8 +239,12 @@ public class SongsView extends JPanel {
         buttonsPanel.add(searchButton);
         buttonsPanel.add(refreshButton);
 
-        searchPanel.add(searchFieldPanel, BorderLayout.CENTER);
-        searchPanel.add(buttonsPanel, BorderLayout.EAST);
+        gbc.gridx = 1;
+        gbc.weightx = 0;
+        gbc.fill = GridBagConstraints.NONE;
+        gbc.insets = new Insets(0, 0, 0, 0);
+        searchPanel.add(buttonsPanel, gbc);
+
         jpSongs.add(searchPanel, BorderLayout.NORTH);
     }
 
@@ -306,7 +318,7 @@ public class SongsView extends JPanel {
         jlDuration.setText("Duration:  "+duration);
         jlOwner.setText("Owner:  "+owner);
         jpLyrics = new JPanel(new BorderLayout());
-        jpLyrics.setBackground(new Color(16,16,16));
+        jpLyrics.setBackground(ThemeColors.BACKGROUND_SECONDARY);
         jpLyrics.add(new JLabel(new ImageIcon("assets/loading1.gif")),BorderLayout.CENTER);
         jpSong.add(jpLyrics,BorderLayout.CENTER);
         validate();
@@ -346,7 +358,7 @@ public class SongsView extends JPanel {
         jpSong.remove(jpLyrics);
         jpLyrics = new JPanel();
         jpLyrics.setLayout(new BoxLayout(jpLyrics,BoxLayout.Y_AXIS));
-        jpLyrics.setBackground(new Color(16,16,16));
+        jpLyrics.setBackground(ThemeColors.BACKGROUND_SECONDARY);
         if(lyrics != null){
             String[] songVerses = lyrics.split("\\r?\\n");
             for (String s:songVerses) {
@@ -363,7 +375,7 @@ public class SongsView extends JPanel {
         }
 
         lyricsPane = new JScrollPane(jpLyrics,JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
-        lyricsPane.getViewport().setBackground(new Color(16,16,16));
+        lyricsPane.getViewport().setBackground(ThemeColors.BACKGROUND_SECONDARY);
         lyricsPane.setBorder(BorderFactory.createEmptyBorder());
         lyricsPane.getVerticalScrollBar().setUI(new MyScrollBarUI());
         jpSong.add(lyricsPane,BorderLayout.CENTER);

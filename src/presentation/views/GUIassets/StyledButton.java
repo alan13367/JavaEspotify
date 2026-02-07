@@ -86,8 +86,8 @@ public class StyledButton extends JButton {
         // Common styling
         setFont(ThemeFonts.BUTTON);
         setBackground(normalBackground);
-        setOpaque(type != ButtonType.ICON);
-        setContentAreaFilled(type != ButtonType.ICON);
+        setOpaque(false);
+        setContentAreaFilled(false);
         setFocusPainted(false);
         setBorderPainted(false);
         setCursor(new Cursor(Cursor.HAND_CURSOR));
@@ -159,7 +159,7 @@ public class StyledButton extends JButton {
         g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 
         // Draw rounded background
-        if (getBackground() != null && isOpaque()) {
+        if (getBackground() != null) {
             g2d.setColor(getBackground());
             g2d.fillRoundRect(0, 0, getWidth(), getHeight(), 
                 ThemeDimensions.BORDER_RADIUS, ThemeDimensions.BORDER_RADIUS);

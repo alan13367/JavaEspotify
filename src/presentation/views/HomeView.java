@@ -52,6 +52,7 @@ public class HomeView extends JPanel {
      */
     public HomeView(){
         setLayout(new BorderLayout());
+        setBackground(ThemeColors.BACKGROUND_PRIMARY);
         mainPanelManager = new CardLayout();
         songsView = new SongsView();
         playlistsView = new PlaylistsView();
@@ -87,9 +88,7 @@ public class HomeView extends JPanel {
         sidePanel.setLayout(new BorderLayout());
         sidePanel.setBorder(new EmptyBorder(ThemeDimensions.CARD_PADDING, ThemeDimensions.CARD_PADDING_SMALL,
                 ThemeDimensions.CARD_PADDING, ThemeDimensions.CARD_PADDING_SMALL));
-        sidePanel.setPreferredSize(new Dimension(ThemeDimensions.SIDEBAR_WIDTH, 720));
-        sidePanel.setMaximumSize(sidePanel.getPreferredSize());
-        sidePanel.setMinimumSize(sidePanel.getPreferredSize());
+        sidePanel.setPreferredSize(new Dimension(ThemeDimensions.SIDEBAR_WIDTH, 0));
 
         JPanel buttonPanel = new JPanel();
         buttonPanel.setBackground(ThemeColors.BACKGROUND_PRIMARY);

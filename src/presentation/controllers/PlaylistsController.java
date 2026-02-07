@@ -6,9 +6,9 @@ import business.entities.Song;
 import presentation.views.HomeView;
 import presentation.views.PlayerView;
 import presentation.views.PlaylistsView;
+import presentation.views.GUIassets.ThemeColors;
 
 import javax.swing.*;
-import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
@@ -191,7 +191,7 @@ public class PlaylistsController implements ActionListener, MouseListener {
     public void mouseEntered(MouseEvent e) {
         if(e.getSource() instanceof PlaylistsView.PlaylistItemHolder){
             PlaylistsView.PlaylistItemHolder playlistItemHolder = (PlaylistsView.PlaylistItemHolder) e.getSource();
-            playlistItemHolder.setBackground(new Color(80,80,80));
+            playlistItemHolder.setBackground(ThemeColors.BORDER_HOVER);
         }
     }
 
@@ -199,7 +199,7 @@ public class PlaylistsController implements ActionListener, MouseListener {
     public void mouseExited(MouseEvent e) {
         if(e.getSource() instanceof PlaylistsView.PlaylistItemHolder){
             PlaylistsView.PlaylistItemHolder playlistItemHolder = (PlaylistsView.PlaylistItemHolder) e.getSource();
-            playlistItemHolder.setBackground(new Color(16,16,16));
+            playlistItemHolder.setBackground(ThemeColors.BACKGROUND_PRIMARY);
         }
     }
 }

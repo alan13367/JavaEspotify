@@ -185,7 +185,7 @@ public class SongsController implements ActionListener, ListSelectionListener {
                     public void run() {
                         // code goes here.
                         String lyrics = businessFacade.getLyrics(song.getAuthor(),song.getTitle());
-                        view.createLyricsPanel(lyrics);
+                        SwingUtilities.invokeLater(() -> view.createLyricsPanel(lyrics));
                     }
                 });
                 t1.start();

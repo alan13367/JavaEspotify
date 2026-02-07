@@ -50,7 +50,7 @@ public class PlayerView extends JPanel {
     }
     private void configureView(){
         setBackground(ThemeColors.PLAYER_BACKGROUND);
-        setPreferredSize(new Dimension(1500, ThemeDimensions.PLAYER_HEIGHT));
+        setPreferredSize(new Dimension(0, ThemeDimensions.PLAYER_HEIGHT));
         setBorder(new EmptyBorder(ThemeDimensions.COMPONENT_GAP, ThemeDimensions.CARD_PADDING, 
                 ThemeDimensions.COMPONENT_GAP, ThemeDimensions.CARD_PADDING));
 
@@ -99,8 +99,9 @@ public class PlayerView extends JPanel {
         playerPanel.add(controlsPanel, BorderLayout.NORTH);
 
         // Progress bar panel
-        JPanel progressPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, ThemeDimensions.COMPONENT_GAP, 0));
+        JPanel progressPanel = new JPanel(new GridBagLayout());
         progressPanel.setBackground(ThemeColors.PLAYER_BACKGROUND);
+        GridBagConstraints gbc = new GridBagConstraints();
 
         currentTime = new JTextField("0:00");
         currentTime.setFont(ThemeFonts.PLAYER_TIME);
@@ -109,6 +110,7 @@ public class PlayerView extends JPanel {
         currentTime.setBorder(BorderFactory.createEmptyBorder());
         currentTime.setEditable(false);
         currentTime.setPreferredSize(new Dimension(45, 20));
+        currentTime.setHorizontalAlignment(JTextField.RIGHT);
 
         totalTime = new JTextField("0:00");
         totalTime.setFont(ThemeFonts.PLAYER_TIME);
@@ -119,13 +121,27 @@ public class PlayerView extends JPanel {
         totalTime.setPreferredSize(new Dimension(45, 20));
 
         jslider = new JSlider(0, 100, 0);
+        jslider.setUI(new MySliderUI(jslider));
         jslider.setBackground(ThemeColors.PLAYER_BACKGROUND);
-        jslider.setPreferredSize(new Dimension(600, 20));
+        // jslider.setPreferredSize(new Dimension(600, 20)); // Removed fixed width
         jslider.setCursor(new Cursor(Cursor.HAND_CURSOR));
 
-        progressPanel.add(currentTime);
-        progressPanel.add(jslider);
-        progressPanel.add(totalTime);
+        gbc.gridx = 0;
+        gbc.gridy = 0;
+        gbc.insets = new Insets(0, 0, 0, 5);
+        progressPanel.add(currentTime, gbc);
+
+        gbc.gridx = 1;
+        gbc.weightx = 1.0;
+        gbc.fill = GridBagConstraints.HORIZONTAL;
+        gbc.insets = new Insets(0, 0, 0, 0);
+        progressPanel.add(jslider, gbc);
+
+        gbc.gridx = 2;
+        gbc.weightx = 0;
+        gbc.fill = GridBagConstraints.NONE;
+        gbc.insets = new Insets(0, 5, 0, 0);
+        progressPanel.add(totalTime, gbc);
 
         playerPanel.add(progressPanel, BorderLayout.SOUTH);
         add(playerPanel, BorderLayout.CENTER);
@@ -141,6 +157,7 @@ public class PlayerView extends JPanel {
 
         // Volume slider
         volumeSlider = new JSlider(0, 100, 50); // Default 50%
+        volumeSlider.setUI(new MySliderUI(volumeSlider));
         volumeSlider.setBackground(ThemeColors.PLAYER_BACKGROUND);
         volumeSlider.setPreferredSize(new Dimension(120, 20));
         volumeSlider.setCursor(new Cursor(Cursor.HAND_CURSOR));

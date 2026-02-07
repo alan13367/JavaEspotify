@@ -53,9 +53,9 @@ public final class ThemeColors {
     public static final Color SCROLLBAR_TRACK = BACKGROUND_PRIMARY;
 
     // Player Colors
-    public static final Color PLAYER_BACKGROUND = new Color(24, 24, 24);
+    public static final Color PLAYER_BACKGROUND = BACKGROUND_PRIMARY;
     public static final Color PROGRESS_BAR_BACKGROUND = new Color(64, 64, 64);
-    public static final Color PROGRESS_BAR_FILL = ACCENT_PRIMARY;
+    public static final Color PROGRESS_BAR_FILL = TEXT_PRIMARY;
 
     // Status Colors
     public static final Color ERROR = new Color(255, 80, 80);

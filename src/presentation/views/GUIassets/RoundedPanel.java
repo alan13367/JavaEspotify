@@ -116,7 +116,7 @@ public class RoundedPanel extends JPanel {
 
         // Draw background
         g2d.setColor(getBackground());
-        g2d.fillRoundRect(0, 0, width - 1, height - 1, cornerRadius, cornerRadius);
+        g2d.fillRoundRect(0, 0, width, height, cornerRadius, cornerRadius);
 
         // Draw border if set
         if (borderColor != null && borderWidth > 0) {
@@ -138,7 +138,7 @@ public class RoundedPanel extends JPanel {
 
     @Override
     public boolean contains(int x, int y) {
-        Shape shape = new RoundRectangle2D.Float(0, 0, getWidth() - 1, getHeight() - 1, cornerRadius, cornerRadius);
+        Shape shape = new RoundRectangle2D.Float(0, 0, getWidth(), getHeight(), cornerRadius, cornerRadius);
         return shape.contains(x, y);
     }
 

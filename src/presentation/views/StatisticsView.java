@@ -1,6 +1,7 @@
 package presentation.views;
 
 import presentation.controllers.StatisticsController;
+import presentation.views.GUIassets.ThemeColors;
 
 import javax.swing.*;
 import javax.swing.border.Border;
@@ -62,16 +63,16 @@ public class StatisticsView extends JPanel {
 
     private void convigureView() {
         jpGraph = new JPanel(new GridLayout(1, 0, HGap, VGap));
-        jpGraph.setBackground(new Color(16,16,16));
+        jpGraph.setBackground(ThemeColors.BACKGROUND_PRIMARY);
         Border compoundBorder = new CompoundBorder(new MatteBorder(1, 1, 1, 1
-                , new Color(16,16,16)), new EmptyBorder(10, 10, 0, 10));
+                , ThemeColors.BACKGROUND_PRIMARY), new EmptyBorder(10, 10, 0, 10));
         jpGraph.setBorder(compoundBorder);
 
         x_axis = new JPanel(new GridLayout(1, 0, HGap, VGap));
-        x_axis.setBackground(new Color(16,16,16));
+        x_axis.setBackground(ThemeColors.BACKGROUND_PRIMARY);
 
         title = new JPanel(new GridLayout(1, 0, HGap, VGap));
-        title.setBackground(new Color(16,16,16));
+        title.setBackground(ThemeColors.BACKGROUND_PRIMARY);
 
         title_label = new JLabel("Music Statistics");
         title_label.setForeground(Color.WHITE);
@@ -79,7 +80,7 @@ public class StatisticsView extends JPanel {
         title_label.setFont(new Font("Arial", Font.BOLD, 30));
         title.add(title_label);
 
-        setBackground(new Color(16,16,16));
+        setBackground(ThemeColors.BACKGROUND_PRIMARY);
         setLayout(new BorderLayout());
 
         add(jpGraph, BorderLayout.CENTER);

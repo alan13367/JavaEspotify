@@ -32,7 +32,7 @@ public class MyHintTextField extends JTextField implements FocusListener {
     @Override
     public void focusGained(FocusEvent e) {
         if(this.getText().isEmpty()) {
-            setForeground(Color.WHITE);
+            setForeground(ThemeColors.TEXT_PRIMARY);
             super.setText("");
             showingHint = false;
         }
@@ -40,9 +40,22 @@ public class MyHintTextField extends JTextField implements FocusListener {
     @Override
     public void focusLost(FocusEvent e) {
         if(this.getText().isEmpty()) {
-            setForeground(Color.gray);
+            setForeground(ThemeColors.TEXT_HINT);
             super.setText(hint);
             showingHint = true;
+        }
+    }
+
+    @Override
+    public void setText(String t) {
+        if (t == null || t.isEmpty()) {
+            super.setText(hint);
+            showingHint = true;
+            setForeground(ThemeColors.TEXT_HINT);
+        } else {
+            super.setText(t);
+            showingHint = false;
+            setForeground(ThemeColors.TEXT_PRIMARY);
         }
     }
 
@@ -95,7 +108,7 @@ public class MyHintTextField extends JTextField implements FocusListener {
 
             // Draw background
             g2d.setColor(getBackground());
-            g2d.fillRoundRect(0, 0, getWidth()-1, getHeight()-1,
+            g2d.fillRoundRect(0, 0, getWidth(), getHeight(),
                 ThemeDimensions.BORDER_RADIUS, ThemeDimensions.BORDER_RADIUS);
 
             g2d.dispose();
@@ -111,13 +124,14 @@ public class MyHintTextField extends JTextField implements FocusListener {
             if (isFocused) {
                 g2d.setColor(ThemeColors.ACCENT_PRIMARY);
                 g2d.setStroke(new BasicStroke(2));
+                g2d.drawRoundRect(1, 1, getWidth()-2, getHeight()-2,
+                    ThemeDimensions.BORDER_RADIUS, ThemeDimensions.BORDER_RADIUS);
             } else {
                 g2d.setColor(ThemeColors.BORDER_COLOR);
                 g2d.setStroke(new BasicStroke(1));
+                g2d.drawRoundRect(0, 0, getWidth()-1, getHeight()-1,
+                    ThemeDimensions.BORDER_RADIUS, ThemeDimensions.BORDER_RADIUS);
             }
-
-            g2d.drawRoundRect(1, 1, getWidth()-3, getHeight()-3,
-                ThemeDimensions.BORDER_RADIUS, ThemeDimensions.BORDER_RADIUS);
 
             g2d.dispose();
         }
@@ -125,7 +139,7 @@ public class MyHintTextField extends JTextField implements FocusListener {
         @Override
         public boolean contains(int x, int y) {
             if (shape == null || !shape.getBounds().equals(getBounds())) {
-                shape = new RoundRectangle2D.Float(0, 0, getWidth()-1, getHeight()-1,
+                shape = new RoundRectangle2D.Float(0, 0, getWidth(), getHeight(),
                     ThemeDimensions.BORDER_RADIUS, ThemeDimensions.BORDER_RADIUS);
             }
             return shape.contains(x, y);

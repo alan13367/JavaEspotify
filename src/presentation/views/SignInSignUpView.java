@@ -2,6 +2,7 @@ package presentation.views;
 
 import presentation.views.GUIassets.MyHintPwdField;
 import presentation.views.GUIassets.MyHintTextField;
+import presentation.views.GUIassets.ThemeColors;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -57,12 +58,14 @@ public class SignInSignUpView extends JPanel{
      */
     public SignInSignUpView(){
         setLayout(new BorderLayout());
+        setBackground(ThemeColors.BACKGROUND_PRIMARY);
         mainPanelManager = new CardLayout();
         configureView();
     }
 
     private void configureView(){
         jpMain = new JPanel(mainPanelManager);
+        jpMain.setBackground(ThemeColors.BACKGROUND_PRIMARY);
         add(jpMain,BorderLayout.CENTER);
         configureSignUpView();
         configureSignInView();
@@ -72,7 +75,7 @@ public class SignInSignUpView extends JPanel{
 
     private void configureSignUpView() {
         signUpView = new JPanel();
-        Color myBlack = new Color(18, 18, 18);
+        Color myBlack = ThemeColors.BACKGROUND_PRIMARY;
         signUpView.setLayout(new GridBagLayout());
         signUpView.setBackground(myBlack);
 
@@ -82,7 +85,7 @@ public class SignInSignUpView extends JPanel{
         userTextFieldSignUp.setToolTipText("Enter username");
         userTextFieldSignUp.setFont(ARIAL_FONT);
         userTextFieldSignUp.setForeground(Color.gray);
-        userTextFieldSignUp.setBackground(new Color(40, 40, 40));
+        userTextFieldSignUp.setBackground(ThemeColors.BACKGROUND_INPUT);
         userTextFieldSignUp.setPreferredSize(new Dimension(400,50));
         constraints.gridx = 1;
         constraints.gridy = 2;
@@ -98,7 +101,7 @@ public class SignInSignUpView extends JPanel{
         emailField.setToolTipText("Enter email");
         emailField.setFont(ARIAL_FONT);
         emailField.setForeground(Color.gray);
-        emailField.setBackground(new Color(40, 40, 40));
+        emailField.setBackground(ThemeColors.BACKGROUND_INPUT);
         emailField.setPreferredSize(new Dimension(400,50));
         constraints.gridx = 1;
         constraints.gridy = 3;
@@ -114,7 +117,7 @@ public class SignInSignUpView extends JPanel{
         pwdFieldSignUp.setToolTipText("Enter password");
         pwdFieldSignUp.setFont(ARIAL_FONT);
         pwdFieldSignUp.setForeground(Color.gray);
-        pwdFieldSignUp.setBackground(new Color(40, 40, 40));
+        pwdFieldSignUp.setBackground(ThemeColors.BACKGROUND_INPUT);
         pwdFieldSignUp.setPreferredSize(new Dimension(400,50));
         constraints.gridx = 1;
         constraints.gridy = 4;
@@ -130,7 +133,7 @@ public class SignInSignUpView extends JPanel{
         pwdFieldConfirmSignUp.setToolTipText("confirm password");
         pwdFieldConfirmSignUp.setFont(ARIAL_FONT);
         pwdFieldConfirmSignUp.setForeground(Color.gray);
-        pwdFieldConfirmSignUp.setBackground(new Color(40, 40, 40));
+        pwdFieldConfirmSignUp.setBackground(ThemeColors.BACKGROUND_INPUT);
         pwdFieldConfirmSignUp.setPreferredSize(new Dimension(400,50));
         constraints.gridx = 1;
         constraints.gridy = 5;
@@ -150,7 +153,7 @@ public class SignInSignUpView extends JPanel{
         signUpButton_bottom.setContentAreaFilled(true);
         signUpButton_bottom.setBorder(BorderFactory.createEmptyBorder(10,10,10,10));
         signUpButton_bottom.setFont(ALEGREYA_FONT);
-        signUpButton_bottom.setBackground(new Color(0,204,0));
+        signUpButton_bottom.setBackground(ThemeColors.ACCENT_PRIMARY);
         signUpButton_bottom.setForeground(Color.white);
         constraints.gridx = 1;
         constraints.gridy = 6;
@@ -190,7 +193,7 @@ public class SignInSignUpView extends JPanel{
         signUpButton.setBorderPainted(false);
         signUpButton.setContentAreaFilled(true);
         signUpButton.setBackground(myBlack);
-        signUpButton.setForeground(Color.GREEN);
+        signUpButton.setForeground(ThemeColors.ACCENT_PRIMARY);
         constraints.gridx = 2;
         constraints.gridy = 1;
         constraints.gridwidth = 1;
@@ -250,7 +253,7 @@ public class SignInSignUpView extends JPanel{
 
     private void configureSignInView() {
         signInView = new JPanel();
-        Color myBlack = new Color(18, 18, 18);
+        Color myBlack = ThemeColors.BACKGROUND_PRIMARY;
         signInView.setLayout(new GridBagLayout());
         signInView.setBackground(myBlack);
 
@@ -260,7 +263,7 @@ public class SignInSignUpView extends JPanel{
         userFieldSignIn.setToolTipText("Enter username");
         userFieldSignIn.setFont(ARIAL_FONT);
         userFieldSignIn.setForeground(Color.gray);
-        userFieldSignIn.setBackground(new Color(40, 40, 40));
+        userFieldSignIn.setBackground(ThemeColors.BACKGROUND_INPUT);
         userFieldSignIn.setPreferredSize(new Dimension(400,50));
         constraints.gridx = 1;
         constraints.gridy = 2;
@@ -276,7 +279,7 @@ public class SignInSignUpView extends JPanel{
         pwdFieldSignIn.setToolTipText("Enter password");
         pwdFieldSignIn.setFont(ARIAL_FONT);
         pwdFieldSignIn.setForeground(Color.gray);
-        pwdFieldSignIn.setBackground(new Color(40, 40, 40));
+        pwdFieldSignIn.setBackground(ThemeColors.BACKGROUND_INPUT);
         pwdFieldSignIn.setPreferredSize(new Dimension(400,50));
         constraints.gridx = 1;
         constraints.gridy = 3;
@@ -296,7 +299,7 @@ public class SignInSignUpView extends JPanel{
         signInButton_bottom.setContentAreaFilled(true);
         signInButton_bottom.setBorder(BorderFactory.createEmptyBorder(10,10,10,10));
         signInButton_bottom.setFont(ALEGREYA_FONT);
-        signInButton_bottom.setBackground(new Color(0,204,0));
+        signInButton_bottom.setBackground(ThemeColors.ACCENT_PRIMARY);
         signInButton_bottom.setForeground(Color.white);
         constraints.gridx = 1;
         constraints.gridy = 4;
@@ -316,7 +319,7 @@ public class SignInSignUpView extends JPanel{
         signInButton_north.setContentAreaFilled(true);
         signInButton_north.setBorderPainted(false);
         signInButton_north.setBackground(myBlack);
-        signInButton_north.setForeground(Color.green);
+        signInButton_north.setForeground(ThemeColors.ACCENT_PRIMARY);
         constraints.gridx = 1;
         constraints.gridy = 1;
         constraints.gridwidth = 1;
