@@ -29,13 +29,28 @@ public class SQLConfigDAO {
      * get json instance
      * @return json instance
      */
-    public static SQLConfigDAO getInstance(){
-        if(instance == null){
-            readConfigJson();
+        private static void readConfigJson() {
+            try (FileReader fr = new FileReader(jsonPath))
+                instance = new Gson().fromJson(fr, SQLConfigDAO.class);
+        } catch (IOException e) {
+            System.err.println("Error reading config JSON: " + e.getMessage());
         }
-        return instance;
-    }
 
+        public static SQLConfigDAO getInstance(){
+            if(instance == null){
+                if (System.getenv("DB_NAME") != null && System.getenv("DB_USERNAME") != null && System.getenv("DB_PASSWORD") != null) {
+                    instance = new SQLConfigDAO();
+                    instance.name = System.getenv("DB_NAME");
+                    instance.username = System.getenv("DB_USERNAME");
+                    instance.password = System.getenv("DB_PASSWORD");
+                    instance.ip = System.getenv("DB_HOST") != null ? System.getenv("DB_HOST") : "localhost";
+                    instance.port = System.getenv("DB_PORT") != null ? Integer.parseInt(System.getenv("DB_PORT")) : 3306;
+                } else {
+                    readConfigJson();
+                }
+            }
+            return instance;
+        }
     /**
      * reads the configuration Json file
      */
